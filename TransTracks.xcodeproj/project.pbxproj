@@ -13,10 +13,10 @@
 		F919D77D219186DD0069F42B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F919D77C219186DD0069F42B /* AppDelegate.swift */; };
 		F919D77F219186DD0069F42B /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F919D77E219186DD0069F42B /* ViewController.swift */; };
 		F919D782219186DD0069F42B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F919D780219186DD0069F42B /* Main.storyboard */; };
-		F919D784219186DF0069F42B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F919D783219186DF0069F42B /* Assets.xcassets */; };
 		F919D787219186DF0069F42B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F919D785219186DF0069F42B /* LaunchScreen.storyboard */; };
 		F919D792219186DF0069F42B /* TransTracksTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F919D791219186DF0069F42B /* TransTracksTests.swift */; };
 		F919D79D219186DF0069F42B /* TransTracksUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F919D79C219186DF0069F42B /* TransTracksUITests.swift */; };
+		F9868C862207B94B00237C14 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F9868C852207B94B00237C14 /* Assets.xcassets */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,7 +49,6 @@
 		F919D77C219186DD0069F42B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F919D77E219186DD0069F42B /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		F919D781219186DD0069F42B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		F919D783219186DF0069F42B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		F919D786219186DF0069F42B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		F919D788219186DF0069F42B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F919D78D219186DF0069F42B /* TransTracksTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TransTracksTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -58,6 +57,7 @@
 		F919D798219186DF0069F42B /* TransTracksUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TransTracksUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		F919D79C219186DF0069F42B /* TransTracksUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransTracksUITests.swift; sourceTree = "<group>"; };
 		F919D79E219186DF0069F42B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F9868C852207B94B00237C14 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		FE297B424E2A06ADA14BF95D /* Pods-TransTracksTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TransTracksTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-TransTracksTests/Pods-TransTracksTests.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -140,7 +140,7 @@
 				F919D77C219186DD0069F42B /* AppDelegate.swift */,
 				F919D77E219186DD0069F42B /* ViewController.swift */,
 				F919D780219186DD0069F42B /* Main.storyboard */,
-				F919D783219186DF0069F42B /* Assets.xcassets */,
+				F9868C852207B94B00237C14 /* Assets.xcassets */,
 				F919D785219186DF0069F42B /* LaunchScreen.storyboard */,
 				F919D788219186DF0069F42B /* Info.plist */,
 			);
@@ -273,7 +273,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F919D787219186DF0069F42B /* LaunchScreen.storyboard in Resources */,
-				F919D784219186DF0069F42B /* Assets.xcassets in Resources */,
+				F9868C862207B94B00237C14 /* Assets.xcassets in Resources */,
 				F919D782219186DD0069F42B /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -536,7 +536,10 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = SLWWTU9N3Q;
 				INFOPLIST_FILE = TransTracks/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.drspaceboo.TransTracks;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
@@ -552,7 +555,10 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = SLWWTU9N3Q;
 				INFOPLIST_FILE = TransTracks/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.drspaceboo.TransTracks;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
@@ -569,7 +575,11 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = SLWWTU9N3Q;
 				INFOPLIST_FILE = TransTracksTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.drspaceboo.TransTracksTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
@@ -587,7 +597,11 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = SLWWTU9N3Q;
 				INFOPLIST_FILE = TransTracksTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.drspaceboo.TransTracksTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
@@ -604,7 +618,11 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = SLWWTU9N3Q;
 				INFOPLIST_FILE = TransTracksUITests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.drspaceboo.TransTracksUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
@@ -621,7 +639,11 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = SLWWTU9N3Q;
 				INFOPLIST_FILE = TransTracksUITests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.drspaceboo.TransTracksUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
