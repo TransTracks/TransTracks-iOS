@@ -85,6 +85,9 @@
                                     <constraint firstAttribute="width" constant="64" id="p0B-y1-jUC"/>
                                 </constraints>
                                 <state key="normal" image="milestone_unselected"/>
+                                <connections>
+                                    <segue destination="5k4-ak-VEC" kind="show" id="Z7h-Kj-CxH"/>
+                                </connections>
                             </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="joI-nW-ntk" userLabel="Divider 2">
                                 <rect key="frame" x="28" y="219" width="358" height="2"/>
@@ -231,7 +234,7 @@
                     </navigationItem>
                     <connections>
                         <segue destination="0jf-g8-Jdq" kind="show" identifier="AssignPhoto" id="Oob-dT-k8r"/>
-                        <segue destination="ml8-1b-jy8" kind="show" identifier="Gallery" id="9T6-Qt-Na8"/>
+                        <segue destination="0ch-v3-flP" kind="show" identifier="Gallery" id="rc4-43-Wkk"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -254,7 +257,7 @@
                                 </constraints>
                             </view>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="gb3-Dl-hqJ" userLabel="Gallery">
-                                <rect key="frame" x="0.0" y="88" width="414" height="694"/>
+                                <rect key="frame" x="0.0" y="44" width="414" height="738"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="ujH-cd-U8u">
                                     <size key="itemSize" width="50" height="50"/>
@@ -274,7 +277,7 @@
                                 </cells>
                             </collectionView>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" alignment="center" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="xFU-JE-GCw" userLabel="Empty View">
-                                <rect key="frame" x="50" y="370.5" width="314" height="129"/>
+                                <rect key="frame" x="50" y="348.5" width="314" height="129"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="It doesn't look like there are any photos yet. Why not add some?" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="10" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zxc-gT-ty0" userLabel="Empty Title">
                                         <rect key="frame" x="18.5" y="0.0" width="277" height="49"/>
@@ -547,7 +550,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="FmT-hT-UKR" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="826" y="-600"/>
+            <point key="canvasLocation" x="49" y="866"/>
         </scene>
         <!--Edit Photo-->
         <scene sceneID="qpZ-d4-4QU">
@@ -643,6 +646,149 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5q7-wd-BzS" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1690" y="866"/>
+        </scene>
+        <!--Gallery-->
+        <scene sceneID="Kec-1S-DSn">
+            <objects>
+                <viewController title="Gallery" id="0ch-v3-flP" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="k72-63-cX1">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BhH-9j-Qkp" userLabel="Ad View Holder">
+                                <rect key="frame" x="0.0" y="782" width="414" height="80"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="80" placeholder="YES" id="xE6-mT-5Qt"/>
+                                </constraints>
+                            </view>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="0km-E8-pC5" userLabel="Gallery">
+                                <rect key="frame" x="0.0" y="88" width="414" height="694"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="tLm-V5-FWy">
+                                    <size key="itemSize" width="50" height="50"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="wMe-kn-h1x">
+                                        <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
+                                            <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </view>
+                                    </collectionViewCell>
+                                </cells>
+                            </collectionView>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" alignment="center" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="kMP-zy-9n7" userLabel="Empty View">
+                                <rect key="frame" x="50" y="370.5" width="314" height="129"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="It doesn't look like there are any photos yet. Why not add some?" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="10" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wT0-E8-3AR" userLabel="Empty Title">
+                                        <rect key="frame" x="18.5" y="0.0" width="277" height="49"/>
+                                        <fontDescription key="fontDescription" style="UICTFontTextStyleTitle2"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SL0-0M-AMV" userLabel="Empty Add">
+                                        <rect key="frame" x="125" y="65" width="64" height="64"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="64" id="KKj-qG-R42"/>
+                                            <constraint firstAttribute="width" constant="64" id="ZAz-Ev-rcF"/>
+                                        </constraints>
+                                        <state key="normal" image="add"/>
+                                    </button>
+                                </subviews>
+                            </stackView>
+                        </subviews>
+                        <color key="backgroundColor" red="0.3716022095" green="0.85488450579999997" blue="0.94019670050000004" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                        <constraints>
+                            <constraint firstItem="lxE-k7-SmT" firstAttribute="trailing" secondItem="kMP-zy-9n7" secondAttribute="trailing" constant="50" id="1y6-2e-nLU"/>
+                            <constraint firstItem="BhH-9j-Qkp" firstAttribute="top" secondItem="0km-E8-pC5" secondAttribute="bottom" id="EAh-uh-zUQ"/>
+                            <constraint firstItem="0km-E8-pC5" firstAttribute="top" secondItem="lxE-k7-SmT" secondAttribute="top" id="MAh-ie-Dlv"/>
+                            <constraint firstItem="0km-E8-pC5" firstAttribute="leading" secondItem="lxE-k7-SmT" secondAttribute="leading" id="P2I-5D-T86"/>
+                            <constraint firstItem="lxE-k7-SmT" firstAttribute="trailing" secondItem="0km-E8-pC5" secondAttribute="trailing" id="TV1-qu-d1R"/>
+                            <constraint firstItem="BhH-9j-Qkp" firstAttribute="trailing" secondItem="lxE-k7-SmT" secondAttribute="trailing" id="VbP-bn-m68"/>
+                            <constraint firstItem="lxE-k7-SmT" firstAttribute="bottom" secondItem="BhH-9j-Qkp" secondAttribute="bottom" id="koG-0y-ZHf"/>
+                            <constraint firstItem="kMP-zy-9n7" firstAttribute="centerY" secondItem="0km-E8-pC5" secondAttribute="centerY" id="lyz-cg-EGe"/>
+                            <constraint firstItem="BhH-9j-Qkp" firstAttribute="leading" secondItem="lxE-k7-SmT" secondAttribute="leading" id="mzT-LI-Zf1"/>
+                            <constraint firstItem="kMP-zy-9n7" firstAttribute="leading" secondItem="lxE-k7-SmT" secondAttribute="leading" constant="50" id="tX0-Kc-GgY"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="lxE-k7-SmT"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Face Gallery" id="FRv-jE-FFA">
+                        <rightBarButtonItems>
+                            <barButtonItem systemItem="action" id="WaJ-IH-1VR"/>
+                            <barButtonItem systemItem="add" id="YM9-Dj-ZWK"/>
+                        </rightBarButtonItems>
+                    </navigationItem>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="7pi-2H-RjC" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="825" y="133"/>
+        </scene>
+        <!--Milestones-->
+        <scene sceneID="huZ-7P-E9r">
+            <objects>
+                <viewController title="Milestones" id="5k4-ak-VEC" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="yXO-0v-wuN">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RsW-Ss-MIv" userLabel="Ad View Holder">
+                                <rect key="frame" x="0.0" y="782" width="414" height="80"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="80" placeholder="YES" id="KcX-b7-Idr"/>
+                                </constraints>
+                            </view>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="a24-I9-Hp0" userLabel="Milestones Table">
+                                <rect key="frame" x="0.0" y="88" width="414" height="694"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </tableView>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" alignment="center" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="pTH-bs-TLm" userLabel="Empty View">
+                                <rect key="frame" x="50" y="370.5" width="314" height="129"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No Milestones currently recorded. Want to add some?" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="10" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rqF-Ji-lk4" userLabel="Empty Title">
+                                        <rect key="frame" x="9" y="0.0" width="296" height="49"/>
+                                        <fontDescription key="fontDescription" style="UICTFontTextStyleTitle2"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wWv-m0-jqx" userLabel="Empty Add">
+                                        <rect key="frame" x="125" y="65" width="64" height="64"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="64" id="SI4-6t-pE5"/>
+                                            <constraint firstAttribute="width" constant="64" id="uve-V9-Ev9"/>
+                                        </constraints>
+                                        <state key="normal" image="add"/>
+                                    </button>
+                                </subviews>
+                            </stackView>
+                        </subviews>
+                        <color key="backgroundColor" red="0.3716022095" green="0.85488450579999997" blue="0.94019670050000004" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                        <constraints>
+                            <constraint firstItem="pTH-bs-TLm" firstAttribute="leading" secondItem="bMT-Rw-wku" secondAttribute="leading" constant="50" id="73p-SC-lLS"/>
+                            <constraint firstItem="a24-I9-Hp0" firstAttribute="top" secondItem="bMT-Rw-wku" secondAttribute="top" id="APw-wX-t8p"/>
+                            <constraint firstItem="bMT-Rw-wku" firstAttribute="bottom" secondItem="RsW-Ss-MIv" secondAttribute="bottom" id="Cix-TC-xfX"/>
+                            <constraint firstItem="RsW-Ss-MIv" firstAttribute="trailing" secondItem="bMT-Rw-wku" secondAttribute="trailing" id="H8S-py-jj6"/>
+                            <constraint firstItem="bMT-Rw-wku" firstAttribute="trailing" secondItem="a24-I9-Hp0" secondAttribute="trailing" id="Hfb-cm-e5d"/>
+                            <constraint firstItem="pTH-bs-TLm" firstAttribute="centerY" secondItem="a24-I9-Hp0" secondAttribute="centerY" id="ULV-hw-nS2"/>
+                            <constraint firstItem="RsW-Ss-MIv" firstAttribute="leading" secondItem="bMT-Rw-wku" secondAttribute="leading" id="YQN-n8-uh6"/>
+                            <constraint firstItem="RsW-Ss-MIv" firstAttribute="top" secondItem="a24-I9-Hp0" secondAttribute="bottom" id="c0U-ny-NV3"/>
+                            <constraint firstItem="bMT-Rw-wku" firstAttribute="trailing" secondItem="pTH-bs-TLm" secondAttribute="trailing" constant="50" id="c9P-OO-7mh"/>
+                            <constraint firstItem="a24-I9-Hp0" firstAttribute="leading" secondItem="bMT-Rw-wku" secondAttribute="leading" id="e4b-aR-Kqv"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="bMT-Rw-wku"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Milestones" id="rji-Rx-YzV">
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="sW7-F9-aNp"/>
+                    </navigationItem>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="mgi-pL-Fmv" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="825" y="-597"/>
         </scene>
     </scenes>
     <resources>
