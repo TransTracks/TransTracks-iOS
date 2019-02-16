@@ -7,58 +7,105 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		137EB4B2C5E789857010B6DF2B6B4738 /* Pods-TransTracks-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 87D3D84B42BDE309988AC84075F177C6 /* Pods-TransTracks-dummy.m */; };
+		105E2B2D62FE95442BDA8B5FD8A6E214 /* PasswordTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E2DA2CF40D98B3061AAA547D9111C4D /* PasswordTextField.swift */; };
+		117FA99C657444DF53D6E54904839100 /* visibility_on.png in Resources */ = {isa = PBXBuildFile; fileRef = C75E4A50B20D63F14C6A9C36FB3E8523 /* visibility_on.png */; };
+		1261389089EFEE3618901BE58EAA37D1 /* Pods-TransTracks-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 87D3D84B42BDE309988AC84075F177C6 /* Pods-TransTracks-dummy.m */; };
+		208131B8B944482C927D156C7715B687 /* visibility_off@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 128C527F1B5574174B3281DA3AE5A945 /* visibility_off@2x.png */; };
+		20C479BA3D6EA1FC02B77DDF87EC78DB /* PasswordTextField.h in Headers */ = {isa = PBXBuildFile; fileRef = 2F8154CBE878A2159A2B23405189F207 /* PasswordTextField.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		38281262870332683ADE92550B74C285 /* visibility_on@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2875E995036447501649852BE8196CD5 /* visibility_on@2x.png */; };
+		38A4060D3CF8BE88B62AFC32C4A44715 /* Pods-TransTracks-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = A99E78BF11B8F19D4B89618259698967 /* Pods-TransTracks-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		3A29ADBF8C37D710FBF7A278414CD2D5 /* visibility_off.png in Resources */ = {isa = PBXBuildFile; fileRef = 73F167E68B4AB38C835E630EAF228C42 /* visibility_off.png */; };
 		4AF100CAA53631BCE15AADF3CE562ADE /* Pods-TransTracksTests-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = F8C4B24B65E6FAEE0AD19164584604DA /* Pods-TransTracksTests-dummy.m */; };
-		5F26ABF1466578339D0ECCC5C768D5B5 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6604A7D69453B4569E4E4827FB9155A9 /* Foundation.framework */; };
-		6E6F0686A3E8EEF4A54AA833C3D13485 /* Pods-TransTracks-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = A99E78BF11B8F19D4B89618259698967 /* Pods-TransTracks-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		71700EF329A3B87C7D8BAF3FDD5C5875 /* Pods-TransTracksTests-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 8B365BB910EAF38A34A8F8E6213BD69A /* Pods-TransTracksTests-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		7A37A6B29817AA12ABA115E4712BC890 /* StringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45E73D31EE6F66B9754FDE40B2EC861A /* StringExtension.swift */; };
 		7D960C807A1D0A45DF42BFA2AB843F4B /* Pods-TransTracksUITests-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = D5B5BA29F46CA21EF72A7FCA38DE6E54 /* Pods-TransTracksUITests-dummy.m */; };
+		8820497B5B3385F365FDEAA7579AB5EA /* PasswordRule.swift in Sources */ = {isa = PBXBuildFile; fileRef = E411BA6EF0CCC8346BCAA15C86D0C23B /* PasswordRule.swift */; };
 		9066D9E6981EF7F6BFC04079901AAC08 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6604A7D69453B4569E4E4827FB9155A9 /* Foundation.framework */; };
+		9BC4B8A3BDDE26F3694C73D57CFFA0E3 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6604A7D69453B4569E4E4827FB9155A9 /* Foundation.framework */; };
+		AC1BB08012FF5CC1762FEE153B02B282 /* SecureTextToggleButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 722847A3A01479EEA92D08F62139181B /* SecureTextToggleButton.swift */; };
+		C30EC6CF1527C64A9E612294C61672CA /* RegexRule.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4EAA6DC800E9A385BA6C67BBA4A8667 /* RegexRule.swift */; };
 		C3D51E8DE418CEE34B3D8B117F45BDBF /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6604A7D69453B4569E4E4827FB9155A9 /* Foundation.framework */; };
+		D11B64796A661228626649FF5BD567C5 /* PasswordTextField.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 1CDD5DFD12B5903EB6438D60BA9F72A9 /* PasswordTextField.bundle */; };
 		E3F5CDED8F4486DB66182CEF9B0E62DF /* Pods-TransTracksUITests-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = B9C3B3864663EC719BEDB2B6ADF4CC12 /* Pods-TransTracksUITests-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		E46BBDB3B77E7A91E825350C9A8CAD55 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6604A7D69453B4569E4E4827FB9155A9 /* Foundation.framework */; };
+		EDD6DB97EB226B27678A244DF95F0876 /* BundleUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A701A642F69218EE426BDC1B1F7944E /* BundleUtil.swift */; };
+		EF40FB68A5AB7D8FEB9267285118F178 /* Ruleable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 161B0CBE4CD5758F2F196222A5F73900 /* Ruleable.swift */; };
+		F4AB27E57E0F3091502886209EF3FF7F /* visibility_off@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = F2E664AF2096C41A6C83B53FD1A0A09D /* visibility_off@3x.png */; };
+		F6A3BADD27443B328ECD600ED2E7E9FD /* PasswordTextField-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 77AEC8096143538A7A52532DB8F87723 /* PasswordTextField-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F9D1B6B0B79E01A63C1A4A5AFACA7262 /* visibility_on@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0785544BAE99F8B9DDBBA97300492337 /* visibility_on@3x.png */; };
+		FB98DA8C1EFB1FDDAB5FBAB3AD77D2DC /* PasswordTextField-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C64408D5950257B7F2DF4993285ED63 /* PasswordTextField-dummy.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		1723F33337BF82D6BB1E4C27A5D2A203 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 7FF7D710F5489D1890599C269A1FF1BD;
+			remoteInfo = PasswordTextField;
+		};
+		70E3C10E9FF3C761F407889873F9A0A3 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 8C94E4B34B3742A46711F31B262DC90E;
+			remoteInfo = "PasswordTextField-PasswordTextField";
+		};
 		CE7461C48AB8321419EF44264007DB1C /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = F1EF235828B3EE0E5DB3C4911F5429B0;
+			remoteGlobalIDString = 885A0722E0B7B049A22182F62C31B55F;
 			remoteInfo = "Pods-TransTracks";
 		};
 		D6BF1BDEBCC3B556836B7C67F8FFC432 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = F1EF235828B3EE0E5DB3C4911F5429B0;
+			remoteGlobalIDString = 885A0722E0B7B049A22182F62C31B55F;
 			remoteInfo = "Pods-TransTracks";
 		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0055FF86F452D5FE408BEA3B51190357 /* ResourceBundle-PasswordTextField-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "ResourceBundle-PasswordTextField-Info.plist"; sourceTree = "<group>"; };
+		0785544BAE99F8B9DDBBA97300492337 /* visibility_on@3x.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = "visibility_on@3x.png"; path = "PasswordTextField/Media/visibility_on@3x.png"; sourceTree = "<group>"; };
+		0A701A642F69218EE426BDC1B1F7944E /* BundleUtil.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = BundleUtil.swift; path = PasswordTextField/BundleUtil.swift; sourceTree = "<group>"; };
 		0CFEA8E3908BD9E5BFF0895952FCE10E /* Pods-TransTracksUITests.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-TransTracksUITests.modulemap"; sourceTree = "<group>"; };
 		10C5712DAEF7406CBE5B1EF29057FB8C /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		11753344C0E2507F4483AF347FE07387 /* Pods-TransTracksUITests-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-TransTracksUITests-frameworks.sh"; sourceTree = "<group>"; };
-		2D6B0A62BA671CB20B4EE697321A1E46 /* Pods_TransTracksUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_TransTracksUITests.framework; path = "Pods-TransTracksUITests.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		128C527F1B5574174B3281DA3AE5A945 /* visibility_off@2x.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = "visibility_off@2x.png"; path = "PasswordTextField/Media/visibility_off@2x.png"; sourceTree = "<group>"; };
+		161B0CBE4CD5758F2F196222A5F73900 /* Ruleable.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Ruleable.swift; path = PasswordTextField/Ruleable.swift; sourceTree = "<group>"; };
+		1CDD5DFD12B5903EB6438D60BA9F72A9 /* PasswordTextField.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; name = PasswordTextField.bundle; path = "PasswordTextField-PasswordTextField.bundle"; sourceTree = BUILT_PRODUCTS_DIR; };
+		238CEEAC7C3468B6EC0EE01952263D1E /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		2875E995036447501649852BE8196CD5 /* visibility_on@2x.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = "visibility_on@2x.png"; path = "PasswordTextField/Media/visibility_on@2x.png"; sourceTree = "<group>"; };
+		2F8154CBE878A2159A2B23405189F207 /* PasswordTextField.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = PasswordTextField.h; path = PasswordTextField/PasswordTextField.h; sourceTree = "<group>"; };
 		3488EFDB6ACE46269E6C55D165043315 /* Pods-TransTracks-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-TransTracks-resources.sh"; sourceTree = "<group>"; };
 		3CB71E11036EBD3AB556CD3AB42339B8 /* Pods-TransTracksTests.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-TransTracksTests.modulemap"; sourceTree = "<group>"; };
+		3EFEF19AAF8A9595E83CE7ED77F1520A /* PasswordTextField.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = PasswordTextField.xcconfig; sourceTree = "<group>"; };
 		4402FE714084A83D85174C5A34B9F20C /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		44FB79CDD55CD7F540DC24F0D4F442DA /* Pods-TransTracks-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-TransTracks-acknowledgements.markdown"; sourceTree = "<group>"; };
+		45E73D31EE6F66B9754FDE40B2EC861A /* StringExtension.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = StringExtension.swift; path = PasswordTextField/StringExtension.swift; sourceTree = "<group>"; };
 		4910F0325F1000A79CD7A41C860528D8 /* Pods-TransTracksTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-TransTracksTests.release.xcconfig"; sourceTree = "<group>"; };
 		4E1E78195AA36A6C411239C520820C6C /* Pods-TransTracks-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-TransTracks-acknowledgements.plist"; sourceTree = "<group>"; };
 		50003A79240B5D3FE3B16AF22288DF3D /* Pods-TransTracksTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-TransTracksTests.debug.xcconfig"; sourceTree = "<group>"; };
 		59C42BE715FA5EF8275A0D7FE8F475D4 /* Pods-TransTracks.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-TransTracks.release.xcconfig"; sourceTree = "<group>"; };
 		6604A7D69453B4569E4E4827FB9155A9 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.3.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
-		7F43C564BA4FFE9F3E7C3EFC25D8B372 /* Pods_TransTracks.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_TransTracks.framework; path = "Pods-TransTracks.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		722847A3A01479EEA92D08F62139181B /* SecureTextToggleButton.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SecureTextToggleButton.swift; path = PasswordTextField/SecureTextToggleButton.swift; sourceTree = "<group>"; };
+		73F167E68B4AB38C835E630EAF228C42 /* visibility_off.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = visibility_off.png; path = PasswordTextField/Media/visibility_off.png; sourceTree = "<group>"; };
+		765AB4B9BE8EB00F23580048DB447391 /* PasswordTextField-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "PasswordTextField-prefix.pch"; sourceTree = "<group>"; };
+		77AEC8096143538A7A52532DB8F87723 /* PasswordTextField-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "PasswordTextField-umbrella.h"; sourceTree = "<group>"; };
+		863B209A897B2A6922BFDFAB6B7A1FB7 /* Pods_TransTracksUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_TransTracksUITests.framework; path = "Pods-TransTracksUITests.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8725342C526508C8FA1E16A11355B4FD /* Pods-TransTracksUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-TransTracksUITests.release.xcconfig"; sourceTree = "<group>"; };
 		87D3D84B42BDE309988AC84075F177C6 /* Pods-TransTracks-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-TransTracks-dummy.m"; sourceTree = "<group>"; };
 		8B365BB910EAF38A34A8F8E6213BD69A /* Pods-TransTracksTests-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-TransTracksTests-umbrella.h"; sourceTree = "<group>"; };
+		8C64408D5950257B7F2DF4993285ED63 /* PasswordTextField-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "PasswordTextField-dummy.m"; sourceTree = "<group>"; };
 		8D7B9AB587D71C7BAE1BADCA5E4B1A1D /* Pods-TransTracksTests-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-TransTracksTests-acknowledgements.plist"; sourceTree = "<group>"; };
+		8E2DA2CF40D98B3061AAA547D9111C4D /* PasswordTextField.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = PasswordTextField.swift; path = PasswordTextField/PasswordTextField.swift; sourceTree = "<group>"; };
 		8F089FF3C3A105D1D7DDE1C23C0A9106 /* Pods-TransTracks-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-TransTracks-frameworks.sh"; sourceTree = "<group>"; };
 		93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		9560B1906621BBC55B7A65D929FBA868 /* Pods-TransTracks.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-TransTracks.debug.xcconfig"; sourceTree = "<group>"; };
 		96C6388E7076529A654E69E94267A6F9 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		991829135714DDEB9E2AE6503660DAAB /* Pods_TransTracksTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_TransTracksTests.framework; path = "Pods-TransTracksTests.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9F42C0F30E3F5145E19246558C4248D5 /* Pods-TransTracksUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-TransTracksUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		A0E8E84DBFCB5179F572322ABAE25BC4 /* Pods-TransTracksTests-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-TransTracksTests-frameworks.sh"; sourceTree = "<group>"; };
 		A918AAE53528341C69CA314FF5237DFB /* Pods-TransTracksUITests-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-TransTracksUITests-acknowledgements.markdown"; sourceTree = "<group>"; };
@@ -66,27 +113,50 @@
 		B9187473786C5FA2C0AC15771D135EB3 /* Pods-TransTracksTests-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-TransTracksTests-acknowledgements.markdown"; sourceTree = "<group>"; };
 		B9C3B3864663EC719BEDB2B6ADF4CC12 /* Pods-TransTracksUITests-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-TransTracksUITests-umbrella.h"; sourceTree = "<group>"; };
 		C3A3533A4A3A80C64F7A4EC5B949BE8E /* Pods-TransTracksUITests-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-TransTracksUITests-acknowledgements.plist"; sourceTree = "<group>"; };
+		C75E4A50B20D63F14C6A9C36FB3E8523 /* visibility_on.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = visibility_on.png; path = PasswordTextField/Media/visibility_on.png; sourceTree = "<group>"; };
 		D5B5BA29F46CA21EF72A7FCA38DE6E54 /* Pods-TransTracksUITests-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-TransTracksUITests-dummy.m"; sourceTree = "<group>"; };
+		E3D17DC806FFCDF326AC9B48A6B1F498 /* PasswordTextField.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = PasswordTextField.framework; path = PasswordTextField.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		E411BA6EF0CCC8346BCAA15C86D0C23B /* PasswordRule.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = PasswordRule.swift; path = PasswordTextField/PasswordRule.swift; sourceTree = "<group>"; };
+		E4324E3CF3DE12E6F042214E15FAE1A5 /* Pods_TransTracksTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_TransTracksTests.framework; path = "Pods-TransTracksTests.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		E4EAA6DC800E9A385BA6C67BBA4A8667 /* RegexRule.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = RegexRule.swift; path = PasswordTextField/RegexRule.swift; sourceTree = "<group>"; };
+		E572E554C28DD748AB74109F9A384933 /* PasswordTextField.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = PasswordTextField.modulemap; sourceTree = "<group>"; };
 		EAB44F329AA5638FEC4E9D0A8A6071AE /* Pods-TransTracksUITests-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-TransTracksUITests-resources.sh"; sourceTree = "<group>"; };
 		EFD2B25CE06ED491C22A53A1C90E9FCD /* Pods-TransTracksTests-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-TransTracksTests-resources.sh"; sourceTree = "<group>"; };
+		F2E664AF2096C41A6C83B53FD1A0A09D /* visibility_off@3x.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = "visibility_off@3x.png"; path = "PasswordTextField/Media/visibility_off@3x.png"; sourceTree = "<group>"; };
+		F79D44D0F39C57CEF3CED16DF3D0EDFD /* Pods_TransTracks.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_TransTracks.framework; path = "Pods-TransTracks.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F8C4B24B65E6FAEE0AD19164584604DA /* Pods-TransTracksTests-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-TransTracksTests-dummy.m"; sourceTree = "<group>"; };
 		FD7674A4115E41B0190E44E237006C9E /* Pods-TransTracks.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-TransTracks.modulemap"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		2A6AD589B3993F42D1A88F23C6F7502C /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E46BBDB3B77E7A91E825350C9A8CAD55 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		477A3F12FE3AAE77C2C0F8E169429DD4 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5ACA82E3CFC281B9441BC5311F0646C9 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9BC4B8A3BDDE26F3694C73D57CFFA0E3 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		9756E4FCD2D76429C8115F04CCD023E4 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				C3D51E8DE418CEE34B3D8B117F45BDBF /* Foundation.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		B9F940309333B05E5F2DD8C88D4DD495 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				5F26ABF1466578339D0ECCC5C768D5B5 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -101,6 +171,45 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		00C5D1A8D4F7287D690E23F77C07B5C2 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				73F167E68B4AB38C835E630EAF228C42 /* visibility_off.png */,
+				128C527F1B5574174B3281DA3AE5A945 /* visibility_off@2x.png */,
+				F2E664AF2096C41A6C83B53FD1A0A09D /* visibility_off@3x.png */,
+				C75E4A50B20D63F14C6A9C36FB3E8523 /* visibility_on.png */,
+				2875E995036447501649852BE8196CD5 /* visibility_on@2x.png */,
+				0785544BAE99F8B9DDBBA97300492337 /* visibility_on@3x.png */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
+		057300BDD76DF0CB4B4D8B86442F220B /* PasswordTextField */ = {
+			isa = PBXGroup;
+			children = (
+				0A701A642F69218EE426BDC1B1F7944E /* BundleUtil.swift */,
+				E411BA6EF0CCC8346BCAA15C86D0C23B /* PasswordRule.swift */,
+				2F8154CBE878A2159A2B23405189F207 /* PasswordTextField.h */,
+				8E2DA2CF40D98B3061AAA547D9111C4D /* PasswordTextField.swift */,
+				E4EAA6DC800E9A385BA6C67BBA4A8667 /* RegexRule.swift */,
+				161B0CBE4CD5758F2F196222A5F73900 /* Ruleable.swift */,
+				722847A3A01479EEA92D08F62139181B /* SecureTextToggleButton.swift */,
+				45E73D31EE6F66B9754FDE40B2EC861A /* StringExtension.swift */,
+				00C5D1A8D4F7287D690E23F77C07B5C2 /* Resources */,
+				16AFE8892676FB4BDCEE5E53713DAC17 /* Support Files */,
+			);
+			name = PasswordTextField;
+			path = PasswordTextField;
+			sourceTree = "<group>";
+		};
+		0F5722AC4CDD284A42AD7836095D3A7C /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				057300BDD76DF0CB4B4D8B86442F220B /* PasswordTextField */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		1578C8641CD9BC771A7D35C76E65D5A9 /* Pods-TransTracksTests */ = {
 			isa = PBXGroup;
 			children = (
@@ -117,6 +226,21 @@
 			);
 			name = "Pods-TransTracksTests";
 			path = "Target Support Files/Pods-TransTracksTests";
+			sourceTree = "<group>";
+		};
+		16AFE8892676FB4BDCEE5E53713DAC17 /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				238CEEAC7C3468B6EC0EE01952263D1E /* Info.plist */,
+				E572E554C28DD748AB74109F9A384933 /* PasswordTextField.modulemap */,
+				3EFEF19AAF8A9595E83CE7ED77F1520A /* PasswordTextField.xcconfig */,
+				8C64408D5950257B7F2DF4993285ED63 /* PasswordTextField-dummy.m */,
+				765AB4B9BE8EB00F23580048DB447391 /* PasswordTextField-prefix.pch */,
+				77AEC8096143538A7A52532DB8F87723 /* PasswordTextField-umbrella.h */,
+				0055FF86F452D5FE408BEA3B51190357 /* ResourceBundle-PasswordTextField-Info.plist */,
+			);
+			name = "Support Files";
+			path = "../Target Support Files/PasswordTextField";
 			sourceTree = "<group>";
 		};
 		37505CB2710B75AE4C57E5BB79BFD96A /* Pods-TransTracks */ = {
@@ -137,22 +261,13 @@
 			path = "Target Support Files/Pods-TransTracks";
 			sourceTree = "<group>";
 		};
-		562FBFF8C226C5DAC0719560472D4CD6 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				7F43C564BA4FFE9F3E7C3EFC25D8B372 /* Pods_TransTracks.framework */,
-				991829135714DDEB9E2AE6503660DAAB /* Pods_TransTracksTests.framework */,
-				2D6B0A62BA671CB20B4EE697321A1E46 /* Pods_TransTracksUITests.framework */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
 		7DB346D0F39D3F0E887471402A8071AB = {
 			isa = PBXGroup;
 			children = (
 				93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */,
 				BC3CA7F9E30CC8F7E2DD044DD34432FC /* Frameworks */,
-				562FBFF8C226C5DAC0719560472D4CD6 /* Products */,
+				0F5722AC4CDD284A42AD7836095D3A7C /* Pods */,
+				D71014B22018C3DB5B8861BDED9F8F57 /* Products */,
 				87825051F234EE6282E4F6BD971701B8 /* Targets Support Files */,
 			);
 			sourceTree = "<group>";
@@ -201,6 +316,18 @@
 			name = iOS;
 			sourceTree = "<group>";
 		};
+		D71014B22018C3DB5B8861BDED9F8F57 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				1CDD5DFD12B5903EB6438D60BA9F72A9 /* PasswordTextField.bundle */,
+				E3D17DC806FFCDF326AC9B48A6B1F498 /* PasswordTextField.framework */,
+				F79D44D0F39C57CEF3CED16DF3D0EDFD /* Pods_TransTracks.framework */,
+				E4324E3CF3DE12E6F042214E15FAE1A5 /* Pods_TransTracksTests.framework */,
+				863B209A897B2A6922BFDFAB6B7A1FB7 /* Pods_TransTracksUITests.framework */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -212,11 +339,11 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		450164FFBB56694DA1048FBA245449C4 /* Headers */ = {
+		8FFAB540BEAF18DFBE74627550BB122F /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6E6F0686A3E8EEF4A54AA833C3D13485 /* Pods-TransTracks-umbrella.h in Headers */,
+				38A4060D3CF8BE88B62AFC32C4A44715 /* Pods-TransTracks-umbrella.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -228,9 +355,72 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		ED18475B63D409636F082D0A1455BE5E /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F6A3BADD27443B328ECD600ED2E7E9FD /* PasswordTextField-umbrella.h in Headers */,
+				20C479BA3D6EA1FC02B77DDF87EC78DB /* PasswordTextField.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
+		7FF7D710F5489D1890599C269A1FF1BD /* PasswordTextField */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 867C474E0650F3DF51AD76AA7AB1FCC7 /* Build configuration list for PBXNativeTarget "PasswordTextField" */;
+			buildPhases = (
+				74F9887A22EF812828F6AAE405C2475C /* Sources */,
+				2A6AD589B3993F42D1A88F23C6F7502C /* Frameworks */,
+				ECF1BF604C36484ED5C5A873C850BC35 /* Resources */,
+				ED18475B63D409636F082D0A1455BE5E /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				E9924631E982B3E8B85DC73F8C5F2217 /* PBXTargetDependency */,
+			);
+			name = PasswordTextField;
+			productName = PasswordTextField;
+			productReference = E3D17DC806FFCDF326AC9B48A6B1F498 /* PasswordTextField.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		885A0722E0B7B049A22182F62C31B55F /* Pods-TransTracks */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 8160826A7DA032B2858DF67DE9542A68 /* Build configuration list for PBXNativeTarget "Pods-TransTracks" */;
+			buildPhases = (
+				EF0A1FD3BA3C3FF53A65926F637E8D74 /* Sources */,
+				5ACA82E3CFC281B9441BC5311F0646C9 /* Frameworks */,
+				8FFAB540BEAF18DFBE74627550BB122F /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				BB9EA7EA4A57C419E4983592B764DF7F /* PBXTargetDependency */,
+			);
+			name = "Pods-TransTracks";
+			productName = "Pods-TransTracks";
+			productReference = F79D44D0F39C57CEF3CED16DF3D0EDFD /* Pods_TransTracks.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		8C94E4B34B3742A46711F31B262DC90E /* PasswordTextField-PasswordTextField */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D82935F1C873479D8900CC97FC2CE4C7 /* Build configuration list for PBXNativeTarget "PasswordTextField-PasswordTextField" */;
+			buildPhases = (
+				E697494D10C20153EA7DAAEE208BF598 /* Sources */,
+				477A3F12FE3AAE77C2C0F8E169429DD4 /* Frameworks */,
+				23BC052B4691E9893A8BCF9FD8F835D8 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "PasswordTextField-PasswordTextField";
+			productName = "PasswordTextField-PasswordTextField";
+			productReference = 1CDD5DFD12B5903EB6438D60BA9F72A9 /* PasswordTextField.bundle */;
+			productType = "com.apple.product-type.bundle";
+		};
 		9E174BBC16C2D04AF58A66873B7DA1DB /* Pods-TransTracksUITests */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 38A0612D3CF74C453EBAACBA2F9E2276 /* Build configuration list for PBXNativeTarget "Pods-TransTracksUITests" */;
@@ -246,7 +436,7 @@
 			);
 			name = "Pods-TransTracksUITests";
 			productName = "Pods-TransTracksUITests";
-			productReference = 2D6B0A62BA671CB20B4EE697321A1E46 /* Pods_TransTracksUITests.framework */;
+			productReference = 863B209A897B2A6922BFDFAB6B7A1FB7 /* Pods_TransTracksUITests.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 		A2F4DB71C5131998C534559929782CFA /* Pods-TransTracksTests */ = {
@@ -264,24 +454,7 @@
 			);
 			name = "Pods-TransTracksTests";
 			productName = "Pods-TransTracksTests";
-			productReference = 991829135714DDEB9E2AE6503660DAAB /* Pods_TransTracksTests.framework */;
-			productType = "com.apple.product-type.framework";
-		};
-		F1EF235828B3EE0E5DB3C4911F5429B0 /* Pods-TransTracks */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 1DE065F64194B0F7FF186F67447FAF28 /* Build configuration list for PBXNativeTarget "Pods-TransTracks" */;
-			buildPhases = (
-				A55E5C1ED187A0A54E21A01AEB81314B /* Sources */,
-				B9F940309333B05E5F2DD8C88D4DD495 /* Frameworks */,
-				450164FFBB56694DA1048FBA245449C4 /* Headers */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = "Pods-TransTracks";
-			productName = "Pods-TransTracks";
-			productReference = 7F43C564BA4FFE9F3E7C3EFC25D8B372 /* Pods_TransTracks.framework */;
+			productReference = E4324E3CF3DE12E6F042214E15FAE1A5 /* Pods_TransTracksTests.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 /* End PBXNativeTarget section */
@@ -301,16 +474,42 @@
 				en,
 			);
 			mainGroup = 7DB346D0F39D3F0E887471402A8071AB;
-			productRefGroup = 562FBFF8C226C5DAC0719560472D4CD6 /* Products */;
+			productRefGroup = D71014B22018C3DB5B8861BDED9F8F57 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				F1EF235828B3EE0E5DB3C4911F5429B0 /* Pods-TransTracks */,
+				7FF7D710F5489D1890599C269A1FF1BD /* PasswordTextField */,
+				8C94E4B34B3742A46711F31B262DC90E /* PasswordTextField-PasswordTextField */,
+				885A0722E0B7B049A22182F62C31B55F /* Pods-TransTracks */,
 				A2F4DB71C5131998C534559929782CFA /* Pods-TransTracksTests */,
 				9E174BBC16C2D04AF58A66873B7DA1DB /* Pods-TransTracksUITests */,
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		23BC052B4691E9893A8BCF9FD8F835D8 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3A29ADBF8C37D710FBF7A278414CD2D5 /* visibility_off.png in Resources */,
+				208131B8B944482C927D156C7715B687 /* visibility_off@2x.png in Resources */,
+				F4AB27E57E0F3091502886209EF3FF7F /* visibility_off@3x.png in Resources */,
+				117FA99C657444DF53D6E54904839100 /* visibility_on.png in Resources */,
+				38281262870332683ADE92550B74C285 /* visibility_on@2x.png in Resources */,
+				F9D1B6B0B79E01A63C1A4A5AFACA7262 /* visibility_on@3x.png in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		ECF1BF604C36484ED5C5A873C850BC35 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D11B64796A661228626649FF5BD567C5 /* PasswordTextField.bundle in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		422FBD97DCE1CE9CD12304CAB1B81533 /* Sources */ = {
@@ -318,6 +517,21 @@
 			buildActionMask = 2147483647;
 			files = (
 				7D960C807A1D0A45DF42BFA2AB843F4B /* Pods-TransTracksUITests-dummy.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		74F9887A22EF812828F6AAE405C2475C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EDD6DB97EB226B27678A244DF95F0876 /* BundleUtil.swift in Sources */,
+				8820497B5B3385F365FDEAA7579AB5EA /* PasswordRule.swift in Sources */,
+				FB98DA8C1EFB1FDDAB5FBAB3AD77D2DC /* PasswordTextField-dummy.m in Sources */,
+				105E2B2D62FE95442BDA8B5FD8A6E214 /* PasswordTextField.swift in Sources */,
+				C30EC6CF1527C64A9E612294C61672CA /* RegexRule.swift in Sources */,
+				EF40FB68A5AB7D8FEB9267285118F178 /* Ruleable.swift in Sources */,
+				AC1BB08012FF5CC1762FEE153B02B282 /* SecureTextToggleButton.swift in Sources */,
+				7A37A6B29817AA12ABA115E4712BC890 /* StringExtension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -329,11 +543,18 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		A55E5C1ED187A0A54E21A01AEB81314B /* Sources */ = {
+		E697494D10C20153EA7DAAEE208BF598 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				137EB4B2C5E789857010B6DF2B6B4738 /* Pods-TransTracks-dummy.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EF0A1FD3BA3C3FF53A65926F637E8D74 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1261389089EFEE3618901BE58EAA37D1 /* Pods-TransTracks-dummy.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -343,14 +564,26 @@
 		22380A4D3E058B242F3F892C4520A1C3 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = "Pods-TransTracks";
-			target = F1EF235828B3EE0E5DB3C4911F5429B0 /* Pods-TransTracks */;
+			target = 885A0722E0B7B049A22182F62C31B55F /* Pods-TransTracks */;
 			targetProxy = CE7461C48AB8321419EF44264007DB1C /* PBXContainerItemProxy */;
 		};
 		25FF43C3DD7B61C38837C6778845E367 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = "Pods-TransTracks";
-			target = F1EF235828B3EE0E5DB3C4911F5429B0 /* Pods-TransTracks */;
+			target = 885A0722E0B7B049A22182F62C31B55F /* Pods-TransTracks */;
 			targetProxy = D6BF1BDEBCC3B556836B7C67F8FFC432 /* PBXContainerItemProxy */;
+		};
+		BB9EA7EA4A57C419E4983592B764DF7F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = PasswordTextField;
+			target = 7FF7D710F5489D1890599C269A1FF1BD /* PasswordTextField */;
+			targetProxy = 1723F33337BF82D6BB1E4C27A5D2A203 /* PBXContainerItemProxy */;
+		};
+		E9924631E982B3E8B85DC73F8C5F2217 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "PasswordTextField-PasswordTextField";
+			target = 8C94E4B34B3742A46711F31B262DC90E /* PasswordTextField-PasswordTextField */;
+			targetProxy = 70E3C10E9FF3C761F407889873F9A0A3 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -412,40 +645,6 @@
 				SYMROOT = "${SRCROOT}/../build";
 			};
 			name = Release;
-		};
-		08655670750B5CD4B2E89B7CBB07C6AE /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 9560B1906621BBC55B7A65D929FBA868 /* Pods-TransTracks.debug.xcconfig */;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
-				CLANG_ENABLE_OBJC_WEAK = NO;
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = "Target Support Files/Pods-TransTracks/Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MACH_O_TYPE = staticlib;
-				MODULEMAP_FILE = "Target Support Files/Pods-TransTracks/Pods-TransTracks.modulemap";
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PODS_ROOT = "$(SRCROOT)";
-				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
-				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Debug;
 		};
 		100106079D57E646004318F81C8E7E65 /* Release */ = {
 			isa = XCBuildConfiguration;
@@ -517,7 +716,92 @@
 			};
 			name = Release;
 		};
-		78E5F68FC77BE45AD15550F9E36E7306 /* Release */ = {
+		4DF9FB4CC3CF93D9EACC98FD7FAEF093 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 3EFEF19AAF8A9595E83CE7ED77F1520A /* PasswordTextField.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_PREFIX_HEADER = "Target Support Files/PasswordTextField/PasswordTextField-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/PasswordTextField/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = "Target Support Files/PasswordTextField/PasswordTextField.modulemap";
+				PRODUCT_MODULE_NAME = PasswordTextField;
+				PRODUCT_NAME = PasswordTextField;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		67F3D7D5DE84B9D4E0F523B296FC0EF0 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 3EFEF19AAF8A9595E83CE7ED77F1520A /* PasswordTextField.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)/PasswordTextField";
+				INFOPLIST_FILE = "Target Support Files/PasswordTextField/ResourceBundle-PasswordTextField-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				PRODUCT_NAME = PasswordTextField;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				WRAPPER_EXTENSION = bundle;
+			};
+			name = Release;
+		};
+		7BBD181C2ACA4D14F9368674CB78FAF0 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 9560B1906621BBC55B7A65D929FBA868 /* Pods-TransTracks.debug.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = "Target Support Files/Pods-TransTracks/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MACH_O_TYPE = staticlib;
+				MODULEMAP_FILE = "Target Support Files/Pods-TransTracks/Pods-TransTracks.modulemap";
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		8370D8E96ED0981922352CD7A212676F /* Release */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 59C42BE715FA5EF8275A0D7FE8F475D4 /* Pods-TransTracks.release.xcconfig */;
 			buildSettings = {
@@ -545,6 +829,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -649,6 +934,54 @@
 			};
 			name = Debug;
 		};
+		ABCF0A4E25401DABDB595C9FFD084CA0 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 3EFEF19AAF8A9595E83CE7ED77F1520A /* PasswordTextField.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)/PasswordTextField";
+				INFOPLIST_FILE = "Target Support Files/PasswordTextField/ResourceBundle-PasswordTextField-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				PRODUCT_NAME = PasswordTextField;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				WRAPPER_EXTENSION = bundle;
+			};
+			name = Debug;
+		};
+		AF372FDB38A7D118DF90B9D6E064F5FE /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 3EFEF19AAF8A9595E83CE7ED77F1520A /* PasswordTextField.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_PREFIX_HEADER = "Target Support Files/PasswordTextField/PasswordTextField-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/PasswordTextField/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = "Target Support Files/PasswordTextField/PasswordTextField.modulemap";
+				PRODUCT_MODULE_NAME = PasswordTextField;
+				PRODUCT_NAME = PasswordTextField;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
 		B619100B54BEC71EEC06DB65A612E06A /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 9F42C0F30E3F5145E19246558C4248D5 /* Pods-TransTracksUITests.debug.xcconfig */;
@@ -695,15 +1028,6 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		1DE065F64194B0F7FF186F67447FAF28 /* Build configuration list for PBXNativeTarget "Pods-TransTracks" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				08655670750B5CD4B2E89B7CBB07C6AE /* Debug */,
-				78E5F68FC77BE45AD15550F9E36E7306 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
 		2D8E8EC45A3A1A1D94AE762CB5028504 /* Build configuration list for PBXProject "Pods" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -718,6 +1042,33 @@
 			buildConfigurations = (
 				B619100B54BEC71EEC06DB65A612E06A /* Debug */,
 				4D3672038EE7F24D0D4025E071C4109A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		8160826A7DA032B2858DF67DE9542A68 /* Build configuration list for PBXNativeTarget "Pods-TransTracks" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7BBD181C2ACA4D14F9368674CB78FAF0 /* Debug */,
+				8370D8E96ED0981922352CD7A212676F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		867C474E0650F3DF51AD76AA7AB1FCC7 /* Build configuration list for PBXNativeTarget "PasswordTextField" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AF372FDB38A7D118DF90B9D6E064F5FE /* Debug */,
+				4DF9FB4CC3CF93D9EACC98FD7FAEF093 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		D82935F1C873479D8900CC97FC2CE4C7 /* Build configuration list for PBXNativeTarget "PasswordTextField-PasswordTextField" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				ABCF0A4E25401DABDB595C9FFD084CA0 /* Debug */,
+				67F3D7D5DE84B9D4E0F523B296FC0EF0 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

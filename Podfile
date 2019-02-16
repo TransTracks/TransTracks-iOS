@@ -6,6 +6,7 @@ target 'TransTracks' do
   use_frameworks!
 
   # Pods for TransTracks
+  pod 'PasswordTextField'
 
   target 'TransTracksTests' do
     inherit! :search_paths
