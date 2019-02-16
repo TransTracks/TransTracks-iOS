@@ -6,7 +6,17 @@ target 'TransTracks' do
   use_frameworks!
 
   # Pods for TransTracks
+
+  # Crash logging
+  pod 'Fabric', '~> 1.9.0'
+  pod 'Crashlytics', '~> 3.12.0'
+
+  # General Firebase
+  pod 'Firebase/Core'
+
+  # Password Text Field
   pod 'PasswordTextField'
+
 
   target 'TransTracksTests' do
     inherit! :search_paths
