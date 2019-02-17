@@ -152,11 +152,8 @@
 				F919D77C219186DD0069F42B /* AppDelegate.swift */,
 				F9868C852207B94B00237C14 /* Assets.xcassets */,
 				F93CF05B2217D4F40008CC44 /* GoogleService-Info.plist */,
-				F919D77E219186DD0069F42B /* HomeViewController.swift */,
 				F919D788219186DF0069F42B /* Info.plist */,
 				F919D785219186DF0069F42B /* LaunchScreen.storyboard */,
-				F919D780219186DD0069F42B /* Main.storyboard */,
-				F93CF0602217F2580008CC44 /* NavigationController.swift */,
 				F93CF06B221957AC0008CC44 /* UI */,
 				F93CF0622217FD2E0008CC44 /* Util */,
 			);
@@ -195,6 +192,9 @@
 			isa = PBXGroup;
 			children = (
 				F93CF06C221957FD0008CC44 /* BackgroundGradientViewController.swift */,
+				F919D77E219186DD0069F42B /* HomeViewController.swift */,
+				F919D780219186DD0069F42B /* Main.storyboard */,
+				F93CF0602217F2580008CC44 /* NavigationController.swift */,
 			);
 			path = UI;
 			sourceTree = "<group>";
