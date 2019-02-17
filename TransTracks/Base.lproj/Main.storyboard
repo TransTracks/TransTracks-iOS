@@ -13,7 +13,7 @@
         <!--Navigation Controller-->
         <scene sceneID="o2R-Ch-9uD">
             <objects>
-                <navigationController id="11N-zU-MZy" sceneMemberID="viewController">
+                <navigationController id="11N-zU-MZy" customClass="NavigationController" customModule="TransTracks" customModuleProvider="target" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="ZpN-z5-qFw">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -178,7 +178,7 @@
                                 </constraints>
                             </view>
                         </subviews>
-                        <color key="backgroundColor" red="0.37160220950937067" green="0.85488450579114517" blue="0.94019670050761417" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                        <color key="backgroundColor" red="0.3716022095" green="0.85488450579999997" blue="0.94019670050000004" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         <constraints>
                             <constraint firstItem="OkA-42-18A" firstAttribute="top" secondItem="otu-oX-q9y" secondAttribute="bottom" constant="8" id="2dj-Lz-47k"/>
                             <constraint firstItem="tBO-2r-hgf" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="4pM-l8-JXh"/>
@@ -430,7 +430,7 @@
                                     <constraint firstAttribute="height" constant="80" placeholder="YES" id="Q54-HJ-JWQ"/>
                                 </constraints>
                             </view>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="© 2018 - %@ by Dr Boo, All rights reserved" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kup-Ns-35x" userLabel="Copyright">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="© 2018 - %@ by TransTracks, All rights reserved" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kup-Ns-35x" userLabel="Copyright">
                                 <rect key="frame" x="102.5" y="762" width="209" height="12"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="10"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -1054,7 +1054,7 @@
         <image name="train_track_background" width="5014" height="3343"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="uFv-3b-PRh"/>
-        <segue reference="QkW-Jv-d5D"/>
+        <segue reference="Oob-dT-k8r"/>
+        <segue reference="0uw-Wl-wh3"/>
     </inferredMetricsTieBreakers>
 </document>

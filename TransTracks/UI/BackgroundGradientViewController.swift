@@ -1,9 +1,9 @@
 //
-//  ViewController.swift
+//  GradientBackgroundViewController.swift
 //  TransTracks
 //
-//  Created by Cassie Wilson on 6/11/18.
-//  Copyright © 2018 TransTracks. All rights reserved.
+//  Created by Cassie Wilson on 17/2/19.
+//  Copyright © 2019 TransTracks. All rights reserved.
 //
 //  This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
 //
@@ -14,13 +14,26 @@
 
 import UIKit
 
-class HomeViewController: BackgroundGradientViewController {
-
+class BackgroundGradientViewController: UIViewController {
+    
+    //MARK: Lifecycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        
+        setBackgroundGradient()
     }
-
-
+    
+    //MARK: UI helpers
+    
+    func setBackgroundGradient(){
+        let newGradient = ThemeManager.getBackgroundGradient()
+        newGradient.frame = view.frame
+        
+        if let oldGradient = view.layer.sublayers?[0], oldGradient is CAGradientLayer {
+            view.layer.replaceSublayer(oldGradient, with: newGradient)
+        } else {
+            view.layer.insertSublayer(newGradient, at: 0)
+        }
+    }
 }
-

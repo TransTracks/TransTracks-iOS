@@ -17,6 +17,11 @@
 		F919D792219186DF0069F42B /* TransTracksTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F919D791219186DF0069F42B /* TransTracksTests.swift */; };
 		F919D79D219186DF0069F42B /* TransTracksUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F919D79C219186DF0069F42B /* TransTracksUITests.swift */; };
 		F93CF05C2217D4F40008CC44 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F93CF05B2217D4F40008CC44 /* GoogleService-Info.plist */; };
+		F93CF0612217F2580008CC44 /* NavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F93CF0602217F2580008CC44 /* NavigationController.swift */; };
+		F93CF0642217FD860008CC44 /* ThemeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F93CF0632217FD860008CC44 /* ThemeManager.swift */; };
+		F93CF066221801C20008CC44 /* UserDefaultsUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = F93CF065221801C20008CC44 /* UserDefaultsUtil.swift */; };
+		F93CF068221805BC0008CC44 /* UIColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = F93CF067221805BC0008CC44 /* UIColors.swift */; };
+		F93CF06D221957FD0008CC44 /* BackgroundGradientViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F93CF06C221957FD0008CC44 /* BackgroundGradientViewController.swift */; };
 		F9868C862207B94B00237C14 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F9868C852207B94B00237C14 /* Assets.xcassets */; };
 /* End PBXBuildFile section */
 
@@ -59,6 +64,11 @@
 		F919D79C219186DF0069F42B /* TransTracksUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransTracksUITests.swift; sourceTree = "<group>"; };
 		F919D79E219186DF0069F42B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F93CF05B2217D4F40008CC44 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		F93CF0602217F2580008CC44 /* NavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationController.swift; sourceTree = "<group>"; };
+		F93CF0632217FD860008CC44 /* ThemeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeManager.swift; sourceTree = "<group>"; };
+		F93CF065221801C20008CC44 /* UserDefaultsUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsUtil.swift; sourceTree = "<group>"; };
+		F93CF067221805BC0008CC44 /* UIColors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColors.swift; sourceTree = "<group>"; };
+		F93CF06C221957FD0008CC44 /* BackgroundGradientViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundGradientViewController.swift; sourceTree = "<group>"; };
 		F9868C852207B94B00237C14 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		FE297B424E2A06ADA14BF95D /* Pods-TransTracksTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TransTracksTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-TransTracksTests/Pods-TransTracksTests.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -146,6 +156,9 @@
 				F919D788219186DF0069F42B /* Info.plist */,
 				F919D785219186DF0069F42B /* LaunchScreen.storyboard */,
 				F919D780219186DD0069F42B /* Main.storyboard */,
+				F93CF0602217F2580008CC44 /* NavigationController.swift */,
+				F93CF06B221957AC0008CC44 /* UI */,
+				F93CF0622217FD2E0008CC44 /* Util */,
 			);
 			path = TransTracks;
 			sourceTree = "<group>";
@@ -166,6 +179,24 @@
 				F919D79E219186DF0069F42B /* Info.plist */,
 			);
 			path = TransTracksUITests;
+			sourceTree = "<group>";
+		};
+		F93CF0622217FD2E0008CC44 /* Util */ = {
+			isa = PBXGroup;
+			children = (
+				F93CF0632217FD860008CC44 /* ThemeManager.swift */,
+				F93CF067221805BC0008CC44 /* UIColors.swift */,
+				F93CF065221801C20008CC44 /* UserDefaultsUtil.swift */,
+			);
+			path = Util;
+			sourceTree = "<group>";
+		};
+		F93CF06B221957AC0008CC44 /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				F93CF06C221957FD0008CC44 /* BackgroundGradientViewController.swift */,
+			);
+			path = UI;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -404,6 +435,11 @@
 			files = (
 				F919D77F219186DD0069F42B /* HomeViewController.swift in Sources */,
 				F919D77D219186DD0069F42B /* AppDelegate.swift in Sources */,
+				F93CF066221801C20008CC44 /* UserDefaultsUtil.swift in Sources */,
+				F93CF0612217F2580008CC44 /* NavigationController.swift in Sources */,
+				F93CF06D221957FD0008CC44 /* BackgroundGradientViewController.swift in Sources */,
+				F93CF0642217FD860008CC44 /* ThemeManager.swift in Sources */,
+				F93CF068221805BC0008CC44 /* UIColors.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
