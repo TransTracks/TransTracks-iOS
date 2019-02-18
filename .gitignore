@@ -70,3 +70,4 @@ fastlane/test_output
 iOSInjectionProject/
 xcuserdata
 /TransTracks/GoogleService-Info.plist
+/TransTracks/config.plist

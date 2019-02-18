@@ -15,6 +15,7 @@
 import Crashlytics
 import Fabric
 import Firebase
+import GoogleMobileAds
 import UIKit
 
 @UIApplicationMain
@@ -34,6 +35,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         #else
             Fabric.with(Crashlytics())
         #endif
+    
+        if let path = Bundle.main.path(forResource: "GoogleService-Info", ofType: "plist"),
+           let googleServiceInfo = NSDictionary(contentsOfFile: path),
+           let adMobAppId = googleServiceInfo["ADMOB_APP_ID"] as? String {
+            GADMobileAds.configure(withApplicationID: adMobAppId)
+        }
+        
         
         return true
     }

@@ -13,6 +13,9 @@ target 'TransTracks' do
 
   # General Firebase
   pod 'Firebase/Core'
+  
+  # Ads
+  pod 'Google-Mobile-Ads-SDK'
 
   # Password Text Field
   pod 'PasswordTextField'
