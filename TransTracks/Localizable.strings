@@ -1,0 +1,50 @@
+/* 
+  Localizable.strings
+  TransTracks
+
+  Created by Cassie Wilson on 18/2/19.
+  Copyright © 2019 TransTracks. All rights reserved.
+
+  This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+
+  This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+
+  You should have received a copy of the GNU General Public License along with this program. If not, see <https://www.gnu.org/licenses/>.
+*/
+
+//Shared
+"cancel" = "Cancel";
+"confirmPassword" = "Confirm password";
+"enterPassword" = "Enter your password";
+"ok" = "OK";
+
+//Settings
+"startDateLabel" = "Start Date:";
+"themeLabel" = "Theme:";
+"lockModeLabel" = "Lock Mode";
+"lockModeDescription" = "Require a password to access the app";
+"lockDelayLabel" = "Lock Delay:";
+"appVersionLabel" = "App Version:";
+"privacyPolicy" = "Privacy Policy";
+"copyrightWithCurrentYear" = "© 2018 - %@ by TransTracks, All rights reserved";
+
+"selectStartDateTitle" = "Select Start Date";
+
+"blue" = "Blue";
+"pink" = "Pink";
+"purple" = "Purple";
+"green" = "Green";
+
+"selectLockMode" = "Select Lock Mode";
+"disabled" = "Disabled";
+"enabledNormal" = "Enabled (Normal)";
+"enabledTrains" = "Enabled (Train Tracks)";
+"enterPasswordToDisableLock" = "Enter Password to Disable Lock";
+"setPassword" = "Set Password";
+
+"selectLockDelay" = "Select Lock Delay";
+"instant" = "Instant";
+"oneMinute" = "One minute";
+"twoMinutes" = "Two minutes";
+"fiveMinutes" = "Five minutes";
+"fifteenMinutes" = "Fifteen minutes";

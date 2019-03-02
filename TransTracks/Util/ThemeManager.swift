@@ -19,9 +19,7 @@ class ThemeManager {
         return UserDefaultsUtil.getTheme()
     }
     
-    static func getBackgroundGradient() -> CAGradientLayer {
-        let theme = getTheme()
-        
+    static func getBackgroundGradient(_ theme: Theme) -> CAGradientLayer {
         let backgroundGradient = CAGradientLayer()
         backgroundGradient.colors = [theme.colorPrimary.cgColor, theme.colorPrimaryLight.cgColor, theme.colorAccent.cgColor]
         backgroundGradient.locations = [NSNumber(value: 0.0), NSNumber(value: 0.6), NSNumber(value: 1.0)]
@@ -32,45 +30,62 @@ class ThemeManager {
     }
 }
 
-enum Theme: String {
-    case Pink
-    case Blue
-    case Purple
-    case Green
+enum Theme: String, CaseIterable {
+    case pink
+    case blue
+    case purple
+    case green
     
     var colorPrimaryLight: UIColor {
         switch self {
-        case .Pink: return UIColor.colorFromHexString("#ffbde4")
-        case .Blue: return UIColor.colorFromHexString("#a3d3ff")
-        case .Purple: return UIColor.colorFromHexString("#be9df5")
-        case .Green: return UIColor.colorFromHexString("#4ecc84")
+        case .pink: return UIColor.colorFromHexString("#ffbde4")
+        case .blue: return UIColor.colorFromHexString("#a3d3ff")
+        case .purple: return UIColor.colorFromHexString("#be9df5")
+        case .green: return UIColor.colorFromHexString("#4ecc84")
         }
     }
     
     var colorPrimary: UIColor {
         switch self {
-        case .Pink: return UIColor.colorFromHexString("#E4A9CC")
-        case .Blue: return UIColor.colorFromHexString("#9ECCF6")
-        case .Purple: return UIColor.colorFromHexString("#977cc2")
-        case .Green: return UIColor.colorFromHexString("#3A9963")
+        case .pink: return UIColor.colorFromHexString("#E4A9CC")
+        case .blue: return UIColor.colorFromHexString("#9ECCF6")
+        case .purple: return UIColor.colorFromHexString("#977cc2")
+        case .green: return UIColor.colorFromHexString("#3A9963")
         }
     }
     
     var colorPrimaryDark: UIColor {
         switch self {
-        case .Pink: return UIColor.colorFromHexString("#b0829e")
-        case .Blue: return UIColor.colorFromHexString("#7ca0c2")
-        case .Purple: return UIColor.colorFromHexString("#6f5b8f")
-        case .Green: return UIColor.colorFromHexString("#276642")
+        case .pink: return UIColor.colorFromHexString("#b0829e")
+        case .blue: return UIColor.colorFromHexString("#7ca0c2")
+        case .purple: return UIColor.colorFromHexString("#6f5b8f")
+        case .green: return UIColor.colorFromHexString("#276642")
         }
     }
     
     var colorAccent: UIColor {
         switch self {
-        case .Pink: return UIColor.colorFromHexString("#9ECCF6")
-        case .Blue: return UIColor.colorFromHexString("#E4A9CC")
-        case .Purple: return UIColor.colorFromHexString("#9ECCF6")
-        case .Green: return UIColor.colorFromHexString("#57acd4")
+        case .pink: return UIColor.colorFromHexString("#9ECCF6")
+        case .blue: return UIColor.colorFromHexString("#E4A9CC")
+        case .purple: return UIColor.colorFromHexString("#9ECCF6")
+        case .green: return UIColor.colorFromHexString("#57acd4")
         }
+    }
+    
+    func getDisplayName() -> String {
+        switch self {
+        case .pink: return NSLocalizedString("pink", comment: "")
+        case .blue: return NSLocalizedString("blue", comment: "")
+        case .purple: return NSLocalizedString("purple", comment: "")
+        case .green: return NSLocalizedString("green", comment: "")
+        }
+    }
+    
+    func getIndex() -> Int {
+        return Theme.allCases.firstIndex(of: self)!
+    }
+    
+    static func getDisplayNamesArray() -> [String] {
+        return Theme.allCases.map{theme in theme.getDisplayName()}
     }
 }

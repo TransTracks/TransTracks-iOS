@@ -24,10 +24,16 @@ class BackgroundGradientViewController: UIViewController {
         setBackgroundGradient()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        setBackgroundGradient()
+    }
+    
     //MARK: UI helpers
     
-    func setBackgroundGradient(){
-        let newGradient = ThemeManager.getBackgroundGradient()
+    func setBackgroundGradient(_ theme: Theme = UserDefaultsUtil.getTheme()){
+        let newGradient = ThemeManager.getBackgroundGradient(theme)
         newGradient.frame = view.frame
         
         if let oldGradient = view.layer.sublayers?[0], oldGradient is CAGradientLayer {
