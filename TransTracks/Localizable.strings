@@ -18,6 +18,11 @@
 "enterPassword" = "Enter your password";
 "ok" = "OK";
 
+//Home
+"startDay" = "Start Day";
+"startDate" = "Start: %@";
+"currentDate" = "Current: %@";
+
 //Settings
 "startDateLabel" = "Start Date:";
 "themeLabel" = "Theme:";

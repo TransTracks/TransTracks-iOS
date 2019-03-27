@@ -18,6 +18,49 @@ extension Date {
     
     //MARK: Instance helpers
     
+    func isBefore(_ other: Date) -> Bool {
+        return self < other
+    }
+    
+    func isAfter(_ other: Date) -> Bool {
+        return self > other
+    }
+    
+    func isLeapYear() -> Bool {
+        return (( year % 100 != 0) && (year % 4 == 0)) || year % 400 == 0
+    }
+    
+    func startOfDay() -> Date {
+        return Calendar.current.startOfDay(for: self)
+    }
+    
+    func toEpochDay() -> Int {
+        let y = year
+        let m = month
+        
+        var total = 0
+        
+        total += 365 * y
+        
+        if(y >= 0){
+            total += (y + 3) / 4 - (y + 99) / 100 + (y + 399) / 400
+        } else{
+            total -= y / -4 - y / -100 + y / -400
+        }
+        
+        total += (367 * m - 362) / 12
+    
+        total += day - 1
+        if (m > 2) {
+            total -= 1
+            if (!isLeapYear()) {
+                total -= 1
+            }
+        }
+        
+        return total - 719528;
+    }
+    
     func toFullDateString() -> String {
         let formatter = DateFormatter()
         formatter.setLocalizedDateFormatFromTemplate("dd/MM/yyyy")
@@ -27,9 +70,56 @@ extension Date {
     
     //MARK: Static helpers
     
+    static func stringForPeriodBetween(start: Date, end: Date) -> String {
+        var returnString = ""
+        
+        let calendar = Calendar.current
+        
+        // Replace the hour (time) of both dates with 00:00
+        let date1 = calendar.startOfDay(for: start)
+        let date2 = calendar.startOfDay(for: end)
+        
+        let components = calendar.dateComponents([.year,.month,.day], from: date1, to: date2)
+        
+        if components.year != 0 {
+            let format = NSLocalizedString("years", comment: "")
+            returnString += String.localizedStringWithFormat(format, components.year!)
+        }
+        if components.month != 0 {
+            if returnString.isNotEmpty {
+                returnString += ", "
+            }
+            
+            let format = NSLocalizedString("months", comment: "")
+            returnString += String.localizedStringWithFormat(format, components.month!)
+        }
+        if components.day != 0 {
+            if returnString.isNotEmpty {
+                returnString += ", "
+            }
+            
+            let format = NSLocalizedString("days", comment: "")
+            returnString += String.localizedStringWithFormat(format, components.day!)
+        }
+        
+        if returnString.isNotEmpty {
+            return returnString
+        } else {
+            return NSLocalizedString("startDay", comment: "")
+        }
+    }
+    
+    static func today() -> Date {
+        return Date().startOfDay()
+    }
+    
     static func getCurrentYear() -> String {
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy"
         return formatter.string(from: Date())
+    }
+    
+    static func ofEpochDay(_ epochDay: Int) -> Date {
+        return Date(timeIntervalSince1970: TimeInterval(epochDay * 24 * 60 * 60))
     }
 }

@@ -84,6 +84,12 @@
 		F93CF19D221BF19B0008CC44 /* GradientSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = F93CF168221BF19B0008CC44 /* GradientSlider.swift */; };
 		F93CF19E221BF19B0008CC44 /* TextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = F93CF169221BF19B0008CC44 /* TextField.swift */; };
 		F93CF19F221BF19B0008CC44 /* Button.swift in Sources */ = {isa = PBXBuildFile; fileRef = F93CF16A221BF19B0008CC44 /* Button.swift */; };
+		F97CAA8E223A20CB00D6A549 /* DataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F97CAA8D223A20CB00D6A549 /* DataController.swift */; };
+		F97CAA90223A262300D6A549 /* Rx.swift in Sources */ = {isa = PBXBuildFile; fileRef = F97CAA8F223A262300D6A549 /* Rx.swift */; };
+		F97CAA92223A31AC00D6A549 /* Photo.swift in Sources */ = {isa = PBXBuildFile; fileRef = F97CAA91223A31AC00D6A549 /* Photo.swift */; };
+		F97CAA94223A3A9D00D6A549 /* Milestone.swift in Sources */ = {isa = PBXBuildFile; fileRef = F97CAA93223A3A9D00D6A549 /* Milestone.swift */; };
+		F97CAA96223A421700D6A549 /* Localizable.stringsdict in Resources */ = {isa = PBXBuildFile; fileRef = F97CAA95223A421700D6A549 /* Localizable.stringsdict */; };
+		F97CAA98223A4F4700D6A549 /* DomainManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F97CAA97223A4F4700D6A549 /* DomainManager.swift */; };
 		F97FF0D622268B0B00DE7FA9 /* EncryptionUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = F97FF0D522268B0B00DE7FA9 /* EncryptionUtil.swift */; };
 		F9868C862207B94B00237C14 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F9868C852207B94B00237C14 /* Assets.xcassets */; };
 		F9DAC09E222129FB0051B8E6 /* OnePasswordTextFieldController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9DAC09D222129FB0051B8E6 /* OnePasswordTextFieldController.swift */; };
@@ -91,6 +97,8 @@
 		F9DAC0A22221369C0051B8E6 /* TwoPasswordTextFieldController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9DAC0A12221369C0051B8E6 /* TwoPasswordTextFieldController.swift */; };
 		F9DAC0A4222144B10051B8E6 /* TextFieldReturnAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9DAC0A3222144B10051B8E6 /* TextFieldReturnAction.swift */; };
 		F9EBDAA2222A1C5600268392 /* HMAC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9EBDAA1222A1C5600268392 /* HMAC.swift */; };
+		F9EBDAA7222B998700268392 /* TransTracks.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = F9EBDAA5222B998700268392 /* TransTracks.xcdatamodeld */; };
+		F9EBDAAA222BA3D800268392 /* HomeDomain.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9EBDAA9222BA3D800268392 /* HomeDomain.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -200,6 +208,12 @@
 		F93CF168221BF19B0008CC44 /* GradientSlider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GradientSlider.swift; sourceTree = "<group>"; };
 		F93CF169221BF19B0008CC44 /* TextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextField.swift; sourceTree = "<group>"; };
 		F93CF16A221BF19B0008CC44 /* Button.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Button.swift; sourceTree = "<group>"; };
+		F97CAA8D223A20CB00D6A549 /* DataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataController.swift; sourceTree = "<group>"; };
+		F97CAA8F223A262300D6A549 /* Rx.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Rx.swift; sourceTree = "<group>"; };
+		F97CAA91223A31AC00D6A549 /* Photo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Photo.swift; sourceTree = "<group>"; };
+		F97CAA93223A3A9D00D6A549 /* Milestone.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Milestone.swift; sourceTree = "<group>"; };
+		F97CAA95223A421700D6A549 /* Localizable.stringsdict */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; path = Localizable.stringsdict; sourceTree = "<group>"; };
+		F97CAA97223A4F4700D6A549 /* DomainManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DomainManager.swift; sourceTree = "<group>"; };
 		F97FF0D522268B0B00DE7FA9 /* EncryptionUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EncryptionUtil.swift; sourceTree = "<group>"; };
 		F9868C852207B94B00237C14 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		F9DAC09D222129FB0051B8E6 /* OnePasswordTextFieldController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnePasswordTextFieldController.swift; sourceTree = "<group>"; };
@@ -207,6 +221,8 @@
 		F9DAC0A12221369C0051B8E6 /* TwoPasswordTextFieldController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TwoPasswordTextFieldController.swift; sourceTree = "<group>"; };
 		F9DAC0A3222144B10051B8E6 /* TextFieldReturnAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldReturnAction.swift; sourceTree = "<group>"; };
 		F9EBDAA1222A1C5600268392 /* HMAC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HMAC.swift; sourceTree = "<group>"; };
+		F9EBDAA6222B998700268392 /* TransTracks.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = TransTracks.xcdatamodel; sourceTree = "<group>"; };
+		F9EBDAA9222BA3D800268392 /* HomeDomain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeDomain.swift; sourceTree = "<group>"; };
 		FE297B424E2A06ADA14BF95D /* Pods-TransTracksTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TransTracksTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-TransTracksTests/Pods-TransTracksTests.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -265,12 +281,13 @@
 		F919D770219186DD0069F42B = {
 			isa = PBXGroup;
 			children = (
+				F93CF11A221BF19B0008CC44 /* Alerts and Pickers Library */,
+				08E661EAAB70FAC54179A444 /* Frameworks */,
+				D066CAFFF62315E1A7750243 /* Pods */,
+				F919D77A219186DD0069F42B /* Products */,
 				F919D77B219186DD0069F42B /* TransTracks */,
 				F919D790219186DF0069F42B /* TransTracksTests */,
 				F919D79B219186DF0069F42B /* TransTracksUITests */,
-				F919D77A219186DD0069F42B /* Products */,
-				D066CAFFF62315E1A7750243 /* Pods */,
-				08E661EAAB70FAC54179A444 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -287,13 +304,15 @@
 		F919D77B219186DD0069F42B /* TransTracks */ = {
 			isa = PBXGroup;
 			children = (
-				F93CF11A221BF19B0008CC44 /* Alerts and Pickers Library */,
 				F919D77C219186DD0069F42B /* AppDelegate.swift */,
 				F9868C852207B94B00237C14 /* Assets.xcassets */,
+				F9EBDAA4222B996300268392 /* Data */,
+				F9EBDAA8222BA2E700268392 /* Domain */,
 				F93CF072221A44420008CC44 /* GoogleService-Info.plist */,
 				F919D788219186DF0069F42B /* Info.plist */,
 				F97AA2F225E900E90015C3CC /* config.plist */,
 				F919D785219186DF0069F42B /* LaunchScreen.storyboard */,
+				F97CAA95223A421700D6A549 /* Localizable.stringsdict */,
 				F93CF077221A54EF0008CC44 /* Localizable.strings */,
 				F93CF06B221957AC0008CC44 /* UI */,
 				F93CF0622217FD2E0008CC44 /* Util */,
@@ -330,6 +349,7 @@
 				F9DAC0A3222144B10051B8E6 /* TextFieldReturnAction.swift */,
 				F97FF0D522268B0B00DE7FA9 /* EncryptionUtil.swift */,
 				F9EBDAA1222A1C5600268392 /* HMAC.swift */,
+				F97CAA8F223A262300D6A549 /* Rx.swift */,
 			);
 			path = Util;
 			sourceTree = "<group>";
@@ -341,7 +361,7 @@
 				F93CF06C221957FD0008CC44 /* BackgroundGradientViewController.swift */,
 				F9DAC09C222129A70051B8E6 /* Custom */,
 				F93CF082221A66B70008CC44 /* DividerView.swift */,
-				F919D77E219186DD0069F42B /* HomeViewController.swift */,
+				F9FF433B22435A6100B911C6 /* Home */,
 				F919D780219186DD0069F42B /* Main.storyboard */,
 				F93CF0602217F2580008CC44 /* NavigationController.swift */,
 				F93CF07B221A59400008CC44 /* Settings */,
@@ -645,6 +665,34 @@
 			path = Custom;
 			sourceTree = "<group>";
 		};
+		F9EBDAA4222B996300268392 /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				F9EBDAA5222B998700268392 /* TransTracks.xcdatamodeld */,
+				F97CAA8D223A20CB00D6A549 /* DataController.swift */,
+				F97CAA91223A31AC00D6A549 /* Photo.swift */,
+				F97CAA93223A3A9D00D6A549 /* Milestone.swift */,
+			);
+			path = Data;
+			sourceTree = "<group>";
+		};
+		F9EBDAA8222BA2E700268392 /* Domain */ = {
+			isa = PBXGroup;
+			children = (
+				F9EBDAA9222BA3D800268392 /* HomeDomain.swift */,
+				F97CAA97223A4F4700D6A549 /* DomainManager.swift */,
+			);
+			path = Domain;
+			sourceTree = "<group>";
+		};
+		F9FF433B22435A6100B911C6 /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				F919D77E219186DD0069F42B /* HomeViewController.swift */,
+			);
+			path = Home;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -676,6 +724,7 @@
 				F919D789219186DF0069F42B /* Sources */,
 				F919D78A219186DF0069F42B /* Frameworks */,
 				F919D78B219186DF0069F42B /* Resources */,
+				BE42171275E341442354083F /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -761,6 +810,7 @@
 				F93CF17E221BF19B0008CC44 /* Countries.bundle in Resources */,
 				F919D782219186DD0069F42B /* Main.storyboard in Resources */,
 				F97AA2F325E900E90015C3CC /* config.plist in Resources */,
+				F97CAA96223A421700D6A549 /* Localizable.stringsdict in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -826,12 +876,20 @@
 				"${PODS_ROOT}/Target Support Files/Pods-TransTracks/Pods-TransTracks-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
 				"${BUILT_PRODUCTS_DIR}/PasswordTextField/PasswordTextField.framework",
+				"${BUILT_PRODUCTS_DIR}/RxAtomic/RxAtomic.framework",
+				"${BUILT_PRODUCTS_DIR}/RxCocoa/RxCocoa.framework",
+				"${BUILT_PRODUCTS_DIR}/RxSwift/RxSwift.framework",
+				"${BUILT_PRODUCTS_DIR}/RxSwiftExt/RxSwiftExt.framework",
 				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PasswordTextField.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxAtomic.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxCocoa.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxSwift.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxSwiftExt.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -855,6 +913,34 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		BE42171275E341442354083F /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-TransTracksTests/Pods-TransTracksTests-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/RxAtomic/RxAtomic.framework",
+				"${BUILT_PRODUCTS_DIR}/RxSwift/RxSwift.framework",
+				"${BUILT_PRODUCTS_DIR}/RxBlocking/RxBlocking.framework",
+				"${BUILT_PRODUCTS_DIR}/RxTest/RxTest.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxAtomic.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxSwift.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxBlocking.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxTest.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-TransTracksTests/Pods-TransTracksTests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		F93CF05D2217D8810008CC44 /* ShellScript */ = {
@@ -889,14 +975,18 @@
 				F93CF171221BF19B0008CC44 /* String+Extensions.swift in Sources */,
 				F93CF16B221BF19B0008CC44 /* Array+Extensions.swift in Sources */,
 				F919D77D219186DD0069F42B /* AppDelegate.swift in Sources */,
+				F97CAA92223A31AC00D6A549 /* Photo.swift in Sources */,
 				F93CF192221BF19B0008CC44 /* ContactCell.swift in Sources */,
 				F93CF176221BF19B0008CC44 /* UIApplication+Extensions.swift in Sources */,
 				F93CF18F221BF19B0008CC44 /* ContactsPickerViewController.swift in Sources */,
+				F97CAA8E223A20CB00D6A549 /* DataController.swift in Sources */,
 				F93CF07D221A59A00008CC44 /* SettingCell.swift in Sources */,
 				F93CF16E221BF19B0008CC44 /* UIViewController+Extensions.swift in Sources */,
+				F9EBDAA7222B998700268392 /* TransTracks.xcdatamodeld in Sources */,
 				F93CF17F221BF19B0008CC44 /* LocaleStore.swift in Sources */,
 				F93CF187221BF19B0008CC44 /* Assets.swift in Sources */,
 				F93CF18C221BF19B0008CC44 /* Location.swift in Sources */,
+				F97CAA90223A262300D6A549 /* Rx.swift in Sources */,
 				F93CF181221BF19B0008CC44 /* LocalePickerViewController.swift in Sources */,
 				F93CF186221BF19B0008CC44 /* OneTextFieldViewController.swift in Sources */,
 				F93CF17B221BF19B0008CC44 /* UITextField+Extensions.swift in Sources */,
@@ -905,8 +995,10 @@
 				F93CF184221BF19B0008CC44 /* CountryCell.swift in Sources */,
 				F93CF16D221BF19B0008CC44 /* UIImageView+Extensions.swift in Sources */,
 				F93CF178221BF19B0008CC44 /* Optional+Extensions.swift in Sources */,
+				F9EBDAAA222BA3D800268392 /* HomeDomain.swift in Sources */,
 				F9DAC0A022212BA20051B8E6 /* AlertPasswordTextField.swift in Sources */,
 				F93CF17D221BF19B0008CC44 /* TextViewController.swift in Sources */,
+				F97CAA94223A3A9D00D6A549 /* Milestone.swift in Sources */,
 				F93CF16C221BF19B0008CC44 /* UISegmentedControl+Extensions.swift in Sources */,
 				F93CF07A221A55CC0008CC44 /* Dates.swift in Sources */,
 				F93CF196221BF19B0008CC44 /* ItemWithImage.swift in Sources */,
@@ -917,6 +1009,7 @@
 				F93CF182221BF19B0008CC44 /* PhoneCodeCell.swift in Sources */,
 				F93CF179221BF19B0008CC44 /* Common+Extensions.swift in Sources */,
 				F93CF066221801C20008CC44 /* UserDefaultsUtil.swift in Sources */,
+				F97CAA98223A4F4700D6A549 /* DomainManager.swift in Sources */,
 				F9DAC0A22221369C0051B8E6 /* TwoPasswordTextFieldController.swift in Sources */,
 				F93CF183221BF19B0008CC44 /* CurrencyCell.swift in Sources */,
 				F93CF197221BF19B0008CC44 /* PhotoLayout.swift in Sources */,
@@ -1288,6 +1381,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		F9EBDAA5222B998700268392 /* TransTracks.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				F9EBDAA6222B998700268392 /* TransTracks.xcdatamodel */,
+			);
+			currentVersion = F9EBDAA6222B998700268392 /* TransTracks.xcdatamodel */;
+			path = TransTracks.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = F919D771219186DD0069F42B /* Project object */;
 }

@@ -77,7 +77,7 @@ class UserDefaultsUtil {
         if let startDate = startDate {
             return startDate
         } else {
-            let newStartDate = Date()
+            let newStartDate = Date.today()
             setStartDate(newStartDate)
             
             return newStartDate

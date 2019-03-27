@@ -20,10 +20,16 @@ target 'TransTracks' do
   # Password Text Field
   pod 'PasswordTextField'
 
+  # RX
+  pod 'RxSwift', '~> 4.0'
+  pod 'RxCocoa', '~> 4.0'
+  pod 'RxSwiftExt'
 
   target 'TransTracksTests' do
     inherit! :search_paths
-    # Pods for testing
+    
+    pod 'RxBlocking', '~> 4.0'
+    pod 'RxTest', '~> 4.0'
   end
 
   target 'TransTracksUITests' do

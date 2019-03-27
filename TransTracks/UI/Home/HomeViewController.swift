@@ -14,9 +14,19 @@
 
 import GoogleMobileAds
 import UIKit
+import RxCocoa
+import RxSwift
+import RxSwiftExt
 
 class HomeViewController: BackgroundGradientViewController {
 
+    //MARK: Properties
+    
+    var domainManager: DomainManager!
+    
+    var resultsDisposable: Disposable?
+    let viewDisposables: CompositeDisposable = CompositeDisposable()
+    
     //MARK: Outlets
     
     @IBOutlet weak var day: UILabel!
@@ -38,12 +48,48 @@ class HomeViewController: BackgroundGradientViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-    
+        
+        resultsDisposable = domainManager.homeDomain.results.subscribe()
+        
         if let path = Bundle.main.path(forResource: "config", ofType: "plist"),
            let config = NSDictionary(contentsOfFile: path),
            let adUnitId = (config["ad_ids"] as? NSDictionary)?["home"] as? String {
             adViewHolder.setupAd(adUnitId, rootViewController: self)
         }
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        viewDisposables.insert(
+            domainManager.homeDomain.results.subscribe{result in
+                guard let result = result.element else { return }
+            
+                switch(result){
+                case HomeResult.Loading(_):
+                    break;
+                    
+                case HomeResult.Loaded(let dayString, let showPreviousRecord, let showNextRecord, let startDate, let currentDate, let hasMilestones, let showAds):
+                    self.day.text = dayString.uppercased()
+                    
+                    self.previousRecord.isHidden = !showPreviousRecord
+                    self.nextRecord.isHidden = !showNextRecord
+                    
+                    self.startDate.text = String(format: NSLocalizedString("startDate", comment: ""), startDate.toFullDateString())
+                    self.currentDate.text = String(format: NSLocalizedString("currentDate", comment: ""), currentDate.toFullDateString())
+                    
+                    self.milestones.imageView?.image = UIImage(named: hasMilestones ? "milestone_selected" : "milestone_unselected")
+                    
+                    self.adViewHolder.isHidden = !showAds
+                }
+        })
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        viewDisposables.dispose()
+    }
+    
+    deinit {
+        resultsDisposable?.dispose()
     }
 
     //MARK: Button handling
