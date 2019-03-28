@@ -98,9 +98,11 @@ class HomeViewController: BackgroundGradientViewController {
     }
     
     @IBAction func showPreviousRecord(_ sender: Any) {
+        domainManager.homeDomain.actions.accept(HomeAction.PreviousDay)
     }
     
     @IBAction func showNextRecord(_ sender: Any) {
+        domainManager.homeDomain.actions.accept(HomeAction.NextDay)
     }
     
     @IBAction func showFaceGallery(_ sender: Any) {

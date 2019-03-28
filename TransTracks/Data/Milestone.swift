@@ -28,13 +28,37 @@ extension Milestone {
         return count(predicate, context) > 0
     }
     
-    static func nextCount(_ currentEpochDay: Int,context: NSManagedObjectContext) -> Int {
-        let predicate = NSPredicate(format: "\(Milestone.FIELD_EPOCH_DAY) > %d", currentEpochDay)
-        return count(predicate, context)
+    static func next(_ currentEpochDay: Int, context: NSManagedObjectContext) -> Milestone? {
+        let request:NSFetchRequest<Milestone> = Milestone.fetchRequest()
+        request.predicate = nextPredicate(currentEpochDay)
+        request.sortDescriptors = [NSSortDescriptor(key: Milestone.FIELD_EPOCH_DAY, ascending: true)]
+        request.fetchLimit = 1
+        
+        return (try? context.fetch(request))?.first
     }
     
-    static func previousCount(_ currentEpochDay: Int,context: NSManagedObjectContext) -> Int {
-        let predicate = NSPredicate(format: "\(Milestone.FIELD_EPOCH_DAY) < %d", currentEpochDay)
-        return count(predicate, context)
+    static func nextCount(_ currentEpochDay: Int, context: NSManagedObjectContext) -> Int {
+        return count(nextPredicate(currentEpochDay), context)
+    }
+    
+    static func nextPredicate(_ currentEpochDay: Int) -> NSPredicate {
+        return NSPredicate(format: "\(Milestone.FIELD_EPOCH_DAY) > %d", currentEpochDay)
+    }
+    
+    static func previous(_ currentEpochDay: Int, context: NSManagedObjectContext) -> Milestone? {
+        let request:NSFetchRequest<Milestone> = Milestone.fetchRequest()
+        request.predicate = previousPredicate(currentEpochDay)
+        request.sortDescriptors = [NSSortDescriptor(key: Milestone.FIELD_EPOCH_DAY, ascending: false)]
+        request.fetchLimit = 1
+        
+        return (try? context.fetch(request))?.first
+    }
+    
+    static func previousCount(_ currentEpochDay: Int, context: NSManagedObjectContext) -> Int {
+        return count(previousPredicate(currentEpochDay), context)
+    }
+    
+    static func previousPredicate(_ currentEpochDay: Int) -> NSPredicate {
+        return NSPredicate(format: "\(Milestone.FIELD_EPOCH_DAY) < %d", currentEpochDay)
     }
 }

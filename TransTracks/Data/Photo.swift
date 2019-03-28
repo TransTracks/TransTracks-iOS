@@ -23,13 +23,37 @@ extension Photo {
         return (try? context.count(for: request)) ?? 0
     }
     
-    static func nextCount(_ currentEpochDay: Int,context: NSManagedObjectContext) -> Int {
-        let predicate = NSPredicate(format: "\(Photo.FIELD_EPOCH_DAY) > %d", currentEpochDay)
-        return count(predicate, context)
+    static func next(_ currentEpochDay: Int, context: NSManagedObjectContext) -> Photo? {
+        let request:NSFetchRequest<Photo> = Photo.fetchRequest()
+        request.predicate = nextPredicate(currentEpochDay)
+        request.sortDescriptors = [NSSortDescriptor(key: Photo.FIELD_EPOCH_DAY, ascending: true)]
+        request.fetchLimit = 1
+        
+        return (try? context.fetch(request))?.first
+    }
+    
+    static func nextCount(_ currentEpochDay: Int, context: NSManagedObjectContext) -> Int {
+        return count(nextPredicate(currentEpochDay), context)
+    }
+    
+    private static func nextPredicate(_ currentEpochDay: Int) -> NSPredicate {
+        return NSPredicate(format: "\(Photo.FIELD_EPOCH_DAY) > %d", currentEpochDay)
+    }
+    
+    static func previous(_ currentEpochDay: Int, context: NSManagedObjectContext) -> Photo? {
+        let request:NSFetchRequest<Photo> = Photo.fetchRequest()
+        request.predicate = previousPredicate(currentEpochDay)
+        request.sortDescriptors = [NSSortDescriptor(key: Photo.FIELD_EPOCH_DAY, ascending: false)]
+        request.fetchLimit = 1
+        
+        return (try? context.fetch(request))?.first
     }
     
     static func previousCount(_ currentEpochDay: Int,context: NSManagedObjectContext) -> Int {
-        let predicate = NSPredicate(format: "\(Photo.FIELD_EPOCH_DAY) < %d", currentEpochDay)
-        return count(predicate, context)
+        return count(previousPredicate(currentEpochDay), context)
+    }
+    
+    private static func previousPredicate(_ currentEpochDay: Int) -> NSPredicate {
+        return NSPredicate(format: "\(Photo.FIELD_EPOCH_DAY) < %d", currentEpochDay)
     }
 }

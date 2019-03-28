@@ -55,7 +55,7 @@ class HomeDomain {
 }
 
 func homeActionsToResults(_ dataController: DataController) -> ObservableTransformer<HomeAction, HomeResult>{
-    func getLoadedResult(_ currentDate: Date) -> HomeResult{
+    func getLoadedResult(_ currentDate: Date) -> HomeResult {
         let startDate = UserDefaultsUtil.getStartDate()
         
         let dayString = Date.stringForPeriodBetween(start: startDate, end: currentDate)
@@ -79,17 +79,77 @@ func homeActionsToResults(_ dataController: DataController) -> ObservableTransfo
         return HomeResult.Loaded(dayString: dayString, showPreviousRecord: showPreviousRecord, showNextRecord: showNextRecord, startDate: startDate, currentDate: currentDate, hasMilestones: hasMilestones, showAds: UserDefaultsUtil.showAds())
     }
     
+    func getNextDay(_ currentDate: Date) -> Date {
+        var possibleNextDays: [Int] = []
+        
+        let currentEpochDay = currentDate.toEpochDay()
+        
+        if let previousPhoto = Photo.next(currentEpochDay, context: dataController.viewContext) {
+            possibleNextDays.append(Int(previousPhoto.epochDay))
+        }
+        
+        if let previousMilestone = Milestone.next(currentEpochDay, context: dataController.viewContext) {
+            possibleNextDays.append(Int(previousMilestone.epochDay))
+        }
+        
+        let startDateEpochDay = UserDefaultsUtil.getStartDate().toEpochDay()
+        if startDateEpochDay > currentEpochDay {
+            possibleNextDays.append(startDateEpochDay)
+        }
+        
+        let todayEpochDay = Date.today().toEpochDay()
+        if todayEpochDay > currentEpochDay {
+            possibleNextDays.append(todayEpochDay)
+        }
+        
+        if let dayToUse = possibleNextDays.sorted().last {
+            return Date.ofEpochDay(dayToUse)
+        } else {
+            return currentDate
+        }
+    }
+    
+    func getPreviousDay(_ currentDate: Date) -> Date {
+        var possiblePreviousDays: [Int] = []
+        
+        let currentEpochDay = currentDate.toEpochDay()
+        
+        if let previousPhoto = Photo.previous(currentEpochDay, context: dataController.viewContext) {
+            possiblePreviousDays.append(Int(previousPhoto.epochDay))
+        }
+        
+        if let previousMilestone = Milestone.previous(currentEpochDay, context: dataController.viewContext) {
+            possiblePreviousDays.append(Int(previousMilestone.epochDay))
+        }
+        
+        let startDateEpochDay = UserDefaultsUtil.getStartDate().toEpochDay()
+        if startDateEpochDay < currentEpochDay {
+            possiblePreviousDays.append(startDateEpochDay)
+        }
+        
+        let todayEpochDay = Date.today().toEpochDay()
+        if todayEpochDay < currentEpochDay {
+            possiblePreviousDays.append(todayEpochDay)
+        }
+        
+        if let dayToUse = possiblePreviousDays.sorted().first {
+            return Date.ofEpochDay(dayToUse)
+        } else {
+            return currentDate
+        }
+    }
+    
     return { actions in
         actions.scan(HomeResult.Loading(day: Date.today())){ previousResult, action in
             switch(action){
             case .PreviousDay:
-                return HomeResult.Loading(day: Date.today())
+                return getLoadedResult(getPreviousDay(previousResult.getDay()))
             case .LoadDay(let day):
                 return getLoadedResult(day)
             case .NextDay:
-                return HomeResult.Loading(day: Date.today())
+                return getLoadedResult(getNextDay(previousResult.getDay()))
             case .ReloadDay:
-                return HomeResult.Loading(day: previousResult.getDay())
+                return getLoadedResult(previousResult.getDay())
             }
         }
     }
