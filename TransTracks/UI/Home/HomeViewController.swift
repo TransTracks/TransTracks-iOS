@@ -13,10 +13,11 @@
 //
 
 import GoogleMobileAds
-import UIKit
+import Photos
 import RxCocoa
 import RxSwift
 import RxSwiftExt
+import UIKit
 
 class HomeViewController: BackgroundGradientViewController {
 
@@ -59,6 +60,8 @@ class HomeViewController: BackgroundGradientViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
         viewDisposables.insert(
             domainManager.homeDomain.results.subscribe{result in
                 guard let result = result.element else { return }
@@ -83,6 +86,26 @@ class HomeViewController: BackgroundGradientViewController {
         })
     }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        super.prepare(for: segue, sender: sender)
+        
+        if let selectPhotoController = segue.destination as? SelectPhotoController, let args = sender as? [SegueKey: Any] {
+            args.forEach{ key, value in
+                switch key {
+                case .epochDay:
+                    if let epochDay = value as? Int {
+                        selectPhotoController.epochDay = epochDay
+                    }
+                    
+                case .type:
+                    if let type = value as? PhotoType {
+                        selectPhotoController.type = type
+                    }
+                }
+            }
+        }
+    }
+    
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         viewDisposables.dispose()
@@ -95,6 +118,34 @@ class HomeViewController: BackgroundGradientViewController {
     //MARK: Button handling
     
     @IBAction func addPhoto(_ sender: Any) {
+        switch PHPhotoLibrary.authorizationStatus(){
+        case .authorized:
+            performSegue(withIdentifier: "SelectPhoto", sender: nil)
+            
+        case .notDetermined:
+            //This case means the user is prompted for the first time for allowing acess to photos
+            Assets.requestAccess { [unowned self] status in
+                if status == .authorized {
+                    DispatchQueue.main.async {
+                        self.performSegue(withIdentifier: "SelectPhoto", sender: nil)
+                    }
+                }
+            }
+            
+        case .denied, .restricted:
+            /// User has denied the current app to access the photos
+            let alert = UIAlertController(style: .alert, title: NSLocalizedString("permissionDenied", comment: ""), message: NSLocalizedString("permissionDeniedPhotosMessage", comment: ""))
+            alert.addAction(title: NSLocalizedString("settings", comment: ""), style: .default) { action in
+                if let settingsURL = URL(string: UIApplication.openSettingsURLString) {
+                    UIApplication.shared.open(settingsURL)
+                }
+            }
+            alert.addAction(title: NSLocalizedString("cancel", comment: ""), style: .cancel) { [unowned self] action in
+                self.alertController?.dismiss(animated: true)
+            }
+            alert.show()
+            break;
+        }
     }
     
     @IBAction func showPreviousRecord(_ sender: Any) {
@@ -109,6 +160,10 @@ class HomeViewController: BackgroundGradientViewController {
     }
     
     @IBAction func showBodyGallery(_ sender: Any) {
+    }
+    
+    private enum SegueKey {
+        case epochDay, type
     }
 }
 

@@ -17,11 +17,16 @@
 "confirmPassword" = "Confirm password";
 "enterPassword" = "Enter your password";
 "ok" = "OK";
+"error" = "Error";
 
 //Home
 "startDay" = "Start Day";
 "startDate" = "Start: %@";
 "currentDate" = "Current: %@";
+
+"permissionDenied" = "Permission denied";
+"permissionDeniedPhotosMessage" = "TransTracks does not have access to your photos. Please allow access to you photo library.";
+"settings" = "Settings";
 
 //Settings
 "startDateLabel" = "Start Date:";

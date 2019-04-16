@@ -57,3 +57,10 @@ extension Photo {
         return NSPredicate(format: "\(Photo.FIELD_EPOCH_DAY) < %d", currentEpochDay)
     }
 }
+
+enum PhotoType: Int {
+    //These integers are IDs and shouldn't be reused or changed
+    
+    case face = 0
+    case body = 1
+}

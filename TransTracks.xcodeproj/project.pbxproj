@@ -84,6 +84,10 @@
 		F93CF19D221BF19B0008CC44 /* GradientSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = F93CF168221BF19B0008CC44 /* GradientSlider.swift */; };
 		F93CF19E221BF19B0008CC44 /* TextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = F93CF169221BF19B0008CC44 /* TextField.swift */; };
 		F93CF19F221BF19B0008CC44 /* Button.swift in Sources */ = {isa = PBXBuildFile; fileRef = F93CF16A221BF19B0008CC44 /* Button.swift */; };
+		F950478A22643BD0004E2304 /* PhotoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F950478922643BD0004E2304 /* PhotoCell.swift */; };
+		F950478D2265924E004E2304 /* AssignPhotoController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F950478C2265924E004E2304 /* AssignPhotoController.swift */; };
+		F95C51DB22546EC6002499F4 /* SelectPhotoController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F95C51DA22546EC6002499F4 /* SelectPhotoController.swift */; };
+		F95C51DD22546F54002499F4 /* BackgroundGradientCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F95C51DC22546F54002499F4 /* BackgroundGradientCollectionViewController.swift */; };
 		F97CAA8E223A20CB00D6A549 /* DataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F97CAA8D223A20CB00D6A549 /* DataController.swift */; };
 		F97CAA90223A262300D6A549 /* Rx.swift in Sources */ = {isa = PBXBuildFile; fileRef = F97CAA8F223A262300D6A549 /* Rx.swift */; };
 		F97CAA92223A31AC00D6A549 /* Photo.swift in Sources */ = {isa = PBXBuildFile; fileRef = F97CAA91223A31AC00D6A549 /* Photo.swift */; };
@@ -208,6 +212,10 @@
 		F93CF168221BF19B0008CC44 /* GradientSlider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GradientSlider.swift; sourceTree = "<group>"; };
 		F93CF169221BF19B0008CC44 /* TextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextField.swift; sourceTree = "<group>"; };
 		F93CF16A221BF19B0008CC44 /* Button.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Button.swift; sourceTree = "<group>"; };
+		F950478922643BD0004E2304 /* PhotoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoCell.swift; sourceTree = "<group>"; };
+		F950478C2265924E004E2304 /* AssignPhotoController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssignPhotoController.swift; sourceTree = "<group>"; };
+		F95C51DA22546EC6002499F4 /* SelectPhotoController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectPhotoController.swift; sourceTree = "<group>"; };
+		F95C51DC22546F54002499F4 /* BackgroundGradientCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundGradientCollectionViewController.swift; sourceTree = "<group>"; };
 		F97CAA8D223A20CB00D6A549 /* DataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataController.swift; sourceTree = "<group>"; };
 		F97CAA8F223A262300D6A549 /* Rx.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Rx.swift; sourceTree = "<group>"; };
 		F97CAA91223A31AC00D6A549 /* Photo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Photo.swift; sourceTree = "<group>"; };
@@ -338,6 +346,15 @@
 			path = TransTracksUITests;
 			sourceTree = "<group>";
 		};
+		F938E24322546E58000DC032 /* Select Photo */ = {
+			isa = PBXGroup;
+			children = (
+				F95C51DA22546EC6002499F4 /* SelectPhotoController.swift */,
+				F950478922643BD0004E2304 /* PhotoCell.swift */,
+			);
+			path = "Select Photo";
+			sourceTree = "<group>";
+		};
 		F93CF0622217FD2E0008CC44 /* Util */ = {
 			isa = PBXGroup;
 			children = (
@@ -357,13 +374,12 @@
 		F93CF06B221957AC0008CC44 /* UI */ = {
 			isa = PBXGroup;
 			children = (
-				F93CF070221A31EF0008CC44 /* AdContainerView.swift */,
-				F93CF06C221957FD0008CC44 /* BackgroundGradientViewController.swift */,
+				F950478B22659235004E2304 /* Assign Photo */,
 				F9DAC09C222129A70051B8E6 /* Custom */,
-				F93CF082221A66B70008CC44 /* DividerView.swift */,
 				F9FF433B22435A6100B911C6 /* Home */,
 				F919D780219186DD0069F42B /* Main.storyboard */,
 				F93CF0602217F2580008CC44 /* NavigationController.swift */,
+				F938E24322546E58000DC032 /* Select Photo */,
 				F93CF07B221A59400008CC44 /* Settings */,
 			);
 			path = UI;
@@ -655,12 +671,24 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
+		F950478B22659235004E2304 /* Assign Photo */ = {
+			isa = PBXGroup;
+			children = (
+				F950478C2265924E004E2304 /* AssignPhotoController.swift */,
+			);
+			path = "Assign Photo";
+			sourceTree = "<group>";
+		};
 		F9DAC09C222129A70051B8E6 /* Custom */ = {
 			isa = PBXGroup;
 			children = (
-				F9DAC09D222129FB0051B8E6 /* OnePasswordTextFieldController.swift */,
+				F93CF070221A31EF0008CC44 /* AdContainerView.swift */,
 				F9DAC09F22212BA20051B8E6 /* AlertPasswordTextField.swift */,
+				F93CF06C221957FD0008CC44 /* BackgroundGradientViewController.swift */,
+				F93CF082221A66B70008CC44 /* DividerView.swift */,
+				F9DAC09D222129FB0051B8E6 /* OnePasswordTextFieldController.swift */,
 				F9DAC0A12221369C0051B8E6 /* TwoPasswordTextFieldController.swift */,
+				F95C51DC22546F54002499F4 /* BackgroundGradientCollectionViewController.swift */,
 			);
 			path = Custom;
 			sourceTree = "<group>";
@@ -972,6 +1000,7 @@
 				F93CF191221BF19B0008CC44 /* Contact.swift in Sources */,
 				F93CF19A221BF19B0008CC44 /* LikeButtonCell.swift in Sources */,
 				F919D77F219186DD0069F42B /* HomeViewController.swift in Sources */,
+				F95C51DB22546EC6002499F4 /* SelectPhotoController.swift in Sources */,
 				F93CF171221BF19B0008CC44 /* String+Extensions.swift in Sources */,
 				F93CF16B221BF19B0008CC44 /* Array+Extensions.swift in Sources */,
 				F919D77D219186DD0069F42B /* AppDelegate.swift in Sources */,
@@ -991,6 +1020,7 @@
 				F93CF186221BF19B0008CC44 /* OneTextFieldViewController.swift in Sources */,
 				F93CF17B221BF19B0008CC44 /* UITextField+Extensions.swift in Sources */,
 				F93CF19E221BF19B0008CC44 /* TextField.swift in Sources */,
+				F950478A22643BD0004E2304 /* PhotoCell.swift in Sources */,
 				F93CF170221BF19B0008CC44 /* Date+Extension.swift in Sources */,
 				F93CF184221BF19B0008CC44 /* CountryCell.swift in Sources */,
 				F93CF16D221BF19B0008CC44 /* UIImageView+Extensions.swift in Sources */,
@@ -1002,11 +1032,13 @@
 				F93CF16C221BF19B0008CC44 /* UISegmentedControl+Extensions.swift in Sources */,
 				F93CF07A221A55CC0008CC44 /* Dates.swift in Sources */,
 				F93CF196221BF19B0008CC44 /* ItemWithImage.swift in Sources */,
+				F950478D2265924E004E2304 /* AssignPhotoController.swift in Sources */,
 				F93CF083221A66B70008CC44 /* DividerView.swift in Sources */,
 				F93CF180221BF19B0008CC44 /* LocaleInfo.swift in Sources */,
 				F93CF172221BF19B0008CC44 /* UITextView+Extensions.swift in Sources */,
 				F93CF194221BF19B0008CC44 /* DatePickerViewController.swift in Sources */,
 				F93CF182221BF19B0008CC44 /* PhoneCodeCell.swift in Sources */,
+				F95C51DD22546F54002499F4 /* BackgroundGradientCollectionViewController.swift in Sources */,
 				F93CF179221BF19B0008CC44 /* Common+Extensions.swift in Sources */,
 				F93CF066221801C20008CC44 /* UserDefaultsUtil.swift in Sources */,
 				F97CAA98223A4F4700D6A549 /* DomainManager.swift in Sources */,
