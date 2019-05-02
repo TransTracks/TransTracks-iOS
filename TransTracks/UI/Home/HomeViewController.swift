@@ -62,13 +62,13 @@ class HomeViewController: BackgroundGradientViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        viewDisposables.insert(
+        let _ = viewDisposables.insert(
             domainManager.homeDomain.results.subscribe{result in
                 guard let result = result.element else { return }
             
                 switch(result){
                 case HomeResult.Loading(_):
-                    break;
+                    break
                     
                 case HomeResult.Loaded(let dayString, let showPreviousRecord, let showNextRecord, let startDate, let currentDate, let hasMilestones, let showAds):
                     self.day.text = dayString.uppercased()
@@ -83,23 +83,28 @@ class HomeViewController: BackgroundGradientViewController {
                     
                     self.adViewHolder.isHidden = !showAds
                 }
-        })
+            }
+        )
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         super.prepare(for: segue, sender: sender)
         
-        if let selectPhotoController = segue.destination as? SelectPhotoController, let args = sender as? [SegueKey: Any] {
-            args.forEach{ key, value in
-                switch key {
-                case .epochDay:
-                    if let epochDay = value as? Int {
-                        selectPhotoController.epochDay = epochDay
-                    }
-                    
-                case .type:
-                    if let type = value as? PhotoType {
-                        selectPhotoController.type = type
+        if let selectPhotoController = segue.destination as? SelectPhotoController{
+            selectPhotoController.domainManager = domainManager
+            
+            if let args = sender as? [SegueKey: Any] {
+                args.forEach{ key, value in
+                    switch key {
+                    case .epochDay:
+                        if let epochDay = value as? Int {
+                            selectPhotoController.epochDay = epochDay
+                        }
+                        
+                    case .type:
+                        if let type = value as? PhotoType {
+                            selectPhotoController.type = type
+                        }
                     }
                 }
             }

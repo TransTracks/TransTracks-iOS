@@ -54,7 +54,7 @@ public struct Assets {
         case error(error: Error)
     }
     
-    public static func resolve(asset: PHAsset, size: CGSize = PHImageManagerMaximumSize, completion: @escaping (_ image: UIImage?) -> Void) {
+    public static func resolve(asset: PHAsset, size: CGSize = PHImageManagerMaximumSize, contentMode: PHImageContentMode = .aspectFill, completion: @escaping (_ image: UIImage?) -> Void) {
         let imageManager = PHImageManager.default()
         
         let requestOptions = PHImageRequestOptions()
@@ -62,8 +62,12 @@ public struct Assets {
         requestOptions.resizeMode = .exact
         requestOptions.isNetworkAccessAllowed = true
         
-        imageManager.requestImage(for: asset, targetSize: size, contentMode: .aspectFill, options: requestOptions) { image, info in
+        imageManager.requestImage(for: asset, targetSize: size, contentMode: contentMode, options: requestOptions) { image, info in
             if let info = info, info["PHImageFileUTIKey"] == nil {
+                DispatchQueue.main.async {
+                    completion(image)
+                }
+            } else if let image = image {
                 DispatchQueue.main.async {
                     completion(image)
                 }

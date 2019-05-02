@@ -102,7 +102,7 @@ func homeActionsToResults(_ dataController: DataController) -> ObservableTransfo
             possibleNextDays.append(todayEpochDay)
         }
         
-        if let dayToUse = possibleNextDays.sorted().last {
+        if let dayToUse = possibleNextDays.sorted().first {
             return Date.ofEpochDay(dayToUse)
         } else {
             return currentDate
@@ -132,7 +132,7 @@ func homeActionsToResults(_ dataController: DataController) -> ObservableTransfo
             possiblePreviousDays.append(todayEpochDay)
         }
         
-        if let dayToUse = possiblePreviousDays.sorted().first {
+        if let dayToUse = possiblePreviousDays.sorted().last {
             return Date.ofEpochDay(dayToUse)
         } else {
             return currentDate

@@ -24,6 +24,9 @@ target 'TransTracks' do
   pod 'RxSwift', '~> 4.0'
   pod 'RxCocoa', '~> 4.0'
   pod 'RxSwiftExt'
+  
+  # Toast
+  pod 'Toast-Swift', '~> 5.0.0'
 
   target 'TransTracksTests' do
     inherit! :search_paths

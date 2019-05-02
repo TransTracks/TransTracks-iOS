@@ -72,6 +72,7 @@ PODS:
   - RxTest (4.4.1):
     - RxAtomic (~> 4.4)
     - RxSwift (~> 4.0)
+  - Toast-Swift (5.0.0)
 
 DEPENDENCIES:
   - Crashlytics (~> 3.12.0)
@@ -84,6 +85,7 @@ DEPENDENCIES:
   - RxSwift (~> 4.0)
   - RxSwiftExt
   - RxTest (~> 4.0)
+  - Toast-Swift (~> 5.0.0)
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
@@ -104,6 +106,7 @@ SPEC REPOS:
     - RxSwift
     - RxSwiftExt
     - RxTest
+    - Toast-Swift
 
 SPEC CHECKSUMS:
   Crashlytics: 07fb167b1694128c1c9a5a5cc319b0e9c3ca0933
@@ -123,7 +126,8 @@ SPEC CHECKSUMS:
   RxSwift: 92fcf68dfef21f3e2ab1965363d9e7b3d787597e
   RxSwiftExt: 01f8ecbeeb355698e9c75365ebe908b00dacf45d
   RxTest: f8e548755ca3c7502dc41c7d3b28802c90115a38
+  Toast-Swift: 36f4720243c8582c2be243a60a51e193c761f541
 
-PODFILE CHECKSUM: cbd3b95ea50d25f27c63868f6f08f74f0a67027f
+PODFILE CHECKSUM: a1dbba0a795db5aeeaa45049aa4cf97109ea1ce3
 
 COCOAPODS: 1.6.0

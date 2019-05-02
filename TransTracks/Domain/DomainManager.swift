@@ -21,5 +21,7 @@ class DomainManager {
         self.dataController = dataController
     }
     
-    lazy var homeDomain:HomeDomain = HomeDomain(dataController: dataController)
+    lazy var assignPhotoDomain: AssignPhotoDomain = AssignPhotoDomain(dataController: dataController)
+    
+    lazy var homeDomain: HomeDomain = HomeDomain(dataController: dataController)
 }

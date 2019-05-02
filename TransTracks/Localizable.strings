@@ -13,11 +13,20 @@
 */
 
 //Shared
+"body" = "Body";
 "cancel" = "Cancel";
 "confirmPassword" = "Confirm password";
 "enterPassword" = "Enter your password";
+"face" = "Face";
 "ok" = "OK";
 "error" = "Error";
+
+//Assign photo
+"errorSavingPhoto" = "An error occurred saving this photo";
+"savedPhoto" = "Successfully saved photo";
+"savingPhoto" = "Saving Photo";
+"selectType" = "Select Type";
+"skippedPhoto" = "Skipped photo";
 
 //Home
 "startDay" = "Start Day";

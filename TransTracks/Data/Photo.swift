@@ -58,9 +58,24 @@ extension Photo {
     }
 }
 
-enum PhotoType: Int {
+enum PhotoType: Int, CaseIterable {
     //These integers are IDs and shouldn't be reused or changed
     
     case face = 0
     case body = 1
+    
+    func getDisplayName() -> String {
+        switch self {
+        case .face: return NSLocalizedString("face", comment: "")
+        case .body:return NSLocalizedString("body", comment: "")
+        }
+    }
+    
+    static func getDisplayNamesArray() -> [String] {
+        return PhotoType.allCases.map{type in type.getDisplayName()}
+    }
+    
+    func getIndex() -> Int {
+        return PhotoType.allCases.firstIndex(of: self)!
+    }
 }

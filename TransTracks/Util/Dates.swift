@@ -68,6 +68,10 @@ extension Date {
         return formatter.string(from: self)
     }
     
+    func toISODateString() -> String {
+        return ISO8601DateFormatter().string(from: self)
+    }
+    
     //MARK: Static helpers
     
     static func stringForPeriodBetween(start: Date, end: Date) -> String {

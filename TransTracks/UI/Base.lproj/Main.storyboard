@@ -545,9 +545,11 @@
                     <connections>
                         <outlet property="dateLabel" destination="9M6-GP-uYR" id="8Cy-FG-3f7"/>
                         <outlet property="imageView" destination="lMf-ax-dJy" id="5oV-d2-dBW"/>
+                        <outlet property="saveButton" destination="vq5-8e-zaE" id="jqg-ww-Xa2"/>
                         <outlet property="skipButton" destination="kcX-1C-5kt" id="g6v-7L-7Qf"/>
                         <outlet property="typeLabel" destination="O0Q-DJ-zFf" id="UTg-DD-cqf"/>
                         <outlet property="usePhotoDate" destination="q2r-jJ-Jc6" id="iwC-We-MIE"/>
+                        <outlet property="usePhotoDateWidthConstraint" destination="jza-q8-BW0" id="Uy3-aA-uyv"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="CWZ-us-va4" userLabel="First Responder" sceneMemberID="firstResponder"/>

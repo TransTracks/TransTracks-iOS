@@ -95,6 +95,8 @@
 		F97CAA96223A421700D6A549 /* Localizable.stringsdict in Resources */ = {isa = PBXBuildFile; fileRef = F97CAA95223A421700D6A549 /* Localizable.stringsdict */; };
 		F97CAA98223A4F4700D6A549 /* DomainManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F97CAA97223A4F4700D6A549 /* DomainManager.swift */; };
 		F97FF0D622268B0B00DE7FA9 /* EncryptionUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = F97FF0D522268B0B00DE7FA9 /* EncryptionUtil.swift */; };
+		F97FFBEB22781489009503A4 /* AssignPhotoDomain.swift in Sources */ = {isa = PBXBuildFile; fileRef = F97FFBEA22781489009503A4 /* AssignPhotoDomain.swift */; };
+		F97FFBED2279687D009503A4 /* FileUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = F97FFBEC2279687D009503A4 /* FileUtil.swift */; };
 		F9868C862207B94B00237C14 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F9868C852207B94B00237C14 /* Assets.xcassets */; };
 		F9DAC09E222129FB0051B8E6 /* OnePasswordTextFieldController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9DAC09D222129FB0051B8E6 /* OnePasswordTextFieldController.swift */; };
 		F9DAC0A022212BA20051B8E6 /* AlertPasswordTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9DAC09F22212BA20051B8E6 /* AlertPasswordTextField.swift */; };
@@ -223,6 +225,8 @@
 		F97CAA95223A421700D6A549 /* Localizable.stringsdict */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; path = Localizable.stringsdict; sourceTree = "<group>"; };
 		F97CAA97223A4F4700D6A549 /* DomainManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DomainManager.swift; sourceTree = "<group>"; };
 		F97FF0D522268B0B00DE7FA9 /* EncryptionUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EncryptionUtil.swift; sourceTree = "<group>"; };
+		F97FFBEA22781489009503A4 /* AssignPhotoDomain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssignPhotoDomain.swift; sourceTree = "<group>"; };
+		F97FFBEC2279687D009503A4 /* FileUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileUtil.swift; sourceTree = "<group>"; };
 		F9868C852207B94B00237C14 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		F9DAC09D222129FB0051B8E6 /* OnePasswordTextFieldController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnePasswordTextFieldController.swift; sourceTree = "<group>"; };
 		F9DAC09F22212BA20051B8E6 /* AlertPasswordTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertPasswordTextField.swift; sourceTree = "<group>"; };
@@ -367,6 +371,7 @@
 				F97FF0D522268B0B00DE7FA9 /* EncryptionUtil.swift */,
 				F9EBDAA1222A1C5600268392 /* HMAC.swift */,
 				F97CAA8F223A262300D6A549 /* Rx.swift */,
+				F97FFBEC2279687D009503A4 /* FileUtil.swift */,
 			);
 			path = Util;
 			sourceTree = "<group>";
@@ -709,6 +714,7 @@
 			children = (
 				F9EBDAA9222BA3D800268392 /* HomeDomain.swift */,
 				F97CAA97223A4F4700D6A549 /* DomainManager.swift */,
+				F97FFBEA22781489009503A4 /* AssignPhotoDomain.swift */,
 			);
 			path = Domain;
 			sourceTree = "<group>";
@@ -908,6 +914,7 @@
 				"${BUILT_PRODUCTS_DIR}/RxCocoa/RxCocoa.framework",
 				"${BUILT_PRODUCTS_DIR}/RxSwift/RxSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/RxSwiftExt/RxSwiftExt.framework",
+				"${BUILT_PRODUCTS_DIR}/Toast-Swift/Toast_Swift.framework",
 				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
@@ -918,6 +925,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxCocoa.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxSwiftExt.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Toast_Swift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1009,6 +1017,7 @@
 				F93CF176221BF19B0008CC44 /* UIApplication+Extensions.swift in Sources */,
 				F93CF18F221BF19B0008CC44 /* ContactsPickerViewController.swift in Sources */,
 				F97CAA8E223A20CB00D6A549 /* DataController.swift in Sources */,
+				F97FFBEB22781489009503A4 /* AssignPhotoDomain.swift in Sources */,
 				F93CF07D221A59A00008CC44 /* SettingCell.swift in Sources */,
 				F93CF16E221BF19B0008CC44 /* UIViewController+Extensions.swift in Sources */,
 				F9EBDAA7222B998700268392 /* TransTracks.xcdatamodeld in Sources */,
@@ -1029,6 +1038,7 @@
 				F9DAC0A022212BA20051B8E6 /* AlertPasswordTextField.swift in Sources */,
 				F93CF17D221BF19B0008CC44 /* TextViewController.swift in Sources */,
 				F97CAA94223A3A9D00D6A549 /* Milestone.swift in Sources */,
+				F97FFBED2279687D009503A4 /* FileUtil.swift in Sources */,
 				F93CF16C221BF19B0008CC44 /* UISegmentedControl+Extensions.swift in Sources */,
 				F93CF07A221A55CC0008CC44 /* Dates.swift in Sources */,
 				F93CF196221BF19B0008CC44 /* ItemWithImage.swift in Sources */,

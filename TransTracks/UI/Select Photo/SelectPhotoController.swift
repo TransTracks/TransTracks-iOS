@@ -18,6 +18,8 @@ import UIKit
 class SelectPhotoController: BackgroundGradientCollectionViewController {
     
     //MARK: Properties
+    var domainManager: DomainManager!
+    
     var epochDay: Int?
     var type: PhotoType = PhotoType.face
     
@@ -47,21 +49,25 @@ class SelectPhotoController: BackgroundGradientCollectionViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         super.prepare(for: segue, sender: sender)
         
-        if let assignPhotoController = segue.destination as? AssignPhotoController, let args = sender as? [SegueKey:Any] {
-            args.forEach{ key, value in
-                switch key {
-                case .photos:
-                    guard let photos = value as? [UIImage] else { fatalError("photos arg is required to segue to AssignPhotoController") }
-                    assignPhotoController.photos = photos
-                    
-                case .epochDay:
-                    if let epochDay = value as? Int {
-                        assignPhotoController.epochDay = epochDay
-                    }
-                    
-                case .type:
-                    if let type = value as? PhotoType {
-                        assignPhotoController.type = type
+        if let assignPhotoController = segue.destination as? AssignPhotoController {
+            assignPhotoController.domainManager = domainManager
+            
+            if let args = sender as? [SegueKey:Any] {
+                args.forEach{ key, value in
+                    switch key {
+                    case .photos:
+                        guard let photos = value as? [PHAsset] else { fatalError("photos arg is required to segue to AssignPhotoController") }
+                        assignPhotoController.photos = photos
+                        
+                    case .epochDay:
+                        if let epochDay = value as? Int {
+                            assignPhotoController.epochDay = epochDay
+                        }
+                        
+                    case .type:
+                        if let type = value as? PhotoType {
+                            assignPhotoController.type = type
+                        }
                     }
                 }
             }
@@ -131,11 +137,11 @@ class SelectPhotoController: BackgroundGradientCollectionViewController {
         }
     }
     
-    private func segueToAssignPhotos(_ images: [UIImage]){
-        guard !images.isEmpty else { return }
+    private func segueToAssignPhotos(_ assets: [PHAsset]){
+        guard !assets.isEmpty else { return }
         
         var args: [SegueKey:Any] = [:]
-        args[.photos] = images
+        args[.photos] = assets
         args[.type] = type
         
         if let epochDay = epochDay {
@@ -166,9 +172,7 @@ class SelectPhotoController: BackgroundGradientCollectionViewController {
     @IBAction func saveToAppClick(_ sender: Any) {
         guard !selection.isEmpty else { return }
         
-        let _ = Assets.resolve(assets: selection, size: PHImageManagerMaximumSize){ newPhotos in
-            self.segueToAssignPhotos(newPhotos)
-        }
+        self.segueToAssignPhotos(selection)
     }
     
     //MARK: UICollectionViewDelegate
@@ -204,9 +208,7 @@ class SelectPhotoController: BackgroundGradientCollectionViewController {
             addOrRemoveSelection(asset: asset, indexPath: indexPath)
         } else {
             let asset = getAsset(indexPath)
-            let _ = Assets.resolve(assets: [asset], size: PHImageManagerMaximumSize){ newPhotos in
-                self.segueToAssignPhotos(newPhotos)
-            }
+            self.segueToAssignPhotos([asset])
         }
     }
     
@@ -242,7 +244,7 @@ class SelectPhotoController: BackgroundGradientCollectionViewController {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "PhotoCell", for: indexPath) as! PhotoCell
         
         let asset = getAsset(indexPath)
-        Assets.resolve(asset: asset, size: cell.bounds.size) { newPhoto in
+        Assets.resolve(asset: asset, size: cell.imageView.bounds.size) { newPhoto in
             cell.imageView.image = newPhoto
         }
         
@@ -283,8 +285,9 @@ extension SelectPhotoController: UIImagePickerControllerDelegate, UINavigationCo
         imagePicker?.dismiss(animated: true, completion: nil)
         imagePicker = nil
         
-        if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
-             segueToAssignPhotos([image])
+        
+        if let asset = info[UIImagePickerController.InfoKey.phAsset] as? PHAsset {
+             segueToAssignPhotos([asset])
         }
     }
 }
