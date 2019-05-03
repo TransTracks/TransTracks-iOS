@@ -26,7 +26,7 @@ class AssignPhotoController : BackgroundGradientViewController {
     var domainManager: DomainManager!
     
     var resultsDisposable: Disposable?
-    let viewDisposables: CompositeDisposable = CompositeDisposable()
+    var viewDisposables: CompositeDisposable = CompositeDisposable()
     
     var photos: [PHAsset]!
     var epochDay: Int?
@@ -152,6 +152,7 @@ class AssignPhotoController : BackgroundGradientViewController {
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         viewDisposables.dispose()
+        viewDisposables = CompositeDisposable()
     }
     
     deinit {

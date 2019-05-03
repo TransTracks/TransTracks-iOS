@@ -26,7 +26,7 @@ class HomeViewController: BackgroundGradientViewController {
     var domainManager: DomainManager!
     
     var resultsDisposable: Disposable?
-    let viewDisposables: CompositeDisposable = CompositeDisposable()
+    var viewDisposables: CompositeDisposable = CompositeDisposable()
     
     private var eventRelay: PublishRelay<HomePhotoCollectionEvent> = PublishRelay()
     
@@ -125,6 +125,7 @@ class HomeViewController: BackgroundGradientViewController {
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         viewDisposables.dispose()
+        viewDisposables = CompositeDisposable()
     }
     
     deinit {
