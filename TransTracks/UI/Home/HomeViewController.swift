@@ -96,6 +96,25 @@ class HomeViewController: BackgroundGradientViewController {
                 }
             }
         )
+        
+        let _ = viewDisposables.insert(
+            eventRelay.subscribe { event in
+                guard let event = event.element else { return }
+                
+                switch event {
+                case .AddPhoto(let date, let type):
+                    var args: [SegueKey: Any] = [:]
+                    args[SegueKey.epochDay] = date.toEpochDay()
+                    args[SegueKey.type] = type
+                    
+                    self.addPhoto(args)
+                    
+                case .ImageClick(let photoId):
+                    //TODO add once we have the full screen view implemented
+                    break
+                }
+            }
+        )
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -144,14 +163,14 @@ class HomeViewController: BackgroundGradientViewController {
     @IBAction func addPhoto(_ sender: Any) {
         switch PHPhotoLibrary.authorizationStatus(){
         case .authorized:
-            performSegue(withIdentifier: "SelectPhoto", sender: nil)
+            performSegue(withIdentifier: "SelectPhoto", sender: sender)
             
         case .notDetermined:
             //This case means the user is prompted for the first time for allowing acess to photos
             Assets.requestAccess { [unowned self] status in
                 if status == .authorized {
                     DispatchQueue.main.async {
-                        self.performSegue(withIdentifier: "SelectPhoto", sender: nil)
+                        self.performSegue(withIdentifier: "SelectPhoto", sender: sender)
                     }
                 }
             }
