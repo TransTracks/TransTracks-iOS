@@ -15,11 +15,18 @@
 import Foundation
 
 class FileUtil {
+    
+    //MARK: Constants
+    
+    private static let PHOTOS = "photos"
+    
+    //MARK: Photos
+    
     static func getNewImageFileURL(photoDate: Date) -> URL? {
-        let photoDateString = photoDate.toISODateString()
-        
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyyMMdd_HHmmss"
+        
+        let photoDateString = formatter.string(from: photoDate)
         let timeStamp = formatter.string(from: Date())
         
         let filename = "photo_\(photoDateString)_imported_\(timeStamp).jpg"
@@ -28,12 +35,29 @@ class FileUtil {
         do {
             let documentDirectory = try fileManager.url(for: .libraryDirectory, in: .userDomainMask, appropriateFor:nil, create:true)
             
-            let photosDirectory = documentDirectory.appendingPathComponent("photos", isDirectory: true)
-            if !fileManager.fileExists(atPath: photosDirectory.absoluteString){
+            let photosDirectory = documentDirectory.appendingPathComponent(PHOTOS, isDirectory: true)
+            if !fileManager.fileExists(atPath: photosDirectory.path){
                 try fileManager.createDirectory(at: photosDirectory, withIntermediateDirectories: true, attributes: nil)
             }
             
            return photosDirectory.appendingPathComponent(filename)
+        } catch {
+            print(error)
+            return nil
+        }
+    }
+    
+    static func getFullImagePath(filename: String) -> URL? {
+        let fileManager = FileManager.default
+        do {
+            let documentDirectory = try fileManager.url(for: .libraryDirectory, in: .userDomainMask, appropriateFor:nil, create:false)
+            
+            let photoFile = documentDirectory.appendingPathComponent(PHOTOS, isDirectory: true).appendingPathComponent(filename)
+            if fileManager.fileExists(atPath: photoFile.path){
+                return photoFile
+            } else {
+                return nil
+            }
         } catch {
             print(error)
             return nil

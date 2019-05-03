@@ -15,7 +15,7 @@
 import Foundation
 
 class DomainManager {
-    private let dataController: DataController
+    let dataController: DataController
     
     init(dataController: DataController) {
         self.dataController = dataController

@@ -28,6 +28,11 @@ class HomeViewController: BackgroundGradientViewController {
     var resultsDisposable: Disposable?
     let viewDisposables: CompositeDisposable = CompositeDisposable()
     
+    private var eventRelay: PublishRelay<HomePhotoCollectionEvent> = PublishRelay()
+    
+    private var facePhotosController: HomePhotoCollectionController? = nil
+    private var bodyPhotosController: HomePhotoCollectionController? = nil
+    
     //MARK: Outlets
     
     @IBOutlet weak var day: UILabel!
@@ -81,6 +86,12 @@ class HomeViewController: BackgroundGradientViewController {
                     
                     self.milestones.imageView?.image = UIImage(named: hasMilestones ? "milestone_selected" : "milestone_unselected")
                     
+                    self.facePhotosController = HomePhotoCollectionController(date: currentDate, type: .face, eventRelay: self.eventRelay, dataController: self.domainManager.dataController)
+                    self.bind(collectionView: self.faceCollection, controller: self.facePhotosController!)
+                    
+                    self.bodyPhotosController = HomePhotoCollectionController(date: currentDate, type: .body, eventRelay: self.eventRelay, dataController: self.domainManager.dataController)
+                    self.bind(collectionView: self.bodyCollection, controller: self.bodyPhotosController!)
+                    
                     self.adViewHolder.isHidden = !showAds
                 }
             }
@@ -118,6 +129,13 @@ class HomeViewController: BackgroundGradientViewController {
     
     deinit {
         resultsDisposable?.dispose()
+    }
+    
+    //MARK: UI Helper
+    
+    private func bind(collectionView: UICollectionView, controller: HomePhotoCollectionController){
+        collectionView.dataSource = controller
+        collectionView.delegate = controller
     }
 
     //MARK: Button handling

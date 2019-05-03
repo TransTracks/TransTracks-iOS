@@ -115,7 +115,7 @@ class AssignPhotoDomain {
                         let photo = Photo(context: dataController.backgroundContext)
                         photo.id = UUID()
                         photo.epochDay = Int64(exactly: self.date.toEpochDay())!
-                        photo.filePath = imageURL.absoluteString
+                        photo.filePath = imageURL.lastPathComponent
                         photo.timestamp = Date()
                         photo.type = Int16(exactly: self.type.rawValue)!
                         

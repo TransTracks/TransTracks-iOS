@@ -16,6 +16,8 @@ import CoreData
 
 extension Photo {
     static let FIELD_EPOCH_DAY = "epochDay"
+    static let FIELD_TIMESTAMP = "timestamp"
+    static let FIELD_TYPE = "type"
     
     private static func count(_ predicate: NSPredicate, _ context: NSManagedObjectContext) -> Int{
         let request:NSFetchRequest<Photo> = Photo.fetchRequest()
