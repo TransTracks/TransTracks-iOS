@@ -16,6 +16,7 @@ import CoreData
 
 extension Photo {
     static let FIELD_EPOCH_DAY = "epochDay"
+    static let FIELD_ID = "id"
     static let FIELD_TIMESTAMP = "timestamp"
     static let FIELD_TYPE = "type"
     

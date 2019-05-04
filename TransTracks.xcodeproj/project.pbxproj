@@ -98,6 +98,7 @@
 		F97FFBEB22781489009503A4 /* AssignPhotoDomain.swift in Sources */ = {isa = PBXBuildFile; fileRef = F97FFBEA22781489009503A4 /* AssignPhotoDomain.swift */; };
 		F97FFBED2279687D009503A4 /* FileUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = F97FFBEC2279687D009503A4 /* FileUtil.swift */; };
 		F97FFBEF227AAFB9009503A4 /* HomePhotoCollectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F97FFBEE227AAFB9009503A4 /* HomePhotoCollectionController.swift */; };
+		F97FFBF2227C38B6009503A4 /* PhotoDetailsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F97FFBF1227C38B6009503A4 /* PhotoDetailsController.swift */; };
 		F9868C862207B94B00237C14 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F9868C852207B94B00237C14 /* Assets.xcassets */; };
 		F9DAC09E222129FB0051B8E6 /* OnePasswordTextFieldController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9DAC09D222129FB0051B8E6 /* OnePasswordTextFieldController.swift */; };
 		F9DAC0A022212BA20051B8E6 /* AlertPasswordTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9DAC09F22212BA20051B8E6 /* AlertPasswordTextField.swift */; };
@@ -229,6 +230,7 @@
 		F97FFBEA22781489009503A4 /* AssignPhotoDomain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssignPhotoDomain.swift; sourceTree = "<group>"; };
 		F97FFBEC2279687D009503A4 /* FileUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileUtil.swift; sourceTree = "<group>"; };
 		F97FFBEE227AAFB9009503A4 /* HomePhotoCollectionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomePhotoCollectionController.swift; sourceTree = "<group>"; };
+		F97FFBF1227C38B6009503A4 /* PhotoDetailsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoDetailsController.swift; sourceTree = "<group>"; };
 		F9868C852207B94B00237C14 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		F9DAC09D222129FB0051B8E6 /* OnePasswordTextFieldController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnePasswordTextFieldController.swift; sourceTree = "<group>"; };
 		F9DAC09F22212BA20051B8E6 /* AlertPasswordTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertPasswordTextField.swift; sourceTree = "<group>"; };
@@ -380,6 +382,7 @@
 		F93CF06B221957AC0008CC44 /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				F97FFBF0227C388F009503A4 /* Photo Details */,
 				F950478B22659235004E2304 /* Assign Photo */,
 				F9DAC09C222129A70051B8E6 /* Custom */,
 				F9FF433B22435A6100B911C6 /* Home */,
@@ -683,6 +686,14 @@
 				F950478C2265924E004E2304 /* AssignPhotoController.swift */,
 			);
 			path = "Assign Photo";
+			sourceTree = "<group>";
+		};
+		F97FFBF0227C388F009503A4 /* Photo Details */ = {
+			isa = PBXGroup;
+			children = (
+				F97FFBF1227C38B6009503A4 /* PhotoDetailsController.swift */,
+			);
+			path = "Photo Details";
 			sourceTree = "<group>";
 		};
 		F9DAC09C222129A70051B8E6 /* Custom */ = {
@@ -1070,6 +1081,7 @@
 				F93CF18A221BF19B0008CC44 /* LocationPickerViewController.swift in Sources */,
 				F93CF19F221BF19B0008CC44 /* Button.swift in Sources */,
 				F93CF199221BF19B0008CC44 /* ItemWithPhoto.swift in Sources */,
+				F97FFBF2227C38B6009503A4 /* PhotoDetailsController.swift in Sources */,
 				F93CF198221BF19B0008CC44 /* TelegramPickerViewController.swift in Sources */,
 				F93CF175221BF19B0008CC44 /* UISearchBar+Extensions.swift in Sources */,
 				F93CF177221BF19B0008CC44 /* UIAlertController+Extensions.swift in Sources */,

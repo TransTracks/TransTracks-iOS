@@ -20,6 +20,18 @@ class FileUtil {
     
     private static let PHOTOS = "photos"
     
+    //MARK: General
+    
+    static func deleteFile(file: URL) -> Bool {
+        do {
+            try FileManager.default.removeItem(at: file)
+            return true
+        } catch {
+            print(error)
+            return false
+        }
+    }
+    
     //MARK: Photos
     
     static func getNewImageFileURL(photoDate: Date) -> URL? {

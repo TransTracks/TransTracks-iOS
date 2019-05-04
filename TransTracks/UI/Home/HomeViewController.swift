@@ -67,6 +67,8 @@ class HomeViewController: BackgroundGradientViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+        domainManager.homeDomain.actions.accept(.ReloadDay)
+        
         let _ = viewDisposables.insert(
             domainManager.homeDomain.results.subscribe{result in
                 guard let result = result.element else { return }
@@ -110,7 +112,10 @@ class HomeViewController: BackgroundGradientViewController {
                     self.addPhoto(args)
                     
                 case .ImageClick(let photoId):
-                    //TODO add once we have the full screen view implemented
+                    var args: [SegueKey: Any] = [:]
+                    args[SegueKey.photoId] = photoId
+                    
+                    self.performSegue(withIdentifier: "PhotoDetails", sender: args)
                     break
                 }
             }
@@ -120,7 +125,7 @@ class HomeViewController: BackgroundGradientViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         super.prepare(for: segue, sender: sender)
         
-        if let selectPhotoController = segue.destination as? SelectPhotoController{
+        if let selectPhotoController = segue.destination as? SelectPhotoController {
             selectPhotoController.domainManager = domainManager
             
             if let args = sender as? [SegueKey: Any] {
@@ -135,6 +140,25 @@ class HomeViewController: BackgroundGradientViewController {
                         if let type = value as? PhotoType {
                             selectPhotoController.type = type
                         }
+                        
+                    default:
+                        break
+                    }
+                }
+            }
+        } else if let photoDetailsController = segue.destination as? PhotoDetailsController {
+            photoDetailsController.domainManager = domainManager
+            
+            if let args = sender as? [SegueKey: Any] {
+                args.forEach{ key, value in
+                    switch key {
+                    case .photoId:
+                        if let photoId = value as? UUID {
+                            photoDetailsController.photoId = photoId
+                        }
+                        
+                    default:
+                        break
                     }
                 }
             }
@@ -206,7 +230,7 @@ class HomeViewController: BackgroundGradientViewController {
     }
     
     private enum SegueKey {
-        case epochDay, type
+        case epochDay, type, photoId
     }
 }
 

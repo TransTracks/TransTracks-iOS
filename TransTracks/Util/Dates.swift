@@ -122,4 +122,8 @@ extension Date {
     static func ofEpochDay(_ epochDay: Int) -> Date {
         return Date(timeIntervalSince1970: TimeInterval(epochDay * 24 * 60 * 60))
     }
+    
+    static func ofEpochDay(_ epochDay: Int64) -> Date {
+        return ofEpochDay(Int(epochDay))
+    }
 }

@@ -147,20 +147,16 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="add" translatesAutoresizingMaskIntoConstraints="NO" id="UdA-I2-pkl">
-                                                    <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                                    <rect key="frame" x="8" y="52" width="34" height="64"/>
                                                 </imageView>
                                             </subviews>
                                         </view>
                                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.25291630993150682" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                         <constraints>
-                                            <constraint firstItem="UdA-I2-pkl" firstAttribute="leading" secondItem="V6w-sZ-FNb" secondAttribute="leading" id="1MS-xm-2Ku"/>
-                                            <constraint firstAttribute="bottom" secondItem="UdA-I2-pkl" secondAttribute="bottom" id="3Wr-rF-eco"/>
-                                            <constraint firstItem="UdA-I2-pkl" firstAttribute="top" secondItem="V6w-sZ-FNb" secondAttribute="topMargin" id="6Ra-Z1-xSl"/>
-                                            <constraint firstItem="UdA-I2-pkl" firstAttribute="top" secondItem="V6w-sZ-FNb" secondAttribute="top" id="APG-hf-KEe"/>
-                                            <constraint firstAttribute="trailingMargin" secondItem="UdA-I2-pkl" secondAttribute="trailing" id="M0A-Tn-8nd"/>
-                                            <constraint firstAttribute="trailing" secondItem="UdA-I2-pkl" secondAttribute="trailing" id="Ry3-8z-cML"/>
-                                            <constraint firstItem="UdA-I2-pkl" firstAttribute="leading" secondItem="V6w-sZ-FNb" secondAttribute="leadingMargin" id="gUI-1h-ops"/>
-                                            <constraint firstAttribute="bottomMargin" secondItem="UdA-I2-pkl" secondAttribute="bottom" id="iGJ-EO-D5z"/>
+                                            <constraint firstItem="UdA-I2-pkl" firstAttribute="top" secondItem="V6w-sZ-FNb" secondAttribute="topMargin" id="5Ho-P7-5G6"/>
+                                            <constraint firstItem="UdA-I2-pkl" firstAttribute="trailing" secondItem="V6w-sZ-FNb" secondAttribute="trailingMargin" id="IqL-1v-dZV"/>
+                                            <constraint firstAttribute="bottomMargin" secondItem="UdA-I2-pkl" secondAttribute="bottom" id="efV-04-FNq"/>
+                                            <constraint firstItem="UdA-I2-pkl" firstAttribute="leading" secondItem="V6w-sZ-FNb" secondAttribute="leadingMargin" id="q43-RN-u37"/>
                                         </constraints>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
@@ -246,20 +242,16 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="add" translatesAutoresizingMaskIntoConstraints="NO" id="96l-Nw-Mp0">
-                                                    <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                                    <rect key="frame" x="8" y="52" width="34" height="64"/>
                                                 </imageView>
                                             </subviews>
                                         </view>
                                         <color key="backgroundColor" white="1" alpha="0.25441459760273971" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstAttribute="trailingMargin" secondItem="96l-Nw-Mp0" secondAttribute="trailing" id="D1E-22-p9r"/>
-                                            <constraint firstAttribute="bottom" secondItem="96l-Nw-Mp0" secondAttribute="bottom" id="auP-TZ-BIA"/>
-                                            <constraint firstAttribute="trailing" secondItem="96l-Nw-Mp0" secondAttribute="trailing" id="bsR-AA-OhI"/>
-                                            <constraint firstItem="96l-Nw-Mp0" firstAttribute="top" secondItem="2Bl-ib-3R2" secondAttribute="top" id="ktq-Ol-CuQ"/>
                                             <constraint firstItem="96l-Nw-Mp0" firstAttribute="top" secondItem="2Bl-ib-3R2" secondAttribute="topMargin" id="m5J-fH-yWy"/>
                                             <constraint firstItem="96l-Nw-Mp0" firstAttribute="leading" secondItem="2Bl-ib-3R2" secondAttribute="leadingMargin" id="qiE-SB-QML"/>
                                             <constraint firstAttribute="bottomMargin" secondItem="96l-Nw-Mp0" secondAttribute="bottom" id="s03-e4-FwC"/>
-                                            <constraint firstItem="96l-Nw-Mp0" firstAttribute="leading" secondItem="2Bl-ib-3R2" secondAttribute="leading" id="zFS-6X-gK7"/>
                                         </constraints>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
@@ -394,7 +386,7 @@
         <!--Photo Details-->
         <scene sceneID="BTi-3F-u1c">
             <objects>
-                <viewController title="Photo Details" id="kyX-tM-9Ow" sceneMemberID="viewController">
+                <viewController title="Photo Details" id="kyX-tM-9Ow" customClass="PhotoDetailsController" customModule="TransTracks" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="g7J-kB-uIy">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -409,22 +401,22 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="0CS-o4-GK1">
-                                <rect key="frame" x="0.0" y="88" width="414" height="734"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="0CS-o4-GK1">
+                                <rect key="frame" x="16" y="104" width="382" height="702"/>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" red="0.3716022095" green="0.85488450579999997" blue="0.94019670050000004" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         <constraints>
-                            <constraint firstItem="0CS-o4-GK1" firstAttribute="leading" secondItem="D2l-2W-dgr" secondAttribute="leading" id="07i-k1-Yk0"/>
+                            <constraint firstItem="0CS-o4-GK1" firstAttribute="leading" secondItem="D2l-2W-dgr" secondAttribute="leading" constant="16" id="07i-k1-Yk0"/>
                             <constraint firstItem="D2l-2W-dgr" firstAttribute="trailing" secondItem="y3H-BE-iDk" secondAttribute="trailing" id="KBr-wL-HwR"/>
                             <constraint firstItem="y3H-BE-iDk" firstAttribute="leading" secondItem="D2l-2W-dgr" secondAttribute="leading" id="Lnq-um-sFA"/>
-                            <constraint firstItem="y3H-BE-iDk" firstAttribute="top" secondItem="0CS-o4-GK1" secondAttribute="bottom" id="Mnq-dA-eMO"/>
-                            <constraint firstItem="0CS-o4-GK1" firstAttribute="top" secondItem="D2l-2W-dgr" secondAttribute="top" id="Qx8-7W-Pi6"/>
+                            <constraint firstItem="y3H-BE-iDk" firstAttribute="top" secondItem="0CS-o4-GK1" secondAttribute="bottom" constant="16" id="Mnq-dA-eMO"/>
+                            <constraint firstItem="0CS-o4-GK1" firstAttribute="top" secondItem="D2l-2W-dgr" secondAttribute="top" constant="16" id="Qx8-7W-Pi6"/>
                             <constraint firstItem="D2l-2W-dgr" firstAttribute="trailing" secondItem="KnR-fA-cj1" secondAttribute="trailing" constant="16" id="lhG-MP-AuR"/>
                             <constraint firstItem="KnR-fA-cj1" firstAttribute="top" secondItem="y3H-BE-iDk" secondAttribute="top" constant="8" id="nau-dr-ETb"/>
                             <constraint firstItem="KnR-fA-cj1" firstAttribute="leading" secondItem="D2l-2W-dgr" secondAttribute="leading" constant="16" id="oa7-uX-rnD"/>
                             <constraint firstAttribute="bottom" secondItem="y3H-BE-iDk" secondAttribute="bottom" id="vE6-fd-JiZ"/>
-                            <constraint firstItem="D2l-2W-dgr" firstAttribute="trailing" secondItem="0CS-o4-GK1" secondAttribute="trailing" id="wNu-v7-kDx"/>
+                            <constraint firstItem="D2l-2W-dgr" firstAttribute="trailing" secondItem="0CS-o4-GK1" secondAttribute="trailing" constant="16" id="wNu-v7-kDx"/>
                             <constraint firstItem="D2l-2W-dgr" firstAttribute="bottom" secondItem="KnR-fA-cj1" secondAttribute="bottom" constant="8" id="zOg-2X-zrT"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="D2l-2W-dgr"/>
@@ -433,18 +425,31 @@
                         <rightBarButtonItems>
                             <barButtonItem systemItem="trash" id="hsv-GG-P48">
                                 <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <connections>
+                                    <action selector="deleteClick:" destination="kyX-tM-9Ow" id="Rya-AS-F2k"/>
+                                </connections>
                             </barButtonItem>
                             <barButtonItem systemItem="action" id="TG4-17-UjD">
                                 <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <connections>
+                                    <action selector="shareClick:" destination="kyX-tM-9Ow" id="Ruu-vD-80t"/>
+                                </connections>
                             </barButtonItem>
                             <barButtonItem systemItem="edit" id="faq-zY-Axo">
                                 <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <connections>
-                                    <segue destination="MCt-Zc-tRJ" kind="show" id="c9b-GC-sN1"/>
+                                    <segue destination="MCt-Zc-tRJ" kind="show" id="AbD-XA-va3"/>
                                 </connections>
                             </barButtonItem>
                         </rightBarButtonItems>
                     </navigationItem>
+                    <connections>
+                        <outlet property="deleteButton" destination="hsv-GG-P48" id="yp0-9c-ZdP"/>
+                        <outlet property="detailsLabel" destination="KnR-fA-cj1" id="JJn-Rh-QG7"/>
+                        <outlet property="editButton" destination="faq-zY-Axo" id="sz9-sj-ue1"/>
+                        <outlet property="imageView" destination="0CS-o4-GK1" id="uYu-Bw-hBG"/>
+                        <outlet property="shareButton" destination="TG4-17-UjD" id="1k8-c8-Ir3"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GAh-cE-9Ql" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -473,7 +478,7 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="add" translatesAutoresizingMaskIntoConstraints="NO" id="H4Y-ff-abQ">
-                                            <rect key="frame" x="0.0" y="0.0" width="150" height="150"/>
+                                            <rect key="frame" x="8" y="52" width="134" height="90"/>
                                         </imageView>
                                     </subviews>
                                 </view>
@@ -481,10 +486,6 @@
                                     <constraint firstAttribute="trailingMargin" secondItem="H4Y-ff-abQ" secondAttribute="trailing" id="3pU-Ne-7Ew"/>
                                     <constraint firstItem="H4Y-ff-abQ" firstAttribute="leading" secondItem="zdZ-fG-YkS" secondAttribute="leadingMargin" id="3yO-Qf-l3Q"/>
                                     <constraint firstAttribute="bottomMargin" secondItem="H4Y-ff-abQ" secondAttribute="bottom" id="5AR-VM-lYi"/>
-                                    <constraint firstAttribute="trailing" secondItem="H4Y-ff-abQ" secondAttribute="trailing" id="H17-aJ-tfE"/>
-                                    <constraint firstItem="H4Y-ff-abQ" firstAttribute="top" secondItem="zdZ-fG-YkS" secondAttribute="top" id="JBO-iP-cFE"/>
-                                    <constraint firstAttribute="bottom" secondItem="H4Y-ff-abQ" secondAttribute="bottom" id="NkY-lj-IhG"/>
-                                    <constraint firstItem="H4Y-ff-abQ" firstAttribute="leading" secondItem="zdZ-fG-YkS" secondAttribute="leading" id="gPF-bt-lnl"/>
                                     <constraint firstItem="H4Y-ff-abQ" firstAttribute="top" secondItem="zdZ-fG-YkS" secondAttribute="topMargin" id="lEL-hq-EgA"/>
                                 </constraints>
                             </collectionViewCell>

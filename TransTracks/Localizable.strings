@@ -13,6 +13,7 @@
 */
 
 //Shared
+"areYouSure" = "Are you sure?";
 "body" = "Body";
 "cancel" = "Cancel";
 "confirmPassword" = "Confirm password";
@@ -36,6 +37,11 @@
 "permissionDenied" = "Permission denied";
 "permissionDeniedPhotosMessage" = "TransTracks does not have access to your photos. Please allow access to you photo library.";
 "settings" = "Settings";
+
+//Photo Details
+"errorLoadingPhotoDetails" = "An error occurred loading this photo's details";
+"errorLoadingPhoto" = "An error occurred loading this photo";
+"deleteWarningMessage" = "Deleting this photo will remove both the image and its details";
 
 //Settings
 "startDateLabel" = "Start Date:";
