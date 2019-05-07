@@ -72,13 +72,39 @@ class PhotoDetailsController: BackgroundGradientViewController {
             shareButton.isEnabled = false
             deleteButton.isEnabled = false
             
-            //Show alert dialog to inform the user and kick them out
-            let alert = UIAlertController(style: .alert, title: NSLocalizedString("error", comment: ""), message: NSLocalizedString("errorLoadingPhotoDetails", comment: ""))
-            alert.addAction(title: NSLocalizedString("ok", comment: "")) { [weak self] action in
-                self?.navigationController?.popToRootViewController(animated: true)
-            }
-            alert.show()
+            showPhotoDetailLoadingError()
         }
+    }
+    
+    override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
+        if identifier == "EditPhoto" {
+            if photo == nil {
+                showPhotoDetailLoadingError()
+                return false
+            }
+        }
+        
+        return true
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        super.prepare(for: segue, sender: sender)
+        
+        if let editPhotoController = segue.destination as? EditPhotoController {
+            editPhotoController.domainManager = domainManager
+            editPhotoController.photo = photo!
+        }
+    }
+    
+    //MARK: UI helper
+    
+    private func showPhotoDetailLoadingError() {
+        //Show alert dialog to inform the user and kick them out
+        let alert = UIAlertController(style: .alert, title: NSLocalizedString("error", comment: ""), message: NSLocalizedString("errorLoadingPhotoDetails", comment: ""))
+        alert.addAction(title: NSLocalizedString("ok", comment: "")) { [weak self] action in
+            self?.navigationController?.popToRootViewController(animated: true)
+        }
+        alert.show()
     }
     
     //MARK: Button handling

@@ -10,6 +10,8 @@
 		43A113B99810A76804EE486D /* Pods_TransTracksTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B666323FA3653DE5D3E86734 /* Pods_TransTracksTests.framework */; };
 		79D1E9B69E05A2336F97A8D0 /* Pods_TransTracksUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9CDB1261A2C3CD0699A5F390 /* Pods_TransTracksUITests.framework */; };
 		E5BEF87B877F573AE413054C /* Pods_TransTracks.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 11BDFBC889D2A52E1747B8E4 /* Pods_TransTracks.framework */; };
+		F900233E227D71D3003F3304 /* EditPhotoContoller.swift in Sources */ = {isa = PBXBuildFile; fileRef = F900233D227D71D3003F3304 /* EditPhotoContoller.swift */; };
+		F9002340227D7BE5003F3304 /* EditPhotoDomain.swift in Sources */ = {isa = PBXBuildFile; fileRef = F900233F227D7BE5003F3304 /* EditPhotoDomain.swift */; };
 		F919D77D219186DD0069F42B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F919D77C219186DD0069F42B /* AppDelegate.swift */; };
 		F919D77F219186DD0069F42B /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F919D77E219186DD0069F42B /* HomeViewController.swift */; };
 		F919D782219186DD0069F42B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F919D780219186DD0069F42B /* Main.storyboard */; };
@@ -135,6 +137,8 @@
 		9CA426AE8DCFD7079FB07986 /* Pods-TransTracks.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TransTracks.release.xcconfig"; path = "Pods/Target Support Files/Pods-TransTracks/Pods-TransTracks.release.xcconfig"; sourceTree = "<group>"; };
 		9CDB1261A2C3CD0699A5F390 /* Pods_TransTracksUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TransTracksUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B666323FA3653DE5D3E86734 /* Pods_TransTracksTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TransTracksTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		F900233D227D71D3003F3304 /* EditPhotoContoller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPhotoContoller.swift; sourceTree = "<group>"; };
+		F900233F227D7BE5003F3304 /* EditPhotoDomain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPhotoDomain.swift; sourceTree = "<group>"; };
 		F919D779219186DD0069F42B /* TransTracks.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TransTracks.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F919D77C219186DD0069F42B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F919D77E219186DD0069F42B /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
@@ -294,6 +298,14 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		F900233C227D71AE003F3304 /* Edit Photo */ = {
+			isa = PBXGroup;
+			children = (
+				F900233D227D71D3003F3304 /* EditPhotoContoller.swift */,
+			);
+			path = "Edit Photo";
+			sourceTree = "<group>";
+		};
 		F919D770219186DD0069F42B = {
 			isa = PBXGroup;
 			children = (
@@ -382,6 +394,7 @@
 		F93CF06B221957AC0008CC44 /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				F900233C227D71AE003F3304 /* Edit Photo */,
 				F97FFBF0227C388F009503A4 /* Photo Details */,
 				F950478B22659235004E2304 /* Assign Photo */,
 				F9DAC09C222129A70051B8E6 /* Custom */,
@@ -728,6 +741,7 @@
 				F97FFBEA22781489009503A4 /* AssignPhotoDomain.swift */,
 				F97CAA97223A4F4700D6A549 /* DomainManager.swift */,
 				F9EBDAA9222BA3D800268392 /* HomeDomain.swift */,
+				F900233F227D7BE5003F3304 /* EditPhotoDomain.swift */,
 			);
 			path = Domain;
 			sourceTree = "<group>";
@@ -1023,11 +1037,13 @@
 				F93CF19A221BF19B0008CC44 /* LikeButtonCell.swift in Sources */,
 				F919D77F219186DD0069F42B /* HomeViewController.swift in Sources */,
 				F95C51DB22546EC6002499F4 /* SelectPhotoController.swift in Sources */,
+				F900233E227D71D3003F3304 /* EditPhotoContoller.swift in Sources */,
 				F93CF171221BF19B0008CC44 /* String+Extensions.swift in Sources */,
 				F93CF16B221BF19B0008CC44 /* Array+Extensions.swift in Sources */,
 				F97FFBEF227AAFB9009503A4 /* HomePhotoCollectionController.swift in Sources */,
 				F919D77D219186DD0069F42B /* AppDelegate.swift in Sources */,
 				F97CAA92223A31AC00D6A549 /* Photo.swift in Sources */,
+				F9002340227D7BE5003F3304 /* EditPhotoDomain.swift in Sources */,
 				F93CF192221BF19B0008CC44 /* ContactCell.swift in Sources */,
 				F93CF176221BF19B0008CC44 /* UIApplication+Extensions.swift in Sources */,
 				F93CF18F221BF19B0008CC44 /* ContactsPickerViewController.swift in Sources */,
