@@ -23,6 +23,7 @@ enum HomeAction {
     case LoadDay(day: Date)
     case NextDay
     case ReloadDay
+    case OpenGallery(type: PhotoType)
 }
 
 enum HomeResult {
@@ -33,20 +34,28 @@ enum HomeResult {
         switch self {
         case .Loading(let day):
             return day
+            
         case .Loaded(_, _, _, _, let currentDate, _, _):
             return currentDate
         }
     }
 }
 
+enum HomeViewEffect {
+    case OpenGallery(day: Date, type: PhotoType)
+}
+
 class HomeDomain {
     let actions: PublishRelay<HomeAction> = PublishRelay()
+    private let viewEffectRelay: PublishRelay<HomeViewEffect> = PublishRelay()
+    let viewEffects: Observable<HomeViewEffect>
     let results: Observable<HomeResult>
     
     init(dataController: DataController) {
+        viewEffects = viewEffectRelay.asObservable()
         results = actions
             .startWith(HomeAction.LoadDay(day: Date.today()))
-            .apply(homeActionsToResults(dataController))
+            .apply(homeActionsToResults(dataController, viewEffectRelay))
             .subscribeOn(SerialDispatchQueueScheduler(qos: .background))
             .observeOn(MainScheduler.instance)
             .replay(1)
@@ -54,7 +63,7 @@ class HomeDomain {
     }
 }
 
-func homeActionsToResults(_ dataController: DataController) -> ObservableTransformer<HomeAction, HomeResult>{
+func homeActionsToResults(_ dataController: DataController, _ viewEffectRelay: PublishRelay<HomeViewEffect>) -> ObservableTransformer<HomeAction, HomeResult>{
     func getLoadedResult(_ currentDate: Date) -> HomeResult {
         let startDate = UserDefaultsUtil.getStartDate()
         
@@ -144,12 +153,19 @@ func homeActionsToResults(_ dataController: DataController) -> ObservableTransfo
             switch(action){
             case .PreviousDay:
                 return getLoadedResult(getPreviousDay(previousResult.getDay()))
+                
             case .LoadDay(let day):
                 return getLoadedResult(day)
+                
             case .NextDay:
                 return getLoadedResult(getNextDay(previousResult.getDay()))
+                
             case .ReloadDay:
                 return getLoadedResult(previousResult.getDay())
+                
+            case .OpenGallery(let type):
+                viewEffectRelay.accept(.OpenGallery(day: previousResult.getDay(), type: type))
+                return previousResult
             }
         }
     }

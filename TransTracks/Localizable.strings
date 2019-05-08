@@ -38,6 +38,10 @@
 "permissionDeniedPhotosMessage" = "TransTracks does not have access to your photos. Please allow access to you photo library.";
 "settings" = "Settings";
 
+//Gallery
+"bodyGallery" = "Body Gallery";
+"faceGallery" = "Face Gallery";
+
 //Photo Details
 "errorLoadingPhotoDetails" = "An error occurred loading this photo's details";
 "errorLoadingPhoto" = "An error occurred loading this photo";

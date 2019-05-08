@@ -12,7 +12,6 @@
 //  You should have received a copy of the GNU General Public License along with this program. If not, see <https://www.gnu.org/licenses/>.
 //
 
-import GoogleMobileAds
 import Photos
 import RxCocoa
 import RxSwift
@@ -100,6 +99,21 @@ class HomeViewController: BackgroundGradientViewController {
         )
         
         let _ = viewDisposables.insert(
+            domainManager.homeDomain.viewEffects.subscribe{ effect in
+                guard let effect = effect.element else { return }
+                
+                switch effect {
+                case .OpenGallery(let day, let type):
+                    var args: [SegueKey: Any] = [:]
+                    args[SegueKey.epochDay] = day.toEpochDay()
+                    args[SegueKey.type] = type
+                    
+                    self.performSegue(withIdentifier: "Gallery", sender: args)
+                }
+            }
+        )
+        
+        let _ = viewDisposables.insert(
             eventRelay.subscribe { event in
                 guard let event = event.element else { return }
                 
@@ -162,6 +176,27 @@ class HomeViewController: BackgroundGradientViewController {
                     }
                 }
             }
+        } else if let galleryController = segue.destination as? GalleryController {
+            galleryController.domainManager = domainManager
+            
+            if let args = sender as? [SegueKey: Any] {
+                args.forEach{ key, value in
+                    switch key {
+                    case .epochDay:
+                        if let epochDay = value as? Int {
+                            galleryController.initialEpochDay = epochDay
+                        }
+                        
+                    case .type:
+                        if let type = value as? PhotoType {
+                            galleryController.type = type
+                        }
+                        
+                    default:
+                        break
+                    }
+                }
+            }
         }
     }
     
@@ -216,17 +251,19 @@ class HomeViewController: BackgroundGradientViewController {
     }
     
     @IBAction func showPreviousRecord(_ sender: Any) {
-        domainManager.homeDomain.actions.accept(HomeAction.PreviousDay)
+        domainManager.homeDomain.actions.accept(.PreviousDay)
     }
     
     @IBAction func showNextRecord(_ sender: Any) {
-        domainManager.homeDomain.actions.accept(HomeAction.NextDay)
+        domainManager.homeDomain.actions.accept(.NextDay)
     }
     
     @IBAction func showFaceGallery(_ sender: Any) {
+        domainManager.homeDomain.actions.accept(.OpenGallery(type: .face))
     }
     
     @IBAction func showBodyGallery(_ sender: Any) {
+        domainManager.homeDomain.actions.accept(.OpenGallery(type: .body))
     }
     
     private enum SegueKey {

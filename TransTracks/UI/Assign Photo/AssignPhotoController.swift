@@ -142,7 +142,11 @@ class AssignPhotoController : BackgroundGradientViewController {
                         self.view.makeToast(NSLocalizedString("skippedPhoto", comment: ""))
                         
                     case .CompletedAssigning:
-                        self.navigationController?.popToRootViewController(animated: true)
+                        if let galleryController = self.navigationController?.viewControllers.first(where: {$0 is GalleryController}) as? GalleryController {
+                            self.navigationController?.popToViewController(galleryController, animated: true)
+                        } else {
+                            self.navigationController?.popToRootViewController(animated: true)
+                        }
                     }
                 }
             }

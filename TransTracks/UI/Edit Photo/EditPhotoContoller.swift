@@ -23,11 +23,10 @@ class EditPhotoController : BackgroundGradientViewController {
     //MARK: Properties
     
     var domainManager: DomainManager!
-    
-    var resultsDisposable: Disposable?
-    var viewDisposables: CompositeDisposable = CompositeDisposable()
-    
     var photo: Photo!
+    
+    private var resultsDisposable: Disposable?
+    private var viewDisposables: CompositeDisposable = CompositeDisposable()
     
     private var interactionEnabled: Bool = true
     private var tempDate: Date? = nil
