@@ -129,11 +129,11 @@ final class LocationPickerViewController: UIViewController {
         let _ = searchController.view
 	}
 	
-	open override func loadView() {
+	public override func loadView() {
 		view = mapView
 	}
 	
-	open override func viewDidLoad() {
+	public override func viewDidLoad() {
 		super.viewDidLoad()
 		
         mapView.addSubview(scaleView)
@@ -167,7 +167,7 @@ final class LocationPickerViewController: UIViewController {
 	
 	var presentedInitialLocation = false
 	
-    override open func viewWillLayoutSubviews() {
+    override public func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
         searchView.frame = CGRect(x: 8, y: 8, width: view.width - 16, height: 57)
         //searchController.searchBar.sizeToFit()
@@ -176,7 +176,7 @@ final class LocationPickerViewController: UIViewController {
         
     }
     
-    override open func viewDidLayoutSubviews() {
+    override public func viewDidLayoutSubviews() {
 		super.viewDidLayoutSubviews()
         preferredContentSize.height = UIScreen.main.bounds.height
         
