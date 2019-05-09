@@ -23,6 +23,7 @@ enum HomeAction {
     case LoadDay(day: Date)
     case NextDay
     case ReloadDay
+    case ShowMilestones
     case OpenGallery(type: PhotoType)
 }
 
@@ -42,6 +43,7 @@ enum HomeResult {
 }
 
 enum HomeViewEffect {
+    case ShowMilestones(day: Date)
     case OpenGallery(day: Date, type: PhotoType)
 }
 
@@ -162,6 +164,10 @@ func homeActionsToResults(_ dataController: DataController, _ viewEffectRelay: P
                 
             case .ReloadDay:
                 return getLoadedResult(previousResult.getDay())
+                
+            case .ShowMilestones:
+                viewEffectRelay.accept(.ShowMilestones(day: previousResult.getDay()))
+                return previousResult
                 
             case .OpenGallery(let type):
                 viewEffectRelay.accept(.OpenGallery(day: previousResult.getDay(), type: type))

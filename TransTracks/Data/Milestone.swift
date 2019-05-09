@@ -16,6 +16,7 @@ import CoreData
 
 extension Milestone {
     static let FIELD_EPOCH_DAY = "epochDay"
+    static let FIELD_TIMESTAMP = "timestamp"
     
     private static func count(_ predicate: NSPredicate, _ context: NSManagedObjectContext) -> Int {
         let request:NSFetchRequest<Milestone> = Milestone.fetchRequest()

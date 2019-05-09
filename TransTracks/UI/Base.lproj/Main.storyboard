@@ -99,7 +99,7 @@
                                 </constraints>
                                 <state key="normal" image="milestone_unselected"/>
                                 <connections>
-                                    <segue destination="5k4-ak-VEC" kind="show" id="Z7h-Kj-CxH"/>
+                                    <action selector="milestonesClick:" destination="BYZ-38-t0r" eventType="touchUpInside" id="YcD-5R-MiA"/>
                                 </connections>
                             </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="joI-nW-ntk" userLabel="Divider 2" customClass="DividerView" customModule="TransTracks" customModuleProvider="target">
@@ -377,6 +377,7 @@
                         <segue destination="0ch-v3-flP" kind="show" identifier="Gallery" id="rc4-43-Wkk"/>
                         <segue destination="kyX-tM-9Ow" kind="show" identifier="PhotoDetails" id="0uw-Wl-wh3"/>
                         <segue destination="EnN-mv-xan" kind="show" identifier="SelectPhoto" id="kJr-Fz-g6w"/>
+                        <segue destination="5k4-ak-VEC" kind="show" identifier="Milestones" id="NaZ-dO-jSc"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -1175,7 +1176,7 @@
         <!--Milestones-->
         <scene sceneID="huZ-7P-E9r">
             <objects>
-                <viewController title="Milestones" id="5k4-ak-VEC" sceneMemberID="viewController">
+                <viewController title="Milestones" id="5k4-ak-VEC" customClass="MilestonesController" customModule="TransTracks" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="yXO-0v-wuN">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1190,6 +1191,57 @@
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="a24-I9-Hp0" userLabel="Milestones Table">
                                 <rect key="frame" x="0.0" y="88" width="414" height="723"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="MilestoneCell" id="YE7-bZ-vUR" customClass="MilestoneCell" customModule="TransTracks" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="414" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="YE7-bZ-vUR" id="cab-bJ-IlM">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="751" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="caB-KW-e8w">
+                                                    <rect key="frame" x="20" y="11" width="374" height="22"/>
+                                                    <fontDescription key="fontDescription" style="UICTFontTextStyleTitle3"/>
+                                                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="subdirectory_arrow_right" translatesAutoresizingMaskIntoConstraints="NO" id="g0W-Xh-CXo">
+                                                    <rect key="frame" x="20" y="33" width="24" height="24"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="24" id="fey-g1-ur5"/>
+                                                        <constraint firstAttribute="width" secondItem="g0W-Xh-CXo" secondAttribute="height" multiplier="1:1" id="oVZ-EY-nfb"/>
+                                                    </constraints>
+                                                </imageView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Description" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="d8C-j4-9Sz">
+                                                    <rect key="frame" x="60" y="33" width="334" height="0.0"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="bottomMargin" relation="greaterThanOrEqual" secondItem="d8C-j4-9Sz" secondAttribute="bottom" id="0P5-aD-GDd"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="caB-KW-e8w" secondAttribute="trailing" id="7pA-kM-52W"/>
+                                                <constraint firstItem="caB-KW-e8w" firstAttribute="leading" secondItem="cab-bJ-IlM" secondAttribute="leadingMargin" id="9m1-L6-4UI"/>
+                                                <constraint firstItem="caB-KW-e8w" firstAttribute="top" secondItem="cab-bJ-IlM" secondAttribute="topMargin" id="A8l-kI-SzS"/>
+                                                <constraint firstItem="g0W-Xh-CXo" firstAttribute="leading" secondItem="cab-bJ-IlM" secondAttribute="leadingMargin" id="HKX-t1-nuz"/>
+                                                <constraint firstItem="d8C-j4-9Sz" firstAttribute="top" secondItem="caB-KW-e8w" secondAttribute="bottom" id="MJo-mA-Fwd"/>
+                                                <constraint firstItem="g0W-Xh-CXo" firstAttribute="top" secondItem="caB-KW-e8w" secondAttribute="bottom" id="iur-wL-nuQ"/>
+                                                <constraint firstItem="d8C-j4-9Sz" firstAttribute="leading" secondItem="g0W-Xh-CXo" secondAttribute="trailing" constant="16" id="sqO-gG-IQH"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="d8C-j4-9Sz" secondAttribute="trailing" id="uOT-ry-E4U"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <connections>
+                                            <outlet property="descriptionLabel" destination="d8C-j4-9Sz" id="gGY-QC-g3a"/>
+                                            <outlet property="title" destination="caB-KW-e8w" id="PES-l8-8Yn"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="5k4-ak-VEC" id="Apr-3A-mOq"/>
+                                    <outlet property="delegate" destination="5k4-ak-VEC" id="AIe-KI-7bY"/>
+                                </connections>
                             </tableView>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" alignment="center" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="pTH-bs-TLm" userLabel="Empty View">
                                 <rect key="frame" x="50" y="385" width="314" height="129"/>
@@ -1207,6 +1259,9 @@
                                             <constraint firstAttribute="width" constant="64" id="uve-V9-Ev9"/>
                                         </constraints>
                                         <state key="normal" image="add"/>
+                                        <connections>
+                                            <action selector="emptyAddClick:" destination="5k4-ak-VEC" eventType="touchUpInside" id="fWo-hG-faa"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                             </stackView>
@@ -1230,10 +1285,16 @@
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="sW7-F9-aNp">
                             <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <connections>
+                                <action selector="addClick:" destination="5k4-ak-VEC" id="Agv-PO-oSQ"/>
                                 <segue destination="w4S-yN-UOb" kind="show" identifier="AddEditMilestone" id="TvN-4K-wge"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="adViewHolder" destination="RsW-Ss-MIv" id="k5R-mL-P8X"/>
+                        <outlet property="emptyView" destination="pTH-bs-TLm" id="8zo-No-em4"/>
+                        <outlet property="tableView" destination="a24-I9-Hp0" id="qlg-Dp-IeA"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mgi-pL-Fmv" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -1441,11 +1502,12 @@
         <image name="milestone_unselected" width="35" height="37"/>
         <image name="photo_date" width="20" height="22"/>
         <image name="settings" width="19" height="19"/>
+        <image name="subdirectory_arrow_right" width="15" height="17"/>
         <image name="train_track_background" width="5014" height="3343"/>
         <image name="unselected" width="20" height="20"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="BUO-YM-mSV"/>
-        <segue reference="QkW-Jv-d5D"/>
+        <segue reference="kJr-Fz-g6w"/>
+        <segue reference="0uw-Wl-wh3"/>
     </inferredMetricsTieBreakers>
 </document>

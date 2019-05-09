@@ -103,6 +103,9 @@ class HomeViewController: BackgroundGradientViewController {
                 guard let effect = effect.element else { return }
                 
                 switch effect {
+                case .ShowMilestones(let day):
+                    self.performSegue(withIdentifier: "Milestones", sender: day)
+                    
                 case .OpenGallery(let day, let type):
                     var args: [SegueKey: Any] = [:]
                     args[SegueKey.epochDay] = day.toEpochDay()
@@ -126,11 +129,7 @@ class HomeViewController: BackgroundGradientViewController {
                     self.addPhoto(args)
                     
                 case .ImageClick(let photoId):
-                    var args: [SegueKey: Any] = [:]
-                    args[SegueKey.photoId] = photoId
-                    
-                    self.performSegue(withIdentifier: "PhotoDetails", sender: args)
-                    break
+                    self.performSegue(withIdentifier: "PhotoDetails", sender: photoId)
                 }
             }
         )
@@ -163,18 +162,8 @@ class HomeViewController: BackgroundGradientViewController {
         } else if let photoDetailsController = segue.destination as? PhotoDetailsController {
             photoDetailsController.domainManager = domainManager
             
-            if let args = sender as? [SegueKey: Any] {
-                args.forEach{ key, value in
-                    switch key {
-                    case .photoId:
-                        if let photoId = value as? UUID {
-                            photoDetailsController.photoId = photoId
-                        }
-                        
-                    default:
-                        break
-                    }
-                }
+            if let photoId = sender as? UUID {
+                photoDetailsController.photoId = photoId
             }
         } else if let galleryController = segue.destination as? GalleryController {
             galleryController.domainManager = domainManager
@@ -196,6 +185,12 @@ class HomeViewController: BackgroundGradientViewController {
                         break
                     }
                 }
+            }
+        } else if let milestonesController = segue.destination as? MilestonesController {
+            milestonesController.domainManager = domainManager
+            
+            if let day = sender as? Date {
+                milestonesController.initialEpochDay = day.toEpochDay()
             }
         }
     }
@@ -256,6 +251,10 @@ class HomeViewController: BackgroundGradientViewController {
     
     @IBAction func showNextRecord(_ sender: Any) {
         domainManager.homeDomain.actions.accept(.NextDay)
+    }
+    
+    @IBAction func milestonesClick(_ sender: Any) {
+        domainManager.homeDomain.actions.accept(.ShowMilestones)
     }
     
     @IBAction func showFaceGallery(_ sender: Any) {

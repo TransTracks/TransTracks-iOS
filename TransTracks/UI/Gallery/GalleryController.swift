@@ -82,6 +82,7 @@ class GalleryController: BackgroundGradientViewController {
         let _ = viewDisposables.insert(
             domainManager.galleryDomain.results.subscribe{ result in
                 guard let result = result.element else { return }
+                
                 switch result {
                 case .Loading:
                     self.loadingIndicator.isHidden = false

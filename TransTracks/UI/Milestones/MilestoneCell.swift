@@ -1,8 +1,8 @@
 //
-//  DomainManager.swift
+//  MilestoneCell.swift
 //  TransTracks
 //
-//  Created by Cassie Wilson on 14/3/19.
+//  Created by Cassie Wilson on 9/5/19.
 //  Copyright © 2019 TransTracks. All rights reserved.
 //
 //  This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
@@ -12,22 +12,9 @@
 //  You should have received a copy of the GNU General Public License along with this program. If not, see <https://www.gnu.org/licenses/>.
 //
 
-import Foundation
+import UIKit
 
-class DomainManager {
-    let dataController: DataController
-    
-    init(dataController: DataController) {
-        self.dataController = dataController
-    }
-    
-    lazy var assignPhotoDomain: AssignPhotoDomain = AssignPhotoDomain(dataController: dataController)
-    
-    lazy var editPhotoDomain: EditPhotoDomain = EditPhotoDomain()
-    
-    lazy var galleryDomain: GalleryDomain = GalleryDomain(dataController: dataController)
-    
-    lazy var homeDomain: HomeDomain = HomeDomain(dataController: dataController)
-    
-    lazy var milestonesDomain: MilestonesDomain = MilestonesDomain(dataController: dataController)
+class MilestoneCell: UITableViewCell {
+    @IBOutlet weak var title: UILabel!
+    @IBOutlet weak var descriptionLabel: UILabel!
 }
