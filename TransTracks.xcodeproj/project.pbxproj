@@ -112,6 +112,7 @@
 		F9869AA92283FEBE0049E442 /* AlertHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9869AA82283FEBE0049E442 /* AlertHelper.swift */; };
 		F9869AAC228560630049E442 /* NormalLockController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9869AAB228560630049E442 /* NormalLockController.swift */; };
 		F9869AAE228574610049E442 /* TrainLockController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9869AAD228574610049E442 /* TrainLockController.swift */; };
+		F9869AB022858D390049E442 /* ThemedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9869AAF22858D390049E442 /* ThemedButton.swift */; };
 		F9DAC09E222129FB0051B8E6 /* OnePasswordTextFieldController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9DAC09D222129FB0051B8E6 /* OnePasswordTextFieldController.swift */; };
 		F9DAC0A022212BA20051B8E6 /* AlertPasswordTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9DAC09F22212BA20051B8E6 /* AlertPasswordTextField.swift */; };
 		F9DAC0A22221369C0051B8E6 /* TwoPasswordTextFieldController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9DAC0A12221369C0051B8E6 /* TwoPasswordTextFieldController.swift */; };
@@ -256,6 +257,7 @@
 		F9869AA82283FEBE0049E442 /* AlertHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertHelper.swift; sourceTree = "<group>"; };
 		F9869AAB228560630049E442 /* NormalLockController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NormalLockController.swift; sourceTree = "<group>"; };
 		F9869AAD228574610049E442 /* TrainLockController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrainLockController.swift; sourceTree = "<group>"; };
+		F9869AAF22858D390049E442 /* ThemedButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemedButton.swift; sourceTree = "<group>"; };
 		F9DAC09D222129FB0051B8E6 /* OnePasswordTextFieldController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnePasswordTextFieldController.swift; sourceTree = "<group>"; };
 		F9DAC09F22212BA20051B8E6 /* AlertPasswordTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertPasswordTextField.swift; sourceTree = "<group>"; };
 		F9DAC0A12221369C0051B8E6 /* TwoPasswordTextFieldController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TwoPasswordTextFieldController.swift; sourceTree = "<group>"; };
@@ -780,6 +782,7 @@
 				F9DAC09D222129FB0051B8E6 /* OnePasswordTextFieldController.swift */,
 				F950478922643BD0004E2304 /* PhotoCell.swift */,
 				F9DAC0A12221369C0051B8E6 /* TwoPasswordTextFieldController.swift */,
+				F9869AAF22858D390049E442 /* ThemedButton.swift */,
 			);
 			path = Custom;
 			sourceTree = "<group>";
@@ -1103,6 +1106,7 @@
 				F900233E227D71D3003F3304 /* EditPhotoContoller.swift in Sources */,
 				F93CF171221BF19B0008CC44 /* String+Extensions.swift in Sources */,
 				F9869AAE228574610049E442 /* TrainLockController.swift in Sources */,
+				F9869AB022858D390049E442 /* ThemedButton.swift in Sources */,
 				F900234522815AB9003F3304 /* GalleryDomain.swift in Sources */,
 				F93CF16B221BF19B0008CC44 /* Array+Extensions.swift in Sources */,
 				F97FFBEF227AAFB9009503A4 /* HomePhotoCollectionController.swift in Sources */,
