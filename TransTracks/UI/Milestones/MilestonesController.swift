@@ -79,7 +79,14 @@ class MilestonesController: BackgroundGradientViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         super.prepare(for: segue, sender: sender)
         
-        //TODO pass along initial date
+        if let addEditMilestoneController = segue.destination as? AddEditMilestoneController {
+            addEditMilestoneController.domainManager = domainManager
+            addEditMilestoneController.initialEpochDay = initialEpochDay
+            
+            if let milestone = sender as? Milestone {
+                addEditMilestoneController.milestone = milestone
+            }
+        }
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -102,6 +109,7 @@ class MilestonesController: BackgroundGradientViewController {
     //MARK: Button Handling
     
     @IBAction func addClick(_ sender: Any) {
+        performSegue(withIdentifier: "AddEditMilestone", sender: sender)
     }
     
     @IBAction func emptyAddClick(_ sender: Any) {
@@ -119,7 +127,10 @@ class MilestonesSection {
 }
 
 extension MilestonesController: UITableViewDelegate {
-    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let milestone = sections[indexPath.section].milestones[indexPath.row]
+        performSegue(withIdentifier: "AddEditMilestone", sender: milestone)
+    }
 }
 
 extension MilestonesController: UITableViewDataSource {

@@ -17,17 +17,27 @@
 "body" = "Body";
 "cancel" = "Cancel";
 "confirmPassword" = "Confirm password";
+"delete" = "Delete";
 "enterPassword" = "Enter your password";
 "face" = "Face";
 "ok" = "OK";
 "error" = "Error";
 
+//Add/Edit Milestone
+"addMilestone" = "Add Milestone";
+"editMilestone" = "Edit Milestone";
+"savedMilestone" = "Successfully saved Milestone";
+"updatedMilestone" = "Successfully updated Milestone";
+"errorSavingMilestone" = "An error occurred saving this Milestone";
+"errorUpdatingMilestone" = "An error occurred updating this Milestone";
+
 //Assign photo
-"errorSavingPhoto" = "An error occurred saving this photo";
-"savedPhoto" = "Successfully saved photo";
+"errorSavingPhoto" = "An error occurred saving this Photo";
+"savedPhoto" = "Successfully saved Photo";
 "savingPhoto" = "Saving Photo";
 "selectType" = "Select Type";
 "skippedPhoto" = "Skipped photo";
+"deleteMilestoneWarningMessage" = "Deleting this milestone will remove it permanently";
 
 //Home
 "startDay" = "Start Day";
@@ -45,7 +55,7 @@
 //Photo Details
 "errorLoadingPhotoDetails" = "An error occurred loading this photo's details";
 "errorLoadingPhoto" = "An error occurred loading this photo";
-"deleteWarningMessage" = "Deleting this photo will remove both the image and its details";
+"deletePhotoWarningMessage" = "Deleting this photo will remove both the image and its details";
 
 //Settings
 "startDateLabel" = "Start Date:";

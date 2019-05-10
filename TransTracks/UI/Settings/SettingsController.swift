@@ -18,7 +18,6 @@ import UIKit
 class SettingsController: BackgroundGradientViewController {
     
     //MARK: Properties
-    private var tempDate: Date?
     private var tempTheme: Theme?
     private var tempLockType: LockType?
     private var tempPassword: String?
@@ -204,22 +203,13 @@ extension SettingsController: UITableViewDelegate {
         
         switch row {
         case .startDate:
-            tempDate = nil
+            let cell = tableView.cellForRow(at: indexPath)! as! SettingCell
+            let rect = getTriggerRect(cell)
             
-            let alert = UIAlertController(title: NSLocalizedString("selectStartDateTitle", comment: ""), message: nil, preferredStyle: .actionSheet)
-            alert.addDatePicker(mode: .date, date: UserDefaultsUtil.getStartDate(), action: {date in
-                self.tempDate = date
-            })
-            alert.addAction(UIAlertAction(title: NSLocalizedString("cancel", comment: ""), style: .cancel, handler: nil))
-            alert.addAction(UIAlertAction(title: NSLocalizedString("ok", comment: ""), style: .default, handler: { action in
-                if let newDate = self.tempDate {
-                    UserDefaultsUtil.setStartDate(newDate)
-                    tableView.reloadRows(at: [IndexPath(row: Row.startDate.rawValue, section: 0)], with: .fade)
-                }
-            }))
-            
-            setPopoverPresentationControllerInfo(alert, indexPath)
-            alert.show()
+            AlertHelper.showDatePicker(startingDate: UserDefaultsUtil.getStartDate(), maximumDate: nil, triggeringView: cell, specificTrigerRect: rect){ newDate in
+                UserDefaultsUtil.setStartDate(newDate)
+                tableView.reloadRows(at: [IndexPath(row: Row.startDate.rawValue, section: 0)], with: .fade)
+            }
             
         case .theme:
             tempTheme = nil
@@ -307,15 +297,19 @@ extension SettingsController: UITableViewDelegate {
         tableView.deselectRow(at: indexPath, animated: true)
     }
     
+    private func getTriggerRect(_ cell: SettingCell) -> CGRect {
+        return CGRect(x: cell.bounds.maxX - cell.valueLabel.width - 8,
+                      y: cell.bounds.minY,
+                      width: cell.valueLabel.width,
+                      height: cell.bounds.height)
+    }
+    
     private func setPopoverPresentationControllerInfo(_ alert: UIAlertController, _ indexPath: IndexPath){
         let cell = tableView.cellForRow(at: indexPath)! as! SettingCell
         
         if let popoverController = alert.popoverPresentationController {
             popoverController.sourceView = cell
-            popoverController.sourceRect = CGRect(x: cell.frame.maxX - cell.valueLabel.width - 8,
-                                                  y: cell.frame.minY,
-                                                  width: cell.valueLabel.width,
-                                                  height: cell.frame.height)
+            popoverController.sourceRect = getTriggerRect(cell)
         }
     }
     

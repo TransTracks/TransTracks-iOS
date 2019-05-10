@@ -38,8 +38,6 @@ class AssignPhotoController : BackgroundGradientViewController {
     private var currentCount: Int = 0
     
     private var interactionEnabled: Bool = true
-    private var tempDate: Date? = nil
-    private var tempType: PhotoType? = nil
     
     //MARK: Outlets
     
@@ -99,38 +97,14 @@ class AssignPhotoController : BackgroundGradientViewController {
                 DispatchQueue.main.async {
                     switch viewEffect {
                     case .ShowDateDialog(let date):
-                        self.tempDate = nil
-                        
-                        let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-                        alert.addDatePicker(mode: .date, date: date, maximumDate: Date(), action: {date in
-                            self.tempDate = date
-                        })
-                        alert.addAction(UIAlertAction(title: NSLocalizedString("cancel", comment: ""), style: .cancel, handler: nil))
-                        alert.addAction(UIAlertAction(title: NSLocalizedString("ok", comment: ""), style: .default, handler: { action in
-                            if let newDate = self.tempDate {
-                                self.domainManager.assignPhotoDomain.actions.accept(.ChangeDate(index: self.currentIndex, newDate: newDate))
-                            }
-                        }))
-                
-                        self.setPopoverPresentationControllerInfo(alert, self.dateLabel)
-                        alert.show()
+                        AlertHelper.showDatePicker(startingDate: date, triggeringView: self.dateLabel){ newDate in
+                            self.domainManager.assignPhotoDomain.actions.accept(.ChangeDate(index: self.currentIndex, newDate: newDate))
+                        }
                         
                     case .ShowTypeDialog(let type):
-                        self.tempType = nil
-                        
-                        let alert = UIAlertController(title: NSLocalizedString("selectType", comment: ""), message: nil, preferredStyle: .actionSheet)
-                        alert.addPickerView(values: [PhotoType.getDisplayNamesArray()], initialSelection: (column: 0, row: type.getIndex()), action: {_, _ , index, _ in
-                            self.tempType = PhotoType.allCases[index.row]
-                        })
-                        alert.addAction(UIAlertAction(title: NSLocalizedString("cancel", comment: ""), style: .cancel, handler: nil))
-                        alert.addAction(UIAlertAction(title: NSLocalizedString("ok", comment: ""), style: .default, handler: { action in
-                            if let newType = self.tempType {
-                                self.domainManager.assignPhotoDomain.actions.accept(.ChangeType(index: self.currentIndex, newType: newType))
-                            }
-                        }))
-                
-                        self.setPopoverPresentationControllerInfo(alert, self.typeLabel)
-                        alert.show()
+                        AlertHelper.showPhotoTypePicker(startingType: type, triggeringView: self.typeLabel){ newType in
+                            self.domainManager.assignPhotoDomain.actions.accept(.ChangeType(index: self.currentIndex, newType: newType))
+                        }
                         
                     case .ShowSaveSuccess:
                         self.view.makeToast(NSLocalizedString("savedPhoto", comment: ""))
@@ -186,13 +160,6 @@ class AssignPhotoController : BackgroundGradientViewController {
         
         typeLabel.text = type.getDisplayName()
         updateSkipVisibility(count: count)
-    }
-    
-    private func setPopoverPresentationControllerInfo(_ alert: UIAlertController, _ view: UIView){
-        if let popoverController = alert.popoverPresentationController {
-            popoverController.sourceView = view
-            popoverController.sourceRect = view.frame
-        }
     }
     
     private func setupLabelTapRecognizers(){

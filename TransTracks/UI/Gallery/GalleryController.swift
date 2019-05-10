@@ -240,7 +240,7 @@ class GalleryController: BackgroundGradientViewController {
         if selection.isEmpty {
             enableSelectionMode(false)
         } else {
-            let alert = UIAlertController(style: .alert, title: NSLocalizedString("areYouSure", comment: ""), message: NSLocalizedString("deleteWarningMessage", comment: ""))
+            let alert = UIAlertController(style: .alert, title: NSLocalizedString("areYouSure", comment: ""), message: NSLocalizedString("deletePhotoWarningMessage", comment: ""))
             alert.addAction(UIAlertAction(title:  NSLocalizedString("cancel", comment: ""), style: .cancel, handler: { [unowned self] _ in
                 self.alertController?.dismiss(animated: true)
             }))
