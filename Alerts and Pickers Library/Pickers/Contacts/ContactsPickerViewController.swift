@@ -150,14 +150,7 @@ final class ContactsPickerViewController: UIViewController {
     
     func checkStatus(completionHandler: @escaping ([String: [CNContact]]) -> ()) {
         Log("status = \(CNContactStore.authorizationStatus(for: .contacts))")
-        switch CNContactStore.authorizationStatus(for: .contacts) {
-            
-        case .notDetermined:
-            /// This case means the user is prompted for the first time for allowing contacts
-            Contacts.requestAccess { [unowned self] bool, error in
-                self.checkStatus(completionHandler: completionHandler)
-            }
-            
+        switch CNContactStore.authorizationStatus(for: .contacts) {   
         case .authorized:
             /// Authorization granted by user for this app.
             DispatchQueue.main.async {
@@ -177,6 +170,12 @@ final class ContactsPickerViewController: UIViewController {
                 self.alertController?.dismiss(animated: true)
             }
             alert.show()
+            
+        default:
+            /// This case means the user is prompted for the first time for allowing contacts
+            Contacts.requestAccess { [unowned self] bool, error in
+                self.checkStatus(completionHandler: completionHandler)
+            }
         }
     }
     

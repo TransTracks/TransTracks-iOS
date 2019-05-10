@@ -161,14 +161,7 @@ final class PhotoLibraryPickerViewController: UIViewController {
     }
     
     func checkStatus(completionHandler: @escaping ([PHAsset]) -> ()) {
-        switch PHPhotoLibrary.authorizationStatus() {
-            
-        case .notDetermined:
-            /// This case means the user is prompted for the first time for allowing contacts
-            Assets.requestAccess { [unowned self] status in
-                self.checkStatus(completionHandler: completionHandler)
-            }
-            
+        switch PHPhotoLibrary.authorizationStatus() { 
         case .authorized:
             /// Authorization granted by user for this app.
             DispatchQueue.main.async {
@@ -188,6 +181,12 @@ final class PhotoLibraryPickerViewController: UIViewController {
                 self.alertController?.dismiss(animated: true)
             }
             alert.show()
+            
+        default:
+            /// This case means the user is prompted for the first time for allowing contacts
+            Assets.requestAccess { [unowned self] status in
+                self.checkStatus(completionHandler: completionHandler)
+            }
         }
     }
     

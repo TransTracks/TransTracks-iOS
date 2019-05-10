@@ -203,16 +203,6 @@ class GalleryController: BackgroundGradientViewController {
         case .authorized:
             performSegue(withIdentifier: "SelectPhoto", sender: type)
             
-        case .notDetermined:
-            //This case means the user is prompted for the first time for allowing acess to photos
-            Assets.requestAccess { [unowned self] status in
-                if status == .authorized {
-                    DispatchQueue.main.async {
-                        self.performSegue(withIdentifier: "SelectPhoto", sender: self.type)
-                    }
-                }
-            }
-            
         case .denied, .restricted:
             /// User has denied the current app to access the photos
             let alert = UIAlertController(style: .alert, title: NSLocalizedString("permissionDenied", comment: ""), message: NSLocalizedString("permissionDeniedPhotosMessage", comment: ""))
@@ -225,7 +215,16 @@ class GalleryController: BackgroundGradientViewController {
                 self.alertController?.dismiss(animated: true)
             }
             alert.show()
-            break;
+            
+        default:
+            //This case means the user is prompted for the first time for allowing acess to photos
+            Assets.requestAccess { [unowned self] status in
+                if status == .authorized {
+                    DispatchQueue.main.async {
+                        self.performSegue(withIdentifier: "SelectPhoto", sender: self.type)
+                    }
+                }
+            }
         }
     }
     

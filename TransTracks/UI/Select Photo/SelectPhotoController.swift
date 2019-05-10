@@ -96,7 +96,7 @@ class SelectPhotoController: BackgroundGradientCollectionViewController {
                 }
             }
             
-        case .denied, .restricted, .notDetermined:
+        default:
             dismiss(animated: true, completion: nil)
         }
     }

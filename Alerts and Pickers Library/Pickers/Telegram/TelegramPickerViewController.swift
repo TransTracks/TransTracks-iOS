@@ -194,13 +194,6 @@ final class TelegramPickerViewController: UIViewController {
     func checkStatus(completionHandler: @escaping ([PHAsset]) -> ()) {
         Log("status = \(PHPhotoLibrary.authorizationStatus())")
         switch PHPhotoLibrary.authorizationStatus() {
-            
-        case .notDetermined:
-            /// This case means the user is prompted for the first time for allowing contacts
-            Assets.requestAccess { [unowned self] status in
-                self.checkStatus(completionHandler: completionHandler)
-            }
-            
         case .authorized:
             /// Authorization granted by user for this app.
             DispatchQueue.main.async {
@@ -220,6 +213,12 @@ final class TelegramPickerViewController: UIViewController {
                 self.alertController?.dismiss(animated: true)
             }
             alert.show()
+            
+        default:
+            /// This case means the user is prompted for the first time for allowing contacts
+            Assets.requestAccess { [unowned self] status in
+                self.checkStatus(completionHandler: completionHandler)
+            }
         }
     }
     
