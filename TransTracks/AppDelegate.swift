@@ -21,7 +21,11 @@ import UIKit
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
-    // MARK: Properties
+    //MARK: Constants
+    
+    private static let TAG_BLOCKING_VIEW = 98734
+    
+    //MARK: Properties
     
     var window: UIWindow?
     
@@ -75,12 +79,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let rootController = window!.rootViewController
         if let navigationController = rootController as? UINavigationController {
             lockAppIfRequired(navigationController)
+            
+            addBlockingViewIfRequired(navigationController)
         } else {
             fatalError("Error locking app")
         }
     }
 
     func applicationWillEnterForeground(_ application: UIApplication) {
+        removeBlockingView()
+        
         let rootController = window!.rootViewController
         if let navigationController = rootController as? UINavigationController {
             lockAppIfRequired(navigationController)
@@ -99,8 +107,29 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     //MARK: Helpers
     
+    private func addBlockingViewIfRequired(_ navigationController : UINavigationController){
+        guard UserDefaultsUtil.getLockType() != LockType.off else { return }
+        guard !isLockTopView(navigationController) else { return }
+        guard window!.viewWithTag(AppDelegate.TAG_BLOCKING_VIEW) == nil else { return }
+        
+        let blockingView = UIView(frame: window!.frame)
+        blockingView.backgroundColor = UIColor.white
+        blockingView.tag = AppDelegate.TAG_BLOCKING_VIEW
+        window!.addSubview(blockingView)
+    }
+    
+    private func removeBlockingView(){
+        if let blockingView = window!.viewWithTag(AppDelegate.TAG_BLOCKING_VIEW) {
+            blockingView.removeFromSuperview()
+        }
+    }
+    
+    private func isLockTopView(_ navigationController: UINavigationController) -> Bool {
+        return navigationController.topViewController is NormalLockController || navigationController.topViewController is TrainLockController
+    }
+    
     private func lockAppIfRequired(_ navigationController: UINavigationController){
-        guard !(navigationController.topViewController is NormalLockController || navigationController.topViewController is TrainLockController) else { return }
+        guard !isLockTopView(navigationController) else { return }
         
         var shouldShow = false
         

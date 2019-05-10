@@ -1449,7 +1449,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="train_track_background" translatesAutoresizingMaskIntoConstraints="NO" id="4BG-LY-aL2" userLabel="Background Image">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414.00000000000091" height="896"/>
                             </imageView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UhY-4i-gOm" userLabel="Background">
                                 <rect key="frame" x="16" y="336" width="382" height="201"/>
@@ -1517,6 +1517,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="RCM-xu-UUi"/>
                     </view>
+                    <navigationItem key="navigationItem" id="3Se-d2-LY2"/>
                     <connections>
                         <outlet property="reportingNumber" destination="zmh-mn-1cx" id="7mG-ox-z9E"/>
                     </connections>
