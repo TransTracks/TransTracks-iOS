@@ -127,6 +127,15 @@ class MilestonesSection {
 }
 
 extension MilestonesController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
+        if let view = view as? UITableViewHeaderFooterView {
+            view.backgroundView?.backgroundColor = UIColor.clear
+            view.textLabel?.backgroundColor = UIColor.clear
+            view.textLabel?.textColor = UIColor.white
+            view.textLabel?.font = UIFont.preferredFont(forTextStyle: .title2)
+        }
+    }
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let milestone = sections[indexPath.section].milestones[indexPath.row]
         performSegue(withIdentifier: "AddEditMilestone", sender: milestone)
@@ -152,7 +161,6 @@ extension MilestonesController: UITableViewDataSource {
         
         cell.title.text = milestone.title
         cell.descriptionLabel.text = milestone.userDescription
-//        cell.descriptionLabel.sizeToFit()
         
         return cell
     }
