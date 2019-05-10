@@ -52,10 +52,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let rootController = window!.rootViewController
         let homeViewController: HomeViewController
         
-        if let rootIsLogin = rootController as? HomeViewController {
-            homeViewController = rootIsLogin
-        } else if let navigationController = rootController as? UINavigationController {
+        if let navigationController = rootController as? UINavigationController {
             homeViewController = navigationController.topViewController as! HomeViewController
+            
+            if let lockController = getLockControllerToShow() {
+                navigationController.pushViewController(lockController, animated: false)
+            }
         } else {
             fatalError("Error setting up app")
         }
@@ -66,17 +68,25 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func applicationWillResignActive(_ application: UIApplication) {
-        // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
-        // Use this method to pause ongoing tasks, disable timers, and invalidate graphics rendering callbacks. Games should use this method to pause the game.
+        UserDefaultsUtil.updateUserLastSeen()
     }
 
     func applicationDidEnterBackground(_ application: UIApplication) {
-        // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
-        // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
+        let rootController = window!.rootViewController
+        if let navigationController = rootController as? UINavigationController {
+            lockAppIfRequired(navigationController)
+        } else {
+            fatalError("Error locking app")
+        }
     }
 
     func applicationWillEnterForeground(_ application: UIApplication) {
-        // Called as part of the transition from the background to the active state; here you can undo many of the changes made on entering the background.
+        let rootController = window!.rootViewController
+        if let navigationController = rootController as? UINavigationController {
+            lockAppIfRequired(navigationController)
+        } else {
+            fatalError("Error locking app")
+        }
     }
 
     func applicationDidBecomeActive(_ application: UIApplication) {
@@ -85,5 +95,39 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationWillTerminate(_ application: UIApplication) {
         try? self.dataController.viewContext.save()
+    }
+    
+    //MARK: Helpers
+    
+    private func lockAppIfRequired(_ navigationController: UINavigationController){
+        guard !(navigationController.topViewController is NormalLockController || navigationController.topViewController is TrainLockController) else { return }
+        
+        var shouldShow = false
+        
+        let lastSeen = UserDefaultsUtil.getUserLastSeen()
+        let calendar = Calendar.current
+        let components = calendar.dateComponents([.minute], from: lastSeen, to: Date())
+        
+        switch UserDefaultsUtil.getLockDelay() {
+        case .instant: shouldShow = true
+        case .oneMinute: shouldShow = components.minute ?? 0 >= 1
+        case .twoMinutes: shouldShow = components.minute ?? 0 >= 2
+        case .fiveMinutes: shouldShow = components.minute ?? 0 >= 5
+        case .fifteenMinutes: shouldShow = components.minute ?? 0 >= 15
+        }
+        
+        if shouldShow, let lock = getLockControllerToShow() {
+            navigationController.pushViewController(lock, animated: false)
+        }
+    }
+    
+    private func getLockControllerToShow() -> UIViewController? {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+
+        switch UserDefaultsUtil.getLockType() {
+        case .normal: return storyboard.instantiateViewController(withIdentifier: "NormalLock")
+        case .trains: return storyboard.instantiateViewController(withIdentifier: "TrainLock")
+        default: return nil
+        }
     }
 }

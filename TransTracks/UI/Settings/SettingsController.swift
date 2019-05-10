@@ -395,9 +395,11 @@ extension SettingsController: UITableViewDelegate {
             if let password = self.tempPassword, password.count > 0 {
                 let encryptedPassword = EncryptionUtil.sha512(initialData: password, salt: UserDefaultsUtil.CODE_SALT)
                 
-                if(UserDefaultsUtil.getLockCode() == encryptedPassword){
+                if UserDefaultsUtil.getLockCode() == encryptedPassword {
                     UserDefaultsUtil.setLockCode(newLockCode: "")
                     UserDefaultsUtil.setLockType(LockType.off)
+                } else {
+                    self.view.makeToast(NSLocalizedString("incorrectPassword", comment: ""))
                 }
             }
 

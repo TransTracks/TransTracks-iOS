@@ -110,6 +110,8 @@
 		F9869AA42283BD8C0049E442 /* MilestonesDomain.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9869AA32283BD8C0049E442 /* MilestonesDomain.swift */; };
 		F9869AA72283E6C70049E442 /* AddEditMilestoneController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9869AA62283E6C70049E442 /* AddEditMilestoneController.swift */; };
 		F9869AA92283FEBE0049E442 /* AlertHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9869AA82283FEBE0049E442 /* AlertHelper.swift */; };
+		F9869AAC228560630049E442 /* NormalLockController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9869AAB228560630049E442 /* NormalLockController.swift */; };
+		F9869AAE228574610049E442 /* TrainLockController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9869AAD228574610049E442 /* TrainLockController.swift */; };
 		F9DAC09E222129FB0051B8E6 /* OnePasswordTextFieldController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9DAC09D222129FB0051B8E6 /* OnePasswordTextFieldController.swift */; };
 		F9DAC0A022212BA20051B8E6 /* AlertPasswordTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9DAC09F22212BA20051B8E6 /* AlertPasswordTextField.swift */; };
 		F9DAC0A22221369C0051B8E6 /* TwoPasswordTextFieldController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9DAC0A12221369C0051B8E6 /* TwoPasswordTextFieldController.swift */; };
@@ -252,6 +254,8 @@
 		F9869AA32283BD8C0049E442 /* MilestonesDomain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MilestonesDomain.swift; sourceTree = "<group>"; };
 		F9869AA62283E6C70049E442 /* AddEditMilestoneController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddEditMilestoneController.swift; sourceTree = "<group>"; };
 		F9869AA82283FEBE0049E442 /* AlertHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertHelper.swift; sourceTree = "<group>"; };
+		F9869AAB228560630049E442 /* NormalLockController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NormalLockController.swift; sourceTree = "<group>"; };
+		F9869AAD228574610049E442 /* TrainLockController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrainLockController.swift; sourceTree = "<group>"; };
 		F9DAC09D222129FB0051B8E6 /* OnePasswordTextFieldController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnePasswordTextFieldController.swift; sourceTree = "<group>"; };
 		F9DAC09F22212BA20051B8E6 /* AlertPasswordTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertPasswordTextField.swift; sourceTree = "<group>"; };
 		F9DAC0A12221369C0051B8E6 /* TwoPasswordTextFieldController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TwoPasswordTextFieldController.swift; sourceTree = "<group>"; };
@@ -426,6 +430,7 @@
 				F900233C227D71AE003F3304 /* Edit Photo */,
 				F900234122814D4F003F3304 /* Gallery */,
 				F9FF433B22435A6100B911C6 /* Home */,
+				F9869AAA2285603E0049E442 /* Lock */,
 				F919D780219186DD0069F42B /* Main.storyboard */,
 				F9869A9C2282DC950049E442 /* Milestones */,
 				F93CF0602217F2580008CC44 /* NavigationController.swift */,
@@ -753,6 +758,15 @@
 				F9869AA62283E6C70049E442 /* AddEditMilestoneController.swift */,
 			);
 			path = "AddEdit Milestone";
+			sourceTree = "<group>";
+		};
+		F9869AAA2285603E0049E442 /* Lock */ = {
+			isa = PBXGroup;
+			children = (
+				F9869AAB228560630049E442 /* NormalLockController.swift */,
+				F9869AAD228574610049E442 /* TrainLockController.swift */,
+			);
+			path = Lock;
 			sourceTree = "<group>";
 		};
 		F9DAC09C222129A70051B8E6 /* Custom */ = {
@@ -1088,6 +1102,7 @@
 				F95C51DB22546EC6002499F4 /* SelectPhotoController.swift in Sources */,
 				F900233E227D71D3003F3304 /* EditPhotoContoller.swift in Sources */,
 				F93CF171221BF19B0008CC44 /* String+Extensions.swift in Sources */,
+				F9869AAE228574610049E442 /* TrainLockController.swift in Sources */,
 				F900234522815AB9003F3304 /* GalleryDomain.swift in Sources */,
 				F93CF16B221BF19B0008CC44 /* Array+Extensions.swift in Sources */,
 				F97FFBEF227AAFB9009503A4 /* HomePhotoCollectionController.swift in Sources */,
@@ -1100,6 +1115,7 @@
 				F97CAA8E223A20CB00D6A549 /* DataController.swift in Sources */,
 				F97FFBEB22781489009503A4 /* AssignPhotoDomain.swift in Sources */,
 				F93CF07D221A59A00008CC44 /* SettingCell.swift in Sources */,
+				F9869AAC228560630049E442 /* NormalLockController.swift in Sources */,
 				F93CF16E221BF19B0008CC44 /* UIViewController+Extensions.swift in Sources */,
 				F9EBDAA7222B998700268392 /* TransTracks.xcdatamodeld in Sources */,
 				F93CF17F221BF19B0008CC44 /* LocaleStore.swift in Sources */,

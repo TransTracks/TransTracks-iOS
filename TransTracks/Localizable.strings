@@ -52,6 +52,10 @@
 "bodyGallery" = "Body Gallery";
 "faceGallery" = "Face Gallery";
 
+//Lock
+"incorrectPassword" = "Incorrect password";
+"incorrectTrain" = "Couldn't locate the train, check code";
+
 //Photo Details
 "errorLoadingPhotoDetails" = "An error occurred loading this photo's details";
 "errorLoadingPhoto" = "An error occurred loading this photo";

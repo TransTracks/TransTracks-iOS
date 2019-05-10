@@ -101,11 +101,11 @@ class UserDefaultsUtil {
     
     //MARK: User Last Seen
     
-    private static func getUserLastSeen() -> Date {
+    public static func getUserLastSeen() -> Date {
         return getDate(.userLastSeen) ?? Date()
     }
     
-    private static func updateUserLastSeen() {
+    public static func updateUserLastSeen() {
         setAny(Date(), key: .userLastSeen)
     }
     
