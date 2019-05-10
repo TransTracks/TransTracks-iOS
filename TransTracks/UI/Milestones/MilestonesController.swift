@@ -40,8 +40,7 @@ class MilestonesController: BackgroundGradientViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        tableView.estimatedRowHeight = 100
-        tableView.rowHeight = UITableView.automaticDimension
+        setupTableView()
         
         adViewHolder.setupAd("ca-app-pub-4389848400124499/6697828305", rootViewController: self)
         
@@ -74,6 +73,22 @@ class MilestonesController: BackgroundGradientViewController {
                 }
             }
         )
+        
+        let _ = viewDisposables.insert(
+            domainManager.milestonesDomain.viewEffects.subscribe{ effect in
+                guard let effect = effect.element else { return }
+                
+                switch effect {
+                case .ScrollToDay(let epochDay):
+                    let sectionToScrollTo: Int? = self.sections.firstIndex(where: {section in section.epochDay == epochDay})
+                    
+                    if let sectionToScrollTo = sectionToScrollTo {
+                        let sectionRect = self.tableView.rect(forSection: sectionToScrollTo)
+                        self.tableView.setContentOffset(CGPoint(x: sectionRect.origin.x, y: sectionRect.origin.y), animated: true)
+                    }
+                }
+            }
+        )
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -100,6 +115,17 @@ class MilestonesController: BackgroundGradientViewController {
     }
     
     //MARK: UI Helpers
+    
+    func setupTableView(){
+        //Making the table view size views automatically
+        tableView.estimatedRowHeight = 100
+        tableView.rowHeight = UITableView.automaticDimension
+        
+        //Making the header views not pin
+        let dummyViewHeight = CGFloat(40)
+        self.tableView.tableHeaderView = UIView(frame: CGRect(x: 0, y: 0, width: self.tableView.bounds.size.width, height: dummyViewHeight))
+        self.tableView.contentInset = UIEdgeInsets(top: -dummyViewHeight, left: 0, bottom: 0, right: 0)
+    }
     
     func showEmptyView(_ showEmptyView: Bool){
         tableView.isHidden = showEmptyView

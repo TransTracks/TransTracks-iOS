@@ -102,6 +102,22 @@ class GalleryController: BackgroundGradientViewController {
                 }
             }
         )
+        
+        let _ = viewDisposables.insert(
+            domainManager.galleryDomain.viewEffects.subscribe{ effect in
+                guard let effect = effect.element else { return }
+                
+                switch effect {
+                case .ScrollToDay(let epochDay):
+                    let sectionToScrollTo: Int? = self.sections.firstIndex(where: {section in section.epochDay == epochDay})
+                    
+                    if let sectionToScrollTo = sectionToScrollTo, let attributes = self.collectionView.layoutAttributesForSupplementaryElement(ofKind: UICollectionView.elementKindSectionHeader, at: IndexPath(item: 0, section: sectionToScrollTo)) {
+                        let topOfHeader = CGPoint(x: 0, y: attributes.frame.origin.y - self.collectionView.contentInset.top)
+                        self.collectionView.setContentOffset(topOfHeader, animated:true)
+                    }
+                }
+            }
+        )
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -183,7 +199,6 @@ class GalleryController: BackgroundGradientViewController {
     //MARK: Button handling
     
     @IBAction func addClick(_ sender: Any) {
-        
         switch PHPhotoLibrary.authorizationStatus(){
         case .authorized:
             performSegue(withIdentifier: "SelectPhoto", sender: type)

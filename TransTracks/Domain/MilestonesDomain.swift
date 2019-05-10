@@ -83,7 +83,7 @@ func milestonesActionsToResults(_ dataController: DataController, _ viewEffectRe
                 }
                 
                 if let epochDay = epochDay {
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.2){
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.1){
                         viewEffectRelay.accept(.ScrollToDay(epochDay: epochDay))
                     }
                 }
