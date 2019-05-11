@@ -40,7 +40,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         #if DEBUG
             AnalyticsConfiguration.shared().setAnalyticsCollectionEnabled(false)
         #else
-            Fabric.with(Crashlytics())
+            Fabric.with([Crashlytics()])
         #endif
     
         if let path = Bundle.main.path(forResource: "GoogleService-Info", ofType: "plist"),

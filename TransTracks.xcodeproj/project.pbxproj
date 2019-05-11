@@ -65,24 +65,11 @@
 		F93CF186221BF19B0008CC44 /* OneTextFieldViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F93CF13F221BF19B0008CC44 /* OneTextFieldViewController.swift */; };
 		F93CF187221BF19B0008CC44 /* Assets.swift in Sources */ = {isa = PBXBuildFile; fileRef = F93CF142221BF19B0008CC44 /* Assets.swift */; };
 		F93CF188221BF19B0008CC44 /* PhotoLibraryPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F93CF143221BF19B0008CC44 /* PhotoLibraryPickerViewController.swift */; };
-		F93CF189221BF19B0008CC44 /* LocationSearchResultsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F93CF145221BF19B0008CC44 /* LocationSearchResultsViewController.swift */; };
-		F93CF18A221BF19B0008CC44 /* LocationPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F93CF146221BF19B0008CC44 /* LocationPickerViewController.swift */; };
-		F93CF18B221BF19B0008CC44 /* SearchHistoryManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F93CF148221BF19B0008CC44 /* SearchHistoryManager.swift */; };
-		F93CF18C221BF19B0008CC44 /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = F93CF14A221BF19B0008CC44 /* Location.swift */; };
-		F93CF18D221BF19B0008CC44 /* Address.swift in Sources */ = {isa = PBXBuildFile; fileRef = F93CF14B221BF19B0008CC44 /* Address.swift */; };
 		F93CF18E221BF19B0008CC44 /* PickerViewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F93CF14D221BF19B0008CC44 /* PickerViewViewController.swift */; };
-		F93CF18F221BF19B0008CC44 /* ContactsPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F93CF14F221BF19B0008CC44 /* ContactsPickerViewController.swift */; };
-		F93CF190221BF19B0008CC44 /* Contacts.swift in Sources */ = {isa = PBXBuildFile; fileRef = F93CF151221BF19B0008CC44 /* Contacts.swift */; };
-		F93CF191221BF19B0008CC44 /* Contact.swift in Sources */ = {isa = PBXBuildFile; fileRef = F93CF153221BF19B0008CC44 /* Contact.swift */; };
-		F93CF192221BF19B0008CC44 /* ContactCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F93CF155221BF19B0008CC44 /* ContactCell.swift */; };
 		F93CF193221BF19B0008CC44 /* ColorPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F93CF157221BF19B0008CC44 /* ColorPickerViewController.swift */; };
 		F93CF194221BF19B0008CC44 /* DatePickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F93CF159221BF19B0008CC44 /* DatePickerViewController.swift */; };
 		F93CF195221BF19B0008CC44 /* ImagePickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F93CF15B221BF19B0008CC44 /* ImagePickerViewController.swift */; };
 		F93CF196221BF19B0008CC44 /* ItemWithImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = F93CF15D221BF19B0008CC44 /* ItemWithImage.swift */; };
-		F93CF197221BF19B0008CC44 /* PhotoLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = F93CF160221BF19B0008CC44 /* PhotoLayout.swift */; };
-		F93CF198221BF19B0008CC44 /* TelegramPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F93CF161221BF19B0008CC44 /* TelegramPickerViewController.swift */; };
-		F93CF199221BF19B0008CC44 /* ItemWithPhoto.swift in Sources */ = {isa = PBXBuildFile; fileRef = F93CF163221BF19B0008CC44 /* ItemWithPhoto.swift */; };
-		F93CF19A221BF19B0008CC44 /* LikeButtonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F93CF164221BF19B0008CC44 /* LikeButtonCell.swift */; };
 		F93CF19B221BF19B0008CC44 /* Label.swift in Sources */ = {isa = PBXBuildFile; fileRef = F93CF166221BF19B0008CC44 /* Label.swift */; };
 		F93CF19C221BF19B0008CC44 /* SegmentedControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = F93CF167221BF19B0008CC44 /* SegmentedControl.swift */; };
 		F93CF19D221BF19B0008CC44 /* GradientSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = F93CF168221BF19B0008CC44 /* GradientSlider.swift */; };
@@ -211,24 +198,11 @@
 		F93CF13F221BF19B0008CC44 /* OneTextFieldViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OneTextFieldViewController.swift; sourceTree = "<group>"; };
 		F93CF142221BF19B0008CC44 /* Assets.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Assets.swift; sourceTree = "<group>"; };
 		F93CF143221BF19B0008CC44 /* PhotoLibraryPickerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoLibraryPickerViewController.swift; sourceTree = "<group>"; };
-		F93CF145221BF19B0008CC44 /* LocationSearchResultsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationSearchResultsViewController.swift; sourceTree = "<group>"; };
-		F93CF146221BF19B0008CC44 /* LocationPickerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationPickerViewController.swift; sourceTree = "<group>"; };
-		F93CF148221BF19B0008CC44 /* SearchHistoryManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchHistoryManager.swift; sourceTree = "<group>"; };
-		F93CF14A221BF19B0008CC44 /* Location.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
-		F93CF14B221BF19B0008CC44 /* Address.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Address.swift; sourceTree = "<group>"; };
 		F93CF14D221BF19B0008CC44 /* PickerViewViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PickerViewViewController.swift; sourceTree = "<group>"; };
-		F93CF14F221BF19B0008CC44 /* ContactsPickerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactsPickerViewController.swift; sourceTree = "<group>"; };
-		F93CF151221BF19B0008CC44 /* Contacts.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Contacts.swift; sourceTree = "<group>"; };
-		F93CF153221BF19B0008CC44 /* Contact.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Contact.swift; sourceTree = "<group>"; };
-		F93CF155221BF19B0008CC44 /* ContactCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactCell.swift; sourceTree = "<group>"; };
 		F93CF157221BF19B0008CC44 /* ColorPickerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorPickerViewController.swift; sourceTree = "<group>"; };
 		F93CF159221BF19B0008CC44 /* DatePickerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DatePickerViewController.swift; sourceTree = "<group>"; };
 		F93CF15B221BF19B0008CC44 /* ImagePickerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImagePickerViewController.swift; sourceTree = "<group>"; };
 		F93CF15D221BF19B0008CC44 /* ItemWithImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemWithImage.swift; sourceTree = "<group>"; };
-		F93CF160221BF19B0008CC44 /* PhotoLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoLayout.swift; sourceTree = "<group>"; };
-		F93CF161221BF19B0008CC44 /* TelegramPickerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TelegramPickerViewController.swift; sourceTree = "<group>"; };
-		F93CF163221BF19B0008CC44 /* ItemWithPhoto.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemWithPhoto.swift; sourceTree = "<group>"; };
-		F93CF164221BF19B0008CC44 /* LikeButtonCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LikeButtonCell.swift; sourceTree = "<group>"; };
 		F93CF166221BF19B0008CC44 /* Label.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Label.swift; sourceTree = "<group>"; };
 		F93CF167221BF19B0008CC44 /* SegmentedControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SegmentedControl.swift; sourceTree = "<group>"; };
 		F93CF168221BF19B0008CC44 /* GradientSlider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GradientSlider.swift; sourceTree = "<group>"; };
@@ -514,13 +488,10 @@
 				F93CF132221BF19B0008CC44 /* Locale */,
 				F93CF13D221BF19B0008CC44 /* TextFields */,
 				F93CF140221BF19B0008CC44 /* PhotoLibrary */,
-				F93CF144221BF19B0008CC44 /* Location */,
 				F93CF14C221BF19B0008CC44 /* PickerView */,
-				F93CF14E221BF19B0008CC44 /* Contacts */,
 				F93CF156221BF19B0008CC44 /* Color */,
 				F93CF158221BF19B0008CC44 /* Date */,
 				F93CF15A221BF19B0008CC44 /* Image */,
-				F93CF15E221BF19B0008CC44 /* Telegram */,
 			);
 			path = Pickers;
 			sourceTree = "<group>";
@@ -589,75 +560,12 @@
 			path = Managers;
 			sourceTree = "<group>";
 		};
-		F93CF144221BF19B0008CC44 /* Location */ = {
-			isa = PBXGroup;
-			children = (
-				F93CF145221BF19B0008CC44 /* LocationSearchResultsViewController.swift */,
-				F93CF146221BF19B0008CC44 /* LocationPickerViewController.swift */,
-				F93CF147221BF19B0008CC44 /* Managers */,
-				F93CF149221BF19B0008CC44 /* Models */,
-			);
-			path = Location;
-			sourceTree = "<group>";
-		};
-		F93CF147221BF19B0008CC44 /* Managers */ = {
-			isa = PBXGroup;
-			children = (
-				F93CF148221BF19B0008CC44 /* SearchHistoryManager.swift */,
-			);
-			path = Managers;
-			sourceTree = "<group>";
-		};
-		F93CF149221BF19B0008CC44 /* Models */ = {
-			isa = PBXGroup;
-			children = (
-				F93CF14A221BF19B0008CC44 /* Location.swift */,
-				F93CF14B221BF19B0008CC44 /* Address.swift */,
-			);
-			path = Models;
-			sourceTree = "<group>";
-		};
 		F93CF14C221BF19B0008CC44 /* PickerView */ = {
 			isa = PBXGroup;
 			children = (
 				F93CF14D221BF19B0008CC44 /* PickerViewViewController.swift */,
 			);
 			path = PickerView;
-			sourceTree = "<group>";
-		};
-		F93CF14E221BF19B0008CC44 /* Contacts */ = {
-			isa = PBXGroup;
-			children = (
-				F93CF14F221BF19B0008CC44 /* ContactsPickerViewController.swift */,
-				F93CF150221BF19B0008CC44 /* Managers */,
-				F93CF152221BF19B0008CC44 /* Models */,
-				F93CF154221BF19B0008CC44 /* Views */,
-			);
-			path = Contacts;
-			sourceTree = "<group>";
-		};
-		F93CF150221BF19B0008CC44 /* Managers */ = {
-			isa = PBXGroup;
-			children = (
-				F93CF151221BF19B0008CC44 /* Contacts.swift */,
-			);
-			path = Managers;
-			sourceTree = "<group>";
-		};
-		F93CF152221BF19B0008CC44 /* Models */ = {
-			isa = PBXGroup;
-			children = (
-				F93CF153221BF19B0008CC44 /* Contact.swift */,
-			);
-			path = Models;
-			sourceTree = "<group>";
-		};
-		F93CF154221BF19B0008CC44 /* Views */ = {
-			isa = PBXGroup;
-			children = (
-				F93CF155221BF19B0008CC44 /* ContactCell.swift */,
-			);
-			path = Views;
 			sourceTree = "<group>";
 		};
 		F93CF156221BF19B0008CC44 /* Color */ = {
@@ -689,33 +597,6 @@
 			isa = PBXGroup;
 			children = (
 				F93CF15D221BF19B0008CC44 /* ItemWithImage.swift */,
-			);
-			path = Views;
-			sourceTree = "<group>";
-		};
-		F93CF15E221BF19B0008CC44 /* Telegram */ = {
-			isa = PBXGroup;
-			children = (
-				F93CF15F221BF19B0008CC44 /* Layouts */,
-				F93CF161221BF19B0008CC44 /* TelegramPickerViewController.swift */,
-				F93CF162221BF19B0008CC44 /* Views */,
-			);
-			path = Telegram;
-			sourceTree = "<group>";
-		};
-		F93CF15F221BF19B0008CC44 /* Layouts */ = {
-			isa = PBXGroup;
-			children = (
-				F93CF160221BF19B0008CC44 /* PhotoLayout.swift */,
-			);
-			path = Layouts;
-			sourceTree = "<group>";
-		};
-		F93CF162221BF19B0008CC44 /* Views */ = {
-			isa = PBXGroup;
-			children = (
-				F93CF163221BF19B0008CC44 /* ItemWithPhoto.swift */,
-				F93CF164221BF19B0008CC44 /* LikeButtonCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1102,8 +983,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				F93CF19D221BF19B0008CC44 /* GradientSlider.swift in Sources */,
-				F93CF191221BF19B0008CC44 /* Contact.swift in Sources */,
-				F93CF19A221BF19B0008CC44 /* LikeButtonCell.swift in Sources */,
 				F919D77F219186DD0069F42B /* HomeViewController.swift in Sources */,
 				F95C51DB22546EC6002499F4 /* SelectPhotoController.swift in Sources */,
 				F900233E227D71D3003F3304 /* EditPhotoContoller.swift in Sources */,
@@ -1116,9 +995,7 @@
 				F919D77D219186DD0069F42B /* AppDelegate.swift in Sources */,
 				F97CAA92223A31AC00D6A549 /* Photo.swift in Sources */,
 				F9002340227D7BE5003F3304 /* EditPhotoDomain.swift in Sources */,
-				F93CF192221BF19B0008CC44 /* ContactCell.swift in Sources */,
 				F93CF176221BF19B0008CC44 /* UIApplication+Extensions.swift in Sources */,
-				F93CF18F221BF19B0008CC44 /* ContactsPickerViewController.swift in Sources */,
 				F97CAA8E223A20CB00D6A549 /* DataController.swift in Sources */,
 				F97FFBEB22781489009503A4 /* AssignPhotoDomain.swift in Sources */,
 				F93CF07D221A59A00008CC44 /* SettingCell.swift in Sources */,
@@ -1128,7 +1005,6 @@
 				F93CF17F221BF19B0008CC44 /* LocaleStore.swift in Sources */,
 				F93CF187221BF19B0008CC44 /* Assets.swift in Sources */,
 				F9869AA92283FEBE0049E442 /* AlertHelper.swift in Sources */,
-				F93CF18C221BF19B0008CC44 /* Location.swift in Sources */,
 				F9869AB2228662490049E442 /* UIViewControllers.swift in Sources */,
 				F97CAA90223A262300D6A549 /* Rx.swift in Sources */,
 				F93CF181221BF19B0008CC44 /* LocalePickerViewController.swift in Sources */,
@@ -1163,20 +1039,14 @@
 				F97CAA98223A4F4700D6A549 /* DomainManager.swift in Sources */,
 				F9DAC0A22221369C0051B8E6 /* TwoPasswordTextFieldController.swift in Sources */,
 				F93CF183221BF19B0008CC44 /* CurrencyCell.swift in Sources */,
-				F93CF197221BF19B0008CC44 /* PhotoLayout.swift in Sources */,
 				F9EBDAA2222A1C5600268392 /* HMAC.swift in Sources */,
-				F93CF18B221BF19B0008CC44 /* SearchHistoryManager.swift in Sources */,
 				F9DAC09E222129FB0051B8E6 /* OnePasswordTextFieldController.swift in Sources */,
 				F93CF0612217F2580008CC44 /* NavigationController.swift in Sources */,
 				F93CF188221BF19B0008CC44 /* PhotoLibraryPickerViewController.swift in Sources */,
 				F93CF19C221BF19B0008CC44 /* SegmentedControl.swift in Sources */,
 				F93CF195221BF19B0008CC44 /* ImagePickerViewController.swift in Sources */,
-				F93CF18D221BF19B0008CC44 /* Address.swift in Sources */,
-				F93CF18A221BF19B0008CC44 /* LocationPickerViewController.swift in Sources */,
 				F93CF19F221BF19B0008CC44 /* Button.swift in Sources */,
-				F93CF199221BF19B0008CC44 /* ItemWithPhoto.swift in Sources */,
 				F97FFBF2227C38B6009503A4 /* PhotoDetailsController.swift in Sources */,
-				F93CF198221BF19B0008CC44 /* TelegramPickerViewController.swift in Sources */,
 				F93CF175221BF19B0008CC44 /* UISearchBar+Extensions.swift in Sources */,
 				F93CF177221BF19B0008CC44 /* UIAlertController+Extensions.swift in Sources */,
 				F93CF06D221957FD0008CC44 /* BackgroundGradientViewController.swift in Sources */,
@@ -1193,9 +1063,7 @@
 				F93CF068221805BC0008CC44 /* UIColors.swift in Sources */,
 				F93CF06F221A1BDD0008CC44 /* GADBannerViews.swift in Sources */,
 				F93CF185221BF19B0008CC44 /* TwoTextFieldsViewController.swift in Sources */,
-				F93CF190221BF19B0008CC44 /* Contacts.swift in Sources */,
 				F93CF17C221BF19B0008CC44 /* AttributedTextBlock.swift in Sources */,
-				F93CF189221BF19B0008CC44 /* LocationSearchResultsViewController.swift in Sources */,
 				F93CF173221BF19B0008CC44 /* UIColor+Extensions.swift in Sources */,
 				F9869A9B22829A550049E442 /* GallerySectionTitle.swift in Sources */,
 				F93CF081221A5A0A0008CC44 /* ButtonCell.swift in Sources */,
