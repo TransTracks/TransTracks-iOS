@@ -15,6 +15,12 @@
 import UIKit
 
 class DividerView: UIView {
+    
+    //MARK: Properties
+    private var currentGradientLayer: CAGradientLayer?
+    
+    //MARK: Initialisers
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         
@@ -25,6 +31,14 @@ class DividerView: UIView {
         super.init(coder: aDecoder)
         
         setup()
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        
+        if let currentGradientLayer = currentGradientLayer {
+            currentGradientLayer.frame = bounds
+        }
     }
     
     private func setup() {
@@ -38,8 +52,14 @@ class DividerView: UIView {
         newGradient.locations = [NSNumber(value: 0.0), NSNumber(value: 0.5), NSNumber(value: 1.0)]
         newGradient.startPoint = CGPoint(x: 0.0, y: 0.0)
         newGradient.endPoint = CGPoint(x: 1.0, y: 0.0)
-        newGradient.frame = CGRect(x: 0, y: 0, width: frame.width, height: frame.height)
+        newGradient.frame = bounds
         
-        layer.insertSublayer(newGradient, at: 0)
+        if let currentGradientLayer = currentGradientLayer {
+            layer.replaceSublayer(currentGradientLayer, with: newGradient)
+        } else {
+            layer.insertSublayer(newGradient, at: 0)
+        }
+        
+        currentGradientLayer = newGradient
     }
 }
