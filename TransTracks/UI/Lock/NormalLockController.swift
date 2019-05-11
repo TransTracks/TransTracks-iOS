@@ -31,6 +31,7 @@ class NormalLockController: BackgroundGradientViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.hidesBackButton = true
+        setupViewResizerOnKeyboardShown()
     }
     
     //MARK: Button Handling

@@ -40,6 +40,7 @@ class AddEditMilestoneController: BackgroundGradientViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        setupViewResizerOnKeyboardShown()
         setupCallbacks()
         
         if let milestone = milestone {
