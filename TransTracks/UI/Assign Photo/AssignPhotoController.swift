@@ -25,12 +25,14 @@ class AssignPhotoController : BackgroundGradientViewController {
     
     var domainManager: DomainManager!
     
-    var resultsDisposable: Disposable?
-    var viewDisposables: CompositeDisposable = CompositeDisposable()
+    var image: UIImage?
+    var photos: [PHAsset]?
     
-    var photos: [PHAsset]!
     var epochDay: Int?
     var type: PhotoType = PhotoType.face
+    
+    private var resultsDisposable: Disposable?
+    private var viewDisposables: CompositeDisposable = CompositeDisposable()
     
     private var currentAsset: PHAsset? = nil
     private var currentPhotoDate: Date? = nil
@@ -61,7 +63,7 @@ class AssignPhotoController : BackgroundGradientViewController {
         resultsDisposable = domainManager.assignPhotoDomain.results
             .do(onSubscribe: {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
-                    self.domainManager.assignPhotoDomain.actions.accept(.InitialData(photos: self.photos, epochDay: self.epochDay, type: self.type))
+                    self.domainManager.assignPhotoDomain.actions.accept(.InitialData(photos: self.photos, image: self.image, epochDay: self.epochDay, type: self.type))
                 }
             })
             .subscribe()
@@ -79,12 +81,12 @@ class AssignPhotoController : BackgroundGradientViewController {
                     self.updateSkipVisibility(count: count)
                     self.updateUIEnabled(false)
                     
-                case .Display(let asset, let date, let photoDate, let type, let index, let count):
-                    self.display(asset: asset, date: date, photoDate: photoDate, type: type, index: index, count: count)
+                case .Display(let asset, let image, let date, let photoDate, let type, let index, let count):
+                    self.display(asset: asset, image: image, date: date, photoDate: photoDate, type: type, index: index, count: count)
                     self.updateUIEnabled(true)
                     
-                case .SavingImage(let asset, let date, let photoDate, let type, let index, let count):
-                    self.display(asset: asset, date: date, photoDate: photoDate, type: type, index: index, count: count)
+                case .SavingImage(let asset, let image, let date, let photoDate, let type, let index, let count):
+                    self.display(asset: asset, image: image, date: date, photoDate: photoDate, type: type, index: index, count: count)
                     self.updateUIEnabled(false)
                 }
             }
@@ -139,16 +141,22 @@ class AssignPhotoController : BackgroundGradientViewController {
     
     //MARK: UI Helpers
     
-    private func display(asset: PHAsset, date: Date, photoDate: Date?, type: PhotoType, index: Int, count: Int){
+    private func display(asset: PHAsset?, image: UIImage?, date: Date, photoDate: Date?, type: PhotoType, index: Int, count: Int){
         currentPhotoDate = photoDate
         currentIndex = index
         currentCount = count
         
-        if currentAsset != asset {
-            currentAsset = asset
-            Assets.resolve(asset: asset, size: imageView.bounds.size, contentMode: .aspectFit){ newPhoto in
-                self.imageView.image = newPhoto
+        if let image = image {
+            self.imageView.image = image
+        } else if let asset = asset {
+            if currentAsset != asset {
+                currentAsset = asset
+                Assets.resolve(asset: asset, size: imageView.bounds.size, contentMode: .aspectFit){ newPhoto in
+                    self.imageView.image = newPhoto
+                }
             }
+        } else {
+            fatalError("Image or Asset needs to be set")
         }
         
         dateLabel.text = date.toFullDateString()

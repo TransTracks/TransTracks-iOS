@@ -55,9 +55,15 @@ class SelectPhotoController: BackgroundGradientCollectionViewController {
             if let args = sender as? [SegueKey:Any] {
                 args.forEach{ key, value in
                     switch key {
+                    case .image:
+                        if let image = value as? UIImage {
+                            assignPhotoController.image = image
+                        }
+                        
                     case .photos:
-                        guard let photos = value as? [PHAsset] else { fatalError("photos arg is required to segue to AssignPhotoController") }
-                        assignPhotoController.photos = photos
+                        if let photos = value as? [PHAsset] {
+                            assignPhotoController.photos = photos
+                        }
                         
                     case .epochDay:
                         if let epochDay = value as? Int {
@@ -135,6 +141,18 @@ class SelectPhotoController: BackgroundGradientCollectionViewController {
         } else {
             collectionView.reloadItems(at: [indexPath])
         }
+    }
+    
+    private func segueToAssignPhoto(_ image: UIImage){
+        var args: [SegueKey:Any] = [:]
+        args[.image] = image
+        args[.type] = type
+        
+        if let epochDay = epochDay {
+            args[.epochDay] = epochDay
+        }
+        
+        performSegue(withIdentifier: "AssignPhoto", sender: args)
     }
     
     private func segueToAssignPhotos(_ assets: [PHAsset]){
@@ -269,7 +287,7 @@ class SelectPhotoController: BackgroundGradientCollectionViewController {
     private let GRID_SPAN: CGFloat = 3
     
     private enum SegueKey {
-        case photos, epochDay, type
+        case photos, epochDay, type, image
     }
 }
 
@@ -285,9 +303,8 @@ extension SelectPhotoController: UIImagePickerControllerDelegate, UINavigationCo
         imagePicker?.dismiss(animated: true, completion: nil)
         imagePicker = nil
         
-        
-        if let asset = info[UIImagePickerController.InfoKey.phAsset] as? PHAsset {
-             segueToAssignPhotos([asset])
+        if let image = info[.originalImage] as? UIImage {
+             segueToAssignPhoto(image)
         }
     }
 }
