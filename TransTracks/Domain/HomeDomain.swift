@@ -72,18 +72,8 @@ func homeActionsToResults(_ dataController: DataController, _ viewEffectRelay: P
         let dayString = Date.stringForPeriodBetween(start: startDate, end: currentDate)
         let currentDateEpochDay = currentDate.toEpochDay()
         
-        let previousRecordCount = Photo.previousCount(currentDateEpochDay, context: dataController.viewContext)
-            + Milestone.previousCount(currentDateEpochDay, context: dataController.viewContext)
-        
-        let nextRecordCount = Photo.nextCount(currentDateEpochDay, context: dataController.viewContext)
-            + Milestone.nextCount(currentDateEpochDay, context: dataController.viewContext)
-        
-        let today = Date.today()
-        
-        let showPreviousRecord = previousRecordCount > 0 || currentDate.isAfter(today)
-            || currentDate.isAfter(startDate)
-        let showNextRecord = nextRecordCount > 0 || currentDate.isBefore(today)
-            || currentDate.isBefore(startDate)
+        let showPreviousRecord = getPreviousDay(currentDate) != currentDate
+        let showNextRecord = getNextDay(currentDate) != currentDate
         
         let hasMilestones = Milestone.hasMilestones(currentDateEpochDay, context: dataController.viewContext)
         
@@ -95,12 +85,12 @@ func homeActionsToResults(_ dataController: DataController, _ viewEffectRelay: P
         
         let currentEpochDay = currentDate.toEpochDay()
         
-        if let previousPhoto = Photo.next(currentEpochDay, context: dataController.viewContext) {
-            possibleNextDays.append(Int(previousPhoto.epochDay))
+        if let nextPhoto = Photo.next(currentEpochDay, context: dataController.viewContext) {
+            possibleNextDays.append(Int(nextPhoto.epochDay))
         }
         
-        if let previousMilestone = Milestone.next(currentEpochDay, context: dataController.viewContext) {
-            possibleNextDays.append(Int(previousMilestone.epochDay))
+        if let nextMilestone = Milestone.next(currentEpochDay, context: dataController.viewContext) {
+            possibleNextDays.append(Int(nextMilestone.epochDay))
         }
         
         let startDateEpochDay = UserDefaultsUtil.getStartDate().toEpochDay()
