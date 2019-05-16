@@ -16,19 +16,22 @@ import GoogleMobileAds
 import UIKit
 
 class AdContainerView: UIView {
+    private var bannerAd: GADBannerView? = nil
+    private var zeroHeightContraint: NSLayoutConstraint!
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        addTopBorder()
+        setup()
     }
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         
-        addTopBorder()
+        setup()
     }
     
-    private func addTopBorder(){
+    private func setup(){
         backgroundColor = UIColor.black
         
         clipsToBounds = false
@@ -44,10 +47,22 @@ class AdContainerView: UIView {
         bottomBorder.frame = CGRect(x: 0, y: -1, width: frame.width, height: 1)
         
         layer.addSublayer(bottomBorder)
+        
+        //Used for hiding the banner section
+        zeroHeightContraint = NSLayoutConstraint(item: self,
+                                                 attribute: .height,
+                                                 relatedBy: .equal,
+                                                 toItem: nil,
+                                                 attribute: .height,
+                                                 multiplier: CGFloat(1.0),
+                                                 constant: CGFloat(0.0))
     }
     
     func setupAd(_ adUnitId: String, rootViewController: UIViewController){
-        let bannerAd = GADBannerView.getAdView(adUnitId, rootViewController: rootViewController)
+        bannerAd = GADBannerView.getAdView(adUnitId, rootViewController: rootViewController)
+        
+        guard let bannerAd = bannerAd else { return }
+        bannerAd.delegate = self
         
         addSubview(bannerAd)
         
@@ -82,5 +97,17 @@ class AdContainerView: UIView {
                                               attribute: NSLayoutConstraint.Attribute.bottom,
                                               multiplier: CGFloat(1.0),
                                               constant:  CGFloat(0.0)))
+    }
+}
+
+extension AdContainerView: GADBannerViewDelegate {
+    func adViewDidReceiveAd(_ bannerView: GADBannerView) {
+        isHidden = false
+        superview?.removeConstraint(zeroHeightContraint)
+    }
+    
+    func adView(_ bannerView: GADBannerView, didFailToReceiveAdWithError error: GADRequestError) {
+        isHidden = true
+        superview?.addConstraint(zeroHeightContraint)
     }
 }

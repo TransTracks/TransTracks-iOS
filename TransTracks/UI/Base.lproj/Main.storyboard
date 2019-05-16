@@ -317,6 +317,7 @@
                             <constraint firstItem="tBO-2r-hgf" firstAttribute="top" secondItem="Svr-XE-9bu" secondAttribute="bottom" constant="8" id="8xc-Mb-233"/>
                             <constraint firstAttribute="bottom" secondItem="UTK-Yx-rMY" secondAttribute="bottom" id="9DE-oY-XDR"/>
                             <constraint firstItem="UTK-Yx-rMY" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="As6-Ai-tCY"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="OkA-42-18A" secondAttribute="bottom" id="B3Z-BU-3B7"/>
                             <constraint firstItem="bs3-oP-BPs" firstAttribute="top" secondItem="joI-nW-ntk" secondAttribute="bottom" constant="8" id="JGI-QN-yab"/>
                             <constraint firstItem="Fob-w7-THw" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="Mng-VS-43h"/>
                             <constraint firstItem="UTK-Yx-rMY" firstAttribute="top" secondItem="OkA-42-18A" secondAttribute="bottom" constant="8" id="N1c-A7-Dji"/>
@@ -815,6 +816,7 @@
                             <constraint firstAttribute="bottom" secondItem="sDP-Gh-1Hc" secondAttribute="bottom" id="lOx-FV-tn8"/>
                             <constraint firstItem="kup-Ns-35x" firstAttribute="centerX" secondItem="9VP-VB-03B" secondAttribute="centerX" id="lPC-io-2m0"/>
                             <constraint firstItem="9VP-VB-03B" firstAttribute="trailing" secondItem="isB-mi-FUk" secondAttribute="trailing" constant="16" id="odu-DL-eU8"/>
+                            <constraint firstItem="9VP-VB-03B" firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="kup-Ns-35x" secondAttribute="bottom" id="q7F-77-Rrk"/>
                             <constraint firstItem="9VP-VB-03B" firstAttribute="trailing" secondItem="Pfy-XN-loD" secondAttribute="trailing" id="rob-8E-JWK"/>
                             <constraint firstItem="sDP-Gh-1Hc" firstAttribute="trailing" secondItem="9VP-VB-03B" secondAttribute="trailing" id="xXf-4u-MnN"/>
                         </constraints>
@@ -1541,7 +1543,7 @@
         <image name="unselected" width="20" height="20"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="BUO-YM-mSV"/>
-        <segue reference="QkW-Jv-d5D"/>
+        <segue reference="kJr-Fz-g6w"/>
+        <segue reference="0uw-Wl-wh3"/>
     </inferredMetricsTieBreakers>
 </document>
