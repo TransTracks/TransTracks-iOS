@@ -68,6 +68,11 @@ class HomeViewController: BackgroundGradientViewController {
         
         domainManager.homeDomain.actions.accept(.ReloadDay)
         
+        if UserDefaultsUtil.showWelcome() {
+            performSegue(withIdentifier: "Welcome", sender: nil)
+            UserDefaultsUtil.setShowWelcome(false)
+        }
+        
         let _ = viewDisposables.insert(
             domainManager.homeDomain.results.subscribe{result in
                 guard let result = result.element else { return }

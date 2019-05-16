@@ -1,8 +1,8 @@
 //
-//  ThemedButton.swift
+//  DropShadowButton.swift
 //  TransTracks
 //
-//  Created by Cassie Wilson on 10/5/19.
+//  Created by Cassie Wilson on 16/5/19.
 //  Copyright © 2019 TransTracks. All rights reserved.
 //
 //  This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
@@ -14,7 +14,7 @@
 
 import UIKit
 
-class ThemedButton: DropShadowButton {
+class DropShadowButton: UIButton {
     override init(frame: CGRect) {
         super.init(frame: frame)
         setup()
@@ -26,6 +26,12 @@ class ThemedButton: DropShadowButton {
     }
     
     private func setup(){
-        backgroundColor = UserDefaultsUtil.getTheme().colorAccent
+        layer.cornerRadius = 4.0
+        layer.masksToBounds = false
+        
+        layer.shadowColor = UIColor.black.cgColor
+        layer.shadowOpacity = 0.5
+        layer.shadowRadius = 3
+        layer.shadowOffset = CGSize(width: 0, height: 2)
     }
 }

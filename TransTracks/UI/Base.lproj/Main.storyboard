@@ -361,7 +361,7 @@
                         <barButtonItem key="rightBarButtonItem" title="Item" image="settings" id="UC7-UB-4Ec" userLabel="Settings">
                             <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <connections>
-                                <segue destination="cAd-75-00d" kind="show" id="bne-6S-J4l"/>
+                                <segue destination="cAd-75-00d" kind="show" identifier="Settings" id="bne-6S-J4l"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -379,6 +379,7 @@
                         <segue destination="kyX-tM-9Ow" kind="show" identifier="PhotoDetails" id="0uw-Wl-wh3"/>
                         <segue destination="EnN-mv-xan" kind="show" identifier="SelectPhoto" id="kJr-Fz-g6w"/>
                         <segue destination="5k4-ak-VEC" kind="show" identifier="Milestones" id="NaZ-dO-jSc"/>
+                        <segue destination="GO0-cX-WUb" kind="presentation" identifier="Welcome" modalPresentationStyle="overCurrentContext" modalTransitionStyle="crossDissolve" id="9We-ge-9mW"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -580,7 +581,7 @@
                                             <action selector="savePhotoClick:" destination="0jf-g8-Jdq" eventType="touchUpInside" id="wfR-AF-fFo"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="1000" verticalHuggingPriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kcX-1C-5kt">
+                                    <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="1000" verticalHuggingPriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kcX-1C-5kt" customClass="DropShadowButton" customModule="TransTracks" customModuleProvider="target">
                                         <rect key="frame" x="230" y="0.0" width="110" height="40"/>
                                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <fontDescription key="fontDescription" style="UICTFontTextStyleTitle2"/>
@@ -1103,6 +1104,147 @@
             </objects>
             <point key="canvasLocation" x="825" y="866"/>
         </scene>
+        <!--Welcome Controller-->
+        <scene sceneID="gLT-9U-HWT">
+            <objects>
+                <viewController id="GO0-cX-WUb" customClass="WelcomeController" customModule="TransTracks" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Mt4-qj-ICE">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uAz-Ok-54M" userLabel="Background">
+                                <rect key="frame" x="22.5" y="172" width="369.5" height="290"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="o9g-Rw-mA4">
+                                <rect key="frame" x="38.5" y="188" width="337.5" height="258"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Welcome" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aP9-Hd-rcW">
+                                        <rect key="frame" x="0.0" y="0.0" width="337.5" height="31.5"/>
+                                        <fontDescription key="fontDescription" style="UICTFontTextStyleTitle1"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ViR-9G-Wnd">
+                                        <rect key="frame" x="0.0" y="47.5" width="337.5" height="81.5"/>
+                                        <string key="text">Welcome to Trans Tracks, it's easy to get started but before you do we wanted to check these settings with you. How do they look?</string>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sWp-32-kmD">
+                                        <rect key="frame" x="0.0" y="145" width="337.5" height="20.5"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Start Date:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dCZ-xk-nB7">
+                                                <rect key="frame" x="0.0" y="0.0" width="89.5" height="20.5"/>
+                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <view contentMode="scaleToFill" placeholderIntrinsicWidth="1" placeholderIntrinsicHeight="infinite" translatesAutoresizingMaskIntoConstraints="NO" id="S2K-xV-Hwv">
+                                                <rect key="frame" x="89.5" y="0.0" width="152.5" height="20.5"/>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            </view>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="16/05/2019" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TcQ-fs-hvK">
+                                                <rect key="frame" x="242" y="0.0" width="95.5" height="20.5"/>
+                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                    </stackView>
+                                    <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yGm-Vn-ikG">
+                                        <rect key="frame" x="0.0" y="181.5" width="337.5" height="20.5"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Lock Mode:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wPd-XO-gKJ">
+                                                <rect key="frame" x="0.0" y="0.0" width="94.5" height="20.5"/>
+                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <view contentMode="scaleToFill" placeholderIntrinsicWidth="1" placeholderIntrinsicHeight="infinite" translatesAutoresizingMaskIntoConstraints="NO" id="Lwy-uK-SJX">
+                                                <rect key="frame" x="94.5" y="0.0" width="171.5" height="20.5"/>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            </view>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Disabled" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fXM-QW-TQ0">
+                                                <rect key="frame" x="266" y="0.0" width="71.5" height="20.5"/>
+                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                    </stackView>
+                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="lq3-Rz-B6g" userLabel="Buttons">
+                                        <rect key="frame" x="0.0" y="218" width="337.5" height="40"/>
+                                        <subviews>
+                                            <view contentMode="scaleToFill" placeholderIntrinsicWidth="1" placeholderIntrinsicHeight="infinite" translatesAutoresizingMaskIntoConstraints="NO" id="sKG-gh-Bsd">
+                                                <rect key="frame" x="0.0" y="0.0" width="1" height="40"/>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            </view>
+                                            <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="1000" verticalHuggingPriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lfY-iC-9SJ" customClass="ThemedButton" customModule="TransTracks" customModuleProvider="target">
+                                                <rect key="frame" x="18.5" y="0.0" width="161" height="40"/>
+                                                <color key="backgroundColor" red="0.0091119781140000002" green="0.70185786490000002" blue="0.8939476609" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <fontDescription key="fontDescription" style="UICTFontTextStyleTitle2"/>
+                                                <inset key="contentEdgeInsets" minX="8" minY="8" maxX="8" maxY="8"/>
+                                                <state key="normal" title="Change Settings">
+                                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="changeSettings:" destination="GO0-cX-WUb" eventType="touchUpInside" id="PSR-ag-QWo"/>
+                                                    <action selector="savePhotoClick:" destination="0jf-g8-Jdq" eventType="touchUpInside" id="jDZ-4b-wsq"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="1000" verticalHuggingPriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yDt-ZL-DXG" customClass="DropShadowButton" customModule="TransTracks" customModuleProvider="target">
+                                                <rect key="frame" x="197.5" y="0.0" width="121" height="40"/>
+                                                <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <fontDescription key="fontDescription" style="UICTFontTextStyleTitle2"/>
+                                                <inset key="contentEdgeInsets" minX="8" minY="8" maxX="8" maxY="8"/>
+                                                <state key="normal" title="Looks Good">
+                                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="looksGood:" destination="GO0-cX-WUb" eventType="touchUpInside" id="XaL-Xm-6Mo"/>
+                                                    <action selector="skipPhotoClick:" destination="0jf-g8-Jdq" eventType="touchUpInside" id="zeW-mp-cUR"/>
+                                                </connections>
+                                            </button>
+                                            <view contentMode="scaleToFill" placeholderIntrinsicWidth="1" placeholderIntrinsicHeight="infinite" translatesAutoresizingMaskIntoConstraints="NO" id="VPd-aQ-Ivw">
+                                                <rect key="frame" x="336.5" y="0.0" width="1" height="40"/>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            </view>
+                                        </subviews>
+                                    </stackView>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </stackView>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="0.2986408390410959" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="o9g-Rw-mA4" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Mt4-qj-ICE" secondAttribute="leading" constant="32" id="3GL-YH-0Oc"/>
+                            <constraint firstItem="qyw-b5-qht" firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="o9g-Rw-mA4" secondAttribute="bottom" constant="64" id="Dlv-IA-iBX"/>
+                            <constraint firstItem="o9g-Rw-mA4" firstAttribute="centerX" secondItem="qyw-b5-qht" secondAttribute="centerX" id="EJK-2B-bp3"/>
+                            <constraint firstItem="o9g-Rw-mA4" firstAttribute="leading" secondItem="uAz-Ok-54M" secondAttribute="leading" constant="16" id="Iii-VA-dYk"/>
+                            <constraint firstItem="uAz-Ok-54M" firstAttribute="bottom" secondItem="o9g-Rw-mA4" secondAttribute="bottom" constant="16" id="Lda-sm-f9j"/>
+                            <constraint firstItem="o9g-Rw-mA4" firstAttribute="top" secondItem="uAz-Ok-54M" secondAttribute="top" constant="16" id="c8H-cl-DZS"/>
+                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="o9g-Rw-mA4" secondAttribute="trailing" constant="32" id="nOx-jz-oJt"/>
+                            <constraint firstItem="uAz-Ok-54M" firstAttribute="trailing" secondItem="o9g-Rw-mA4" secondAttribute="trailing" constant="16" id="ucu-4p-Xxg"/>
+                            <constraint firstItem="o9g-Rw-mA4" firstAttribute="top" secondItem="qyw-b5-qht" secondAttribute="top" constant="144" id="wJp-AK-nEA"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="qyw-b5-qht"/>
+                    </view>
+                    <connections>
+                        <outlet property="background" destination="uAz-Ok-54M" id="C1c-b5-SnD"/>
+                        <outlet property="lockMode" destination="fXM-QW-TQ0" id="Mbi-6k-c6w"/>
+                        <outlet property="startDate" destination="TcQ-fs-hvK" id="PAy-AZ-zqq"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dSa-sR-OU1" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1882" y="848"/>
+        </scene>
         <!--Normal Lock-->
         <scene sceneID="Qn2-yb-iGD">
             <objects>
@@ -1483,7 +1625,7 @@
                                     <userDefinedRuntimeAttribute type="string" keyPath="showToggleButtonWhile" value="always"/>
                                 </userDefinedRuntimeAttributes>
                             </textField>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="diL-Vx-38f" userLabel="Search Button">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="diL-Vx-38f" userLabel="Search Button" customClass="DropShadowButton" customModule="TransTracks" customModuleProvider="target">
                                 <rect key="frame" x="172" y="484" width="70" height="37"/>
                                 <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
