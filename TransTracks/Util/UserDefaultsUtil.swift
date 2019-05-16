@@ -12,7 +12,7 @@
 //  You should have received a copy of the GNU General Public License along with this program. If not, see <https://www.gnu.org/licenses/>.
 //
 
-import Foundation
+import UIKit
 
 class UserDefaultsUtil {
     static let CODE_SALT = "iP5Rp315RpDq7gwpIUOcoeqicsxTtzzm"
@@ -47,6 +47,18 @@ class UserDefaultsUtil {
     
     static func setLockType(_ newLockType: LockType) {
         setAny(newLockType.rawValue, key: .lockType)
+        
+        guard UIApplication.shared.supportsAlternateIcons else { return }
+        
+        let iconName:String?
+        switch newLockType {
+        case .off, .normal: iconName = nil
+        case .trains: iconName = "AltAppIcon"
+        }
+        
+        if iconName != UIApplication.shared.alternateIconName {
+            UIApplication.shared.setAlternateIconName(iconName)
+        }
     }
     
     //MARK: Show Ads

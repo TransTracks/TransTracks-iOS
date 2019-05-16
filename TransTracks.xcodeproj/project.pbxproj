@@ -103,6 +103,9 @@
 		F9869AB2228662490049E442 /* UIViewControllers.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9869AB1228662490049E442 /* UIViewControllers.swift */; };
 		F9BF2415228D0098002A38BA /* DropShadowButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9BF2414228D0098002A38BA /* DropShadowButton.swift */; };
 		F9BF2417228D011A002A38BA /* WelcomeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9BF2416228D011A002A38BA /* WelcomeController.swift */; };
+		F9BF2428228D3ACC002A38BA /* AltAppIcon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = F9BF2419228D3ACB002A38BA /* AltAppIcon@3x.png */; };
+		F9BF2434228D3ACC002A38BA /* AltAppIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F9BF2425228D3ACC002A38BA /* AltAppIcon@2x.png */; };
+		F9BF2436228D3ACC002A38BA /* AltAppIcon@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = F9BF2427228D3ACC002A38BA /* AltAppIcon@1x.png */; };
 		F9DAC09E222129FB0051B8E6 /* OnePasswordTextFieldController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9DAC09D222129FB0051B8E6 /* OnePasswordTextFieldController.swift */; };
 		F9DAC0A022212BA20051B8E6 /* AlertPasswordTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9DAC09F22212BA20051B8E6 /* AlertPasswordTextField.swift */; };
 		F9DAC0A22221369C0051B8E6 /* TwoPasswordTextFieldController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9DAC0A12221369C0051B8E6 /* TwoPasswordTextFieldController.swift */; };
@@ -238,6 +241,9 @@
 		F9869AB1228662490049E442 /* UIViewControllers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewControllers.swift; sourceTree = "<group>"; };
 		F9BF2414228D0098002A38BA /* DropShadowButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropShadowButton.swift; sourceTree = "<group>"; };
 		F9BF2416228D011A002A38BA /* WelcomeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeController.swift; sourceTree = "<group>"; };
+		F9BF2419228D3ACB002A38BA /* AltAppIcon@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "AltAppIcon@3x.png"; sourceTree = "<group>"; };
+		F9BF2425228D3ACC002A38BA /* AltAppIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "AltAppIcon@2x.png"; sourceTree = "<group>"; };
+		F9BF2427228D3ACC002A38BA /* AltAppIcon@1x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "AltAppIcon@1x.png"; sourceTree = "<group>"; };
 		F9DAC09D222129FB0051B8E6 /* OnePasswordTextFieldController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnePasswordTextFieldController.swift; sourceTree = "<group>"; };
 		F9DAC09F22212BA20051B8E6 /* AlertPasswordTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertPasswordTextField.swift; sourceTree = "<group>"; };
 		F9DAC0A12221369C0051B8E6 /* TwoPasswordTextFieldController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TwoPasswordTextFieldController.swift; sourceTree = "<group>"; };
@@ -343,6 +349,7 @@
 		F919D77B219186DD0069F42B /* TransTracks */ = {
 			isa = PBXGroup;
 			children = (
+				F9BF2418228D3AA7002A38BA /* AltAppIcon */,
 				F919D77C219186DD0069F42B /* AppDelegate.swift */,
 				F9868C852207B94B00237C14 /* Assets.xcassets */,
 				F9EBDAA4222B996300268392 /* Data */,
@@ -659,6 +666,16 @@
 			path = Lock;
 			sourceTree = "<group>";
 		};
+		F9BF2418228D3AA7002A38BA /* AltAppIcon */ = {
+			isa = PBXGroup;
+			children = (
+				F9BF2427228D3ACC002A38BA /* AltAppIcon@1x.png */,
+				F9BF2425228D3ACC002A38BA /* AltAppIcon@2x.png */,
+				F9BF2419228D3ACB002A38BA /* AltAppIcon@3x.png */,
+			);
+			path = AltAppIcon;
+			sourceTree = "<group>";
+		};
 		F9DAC09C222129A70051B8E6 /* Custom */ = {
 			isa = PBXGroup;
 			children = (
@@ -825,10 +842,13 @@
 				F919D787219186DF0069F42B /* LaunchScreen.storyboard in Resources */,
 				F93CF073221A44420008CC44 /* GoogleService-Info.plist in Resources */,
 				F9868C862207B94B00237C14 /* Assets.xcassets in Resources */,
+				F9BF2436228D3ACC002A38BA /* AltAppIcon@1x.png in Resources */,
 				F93CF17E221BF19B0008CC44 /* Countries.bundle in Resources */,
 				F919D782219186DD0069F42B /* Main.storyboard in Resources */,
 				F97AA2F325E900E90015C3CC /* config.plist in Resources */,
+				F9BF2428228D3ACC002A38BA /* AltAppIcon@3x.png in Resources */,
 				F97CAA96223A421700D6A549 /* Localizable.stringsdict in Resources */,
+				F9BF2434228D3ACC002A38BA /* AltAppIcon@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
