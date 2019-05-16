@@ -1238,6 +1238,8 @@
                     <connections>
                         <outlet property="background" destination="uAz-Ok-54M" id="C1c-b5-SnD"/>
                         <outlet property="lockMode" destination="fXM-QW-TQ0" id="Mbi-6k-c6w"/>
+                        <outlet property="looksGoodButton" destination="yDt-ZL-DXG" id="UfM-Ba-X6S"/>
+                        <outlet property="settingsButton" destination="lfY-iC-9SJ" id="uXB-I0-he8"/>
                         <outlet property="startDate" destination="TcQ-fs-hvK" id="PAy-AZ-zqq"/>
                     </connections>
                 </viewController>

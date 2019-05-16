@@ -106,6 +106,7 @@
 		F9BF2428228D3ACC002A38BA /* AltAppIcon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = F9BF2419228D3ACB002A38BA /* AltAppIcon@3x.png */; };
 		F9BF2434228D3ACC002A38BA /* AltAppIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F9BF2425228D3ACC002A38BA /* AltAppIcon@2x.png */; };
 		F9BF2436228D3ACC002A38BA /* AltAppIcon@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = F9BF2427228D3ACC002A38BA /* AltAppIcon@1x.png */; };
+		F9BF2438228E2A29002A38BA /* Buttons.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9BF2437228E2A29002A38BA /* Buttons.swift */; };
 		F9DAC09E222129FB0051B8E6 /* OnePasswordTextFieldController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9DAC09D222129FB0051B8E6 /* OnePasswordTextFieldController.swift */; };
 		F9DAC0A022212BA20051B8E6 /* AlertPasswordTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9DAC09F22212BA20051B8E6 /* AlertPasswordTextField.swift */; };
 		F9DAC0A22221369C0051B8E6 /* TwoPasswordTextFieldController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9DAC0A12221369C0051B8E6 /* TwoPasswordTextFieldController.swift */; };
@@ -244,6 +245,7 @@
 		F9BF2419228D3ACB002A38BA /* AltAppIcon@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "AltAppIcon@3x.png"; sourceTree = "<group>"; };
 		F9BF2425228D3ACC002A38BA /* AltAppIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "AltAppIcon@2x.png"; sourceTree = "<group>"; };
 		F9BF2427228D3ACC002A38BA /* AltAppIcon@1x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "AltAppIcon@1x.png"; sourceTree = "<group>"; };
+		F9BF2437228E2A29002A38BA /* Buttons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Buttons.swift; sourceTree = "<group>"; };
 		F9DAC09D222129FB0051B8E6 /* OnePasswordTextFieldController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnePasswordTextFieldController.swift; sourceTree = "<group>"; };
 		F9DAC09F22212BA20051B8E6 /* AlertPasswordTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertPasswordTextField.swift; sourceTree = "<group>"; };
 		F9DAC0A12221369C0051B8E6 /* TwoPasswordTextFieldController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TwoPasswordTextFieldController.swift; sourceTree = "<group>"; };
@@ -395,6 +397,8 @@
 		F93CF0622217FD2E0008CC44 /* Util */ = {
 			isa = PBXGroup;
 			children = (
+				F9869AA82283FEBE0049E442 /* AlertHelper.swift */,
+				F9BF2437228E2A29002A38BA /* Buttons.swift */,
 				F93CF079221A55CC0008CC44 /* Dates.swift */,
 				F97FF0D522268B0B00DE7FA9 /* EncryptionUtil.swift */,
 				F97FFBEC2279687D009503A4 /* FileUtil.swift */,
@@ -404,9 +408,8 @@
 				F9DAC0A3222144B10051B8E6 /* TextFieldReturnAction.swift */,
 				F93CF0632217FD860008CC44 /* ThemeManager.swift */,
 				F93CF067221805BC0008CC44 /* UIColors.swift */,
-				F93CF065221801C20008CC44 /* UserDefaultsUtil.swift */,
-				F9869AA82283FEBE0049E442 /* AlertHelper.swift */,
 				F9869AB1228662490049E442 /* UIViewControllers.swift */,
+				F93CF065221801C20008CC44 /* UserDefaultsUtil.swift */,
 			);
 			path = Util;
 			sourceTree = "<group>";
@@ -1050,6 +1053,7 @@
 				F9DAC0A022212BA20051B8E6 /* AlertPasswordTextField.swift in Sources */,
 				F93CF17D221BF19B0008CC44 /* TextViewController.swift in Sources */,
 				F97CAA94223A3A9D00D6A549 /* Milestone.swift in Sources */,
+				F9BF2438228E2A29002A38BA /* Buttons.swift in Sources */,
 				F97FFBED2279687D009503A4 /* FileUtil.swift in Sources */,
 				F93CF16C221BF19B0008CC44 /* UISegmentedControl+Extensions.swift in Sources */,
 				F93CF07A221A55CC0008CC44 /* Dates.swift in Sources */,

@@ -20,6 +20,8 @@ class WelcomeController: UIViewController {
     @IBOutlet weak var background: UIView!
     @IBOutlet weak var startDate: UILabel!
     @IBOutlet weak var lockMode: UILabel!
+    @IBOutlet weak var settingsButton: ThemedButton!
+    @IBOutlet weak var looksGoodButton: DropShadowButton!
     
     //MARK: Lifecycle
     
@@ -33,6 +35,9 @@ class WelcomeController: UIViewController {
         
         let touchOutside = UITapGestureRecognizer(target: self, action: #selector(handleTouchOutside))
         view.addGestureRecognizer(touchOutside)
+        
+        settingsButton.enableAutoSizeText()
+        looksGoodButton.enableAutoSizeText()
     }
     
     //MARK: UI Helpers
