@@ -61,6 +61,14 @@ class HomeViewController: BackgroundGradientViewController {
            let adUnitId = (config["ad_ids"] as? NSDictionary)?["home"] as? String {
             adViewHolder.setupAd(adUnitId, rootViewController: self)
         }
+        
+        let swipeLeftRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(swipeLeft(_:)))
+        swipeLeftRecognizer.direction = .left
+        view.addGestureRecognizer(swipeLeftRecognizer)
+        
+        let swipeRightRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(swipeRight(_:)))
+        swipeRightRecognizer.direction = .right
+        view.addGestureRecognizer(swipeRightRecognizer)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -268,6 +276,14 @@ class HomeViewController: BackgroundGradientViewController {
     
     @IBAction func showBodyGallery(_ sender: Any) {
         domainManager.homeDomain.actions.accept(.OpenGallery(type: .body))
+    }
+    
+    @objc func swipeLeft(_ sender: Any) {
+        domainManager.homeDomain.actions.accept(.NextDay)
+    }
+    
+    @objc func swipeRight(_ sender: Any) {
+        domainManager.homeDomain.actions.accept(.PreviousDay)
     }
     
     private enum SegueKey {
