@@ -19,6 +19,7 @@ class SelectPhotoController: BackgroundGradientCollectionViewController {
     
     //MARK: Properties
     var domainManager: DomainManager!
+    var collection: PHAssetCollection?
     
     var epochDay: Int?
     var type: PhotoType = PhotoType.face
@@ -34,6 +35,7 @@ class SelectPhotoController: BackgroundGradientCollectionViewController {
     
     //MARK: Outlets
     
+    @IBOutlet weak var foldersButton: UIBarButtonItem!
     //Strong reference on purpose
     @IBOutlet var saveToApp: UIBarButtonItem!
     
@@ -77,6 +79,10 @@ class SelectPhotoController: BackgroundGradientCollectionViewController {
                     }
                 }
             }
+        } else if let selectCollectionController = segue.destination as? SelectCollectionController {
+            selectCollectionController.domainManager = domainManager
+            selectCollectionController.epochDay = epochDay
+            selectCollectionController.type = type
         }
     }
     
@@ -87,7 +93,7 @@ class SelectPhotoController: BackgroundGradientCollectionViewController {
         case .authorized:
             /// Authorization granted by user for this app.
             DispatchQueue.main.async {
-                Assets.fetch { [unowned self] result in
+                let resultHandler: ((Assets.FetchResults) -> Void) = { [unowned self] result in
                     switch result {
                     case .success(let assets):
                         completionHandler(assets)
@@ -99,6 +105,12 @@ class SelectPhotoController: BackgroundGradientCollectionViewController {
                         }
                         alert.show()
                     }
+                }
+                
+                if let collection = self.collection {
+                    Assets.fetch(in: collection, resultHandler)
+                } else {
+                    Assets.fetch(resultHandler)
                 }
             }
             
@@ -178,14 +190,24 @@ class SelectPhotoController: BackgroundGradientCollectionViewController {
     }
     
     private func updateSaveButtonVisibility(animate: Bool = true){
-        if selectionMode {
-            navigationItem.setRightBarButton(saveToApp, animated: animate)
-        } else {
-            navigationItem.setRightBarButton(nil, animated: animate)
+        var items: [UIBarButtonItem] = []
+        
+        if collection == nil {
+            items.append(foldersButton)
         }
+        
+        if selectionMode {
+            items.insert(saveToApp, at: 0)
+        }
+        
+        navigationItem.setRightBarButtonItems(items, animated: animate)
     }
     
     //MARK: Button handling
+    
+    @IBAction func foldersClick(_ sender: Any) {
+        performSegue(withIdentifier: "Collections", sender: nil)
+    }
     
     @IBAction func saveToAppClick(_ sender: Any) {
         guard !selection.isEmpty else { return }

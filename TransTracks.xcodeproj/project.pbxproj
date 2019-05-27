@@ -107,6 +107,7 @@
 		F9BF2434228D3ACC002A38BA /* AltAppIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F9BF2425228D3ACC002A38BA /* AltAppIcon@2x.png */; };
 		F9BF2436228D3ACC002A38BA /* AltAppIcon@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = F9BF2427228D3ACC002A38BA /* AltAppIcon@1x.png */; };
 		F9BF2438228E2A29002A38BA /* Buttons.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9BF2437228E2A29002A38BA /* Buttons.swift */; };
+		F9C2E42C22922F3400C0C245 /* SelectCollectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9C2E42B22922F3400C0C245 /* SelectCollectionController.swift */; };
 		F9DAC09E222129FB0051B8E6 /* OnePasswordTextFieldController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9DAC09D222129FB0051B8E6 /* OnePasswordTextFieldController.swift */; };
 		F9DAC0A022212BA20051B8E6 /* AlertPasswordTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9DAC09F22212BA20051B8E6 /* AlertPasswordTextField.swift */; };
 		F9DAC0A22221369C0051B8E6 /* TwoPasswordTextFieldController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9DAC0A12221369C0051B8E6 /* TwoPasswordTextFieldController.swift */; };
@@ -114,6 +115,7 @@
 		F9EBDAA2222A1C5600268392 /* HMAC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9EBDAA1222A1C5600268392 /* HMAC.swift */; };
 		F9EBDAA7222B998700268392 /* TransTracks.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = F9EBDAA5222B998700268392 /* TransTracks.xcdatamodeld */; };
 		F9EBDAAA222BA3D800268392 /* HomeDomain.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9EBDAA9222BA3D800268392 /* HomeDomain.swift */; };
+		F9F3C540229B6026006D3050 /* SelectCollectionDomain.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9F3C53F229B6026006D3050 /* SelectCollectionDomain.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -246,6 +248,7 @@
 		F9BF2425228D3ACC002A38BA /* AltAppIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "AltAppIcon@2x.png"; sourceTree = "<group>"; };
 		F9BF2427228D3ACC002A38BA /* AltAppIcon@1x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "AltAppIcon@1x.png"; sourceTree = "<group>"; };
 		F9BF2437228E2A29002A38BA /* Buttons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Buttons.swift; sourceTree = "<group>"; };
+		F9C2E42B22922F3400C0C245 /* SelectCollectionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectCollectionController.swift; sourceTree = "<group>"; };
 		F9DAC09D222129FB0051B8E6 /* OnePasswordTextFieldController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnePasswordTextFieldController.swift; sourceTree = "<group>"; };
 		F9DAC09F22212BA20051B8E6 /* AlertPasswordTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertPasswordTextField.swift; sourceTree = "<group>"; };
 		F9DAC0A12221369C0051B8E6 /* TwoPasswordTextFieldController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TwoPasswordTextFieldController.swift; sourceTree = "<group>"; };
@@ -253,6 +256,7 @@
 		F9EBDAA1222A1C5600268392 /* HMAC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HMAC.swift; sourceTree = "<group>"; };
 		F9EBDAA6222B998700268392 /* TransTracks.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = TransTracks.xcdatamodel; sourceTree = "<group>"; };
 		F9EBDAA9222BA3D800268392 /* HomeDomain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeDomain.swift; sourceTree = "<group>"; };
+		F9F3C53F229B6026006D3050 /* SelectCollectionDomain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectCollectionDomain.swift; sourceTree = "<group>"; };
 		FE297B424E2A06ADA14BF95D /* Pods-TransTracksTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TransTracksTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-TransTracksTests/Pods-TransTracksTests.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -390,6 +394,7 @@
 			isa = PBXGroup;
 			children = (
 				F95C51DA22546EC6002499F4 /* SelectPhotoController.swift */,
+				F9C2E42B22922F3400C0C245 /* SelectCollectionController.swift */,
 			);
 			path = "Select Photo";
 			sourceTree = "<group>";
@@ -687,11 +692,11 @@
 				F95C51DC22546F54002499F4 /* BackgroundGradientCollectionViewController.swift */,
 				F93CF06C221957FD0008CC44 /* BackgroundGradientViewController.swift */,
 				F93CF082221A66B70008CC44 /* DividerView.swift */,
+				F9BF2414228D0098002A38BA /* DropShadowButton.swift */,
 				F9DAC09D222129FB0051B8E6 /* OnePasswordTextFieldController.swift */,
 				F950478922643BD0004E2304 /* PhotoCell.swift */,
 				F9869AAF22858D390049E442 /* ThemedButton.swift */,
 				F9DAC0A12221369C0051B8E6 /* TwoPasswordTextFieldController.swift */,
-				F9BF2414228D0098002A38BA /* DropShadowButton.swift */,
 			);
 			path = Custom;
 			sourceTree = "<group>";
@@ -716,6 +721,7 @@
 				F9EBDAA9222BA3D800268392 /* HomeDomain.swift */,
 				F900234422815AB9003F3304 /* GalleryDomain.swift */,
 				F9869AA32283BD8C0049E442 /* MilestonesDomain.swift */,
+				F9F3C53F229B6026006D3050 /* SelectCollectionDomain.swift */,
 			);
 			path = Domain;
 			sourceTree = "<group>";
@@ -1057,6 +1063,7 @@
 				F97FFBED2279687D009503A4 /* FileUtil.swift in Sources */,
 				F93CF16C221BF19B0008CC44 /* UISegmentedControl+Extensions.swift in Sources */,
 				F93CF07A221A55CC0008CC44 /* Dates.swift in Sources */,
+				F9C2E42C22922F3400C0C245 /* SelectCollectionController.swift in Sources */,
 				F93CF196221BF19B0008CC44 /* ItemWithImage.swift in Sources */,
 				F950478D2265924E004E2304 /* AssignPhotoController.swift in Sources */,
 				F93CF083221A66B70008CC44 /* DividerView.swift in Sources */,
@@ -1070,6 +1077,7 @@
 				F93CF066221801C20008CC44 /* UserDefaultsUtil.swift in Sources */,
 				F97CAA98223A4F4700D6A549 /* DomainManager.swift in Sources */,
 				F9DAC0A22221369C0051B8E6 /* TwoPasswordTextFieldController.swift in Sources */,
+				F9F3C540229B6026006D3050 /* SelectCollectionDomain.swift in Sources */,
 				F93CF183221BF19B0008CC44 /* CurrencyCell.swift in Sources */,
 				F9EBDAA2222A1C5600268392 /* HMAC.swift in Sources */,
 				F9DAC09E222129FB0051B8E6 /* OnePasswordTextFieldController.swift in Sources */,

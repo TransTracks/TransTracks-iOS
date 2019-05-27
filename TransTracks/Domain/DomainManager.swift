@@ -30,4 +30,6 @@ class DomainManager {
     lazy var homeDomain: HomeDomain = HomeDomain(dataController: dataController)
     
     lazy var milestonesDomain: MilestonesDomain = MilestonesDomain(dataController: dataController)
+    
+    lazy var selectCollectionDomain: SelectCollectionDomain = SelectCollectionDomain()
 }

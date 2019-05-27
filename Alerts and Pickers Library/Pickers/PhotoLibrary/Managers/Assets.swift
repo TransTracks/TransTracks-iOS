@@ -45,6 +45,32 @@ public struct Assets {
         }
     }
     
+    public static func fetch(in collection: PHAssetCollection, _ completion: @escaping (FetchResults) -> Void) {
+        guard PHPhotoLibrary.authorizationStatus() == .authorized else {
+            let error: NSError = NSError(domain: "PhotoLibrary Error", code: 1, userInfo: [NSLocalizedDescriptionKey: "No PhotoLibrary Access"])
+            completion(FetchResults.error(error: error))
+            return
+        }
+        
+        DispatchQueue.global(qos: .userInitiated).async {
+            let fetchResult = PHAsset.fetchAssets(in: collection, options: PHFetchOptions())
+            
+            var assets = [PHAsset]()
+            
+            if fetchResult.count > 0 {
+                fetchResult.enumerateObjects { object, _, _ in
+                    if object.mediaType == .image {
+                        assets.insert(object, at: 0)
+                    }
+                }
+            }
+            
+            DispatchQueue.main.async {
+                completion(FetchResults.success(response: assets))
+            }
+        }
+    }
+    
     /// Result Enum
     ///
     /// - Success: Returns UIImage

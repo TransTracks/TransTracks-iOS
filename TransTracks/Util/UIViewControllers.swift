@@ -33,6 +33,17 @@ extension UIViewController {
         }
     }
     
+    func setBackgroundGradient(_ theme: Theme = UserDefaultsUtil.getTheme()){
+        let newGradient = ThemeManager.getBackgroundGradient(theme)
+        newGradient.frame = view.frame
+        
+        if let oldGradient = view.layer.sublayers?[0], oldGradient is CAGradientLayer {
+            view.layer.replaceSublayer(oldGradient, with: newGradient)
+        } else {
+            view.layer.insertSublayer(newGradient, at: 0)
+        }
+    }
+    
     func setupViewResizerOnKeyboardShown() {
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(UIViewController.keyboardWillShowForResizing),

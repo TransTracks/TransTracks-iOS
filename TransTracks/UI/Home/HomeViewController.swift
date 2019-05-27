@@ -82,10 +82,10 @@ class HomeViewController: BackgroundGradientViewController {
         }
         
         let _ = viewDisposables.insert(
-            domainManager.homeDomain.results.subscribe{result in
+            domainManager.homeDomain.results.subscribe{ result in
                 guard let result = result.element else { return }
             
-                switch(result){
+                switch result {
                 case HomeResult.Loading(_):
                     break
                     

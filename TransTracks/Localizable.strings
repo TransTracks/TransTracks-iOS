@@ -61,6 +61,9 @@
 "errorLoadingPhoto" = "An error occurred loading this photo";
 "deletePhotoWarningMessage" = "Deleting this photo will remove both the image and its details";
 
+//Select Collection
+"untitledAlbum" = "Untitled album";
+
 //Settings
 "startDateLabel" = "Start Date:";
 "themeLabel" = "Theme:";
