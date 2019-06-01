@@ -97,17 +97,33 @@ class AdContainerView: UIView {
                                               attribute: NSLayoutConstraint.Attribute.bottom,
                                               multiplier: CGFloat(1.0),
                                               constant:  CGFloat(0.0)))
+        
+        if !UserDefaultsUtil.showAds() {
+            hideAd()
+        }
+    }
+    
+    private func showAd() {
+        isHidden = false
+        superview?.removeConstraint(zeroHeightContraint)
+    }
+    
+    private func hideAd() {
+        isHidden = true
+        superview?.addConstraint(zeroHeightContraint)
     }
 }
 
 extension AdContainerView: GADBannerViewDelegate {
     func adViewDidReceiveAd(_ bannerView: GADBannerView) {
-        isHidden = false
-        superview?.removeConstraint(zeroHeightContraint)
+        if UserDefaultsUtil.showAds() {
+            showAd()
+        } else {
+            hideAd()
+        }
     }
     
     func adView(_ bannerView: GADBannerView, didFailToReceiveAdWithError error: GADRequestError) {
-        isHidden = true
-        superview?.addConstraint(zeroHeightContraint)
+        hideAd()
     }
 }

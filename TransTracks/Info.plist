@@ -41,13 +41,13 @@
 	<key>CFBundleShortVersionString</key>
 	<string>1.0.0</string>
 	<key>CFBundleVersion</key>
-	<string>6</string>
+	<string>7</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSCameraUsageDescription</key>
-	<string>Access required to take photos</string>
+	<string>TransTracks requires access to take photos to add</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>Access required to add photos</string>
+	<string>TransTracks requires access to add photos from your library</string>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>
