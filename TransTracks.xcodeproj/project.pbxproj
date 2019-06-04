@@ -14,6 +14,7 @@
 		F9002340227D7BE5003F3304 /* EditPhotoDomain.swift in Sources */ = {isa = PBXBuildFile; fileRef = F900233F227D7BE5003F3304 /* EditPhotoDomain.swift */; };
 		F900234322814DE3003F3304 /* GalleryController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F900234222814DE3003F3304 /* GalleryController.swift */; };
 		F900234522815AB9003F3304 /* GalleryDomain.swift in Sources */ = {isa = PBXBuildFile; fileRef = F900234422815AB9003F3304 /* GalleryDomain.swift */; };
+		F9164E8D22A3B8890066D1A2 /* DateComponents.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9164E8C22A3B8890066D1A2 /* DateComponents.swift */; };
 		F919D77D219186DD0069F42B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F919D77C219186DD0069F42B /* AppDelegate.swift */; };
 		F919D77F219186DD0069F42B /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F919D77E219186DD0069F42B /* HomeViewController.swift */; };
 		F919D782219186DD0069F42B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F919D780219186DD0069F42B /* Main.storyboard */; };
@@ -148,6 +149,7 @@
 		F900233F227D7BE5003F3304 /* EditPhotoDomain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPhotoDomain.swift; sourceTree = "<group>"; };
 		F900234222814DE3003F3304 /* GalleryController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GalleryController.swift; sourceTree = "<group>"; };
 		F900234422815AB9003F3304 /* GalleryDomain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GalleryDomain.swift; sourceTree = "<group>"; };
+		F9164E8C22A3B8890066D1A2 /* DateComponents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateComponents.swift; sourceTree = "<group>"; };
 		F919D779219186DD0069F42B /* TransTracks.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TransTracks.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F919D77C219186DD0069F42B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F919D77E219186DD0069F42B /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
@@ -415,6 +417,7 @@
 				F93CF067221805BC0008CC44 /* UIColors.swift */,
 				F9869AB1228662490049E442 /* UIViewControllers.swift */,
 				F93CF065221801C20008CC44 /* UserDefaultsUtil.swift */,
+				F9164E8C22A3B8890066D1A2 /* DateComponents.swift */,
 			);
 			path = Util;
 			sourceTree = "<group>";
@@ -1082,6 +1085,7 @@
 				F9EBDAA2222A1C5600268392 /* HMAC.swift in Sources */,
 				F9DAC09E222129FB0051B8E6 /* OnePasswordTextFieldController.swift in Sources */,
 				F93CF0612217F2580008CC44 /* NavigationController.swift in Sources */,
+				F9164E8D22A3B8890066D1A2 /* DateComponents.swift in Sources */,
 				F93CF188221BF19B0008CC44 /* PhotoLibraryPickerViewController.swift in Sources */,
 				F93CF19C221BF19B0008CC44 /* SegmentedControl.swift in Sources */,
 				F93CF195221BF19B0008CC44 /* ImagePickerViewController.swift in Sources */,

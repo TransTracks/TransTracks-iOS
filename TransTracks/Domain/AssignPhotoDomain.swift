@@ -58,7 +58,7 @@ class AssignPhotoDomain {
     private var epochDay: Int? = nil
     
     private var date: Date = Date().startOfDay()
-    private var photoDate: Date? = Date().startOfDay()
+    private var photoDate: Date? = nil
     
     let actions: PublishRelay<AssignPhotoAction> = PublishRelay()
     

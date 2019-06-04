@@ -161,7 +161,7 @@ class AssignPhotoController : BackgroundGradientViewController {
         
         dateLabel.text = date.toFullDateString()
         
-        let hideUsePhotoDate: Bool = photoDate == nil || date.startOfDay() == photoDate?.startOfDay()
+        let hideUsePhotoDate: Bool = photoDate == nil || Calendar.current.isDate(date, inSameDayAs:photoDate!)
         
         usePhotoDate.isHidden = hideUsePhotoDate
         usePhotoDateWidthConstraint.constant = hideUsePhotoDate ? 0 : 48

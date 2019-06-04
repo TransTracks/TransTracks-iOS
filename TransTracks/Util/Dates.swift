@@ -35,8 +35,10 @@ extension Date {
     }
     
     func toEpochDay() -> Int {
-        let y = year
-        let m = month
+        let asGMT = Calendar.current.dateComponents(in: TimeZone(secondsFromGMT: 0)!, from: self)
+        
+        let y: Int = asGMT.year!
+        let m: Int = asGMT.month!
         
         var total = 0
         
@@ -49,16 +51,16 @@ extension Date {
         }
         
         total += (367 * m - 362) / 12
-    
-        total += day - 1
+        
+        total += asGMT.day! - 1
         if (m > 2) {
             total -= 1
-            if (!isLeapYear()) {
+            if (!asGMT.isLeapYear()!) {
                 total -= 1
             }
         }
         
-        return total - 719528;
+        return total - Date.DAYS_0000_TO_1970
     }
     
     func toFullDateString() -> String {
@@ -67,6 +69,20 @@ extension Date {
         
         return formatter.string(from: self)
     }
+    
+    //MARK: Constants
+    
+    /**
+     * The number of days in a 400 year cycle.
+     */
+    private static let DAYS_PER_CYCLE = 146097
+    
+    /**
+     * The number of days from year zero to year 1970.
+     * There are five 400 year cycles from year zero to 2000.
+     * There are 7 leap years from 1970 to 2000.
+     */
+    private static let DAYS_0000_TO_1970 = (DAYS_PER_CYCLE * 5) - (30 * 365 + 7)
     
     //MARK: Static helpers
     
@@ -120,7 +136,43 @@ extension Date {
     }
     
     static func ofEpochDay(_ epochDay: Int) -> Date {
-        return Date(timeIntervalSince1970: TimeInterval(epochDay * 24 * 60 * 60))
+        var zeroDay:Int = epochDay + Date.DAYS_0000_TO_1970
+        // find the march-based year
+        zeroDay -= 60  // adjust to 0000-03-01 so leap day is at end of four year cycle
+        var adjust = 0
+        if (zeroDay < 0) {
+            // adjust negative years to positive for calculation
+            let adjustCycles = (zeroDay + 1) / Date.DAYS_PER_CYCLE - 1
+            adjust = adjustCycles * 400;
+            zeroDay += -adjustCycles * Date.DAYS_PER_CYCLE
+        }
+        var yearEst = (400 * zeroDay + 591) / Date.DAYS_PER_CYCLE
+        var doyEst = zeroDay - (365 * yearEst + yearEst / 4 - yearEst / 100 + yearEst / 400)
+        if (doyEst < 0) {
+            // fix estimate
+            yearEst -= 1
+            doyEst = zeroDay - (365 * yearEst + yearEst / 4 - yearEst / 100 + yearEst / 400)
+        }
+        yearEst += adjust;  // reset any negative year
+        let marchDoy0 = doyEst;
+        
+        // convert march-based values back to january-based
+        let marchMonth0 = (marchDoy0 * 5 + 2) / 153;
+        let month = (marchMonth0 + 2) % 12 + 1;
+        let dom = marchDoy0 - (marchMonth0 * 306 + 5) / 10 + 1;
+        yearEst += marchMonth0 / 10;
+        
+        // Specify date components
+        var dateComponents = DateComponents()
+        dateComponents.year = yearEst
+        dateComponents.month = month
+        dateComponents.day = dom
+        dateComponents.hour = 0
+        dateComponents.minute = 0
+        
+        // Create date from components
+        let userCalendar = Calendar.current // user calendar
+        return userCalendar.date(from: dateComponents)!
     }
     
     static func ofEpochDay(_ epochDay: Int64) -> Date {
