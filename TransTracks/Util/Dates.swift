@@ -31,7 +31,10 @@ extension Date {
     }
     
     func startOfDay() -> Date {
-        return Calendar.current.startOfDay(for: self)
+        var calendar = Calendar.init(identifier: .gregorian)
+        calendar.timeZone = TimeZone(secondsFromGMT: 0)!
+        
+        return calendar.startOfDay(for: self)
     }
     
     func toEpochDay() -> Int {
@@ -164,15 +167,14 @@ extension Date {
         
         // Specify date components
         var dateComponents = DateComponents()
+        dateComponents.timeZone = TimeZone(secondsFromGMT: 0)!
         dateComponents.year = yearEst
         dateComponents.month = month
         dateComponents.day = dom
         dateComponents.hour = 0
         dateComponents.minute = 0
         
-        // Create date from components
-        let userCalendar = Calendar.current // user calendar
-        return userCalendar.date(from: dateComponents)!
+        return Calendar.current.date(from: dateComponents)!
     }
     
     static func ofEpochDay(_ epochDay: Int64) -> Date {
