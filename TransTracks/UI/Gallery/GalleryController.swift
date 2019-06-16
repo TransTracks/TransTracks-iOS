@@ -109,6 +109,10 @@ class GalleryController: BackgroundGradientViewController {
                 
                 switch effect {
                 case .ScrollToDay(let epochDay):
+                    if(self.collectionView.size.height >= self.collectionView.contentSize.height){
+                        return
+                    }
+                    
                     let sectionToScrollTo: Int? = self.sections.firstIndex(where: {section in section.epochDay == epochDay})
                     
                     if let sectionToScrollTo = sectionToScrollTo, let attributes = self.collectionView.layoutAttributesForSupplementaryElement(ofKind: UICollectionView.elementKindSectionHeader, at: IndexPath(item: 0, section: sectionToScrollTo)) {
