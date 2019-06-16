@@ -196,7 +196,7 @@ class AssignPhotoDomain {
                 self.viewEffectRelay.accept(.CompletedAssigning)
                 return AssignPhotoResult.Loading(index: index, count: self.photos?.count ?? 1)
             } else {
-                return AssignPhotoResult.Display(asset: self.photos?[index + 1], image: image, date: self.date, photoDate: self.photoDate, type: self.type, index: index + 1, count: self.photos?.count ?? 1)
+                return loadImage(index + 1)
             }
         }
         
