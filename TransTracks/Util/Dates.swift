@@ -38,10 +38,10 @@ extension Date {
     }
     
     func toEpochDay() -> Int {
-        let asGMT = Calendar.current.dateComponents(in: TimeZone(secondsFromGMT: 0)!, from: self)
+        let components = Calendar.current.dateComponents([.year, .month, .day], from: self)
         
-        let y: Int = asGMT.year!
-        let m: Int = asGMT.month!
+        let y: Int = components.year!
+        let m: Int = components.month!
         
         var total = 0
         
@@ -55,10 +55,10 @@ extension Date {
         
         total += (367 * m - 362) / 12
         
-        total += asGMT.day! - 1
+        total += components.day! - 1
         if (m > 2) {
             total -= 1
-            if (!asGMT.isLeapYear()!) {
+            if (!components.isLeapYear()!) {
                 total -= 1
             }
         }
@@ -167,7 +167,7 @@ extension Date {
         
         // Specify date components
         var dateComponents = DateComponents()
-        dateComponents.timeZone = TimeZone(secondsFromGMT: 0)!
+        dateComponents.timeZone = Calendar.current.timeZone
         dateComponents.year = yearEst
         dateComponents.month = month
         dateComponents.day = dom
