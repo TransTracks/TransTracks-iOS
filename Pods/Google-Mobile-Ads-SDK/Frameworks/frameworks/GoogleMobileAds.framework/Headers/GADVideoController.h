@@ -2,13 +2,12 @@
 //  GADVideoController.h
 //  Google Mobile Ads SDK
 //
-//  Copyright (c) 2016 Google Inc. All rights reserved.
+//  Copyright 2016 Google LLC. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
-#import <UIKit/UIKit.h>
-
 #import <GoogleMobileAds/GoogleMobileAdsDefines.h>
+#import <UIKit/UIKit.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -32,17 +31,25 @@ NS_ASSUME_NONNULL_BEGIN
 /// Pause the video. Doesn't do anything if the video is already paused.
 - (void)pause;
 
-/// Returns a Boolean indicating if the receiver has video content.
-- (BOOL)hasVideoContent;
-
-/// Returns the video's aspect ratio (width/height) or 0 if no video is present.
-- (double)aspectRatio;
+/// Stops the video and displays the video's first frame. Call -play to resume playback at the start
+/// of the video. Contact your account manager to enable this feature.
+- (void)stop;
 
 /// Indicates whether video custom controls (i.e. play/pause/mute/unmute) are enabled.
 - (BOOL)customControlsEnabled;
 
 /// Indicates whether video click to expand behavior is enabled.
 - (BOOL)clickToExpandEnabled;
+
+#pragma mark - Deprecated
+
+/// Returns a Boolean indicating if the receiver has video content.
+- (BOOL)hasVideoContent GAD_DEPRECATED_MSG_ATTRIBUTE(
+    "Use the hasVideoContent property from GADUnifiedNativeAd's mediaContent instead.");
+
+/// Returns the video's aspect ratio (width/height) or 0 if no video is present.
+- (double)aspectRatio GAD_DEPRECATED_MSG_ATTRIBUTE(
+    "Use the aspectRatio property from GADUnifiedNativeAd's mediaContent instead.");
 
 @end
 

@@ -15,12 +15,14 @@
 import Crashlytics
 import Fabric
 import Firebase
+import FirebaseUI
 import GoogleMobileAds
+import TwitterKit
 import UIKit
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
-
+    
     //MARK: Constants
     
     private static let TAG_BLOCKING_VIEW = 98734
@@ -33,7 +35,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var domainManager: DomainManager!
     
     //MARK: Lifecycle
-
+    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         FirebaseApp.configure()
         
@@ -42,13 +44,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         #else
             Fabric.with([Crashlytics()])
         #endif
-    
+        
         if let path = Bundle.main.path(forResource: "GoogleService-Info", ofType: "plist"),
            let googleServiceInfo = NSDictionary(contentsOfFile: path),
            let adMobAppId = googleServiceInfo["ADMOB_APP_ID"] as? String {
             GADMobileAds.configure(withApplicationID: adMobAppId)
         }
-        
+        if let path = Bundle.main.path(forResource: "config", ofType: "plist"),
+           let config = NSDictionary(contentsOfFile: path),
+           let twitter = config["twitter"] as? NSDictionary,
+           let consumerKey = twitter["consumerKey"] as? String,
+           let consumerSecret = twitter["consumerSecret"] as? String {
+            TWTRTwitter.sharedInstance().start(withConsumerKey: consumerKey, consumerSecret: consumerSecret)
+        }
         
         dataController = DataController(modelName: "TransTracks")
         domainManager = DomainManager(dataController: dataController)
@@ -70,11 +78,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         return true
     }
-
+    
+    func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
+        let sourceApplication = options[UIApplication.OpenURLOptionsKey.sourceApplication] as! String?
+        if FUIAuth.defaultAuthUI()?.handleOpen(url, sourceApplication: sourceApplication) ?? false {
+            return true
+        } else if TWTRTwitter.sharedInstance().application(app, open: url, options: options) {
+            return true
+        }
+        
+        return false
+    }
+    
     func applicationWillResignActive(_ application: UIApplication) {
         UserDefaultsUtil.updateUserLastSeen()
     }
-
+    
     func applicationDidEnterBackground(_ application: UIApplication) {
         let rootController = window!.rootViewController
         if let navigationController = rootController as? UINavigationController {
@@ -85,7 +104,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             fatalError("Error locking app")
         }
     }
-
+    
     func applicationWillEnterForeground(_ application: UIApplication) {
         removeBlockingView()
         
@@ -96,11 +115,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             fatalError("Error locking app")
         }
     }
-
+    
     func applicationDidBecomeActive(_ application: UIApplication) {
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
     }
-
+    
     func applicationWillTerminate(_ application: UIApplication) {
         try? self.dataController.viewContext.save()
     }

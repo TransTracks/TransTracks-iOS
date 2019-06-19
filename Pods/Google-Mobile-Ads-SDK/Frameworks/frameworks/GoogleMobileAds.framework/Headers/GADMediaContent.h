@@ -2,12 +2,11 @@
 //  GADMediaContent.h
 //  Google Mobile Ads SDK
 //
-//  Copyright 2019 Google Inc. All rights reserved.
+//  Copyright 2019 Google LLC. All rights reserved.
 //
 
+#import <GoogleMobileAds/GADVideoController.h>
 #import <UIKit/UIKit.h>
-
-NS_ASSUME_NONNULL_BEGIN
 
 /// Provides media content information. Interact with instances of this class on the main queue
 /// only.
@@ -20,6 +19,10 @@ NS_ASSUME_NONNULL_BEGIN
 /// The main image to be displayed when the media content doesn't contain video.
 @property(nonatomic, nullable) UIImage *mainImage;
 
-@end
+/// Controls the media content's video.
+@property(nonatomic, readonly, nonnull) GADVideoController *videoController;
 
-NS_ASSUME_NONNULL_END
+/// Indicates whether the media content has video content.
+@property(nonatomic, readonly) BOOL hasVideoContent;
+
+@end

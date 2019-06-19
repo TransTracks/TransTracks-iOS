@@ -12,7 +12,10 @@
 //  You should have received a copy of the GNU General Public License along with this program. If not, see <https://www.gnu.org/licenses/>.
 //
 
+import Firebase
+import FirebaseUI
 import PasswordTextField
+import Toast_Swift
 import UIKit
 
 class SettingsController: BackgroundGradientViewController {
@@ -25,6 +28,9 @@ class SettingsController: BackgroundGradientViewController {
     private var tempLockDelay: LockDelay?
     
     private var tempTextFieldAction: TextFieldReturnAction?
+    
+    private let privacyPolicyURL = URL(string: "http://www.drspaceboo.com/privacy-policy/")!
+    private let termsOfServiceURL = URL(string: "http://www.drspaceboo.com/terms-of-service/")!
     
     //MARK: Outlets
     
@@ -41,6 +47,52 @@ class SettingsController: BackgroundGradientViewController {
         
         navigationItem.titleView?.tintColor = UIColor.white
         copyrightLabel.text = String(format: NSLocalizedString("copyrightWithCurrentYear", comment: ""), Date.getCurrentYear())
+    }
+    
+    //MARK: Button handling
+    
+    @objc func primaryActionClick(_ sender: Any) {
+        if Auth.auth().currentUser == nil {
+            //Sign in
+            if let authUI = FUIAuth.defaultAuthUI() {
+                authUI.privacyPolicyURL = privacyPolicyURL
+                authUI.tosurl = termsOfServiceURL
+                authUI.allowNewEmailAccounts = true
+                authUI.providers = [FUIGoogleAuth(), FUITwitterAuth()]
+                authUI.delegate = self
+                present(authUI.authViewController(), animated: true, completion: nil)
+            }
+        } else {
+            //Change password flow
+            if let email = Auth.auth().currentUser?.email {
+                Auth.auth().sendPasswordReset(withEmail: email, completion: { error in
+                    if let error = error {
+                        print(error)
+                        self.view.makeToast(NSLocalizedString("passwordResetFailed", comment: ""))
+                    } else {
+                        self.view.makeToast(NSLocalizedString("passwordResetSuccess", comment: ""))
+                    }
+                })
+            } else {
+                view.makeToast(NSLocalizedString("unableToResetPassword", comment: ""))
+            }
+        }
+    }
+    
+    @objc func signOut(_ sender: Any){
+        guard Auth.auth().currentUser != nil else { return }
+        
+        if let authUI = FUIAuth.defaultAuthUI() {
+            do {
+                try authUI.signOut()
+                tableView.reloadRows(at: [IndexPath(row: Row.account.rawValue, section: 0)], with: .automatic)
+            } catch {
+                print(error)
+                view.makeToast(NSLocalizedString("signOutError", comment: ""))
+            }
+        } else {
+            view.makeToast(NSLocalizedString("signOutError", comment: ""))
+        }
     }
 }
 
@@ -59,6 +111,7 @@ extension SettingsController: UITableViewDataSource {
         let cell = dequeueCell(tableView, rowType)
         
         switch rowType {
+        case .account: configAccountRow(cell as! AccountCell, row)
         case .setting: configSettingRow(cell as! SettingCell, row)
         case .divider: break //Divider cells don't need configuring
         case .button: configButtonRow(cell as! ButtonCell, row)
@@ -77,6 +130,7 @@ extension SettingsController: UITableViewDataSource {
         let identifier: String
         
         switch rowType {
+        case .account: identifier = "AccountCell"
         case .setting: identifier = "SettingCell"
         case .divider: identifier = "Divider"
         case .button: identifier = "ButtonCell"
@@ -89,10 +143,55 @@ extension SettingsController: UITableViewDataSource {
         let rowType = Row(rawValue: indexPath.row)!.getRowType()
         
         switch rowType {
+        case .account:
+            if Auth.auth().currentUser == nil {
+                return 130
+            } else {
+                return 160
+            }
         case .setting: return 50
         case .divider: return 2
         case .button: return 50
         }
+    }
+    
+    private func configAccountRow(_ cell: AccountCell, _ row: Row) {
+        let userLoggedIn: Bool
+        let primaryActionText: String
+        var hidePrimaryAction: Bool = false
+        
+        if let user = Auth.auth().currentUser {
+            userLoggedIn = true
+            
+            if user.email != nil {
+                if user.hasPasswordProvider() {
+                    primaryActionText = NSLocalizedString("changePassword", comment: "")
+                } else {
+                    primaryActionText = NSLocalizedString("setPassword", comment: "")
+                }
+            } else {
+                hidePrimaryAction = true
+                primaryActionText = ""
+            }
+            
+            cell.userNameLabel.text = user.displayName ?? NSLocalizedString("unknown", comment: "")
+            cell.userEmailLabel.text = user.email ?? NSLocalizedString("unknown", comment: "")
+        } else {
+            userLoggedIn = false
+            primaryActionText = NSLocalizedString("signIn", comment: "")
+        }
+        
+        cell.infoLabel.isHidden = userLoggedIn
+        cell.nameViews.isHidden = !userLoggedIn
+        cell.emailViews.isHidden = !userLoggedIn
+        cell.signOutButton.isHidden = !userLoggedIn
+        
+        cell.primaryActionButton.isHidden = hidePrimaryAction
+        
+        cell.primaryActionButton.setTitle(primaryActionText, for: .normal)
+        
+        cell.primaryActionButton.addTarget(self, action: #selector(primaryActionClick(_:)), for: .touchUpInside)
+        cell.signOutButton.addTarget(self, action: #selector(signOut(_:)), for: .touchUpInside)
     }
     
     private func configSettingRow(_ cell: SettingCell, _ row: Row) {
@@ -158,21 +257,25 @@ extension SettingsController: UITableViewDataSource {
     }
     
     enum Row: Int, CaseIterable {
+        case account
+        case divider1
         case startDate
         case theme
         case lockMode
         case lockDelay
-        case divider1
+        case divider2
         case appVersion
         case privacyPolicy
         
         func getRowType() -> RowType {
             switch self {
+            case .account: return .account
+            case .divider1: return .divider
             case .startDate: return .setting
             case .theme: return .setting
             case .lockMode: return .setting
             case .lockDelay: return .setting
-            case .divider1: return .divider
+            case .divider2: return .divider
             case .appVersion: return .setting
             case .privacyPolicy: return .button
             }
@@ -180,16 +283,17 @@ extension SettingsController: UITableViewDataSource {
     }
     
     enum RowType {
-        case setting, divider, button
+        case setting, divider, button, account
     }
 }
 
 extension SettingsController: UITableViewDelegate {
-    //Block selection of divider rows
+    //Block selection of certain rows
     func tableView(_ tableView: UITableView, shouldHighlightRowAt indexPath: IndexPath) -> Bool {
         let row = Row(rawValue: indexPath.row)!
         
-        if row == .appVersion || // The App version cannot be clicked
+        if  row == .account || // The account row can't be clicked only the button
+            row == .appVersion || // The App version cannot be clicked
             row.getRowType() == RowType.divider || // Dividers cannot be clicked
             (row == .lockDelay && UserDefaultsUtil.getLockType() == .off) { //If the lock type is set to OFF then the user cannot change the lock delay
             return false
@@ -289,7 +393,7 @@ extension SettingsController: UITableViewDelegate {
             alert.show()
             
         case .privacyPolicy:
-            UIApplication.shared.open(URL(string: "http://www.drspaceboo.com/privacy-policy/")!, options: [:], completionHandler: nil)
+            UIApplication.shared.open(privacyPolicyURL, options: [:], completionHandler: nil)
             
         default: break
         }
@@ -445,5 +549,16 @@ extension SettingsController: UITableViewDelegate {
         
         setPopoverPresentationControllerInfo(alert, indexPath)
         alert.show()
+    }
+}
+
+extension SettingsController: FUIAuthDelegate {
+    func authUI(_ authUI: FUIAuth, didSignInWith authDataResult: AuthDataResult?, error: Error?) {
+        if error != nil || authDataResult == nil {
+            view.makeToast(NSLocalizedString("signInError", comment: ""))
+            return
+        }
+        
+        tableView.reloadRows(at: [IndexPath(row: Row.account.rawValue, section: 0)], with: .fade)
     }
 }

@@ -2,20 +2,19 @@
 //  GADDebugOptionsViewController.h
 //  Google Mobile Ads SDK
 //
-//  Copyright 2016 Google Inc. All rights reserved.
+//  Copyright 2016 Google LLC. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
-#import <UIKit/UIKit.h>
-
 #import <GoogleMobileAds/GoogleMobileAdsDefines.h>
+#import <UIKit/UIKit.h>
 
 @class GADDebugOptionsViewController;
 
 NS_ASSUME_NONNULL_BEGIN
 
 /// Delegate for the GADDebugOptionsViewController.
-@protocol GADDebugOptionsViewControllerDelegate<NSObject>
+@protocol GADDebugOptionsViewControllerDelegate <NSObject>
 
 /// Called when the debug options flow is finished.
 - (void)debugOptionsViewControllerDidDismiss:(GADDebugOptionsViewController *)controller;

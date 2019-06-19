@@ -2,13 +2,12 @@
 //  GADCustomEventRequest.h
 //  Google Mobile Ads SDK
 //
-//  Copyright 2012 Google Inc. All rights reserved.
+//  Copyright 2012 Google LLC. All rights reserved.
 //
-
-#import <UIKit/UIKit.h>
 
 #import <GoogleMobileAds/GADRequest.h>
 #import <GoogleMobileAds/GoogleMobileAdsDefines.h>
+#import <UIKit/UIKit.h>
 
 @class GADCustomEventExtras;
 
@@ -45,7 +44,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// additionalParameters here.
 @property(nonatomic, readonly, copy, nullable) NSDictionary *additionalParameters;
 
-/// Indicates if the testing property has been set in GADRequest.
+/// Indicates whether the testing property has been set in GADRequest.
 @property(nonatomic, readonly, assign) BOOL isTesting;
 
 #pragma mark Deprecated methods

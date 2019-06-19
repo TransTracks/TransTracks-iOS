@@ -14,6 +14,11 @@ target 'TransTracks' do
   # General Firebase
   pod 'Firebase/Core'
   
+  # Firebase Auth
+  pod 'FirebaseUI/Auth', '5.2.2'
+  pod 'FirebaseUI/Google', '5.2.2'
+  pod 'FirebaseUI/Twitter', '5.2.2'
+  
   # Ads
   pod 'Google-Mobile-Ads-SDK'
 

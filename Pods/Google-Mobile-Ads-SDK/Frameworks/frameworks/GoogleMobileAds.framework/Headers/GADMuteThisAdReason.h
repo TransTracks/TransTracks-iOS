@@ -2,7 +2,7 @@
 //  GADMuteThisAdReason.h
 //  Google Mobile Ads SDK
 //
-//  Copyright 2018 Google Inc. All rights reserved.
+//  Copyright 2018 Google LLC. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
