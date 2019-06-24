@@ -147,7 +147,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="add" translatesAutoresizingMaskIntoConstraints="NO" id="UdA-I2-pkl">
-                                                    <rect key="frame" x="8" y="52" width="34" height="16"/>
+                                                    <rect key="frame" x="8" y="52" width="34" height="64"/>
                                                 </imageView>
                                             </subviews>
                                         </view>
@@ -242,7 +242,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="add" translatesAutoresizingMaskIntoConstraints="NO" id="96l-Nw-Mp0">
-                                                    <rect key="frame" x="8" y="52" width="34" height="16"/>
+                                                    <rect key="frame" x="8" y="52" width="34" height="64"/>
                                                 </imageView>
                                             </subviews>
                                         </view>

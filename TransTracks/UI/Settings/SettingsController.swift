@@ -13,6 +13,7 @@
 //
 
 import Firebase
+import FirebaseAuth
 import FirebaseUI
 import PasswordTextField
 import Toast_Swift
@@ -21,6 +22,7 @@ import UIKit
 class SettingsController: BackgroundGradientViewController {
     
     //MARK: Properties
+    private var tempName: String?
     private var tempTheme: Theme?
     private var tempLockType: LockType?
     private var tempPassword: String?
@@ -49,19 +51,80 @@ class SettingsController: BackgroundGradientViewController {
         copyrightLabel.text = String(format: NSLocalizedString("copyrightWithCurrentYear", comment: ""), Date.getCurrentYear())
     }
     
+    //MARK: Helper function
+    private func showAuth(){
+        //Sign in
+        if let authUI = FUIAuth.defaultAuthUI() {
+            authUI.privacyPolicyURL = privacyPolicyURL
+            authUI.tosurl = termsOfServiceURL
+            authUI.allowNewEmailAccounts = true
+            authUI.providers = [FUIGoogleAuth(), FUITwitterAuth()]
+            authUI.delegate = self
+            present(authUI.authViewController(), animated: true, completion: nil)
+        }
+    }
+    
+    private func showRelogInDialog(){
+        let alert = UIAlertController(title: NSLocalizedString("sessionExpiredTitle", comment: ""), message: NSLocalizedString("sessionExpiredMessage", comment: ""), preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: NSLocalizedString("later", comment: ""), style: .destructive, handler: nil))
+        alert.addAction(UIAlertAction(title: NSLocalizedString("ok", comment: ""), style: .default, handler: { action in
+            self.showAuth()
+        }))
+    }
+    
     //MARK: Button handling
+    
+    @objc func accountNameClick(_ sender: Any){
+        guard let currentUser =  Auth.auth().currentUser else { return }
+        
+        self.tempName = currentUser.displayName
+        
+        let config: TextField.Config = { textField in
+            textField.becomeFirstResponder()
+            textField.textColor = .black
+            textField.placeholder = NSLocalizedString("enterAccountName", comment: "")
+            textField.backgroundColor = nil
+            textField.keyboardAppearance = .default
+            textField.borderWidth = 1
+            textField.cornerRadius = 8
+            textField.borderColor = UIColor.lightGray.withAlphaComponent(0.5)
+            textField.backgroundColor = nil
+            textField.keyboardType = .default
+            textField.isSecureTextEntry = false
+            textField.returnKeyType = .done
+            textField.text = currentUser.displayName
+            textField.action { textField in
+                self.tempName = textField.text
+            }
+        }
+        
+        let alert = UIAlertController(title: NSLocalizedString("updateAccountName", comment: ""), message: nil, preferredStyle: .alert)
+        alert.addOneTextField(configuration: config)
+        alert.addAction(UIAlertAction(title: NSLocalizedString("cancel", comment: ""), style: .cancel, handler: nil))
+        alert.addAction(UIAlertAction(title: NSLocalizedString("update", comment: ""), style: .default, handler: {action in
+            let changeRequest = currentUser.createProfileChangeRequest()
+            changeRequest.displayName = self.tempName
+            changeRequest.commitChanges{ error in
+                self.tableView.reloadRows(at: [IndexPath(row: Row.account.rawValue, section: 0)], with: .automatic)
+                
+                if let error = error {
+                    let code = (error as NSError).code
+                    if code == AuthErrorCode.userTokenExpired.rawValue || code == AuthErrorCode.userNotFound.rawValue {
+                        self.showRelogInDialog()
+                    }
+                    
+                    print(error.localizedDescription)
+                    self.view.makeToast(NSLocalizedString("unableToUpdateName", comment: ""))
+                }
+            }
+        }))
+        
+        alert.show()
+    }
     
     @objc func primaryActionClick(_ sender: Any) {
         if Auth.auth().currentUser == nil {
-            //Sign in
-            if let authUI = FUIAuth.defaultAuthUI() {
-                authUI.privacyPolicyURL = privacyPolicyURL
-                authUI.tosurl = termsOfServiceURL
-                authUI.allowNewEmailAccounts = true
-                authUI.providers = [FUIGoogleAuth(), FUITwitterAuth()]
-                authUI.delegate = self
-                present(authUI.authViewController(), animated: true, completion: nil)
-            }
+            showAuth()
         } else {
             //Change password flow
             if let email = Auth.auth().currentUser?.email {
@@ -190,6 +253,7 @@ extension SettingsController: UITableViewDataSource {
         
         cell.primaryActionButton.setTitle(primaryActionText, for: .normal)
         
+        cell.nameViews.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(accountNameClick(_:))))
         cell.primaryActionButton.addTarget(self, action: #selector(primaryActionClick(_:)), for: .touchUpInside)
         cell.signOutButton.addTarget(self, action: #selector(signOut(_:)), for: .touchUpInside)
     }

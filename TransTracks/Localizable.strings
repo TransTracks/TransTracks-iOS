@@ -20,8 +20,10 @@
 "delete" = "Delete";
 "enterPassword" = "Enter your password";
 "face" = "Face";
+"later" = "Later";
 "ok" = "OK";
 "error" = "Error";
+"update" = "Update";
 
 //Add/Edit Milestone
 "addMilestone" = "Add Milestone";
@@ -96,11 +98,16 @@
 "fifteenMinutes" = "Fifteen minutes";
 
 "changePassword" = "Change Password";
+"enterAccountName" = "Enter account name";
 "passwordResetFailed" = "An error occurred trying to send the password reset";
 "passwordResetSuccess" = "You have been sent a password reset email, follow its instruction to reset your password";
+"sessionExpiredMessage" = "You session has expired please log in again.";
+"sessionExpiredTitle" = "Session Expired";
 "setPassword" = "Set Account Password";
 "signIn" = "Sign In";
 "signInError" = "An error occurred signing in, please try again";
 "signOutError" = "An error occurred signing out, please try again";
 "unableToResetPassword" = "Unable to reset your password";
+"unableToUpdateName" = "Unable to update your account name";
 "unknown" = "Unknown";
+"updateAccountName" = "Update Account Name";
