@@ -98,7 +98,10 @@
 "fifteenMinutes" = "Fifteen minutes";
 
 "changePassword" = "Change Password";
+"emailInUse" = "Error: This email is already in use by another account";
+"emailInvalid" = "Error: This email is invalid";
 "enterAccountName" = "Enter account name";
+"enterEmailAddress" = "Enter email address";
 "passwordResetFailed" = "An error occurred trying to send the password reset";
 "passwordResetSuccess" = "You have been sent a password reset email, follow its instruction to reset your password";
 "sessionExpiredMessage" = "You session has expired please log in again.";
@@ -108,6 +111,8 @@
 "signInError" = "An error occurred signing in, please try again";
 "signOutError" = "An error occurred signing out, please try again";
 "unableToResetPassword" = "Unable to reset your password";
+"unableToUpdateEmail" = "Unable to update your email address";
 "unableToUpdateName" = "Unable to update your account name";
 "unknown" = "Unknown";
 "updateAccountName" = "Update Account Name";
+"updateEmailAddress" = "Update Email Address";

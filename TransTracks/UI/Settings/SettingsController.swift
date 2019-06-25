@@ -23,6 +23,7 @@ class SettingsController: BackgroundGradientViewController {
     
     //MARK: Properties
     private var tempName: String?
+    private var tempEmail: String?
     private var tempTheme: Theme?
     private var tempLockType: LockType?
     private var tempPassword: String?
@@ -70,6 +71,7 @@ class SettingsController: BackgroundGradientViewController {
         alert.addAction(UIAlertAction(title: NSLocalizedString("ok", comment: ""), style: .default, handler: { action in
             self.showAuth()
         }))
+        alert.show()
     }
     
     //MARK: Button handling
@@ -118,6 +120,73 @@ class SettingsController: BackgroundGradientViewController {
                 }
             }
         }))
+        
+        alert.show()
+    }
+    
+    @objc func accountEmailClick(_ sender: Any) {
+        guard let currentUser =  Auth.auth().currentUser else { return }
+        
+        self.tempEmail = currentUser.email
+        
+        let updateAction = UIAlertAction(title: NSLocalizedString("update", comment: ""), style: .default, handler: { action in
+            guard let email = self.tempEmail, email.simpleIsEmail() else { return }
+            
+            currentUser.updateEmail(to: email) { error in
+                self.tableView.reloadRows(at: [IndexPath(row: Row.account.rawValue, section: 0)], with: .automatic)
+                
+                if let error = error {
+                    let code = (error as NSError).code
+                    
+                    var toastMessage = NSLocalizedString("unableToUpdateEmail", comment: "")
+                    
+                    switch code {
+                    case AuthErrorCode.userTokenExpired.rawValue,
+                         AuthErrorCode.userNotFound.rawValue,
+                         AuthErrorCode.requiresRecentLogin.rawValue:
+                        self.showRelogInDialog()
+                        
+                    case AuthErrorCode.emailAlreadyInUse.rawValue:
+                        toastMessage = NSLocalizedString("emailInUse", comment: "")
+                        
+                    case AuthErrorCode.invalidEmail.rawValue:
+                        toastMessage = NSLocalizedString("emailInvalid", comment: "")
+                        
+                    default:
+                        break;
+                    }
+                    
+                    print(error.localizedDescription)
+                    self.view.makeToast(toastMessage)
+                }
+            }
+        })
+        updateAction.isEnabled = false
+        
+        let config: TextField.Config = { textField in
+            textField.becomeFirstResponder()
+            textField.textColor = .black
+            textField.placeholder = NSLocalizedString("enterEmailAddress", comment: "")
+            textField.backgroundColor = nil
+            textField.keyboardAppearance = .default
+            textField.borderWidth = 1
+            textField.cornerRadius = 8
+            textField.borderColor = UIColor.lightGray.withAlphaComponent(0.5)
+            textField.backgroundColor = nil
+            textField.keyboardType = .emailAddress
+            textField.isSecureTextEntry = false
+            textField.returnKeyType = .done
+            textField.text = currentUser.email
+            textField.action { textField in
+                self.tempEmail = textField.text
+                updateAction.isEnabled = self.tempEmail?.simpleIsEmail() ?? false
+            }
+        }
+        
+        let alert = UIAlertController(title: NSLocalizedString("updateEmailAddress", comment: ""), message: nil, preferredStyle: .alert)
+        alert.addOneTextField(configuration: config)
+        alert.addAction(UIAlertAction(title: NSLocalizedString("cancel", comment: ""), style: .cancel, handler: nil))
+        alert.addAction(updateAction)
         
         alert.show()
     }
@@ -254,6 +323,7 @@ extension SettingsController: UITableViewDataSource {
         cell.primaryActionButton.setTitle(primaryActionText, for: .normal)
         
         cell.nameViews.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(accountNameClick(_:))))
+        cell.emailViews.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(accountEmailClick(_:))))
         cell.primaryActionButton.addTarget(self, action: #selector(primaryActionClick(_:)), for: .touchUpInside)
         cell.signOutButton.addTarget(self, action: #selector(signOut(_:)), for: .touchUpInside)
     }

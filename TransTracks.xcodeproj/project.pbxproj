@@ -105,6 +105,7 @@
 		F9869AAE228574610049E442 /* TrainLockController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9869AAD228574610049E442 /* TrainLockController.swift */; };
 		F9869AB022858D390049E442 /* ThemedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9869AAF22858D390049E442 /* ThemedButton.swift */; };
 		F9869AB2228662490049E442 /* UIViewControllers.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9869AB1228662490049E442 /* UIViewControllers.swift */; };
+		F998422222C1A3E400C08FBE /* Strings.swift in Sources */ = {isa = PBXBuildFile; fileRef = F998422122C1A3E400C08FBE /* Strings.swift */; };
 		F9BF2415228D0098002A38BA /* DropShadowButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9BF2414228D0098002A38BA /* DropShadowButton.swift */; };
 		F9BF2417228D011A002A38BA /* WelcomeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9BF2416228D011A002A38BA /* WelcomeController.swift */; };
 		F9BF2428228D3ACC002A38BA /* AltAppIcon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = F9BF2419228D3ACB002A38BA /* AltAppIcon@3x.png */; };
@@ -250,6 +251,7 @@
 		F9869AAD228574610049E442 /* TrainLockController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrainLockController.swift; sourceTree = "<group>"; };
 		F9869AAF22858D390049E442 /* ThemedButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemedButton.swift; sourceTree = "<group>"; };
 		F9869AB1228662490049E442 /* UIViewControllers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewControllers.swift; sourceTree = "<group>"; };
+		F998422122C1A3E400C08FBE /* Strings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Strings.swift; sourceTree = "<group>"; };
 		F9BF2414228D0098002A38BA /* DropShadowButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropShadowButton.swift; sourceTree = "<group>"; };
 		F9BF2416228D011A002A38BA /* WelcomeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeController.swift; sourceTree = "<group>"; };
 		F9BF2419228D3ACB002A38BA /* AltAppIcon@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "AltAppIcon@3x.png"; sourceTree = "<group>"; };
@@ -413,18 +415,19 @@
 			children = (
 				F9869AA82283FEBE0049E442 /* AlertHelper.swift */,
 				F9BF2437228E2A29002A38BA /* Buttons.swift */,
+				F9164E8C22A3B8890066D1A2 /* DateComponents.swift */,
 				F93CF079221A55CC0008CC44 /* Dates.swift */,
 				F97FF0D522268B0B00DE7FA9 /* EncryptionUtil.swift */,
 				F97FFBEC2279687D009503A4 /* FileUtil.swift */,
 				F93CF06E221A1BDD0008CC44 /* GADBannerViews.swift */,
 				F9EBDAA1222A1C5600268392 /* HMAC.swift */,
 				F97CAA8F223A262300D6A549 /* Rx.swift */,
+				F998422122C1A3E400C08FBE /* Strings.swift */,
 				F9DAC0A3222144B10051B8E6 /* TextFieldReturnAction.swift */,
 				F93CF0632217FD860008CC44 /* ThemeManager.swift */,
 				F93CF067221805BC0008CC44 /* UIColors.swift */,
 				F9869AB1228662490049E442 /* UIViewControllers.swift */,
 				F93CF065221801C20008CC44 /* UserDefaultsUtil.swift */,
-				F9164E8C22A3B8890066D1A2 /* DateComponents.swift */,
 				F90F8C0722B8F3EE00BA91A9 /* Users.swift */,
 			);
 			path = Util;
@@ -453,10 +456,10 @@
 		F93CF07B221A59400008CC44 /* Settings */ = {
 			isa = PBXGroup;
 			children = (
-				F93CF074221A51F30008CC44 /* SettingsController.swift */,
-				F93CF07C221A59A00008CC44 /* SettingCell.swift */,
-				F93CF080221A5A0A0008CC44 /* ButtonCell.swift */,
 				F96C0D5D22B648C20083C8AA /* AccountCell.swift */,
+				F93CF080221A5A0A0008CC44 /* ButtonCell.swift */,
+				F93CF07C221A59A00008CC44 /* SettingCell.swift */,
+				F93CF074221A51F30008CC44 /* SettingsController.swift */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -1213,6 +1216,7 @@
 				F93CF17A221BF19B0008CC44 /* Locale+Extensions.swift in Sources */,
 				F93CF18E221BF19B0008CC44 /* PickerViewViewController.swift in Sources */,
 				F97FF0D622268B0B00DE7FA9 /* EncryptionUtil.swift in Sources */,
+				F998422222C1A3E400C08FBE /* Strings.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
