@@ -98,7 +98,7 @@ class AdContainerView: UIView {
                                               multiplier: CGFloat(1.0),
                                               constant:  CGFloat(0.0)))
         
-        if !UserDefaultsUtil.showAds() {
+        if !SettingsManager.showAds() {
             hideAd()
         }
     }
@@ -116,7 +116,7 @@ class AdContainerView: UIView {
 
 extension AdContainerView: GADBannerViewDelegate {
     func adViewDidReceiveAd(_ bannerView: GADBannerView) {
-        if UserDefaultsUtil.showAds() {
+        if SettingsManager.showAds() {
             showAd()
         } else {
             hideAd()

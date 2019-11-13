@@ -35,12 +35,14 @@ class TrainLockController: UIViewController {
     //MARK: Button Handling
     
     @IBAction func searchClick(_ sender: Any) {
-        let encryptedPassword = EncryptionUtil.sha512(initialData: reportingNumber.text ?? "", salt: UserDefaultsUtil.CODE_SALT)
+        let encryptedPassword = EncryptionUtil.sha512(initialData: reportingNumber.text ?? "", salt: SettingsManager.CODE_SALT)
         
-        if(UserDefaultsUtil.getLockCode() == encryptedPassword){
+        if(SettingsManager.getLockCode() == encryptedPassword){
             navigationController?.popViewController(animated: true)
+            FirebaseDocumentUtil.clearIncorrectPasswordCount()
         } else {
             view.makeToast(NSLocalizedString("incorrectTrain", comment: ""))
+            FirebaseDocumentUtil.incrementIncorrectPasswordCount()
         }
     }
 }

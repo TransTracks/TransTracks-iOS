@@ -16,7 +16,7 @@ import UIKit
 
 class ThemeManager {
     private static func getTheme() -> Theme {
-        return UserDefaultsUtil.getTheme()
+        return SettingsManager.getTheme()
     }
     
     static func getBackgroundGradient(_ theme: Theme) -> CAGradientLayer {

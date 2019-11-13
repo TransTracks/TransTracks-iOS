@@ -12,6 +12,7 @@
 //  You should have received a copy of the GNU General Public License along with this program. If not, see <https://www.gnu.org/licenses/>.
 //
 
+import FirebaseAuth
 import Photos
 import RxCocoa
 import RxSwift
@@ -75,10 +76,18 @@ class HomeViewController: BackgroundGradientViewController {
         super.viewWillAppear(animated)
         
         domainManager.homeDomain.actions.accept(.ReloadDay)
-        
-        if UserDefaultsUtil.showWelcome() {
+
+        if SettingsManager.showWelcome() {
             performSegue(withIdentifier: "Welcome", sender: nil)
-            UserDefaultsUtil.setShowWelcome(false)
+            SettingsManager.setShowWelcome(false)
+        }
+        
+        if Auth.auth().currentUser != nil {
+            if SettingsManager.saveToFirebase(){
+                SettingsManager.enableFirebaseSync()
+            } else {
+                SettingsManager.attemptFirebaseAutoSetup()
+            }
         }
         
         let _ = viewDisposables.insert(

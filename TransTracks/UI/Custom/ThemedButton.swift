@@ -26,6 +26,6 @@ class ThemedButton: DropShadowButton {
     }
     
     private func setup(){
-        backgroundColor = UserDefaultsUtil.getTheme().colorAccent
+        backgroundColor = SettingsManager.getTheme().colorAccent
     }
 }

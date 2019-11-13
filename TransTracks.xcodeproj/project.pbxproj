@@ -79,6 +79,8 @@
 		F93CF19F221BF19B0008CC44 /* Button.swift in Sources */ = {isa = PBXBuildFile; fileRef = F93CF16A221BF19B0008CC44 /* Button.swift */; };
 		F950478A22643BD0004E2304 /* PhotoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F950478922643BD0004E2304 /* PhotoCell.swift */; };
 		F950478D2265924E004E2304 /* AssignPhotoController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F950478C2265924E004E2304 /* AssignPhotoController.swift */; };
+		F9528922231A3A0000BAFC7B /* SettingConflictCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9528921231A3A0000BAFC7B /* SettingConflictCell.swift */; };
+		F9528924231A3D0D00BAFC7B /* SettingsConflictController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9528923231A3D0D00BAFC7B /* SettingsConflictController.swift */; };
 		F95C51DB22546EC6002499F4 /* SelectPhotoController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F95C51DA22546EC6002499F4 /* SelectPhotoController.swift */; };
 		F95C51DD22546F54002499F4 /* BackgroundGradientCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F95C51DC22546F54002499F4 /* BackgroundGradientCollectionViewController.swift */; };
 		F96C0D5E22B648C20083C8AA /* AccountCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F96C0D5D22B648C20083C8AA /* AccountCell.swift */; };
@@ -94,6 +96,7 @@
 		F97FFBED2279687D009503A4 /* FileUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = F97FFBEC2279687D009503A4 /* FileUtil.swift */; };
 		F97FFBEF227AAFB9009503A4 /* HomePhotoCollectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F97FFBEE227AAFB9009503A4 /* HomePhotoCollectionController.swift */; };
 		F97FFBF2227C38B6009503A4 /* PhotoDetailsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F97FFBF1227C38B6009503A4 /* PhotoDetailsController.swift */; };
+		F98108E9232498500090A484 /* FirebaseDocumentUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = F98108E8232498500090A484 /* FirebaseDocumentUtil.swift */; };
 		F9868C862207B94B00237C14 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F9868C852207B94B00237C14 /* Assets.xcassets */; };
 		F9869A9B22829A550049E442 /* GallerySectionTitle.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9869A9A22829A550049E442 /* GallerySectionTitle.swift */; };
 		F9869A9E2282DCB20049E442 /* MilestonesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9869A9D2282DCB20049E442 /* MilestonesController.swift */; };
@@ -112,6 +115,8 @@
 		F9BF2434228D3ACC002A38BA /* AltAppIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F9BF2425228D3ACC002A38BA /* AltAppIcon@2x.png */; };
 		F9BF2436228D3ACC002A38BA /* AltAppIcon@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = F9BF2427228D3ACC002A38BA /* AltAppIcon@1x.png */; };
 		F9BF2438228E2A29002A38BA /* Buttons.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9BF2437228E2A29002A38BA /* Buttons.swift */; };
+		F9C1C44822EF02A5008D6107 /* SettingsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9C1C44722EF02A5008D6107 /* SettingsManager.swift */; };
+		F9C1C44B22F04EE9008D6107 /* FirebaseSettingUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9C1C44A22F04EE9008D6107 /* FirebaseSettingUtil.swift */; };
 		F9C2E42C22922F3400C0C245 /* SelectCollectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9C2E42B22922F3400C0C245 /* SelectCollectionController.swift */; };
 		F9DAC09E222129FB0051B8E6 /* OnePasswordTextFieldController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9DAC09D222129FB0051B8E6 /* OnePasswordTextFieldController.swift */; };
 		F9DAC0A022212BA20051B8E6 /* AlertPasswordTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9DAC09F22212BA20051B8E6 /* AlertPasswordTextField.swift */; };
@@ -225,6 +230,8 @@
 		F93CF16A221BF19B0008CC44 /* Button.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Button.swift; sourceTree = "<group>"; };
 		F950478922643BD0004E2304 /* PhotoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoCell.swift; sourceTree = "<group>"; };
 		F950478C2265924E004E2304 /* AssignPhotoController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssignPhotoController.swift; sourceTree = "<group>"; };
+		F9528921231A3A0000BAFC7B /* SettingConflictCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingConflictCell.swift; sourceTree = "<group>"; };
+		F9528923231A3D0D00BAFC7B /* SettingsConflictController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsConflictController.swift; sourceTree = "<group>"; };
 		F95C51DA22546EC6002499F4 /* SelectPhotoController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectPhotoController.swift; sourceTree = "<group>"; };
 		F95C51DC22546F54002499F4 /* BackgroundGradientCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundGradientCollectionViewController.swift; sourceTree = "<group>"; };
 		F96C0D5D22B648C20083C8AA /* AccountCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountCell.swift; sourceTree = "<group>"; };
@@ -240,6 +247,7 @@
 		F97FFBEC2279687D009503A4 /* FileUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileUtil.swift; sourceTree = "<group>"; };
 		F97FFBEE227AAFB9009503A4 /* HomePhotoCollectionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomePhotoCollectionController.swift; sourceTree = "<group>"; };
 		F97FFBF1227C38B6009503A4 /* PhotoDetailsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoDetailsController.swift; sourceTree = "<group>"; };
+		F98108E8232498500090A484 /* FirebaseDocumentUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseDocumentUtil.swift; sourceTree = "<group>"; };
 		F9868C852207B94B00237C14 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		F9869A9A22829A550049E442 /* GallerySectionTitle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GallerySectionTitle.swift; sourceTree = "<group>"; };
 		F9869A9D2282DCB20049E442 /* MilestonesController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MilestonesController.swift; sourceTree = "<group>"; };
@@ -258,6 +266,8 @@
 		F9BF2425228D3ACC002A38BA /* AltAppIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "AltAppIcon@2x.png"; sourceTree = "<group>"; };
 		F9BF2427228D3ACC002A38BA /* AltAppIcon@1x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "AltAppIcon@1x.png"; sourceTree = "<group>"; };
 		F9BF2437228E2A29002A38BA /* Buttons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Buttons.swift; sourceTree = "<group>"; };
+		F9C1C44722EF02A5008D6107 /* SettingsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsManager.swift; sourceTree = "<group>"; };
+		F9C1C44A22F04EE9008D6107 /* FirebaseSettingUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseSettingUtil.swift; sourceTree = "<group>"; };
 		F9C2E42B22922F3400C0C245 /* SelectCollectionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectCollectionController.swift; sourceTree = "<group>"; };
 		F9DAC09D222129FB0051B8E6 /* OnePasswordTextFieldController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnePasswordTextFieldController.swift; sourceTree = "<group>"; };
 		F9DAC09F22212BA20051B8E6 /* AlertPasswordTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertPasswordTextField.swift; sourceTree = "<group>"; };
@@ -419,15 +429,16 @@
 				F93CF079221A55CC0008CC44 /* Dates.swift */,
 				F97FF0D522268B0B00DE7FA9 /* EncryptionUtil.swift */,
 				F97FFBEC2279687D009503A4 /* FileUtil.swift */,
+				F98108E8232498500090A484 /* FirebaseDocumentUtil.swift */,
 				F93CF06E221A1BDD0008CC44 /* GADBannerViews.swift */,
 				F9EBDAA1222A1C5600268392 /* HMAC.swift */,
 				F97CAA8F223A262300D6A549 /* Rx.swift */,
+				F9C1C44922EF03A0008D6107 /* Settings */,
 				F998422122C1A3E400C08FBE /* Strings.swift */,
 				F9DAC0A3222144B10051B8E6 /* TextFieldReturnAction.swift */,
 				F93CF0632217FD860008CC44 /* ThemeManager.swift */,
 				F93CF067221805BC0008CC44 /* UIColors.swift */,
 				F9869AB1228662490049E442 /* UIViewControllers.swift */,
-				F93CF065221801C20008CC44 /* UserDefaultsUtil.swift */,
 				F90F8C0722B8F3EE00BA91A9 /* Users.swift */,
 			);
 			path = Util;
@@ -459,7 +470,9 @@
 				F96C0D5D22B648C20083C8AA /* AccountCell.swift */,
 				F93CF080221A5A0A0008CC44 /* ButtonCell.swift */,
 				F93CF07C221A59A00008CC44 /* SettingCell.swift */,
+				F9528921231A3A0000BAFC7B /* SettingConflictCell.swift */,
 				F93CF074221A51F30008CC44 /* SettingsController.swift */,
+				F9528923231A3D0D00BAFC7B /* SettingsConflictController.swift */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -699,6 +712,16 @@
 			path = AltAppIcon;
 			sourceTree = "<group>";
 		};
+		F9C1C44922EF03A0008D6107 /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				F9C1C44722EF02A5008D6107 /* SettingsManager.swift */,
+				F93CF065221801C20008CC44 /* UserDefaultsUtil.swift */,
+				F9C1C44A22F04EE9008D6107 /* FirebaseSettingUtil.swift */,
+			);
+			path = Settings;
+			sourceTree = "<group>";
+		};
 		F9DAC09C222129A70051B8E6 /* Custom */ = {
 			isa = PBXGroup;
 			children = (
@@ -906,32 +929,46 @@
 			);
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-TransTracks/Pods-TransTracks-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/BoringSSL-GRPC/openssl_grpc.framework",
 				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
 				"${BUILT_PRODUCTS_DIR}/PasswordTextField/PasswordTextField.framework",
+				"${BUILT_PRODUCTS_DIR}/Protobuf/Protobuf.framework",
 				"${BUILT_PRODUCTS_DIR}/RxCocoa/RxCocoa.framework",
 				"${BUILT_PRODUCTS_DIR}/RxSwift/RxSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/RxSwiftExt/RxSwiftExt.framework",
 				"${BUILT_PRODUCTS_DIR}/Toast-Swift/Toast_Swift.framework",
 				"${PODS_ROOT}/TwitterCore/iOS/TwitterCore.framework",
 				"${PODS_ROOT}/TwitterKit/iOS/TwitterKit.framework",
+				"${BUILT_PRODUCTS_DIR}/gRPC/GRPCClient.framework",
+				"${BUILT_PRODUCTS_DIR}/gRPC-Core/grpc.framework",
+				"${BUILT_PRODUCTS_DIR}/gRPC-ProtoRPC/ProtoRPC.framework",
+				"${BUILT_PRODUCTS_DIR}/gRPC-RxLibrary/RxLibrary.framework",
+				"${BUILT_PRODUCTS_DIR}/leveldb-library/leveldb.framework",
 				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
 			);
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/openssl_grpc.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PasswordTextField.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Protobuf.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxCocoa.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxSwiftExt.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Toast_Swift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TwitterCore.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TwitterKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GRPCClient.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/grpc.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ProtoRPC.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxLibrary.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/leveldb.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1121,6 +1158,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F93CF19D221BF19B0008CC44 /* GradientSlider.swift in Sources */,
+				F98108E9232498500090A484 /* FirebaseDocumentUtil.swift in Sources */,
 				F919D77F219186DD0069F42B /* HomeViewController.swift in Sources */,
 				F95C51DB22546EC6002499F4 /* SelectPhotoController.swift in Sources */,
 				F900233E227D71D3003F3304 /* EditPhotoContoller.swift in Sources */,
@@ -1130,6 +1168,7 @@
 				F9869AB022858D390049E442 /* ThemedButton.swift in Sources */,
 				F900234522815AB9003F3304 /* GalleryDomain.swift in Sources */,
 				F93CF16B221BF19B0008CC44 /* Array+Extensions.swift in Sources */,
+				F9C1C44822EF02A5008D6107 /* SettingsManager.swift in Sources */,
 				F97FFBEF227AAFB9009503A4 /* HomePhotoCollectionController.swift in Sources */,
 				F919D77D219186DD0069F42B /* AppDelegate.swift in Sources */,
 				F97CAA92223A31AC00D6A549 /* Photo.swift in Sources */,
@@ -1157,6 +1196,7 @@
 				F9869A9E2282DCB20049E442 /* MilestonesController.swift in Sources */,
 				F900234322814DE3003F3304 /* GalleryController.swift in Sources */,
 				F93CF184221BF19B0008CC44 /* CountryCell.swift in Sources */,
+				F9C1C44B22F04EE9008D6107 /* FirebaseSettingUtil.swift in Sources */,
 				F93CF16D221BF19B0008CC44 /* UIImageView+Extensions.swift in Sources */,
 				F93CF178221BF19B0008CC44 /* Optional+Extensions.swift in Sources */,
 				F9EBDAAA222BA3D800268392 /* HomeDomain.swift in Sources */,
@@ -1193,6 +1233,7 @@
 				F93CF19F221BF19B0008CC44 /* Button.swift in Sources */,
 				F97FFBF2227C38B6009503A4 /* PhotoDetailsController.swift in Sources */,
 				F93CF175221BF19B0008CC44 /* UISearchBar+Extensions.swift in Sources */,
+				F9528924231A3D0D00BAFC7B /* SettingsConflictController.swift in Sources */,
 				F93CF177221BF19B0008CC44 /* UIAlertController+Extensions.swift in Sources */,
 				F93CF06D221957FD0008CC44 /* BackgroundGradientViewController.swift in Sources */,
 				F9869AA22283B5D20049E442 /* MilestoneCell.swift in Sources */,
@@ -1214,6 +1255,7 @@
 				F9869A9B22829A550049E442 /* GallerySectionTitle.swift in Sources */,
 				F93CF081221A5A0A0008CC44 /* ButtonCell.swift in Sources */,
 				F93CF17A221BF19B0008CC44 /* Locale+Extensions.swift in Sources */,
+				F9528922231A3A0000BAFC7B /* SettingConflictCell.swift in Sources */,
 				F93CF18E221BF19B0008CC44 /* PickerViewViewController.swift in Sources */,
 				F97FF0D622268B0B00DE7FA9 /* EncryptionUtil.swift in Sources */,
 				F998422222C1A3E400C08FBE /* Strings.swift in Sources */,

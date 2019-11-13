@@ -69,12 +69,16 @@
 //Settings
 "startDateLabel" = "Start Date:";
 "themeLabel" = "Theme:";
-"lockModeLabel" = "Lock Mode";
+"lockCodeLabel" = "Lock Code:";
+"lockModeLabel" = "Lock Mode:";
 "lockModeDescription" = "Require a password to access the app";
 "lockDelayLabel" = "Lock Delay:";
 "appVersionLabel" = "App Version:";
 "privacyPolicy" = "Privacy Policy";
 "copyrightWithCurrentYear" = "© 2018 - %@ by TransTracks, All rights reserved";
+"useLocalCode" = "Use local code";
+"useServerCode" = "Use server code";
+"noCode" = "No code";
 
 "selectStartDateTitle" = "Select Start Date";
 

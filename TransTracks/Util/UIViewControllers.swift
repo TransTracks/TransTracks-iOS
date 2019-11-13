@@ -33,7 +33,7 @@ extension UIViewController {
         }
     }
     
-    func setBackgroundGradient(_ theme: Theme = UserDefaultsUtil.getTheme()){
+    func setBackgroundGradient(_ theme: Theme = SettingsManager.getTheme()){
         let newGradient = ThemeManager.getBackgroundGradient(theme)
         newGradient.frame = view.frame
         

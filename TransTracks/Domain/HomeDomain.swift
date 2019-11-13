@@ -67,7 +67,7 @@ class HomeDomain {
 
 func homeActionsToResults(_ dataController: DataController, _ viewEffectRelay: PublishRelay<HomeViewEffect>) -> ObservableTransformer<HomeAction, HomeResult>{
     func getLoadedResult(_ currentDate: Date) -> HomeResult {
-        let startDate = UserDefaultsUtil.getStartDate()
+        let startDate = SettingsManager.getStartDate()
         
         let dayString = Date.stringForPeriodBetween(start: startDate, end: currentDate)
         let currentDateEpochDay = currentDate.toEpochDay()
@@ -77,7 +77,7 @@ func homeActionsToResults(_ dataController: DataController, _ viewEffectRelay: P
         
         let hasMilestones = Milestone.hasMilestones(currentDateEpochDay, context: dataController.viewContext)
         
-        return HomeResult.Loaded(dayString: dayString, showPreviousRecord: showPreviousRecord, showNextRecord: showNextRecord, startDate: startDate, currentDate: currentDate, hasMilestones: hasMilestones, showAds: UserDefaultsUtil.showAds())
+        return HomeResult.Loaded(dayString: dayString, showPreviousRecord: showPreviousRecord, showNextRecord: showNextRecord, startDate: startDate, currentDate: currentDate, hasMilestones: hasMilestones, showAds: SettingsManager.showAds())
     }
     
     func getNextDay(_ currentDate: Date) -> Date {
@@ -93,7 +93,7 @@ func homeActionsToResults(_ dataController: DataController, _ viewEffectRelay: P
             possibleNextDays.append(Int(nextMilestone.epochDay))
         }
         
-        let startDateEpochDay = UserDefaultsUtil.getStartDate().toEpochDay()
+        let startDateEpochDay = SettingsManager.getStartDate().toEpochDay()
         if startDateEpochDay > currentEpochDay {
             possibleNextDays.append(startDateEpochDay)
         }
@@ -123,7 +123,7 @@ func homeActionsToResults(_ dataController: DataController, _ viewEffectRelay: P
             possiblePreviousDays.append(Int(previousMilestone.epochDay))
         }
         
-        let startDateEpochDay = UserDefaultsUtil.getStartDate().toEpochDay()
+        let startDateEpochDay = SettingsManager.getStartDate().toEpochDay()
         if startDateEpochDay < currentEpochDay {
             possiblePreviousDays.append(startDateEpochDay)
         }

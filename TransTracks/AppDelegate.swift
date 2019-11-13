@@ -34,6 +34,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var dataController:DataController!
     var domainManager: DomainManager!
     
+    lazy var firebaseSettingUtil: FirebaseSettingUtil = FirebaseSettingUtil()
+    
     //MARK: Lifecycle
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
@@ -91,7 +93,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func applicationWillResignActive(_ application: UIApplication) {
-        UserDefaultsUtil.updateUserLastSeen()
+        SettingsManager.updateUserLastSeen()
     }
     
     func applicationDidEnterBackground(_ application: UIApplication) {
@@ -127,7 +129,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     //MARK: Helpers
     
     private func addBlockingViewIfRequired(_ navigationController : UINavigationController){
-        guard UserDefaultsUtil.getLockType() != LockType.off else { return }
+        guard SettingsManager.getLockType() != LockType.off else { return }
         guard !isLockTopView(navigationController) else { return }
         guard window!.viewWithTag(AppDelegate.TAG_BLOCKING_VIEW) == nil else { return }
         
@@ -152,11 +154,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         var shouldShow = false
         
-        let lastSeen = UserDefaultsUtil.getUserLastSeen()
+        let lastSeen = SettingsManager.getUserLastSeen()
         let calendar = Calendar.current
         let components = calendar.dateComponents([.minute], from: lastSeen, to: Date())
         
-        switch UserDefaultsUtil.getLockDelay() {
+        switch SettingsManager.getLockDelay() {
         case .instant: shouldShow = true
         case .oneMinute: shouldShow = components.minute ?? 0 >= 1
         case .twoMinutes: shouldShow = components.minute ?? 0 >= 2
@@ -172,10 +174,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     private func getLockControllerToShow() -> UIViewController? {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
 
-        switch UserDefaultsUtil.getLockType() {
+        switch SettingsManager.getLockType() {
         case .normal: return storyboard.instantiateViewController(withIdentifier: "NormalLock")
         case .trains: return storyboard.instantiateViewController(withIdentifier: "TrainLock")
         default: return nil
+        }
+    }
+    
+    func showSettingsConflictDialog(_ differences: [(SettingsManager.Key, Any)]){
+        if let navigationController = window!.rootViewController as? UINavigationController {
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let settingsConflictVC = storyboard.instantiateViewController(withIdentifier: "SettingsConflict") as! SettingsConflictController
+            settingsConflictVC.differences = differences
+            
+            navigationController.present(settingsConflictVC, animated: true, completion: nil)
+        } else {
+            fatalError("Error setting up app")
         }
     }
 }

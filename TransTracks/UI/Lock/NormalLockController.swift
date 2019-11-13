@@ -37,9 +37,9 @@ class NormalLockController: BackgroundGradientViewController {
     //MARK: Button Handling
     
     @IBAction func unlockClick(_ sender: Any) {
-        let encryptedPassword = EncryptionUtil.sha512(initialData: passwordField.text ?? "", salt: UserDefaultsUtil.CODE_SALT)
+        let encryptedPassword = EncryptionUtil.sha512(initialData: passwordField.text ?? "", salt: SettingsManager.CODE_SALT)
         
-        if(UserDefaultsUtil.getLockCode() == encryptedPassword){
+        if(SettingsManager.getLockCode() == encryptedPassword){
             navigationController?.popViewController(animated: true)
         } else {
             view.makeToast(NSLocalizedString("incorrectPassword", comment: ""))

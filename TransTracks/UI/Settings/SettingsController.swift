@@ -217,6 +217,7 @@ class SettingsController: BackgroundGradientViewController {
         if let authUI = FUIAuth.defaultAuthUI() {
             do {
                 try authUI.signOut()
+                SettingsManager.disableFirebaseSync()
                 tableView.reloadRows(at: [IndexPath(row: Row.account.rawValue, section: 0)], with: .automatic)
             } catch {
                 print(error)
@@ -338,22 +339,22 @@ extension SettingsController: UITableViewDataSource {
         switch row {
         case .startDate:
             title = NSLocalizedString("startDateLabel", comment: "")
-            value = UserDefaultsUtil.getStartDate().toFullDateString()
+            value = SettingsManager.getStartDate().toFullDateString()
         
         case .theme:
             title = NSLocalizedString("themeLabel", comment: "")
-            value = UserDefaultsUtil.getTheme().getDisplayName()
+            value = SettingsManager.getTheme().getDisplayName()
         
         case .lockMode:
             title = NSLocalizedString("lockModeLabel", comment: "")
-            value = UserDefaultsUtil.getLockType().getDisplayName()
+            value = SettingsManager.getLockType().getDisplayName()
             description = NSLocalizedString("lockModeDescription", comment: "")
         
         case .lockDelay:
             title = NSLocalizedString("lockDelayLabel", comment: "")
-            value = UserDefaultsUtil.getLockDelay().getDisplayName()
+            value = SettingsManager.getLockDelay().getDisplayName()
             
-            rowEnabled = UserDefaultsUtil.getLockType() != LockType.off
+            rowEnabled = SettingsManager.getLockType() != LockType.off
         
         case .appVersion:
             title = NSLocalizedString("appVersionLabel", comment: "")
@@ -429,7 +430,7 @@ extension SettingsController: UITableViewDelegate {
         if  row == .account || // The account row can't be clicked only the button
             row == .appVersion || // The App version cannot be clicked
             row.getRowType() == RowType.divider || // Dividers cannot be clicked
-            (row == .lockDelay && UserDefaultsUtil.getLockType() == .off) { //If the lock type is set to OFF then the user cannot change the lock delay
+            (row == .lockDelay && SettingsManager.getLockType() == .off) { //If the lock type is set to OFF then the user cannot change the lock delay
             return false
         }
         
@@ -444,8 +445,8 @@ extension SettingsController: UITableViewDelegate {
             let cell = tableView.cellForRow(at: indexPath)! as! SettingCell
             let rect = getTriggerRect(cell)
             
-            AlertHelper.showDatePicker(startingDate: UserDefaultsUtil.getStartDate(), maximumDate: nil, triggeringView: cell, specificTrigerRect: rect){ newDate in
-                UserDefaultsUtil.setStartDate(newDate)
+            AlertHelper.showDatePicker(startingDate: SettingsManager.getStartDate(), maximumDate: nil, triggeringView: cell, specificTrigerRect: rect){ newDate in
+                SettingsManager.setStartDate(newDate)
                 tableView.reloadRows(at: [IndexPath(row: Row.startDate.rawValue, section: 0)], with: .fade)
             }
             
@@ -453,7 +454,7 @@ extension SettingsController: UITableViewDelegate {
             tempTheme = nil
             
             let alert = UIAlertController(title: NSLocalizedString("selectTheme", comment: ""), message: nil, preferredStyle: .actionSheet)
-            alert.addPickerView(values: [Theme.getDisplayNamesArray()], initialSelection: (column: 0, row: UserDefaultsUtil.getTheme().getIndex()), action: {_, _ , index, _ in
+            alert.addPickerView(values: [Theme.getDisplayNamesArray()], initialSelection: (column: 0, row: SettingsManager.getTheme().getIndex()), action: {_, _ , index, _ in
                 self.tempTheme = Theme.allCases[index.row]
                 
                 if let tempTheme = self.tempTheme {
@@ -465,7 +466,7 @@ extension SettingsController: UITableViewDelegate {
             }))
             alert.addAction(UIAlertAction(title: NSLocalizedString("ok", comment: ""), style: .default, handler: { action in
                 if let newTheme = self.tempTheme {
-                    UserDefaultsUtil.setTheme(newTheme)
+                    SettingsManager.setTheme(newTheme)
                     tableView.reloadRows(at: [IndexPath(row: Row.theme.rawValue, section: 0)], with: .fade)
                     self.setBackgroundGradient()
                 }
@@ -480,22 +481,22 @@ extension SettingsController: UITableViewDelegate {
             confirmPassword = nil
             
             let alert = UIAlertController(title: NSLocalizedString("selectLockMode", comment: ""), message: nil, preferredStyle: .actionSheet)
-            alert.addPickerView(values: [LockType.getDisplayNamesArray()], initialSelection: (column: 0, row: UserDefaultsUtil.getLockType().getIndex()), action: {_, _ , index, _ in
+            alert.addPickerView(values: [LockType.getDisplayNamesArray()], initialSelection: (column: 0, row: SettingsManager.getLockType().getIndex()), action: {_, _ , index, _ in
                 self.tempLockType = LockType.allCases[index.row]
             })
             alert.addAction(UIAlertAction(title: NSLocalizedString("cancel", comment: ""), style: .cancel, handler: nil))
             alert.addAction(UIAlertAction(title: NSLocalizedString("ok", comment: ""), style: .default, handler: { action in
                 if let newLockType = self.tempLockType {
-                    let currentLockType = UserDefaultsUtil.getLockType()
+                    let currentLockType = SettingsManager.getLockType()
                     
                     if newLockType != currentLockType {
-                        let hasCode = !UserDefaultsUtil.getLockCode().isEmpty
+                        let hasCode = !SettingsManager.getLockCode().isEmpty
                         
                         if newLockType == .off {
                             //Turn off lock, and remove the code
                             self.showRemovePasswordAlert(indexPath)
                         } else if hasCode {
-                            UserDefaultsUtil.setLockType(newLockType)
+                            SettingsManager.setLockType(newLockType)
                             
                             self.tableView.reloadRows(at: [IndexPath(row: Row.lockMode.rawValue, section: 0)], with: .fade)
                         } else {
@@ -512,13 +513,13 @@ extension SettingsController: UITableViewDelegate {
             tempLockDelay = nil
             
             let alert = UIAlertController(title: NSLocalizedString("selectLockDelay", comment: ""), message: nil, preferredStyle: .actionSheet)
-            alert.addPickerView(values: [LockDelay.getDisplayNamesArray()], initialSelection: (column: 0, row: UserDefaultsUtil.getLockDelay().getIndex()), action: {_, _ , index, _ in
+            alert.addPickerView(values: [LockDelay.getDisplayNamesArray()], initialSelection: (column: 0, row: SettingsManager.getLockDelay().getIndex()), action: {_, _ , index, _ in
                 self.tempLockDelay = LockDelay.allCases[index.row]
             })
             alert.addAction(UIAlertAction(title: NSLocalizedString("cancel", comment: ""), style: .cancel, handler: nil))
             alert.addAction(UIAlertAction(title: NSLocalizedString("ok", comment: ""), style: .default, handler: { action in
                 if let tempLockDelay = self.tempLockDelay {
-                    UserDefaultsUtil.setLockDelay(tempLockDelay)
+                    SettingsManager.setLockDelay(tempLockDelay)
                     tableView.reloadRows(at: [IndexPath(row: Row.lockDelay.rawValue, section: 0)], with: .fade)
                 }
             }))
@@ -558,8 +559,8 @@ extension SettingsController: UITableViewDelegate {
         
         let okHandler: (UIAlertAction) -> Void = { action in
             if let lockType = self.tempLockType, let password = self.tempPassword, password.count > 0 && password == self.confirmPassword {
-                UserDefaultsUtil.setLockCode(newLockCode: EncryptionUtil.sha512(initialData: password, salt: UserDefaultsUtil.CODE_SALT))
-                UserDefaultsUtil.setLockType(lockType)
+                SettingsManager.setLockCode(newLockCode: EncryptionUtil.sha512(initialData: password, salt: SettingsManager.CODE_SALT))
+                SettingsManager.setLockType(lockType)
             }
             
             self.tableView.reloadRows(at: [IndexPath(row: Row.lockMode.rawValue, section: 0),
@@ -631,11 +632,11 @@ extension SettingsController: UITableViewDelegate {
         
         let okHandler: (UIAlertAction) -> Void = { action in
             if let password = self.tempPassword, password.count > 0 {
-                let encryptedPassword = EncryptionUtil.sha512(initialData: password, salt: UserDefaultsUtil.CODE_SALT)
+                let encryptedPassword = EncryptionUtil.sha512(initialData: password, salt: SettingsManager.CODE_SALT)
                 
-                if UserDefaultsUtil.getLockCode() == encryptedPassword {
-                    UserDefaultsUtil.setLockCode(newLockCode: "")
-                    UserDefaultsUtil.setLockType(LockType.off)
+                if SettingsManager.getLockCode() == encryptedPassword {
+                    SettingsManager.setLockCode(newLockCode: "")
+                    SettingsManager.setLockType(LockType.off)
                 } else {
                     self.view.makeToast(NSLocalizedString("incorrectPassword", comment: ""))
                 }
@@ -691,6 +692,10 @@ extension SettingsController: FUIAuthDelegate {
         if error != nil || authDataResult == nil {
             view.makeToast(NSLocalizedString("signInError", comment: ""))
             return
+        }
+        
+        if Auth.auth().currentUser != nil    {
+            SettingsManager.attemptFirebaseAutoSetup()
         }
         
         tableView.reloadRows(at: [IndexPath(row: Row.account.rawValue, section: 0)], with: .fade)

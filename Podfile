@@ -13,6 +13,7 @@ target 'TransTracks' do
 
   # General Firebase
   pod 'Firebase/Core'
+  pod 'Firebase/Firestore'
   
   # Firebase Auth
   pod 'FirebaseUI/Auth', '5.2.2'

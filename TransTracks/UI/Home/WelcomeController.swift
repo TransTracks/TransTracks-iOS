@@ -30,8 +30,8 @@ class WelcomeController: UIViewController {
         
         addDropShadow()
         
-        startDate.text = UserDefaultsUtil.getStartDate().toFullDateString()
-        lockMode.text = UserDefaultsUtil.getLockType().getDisplayName()
+        startDate.text = SettingsManager.getStartDate().toFullDateString()
+        lockMode.text = SettingsManager.getLockType().getDisplayName()
         
         let touchOutside = UITapGestureRecognizer(target: self, action: #selector(handleTouchOutside))
         view.addGestureRecognizer(touchOutside)
