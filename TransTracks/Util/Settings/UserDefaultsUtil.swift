@@ -54,6 +54,19 @@ class UserDefaultsUtil {
         return T(rawValue: getString(key: key)) ?? defaultValue
     }
     
+    static func setInt(key: SettingsManager.Key, value: Int){
+        setAny(value, key: key)
+    }
+    
+    static func getInt(key: SettingsManager.Key) -> Int? {
+        let defaults = UserDefaults.standard
+        if defaults.object(forKey: key.rawValue) != nil{
+            return defaults.integer(forKey: key.rawValue)
+        } else {
+            return nil
+        }
+    }
+    
     static func setString(key: SettingsManager.Key, value: String) {
         setAny(value, key: key)
     }

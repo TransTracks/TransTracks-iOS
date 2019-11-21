@@ -76,19 +76,6 @@ class HomeViewController: BackgroundGradientViewController {
         super.viewWillAppear(animated)
         
         domainManager.homeDomain.actions.accept(.ReloadDay)
-
-        if SettingsManager.showWelcome() {
-            performSegue(withIdentifier: "Welcome", sender: nil)
-            SettingsManager.setShowWelcome(false)
-        }
-        
-        if Auth.auth().currentUser != nil {
-            if SettingsManager.saveToFirebase(){
-                SettingsManager.enableFirebaseSync()
-            } else {
-                SettingsManager.attemptFirebaseAutoSetup()
-            }
-        }
         
         let _ = viewDisposables.insert(
             domainManager.homeDomain.results.subscribe{ result in
@@ -157,6 +144,30 @@ class HomeViewController: BackgroundGradientViewController {
         )
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        if SettingsManager.showWelcome() {
+            performSegue(withIdentifier: "Welcome", sender: nil)
+            SettingsManager.setShowWelcome(false)
+        }
+        
+        if let navigationController = parent as? UINavigationController, SettingsManager.showAccountWarning() {
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let warningController = storyboard.instantiateViewController(withIdentifier: "Warning") as! WarningController
+            warningController.modalPresentationStyle = .overFullScreen
+            navigationController.present(warningController, animated: true, completion: nil)
+        }
+        
+        if Auth.auth().currentUser != nil {
+            if SettingsManager.saveToFirebase(){
+                SettingsManager.enableFirebaseSync()
+            } else {
+                SettingsManager.attemptFirebaseAutoSetup()
+            }
+        }
+    }
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         super.prepare(for: segue, sender: sender)
         
@@ -214,6 +225,8 @@ class HomeViewController: BackgroundGradientViewController {
             if let day = sender as? Date {
                 milestonesController.initialEpochDay = day.toEpochDay()
             }
+        } else if let settingsController = segue.destination as? SettingsController, let showAuthOnAppear = sender as? Bool {
+            settingsController.showAuthOnAppear = showAuthOnAppear
         }
     }
     

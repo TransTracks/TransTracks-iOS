@@ -35,6 +35,8 @@ class SettingsController: BackgroundGradientViewController {
     private let privacyPolicyURL = URL(string: "http://www.drspaceboo.com/privacy-policy/")!
     private let termsOfServiceURL = URL(string: "http://www.drspaceboo.com/terms-of-service/")!
     
+    var showAuthOnAppear:Bool = false
+    
     //MARK: Outlets
     
     @IBOutlet weak var adViewHolder: AdContainerView!
@@ -50,6 +52,14 @@ class SettingsController: BackgroundGradientViewController {
         
         navigationItem.titleView?.tintColor = UIColor.white
         copyrightLabel.text = String(format: NSLocalizedString("copyrightWithCurrentYear", comment: ""), Date.getCurrentYear())
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        if showAuthOnAppear {
+            showAuth()
+        }
     }
     
     //MARK: Helper function
@@ -383,6 +393,8 @@ extension SettingsController: UITableViewDataSource {
         switch row {
         case .privacyPolicy:
             title = NSLocalizedString("privacyPolicy", comment: "")
+        case .termsOfService:
+            title = NSLocalizedString("termsOfService", comment: "")
         
         default:
             fatalError("This row hasn't been configured")
@@ -401,6 +413,7 @@ extension SettingsController: UITableViewDataSource {
         case divider2
         case appVersion
         case privacyPolicy
+        case termsOfService
         
         func getRowType() -> RowType {
             switch self {
@@ -413,6 +426,7 @@ extension SettingsController: UITableViewDataSource {
             case .divider2: return .divider
             case .appVersion: return .setting
             case .privacyPolicy: return .button
+            case .termsOfService: return .button
             }
         }
     }
@@ -529,6 +543,9 @@ extension SettingsController: UITableViewDelegate {
             
         case .privacyPolicy:
             UIApplication.shared.open(privacyPolicyURL, options: [:], completionHandler: nil)
+            
+        case .termsOfService:
+            UIApplication.shared.open(termsOfServiceURL, options: [:], completionHandler: nil)
             
         default: break
         }

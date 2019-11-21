@@ -63,6 +63,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         dataController = DataController(modelName: "TransTracks")
         domainManager = DomainManager(dataController: dataController)
         
+        appVersionUpdateIfNecessary()
+        
         let rootController = window!.rootViewController
         let homeViewController: HomeViewController
         
@@ -185,11 +187,31 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if let navigationController = window!.rootViewController as? UINavigationController {
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
             let settingsConflictVC = storyboard.instantiateViewController(withIdentifier: "SettingsConflict") as! SettingsConflictController
+            settingsConflictVC.modalPresentationStyle = .overFullScreen
             settingsConflictVC.differences = differences
             
             navigationController.present(settingsConflictVC, animated: true, completion: nil)
         } else {
             fatalError("Error setting up app")
         }
+    }
+    
+    func appVersionUpdateIfNecessary() {
+        let currentVersion = SettingsManager.getCurrentiOSVersion()
+        let newVersion = Int(Bundle.main.buildVersionNumber!)!
+        
+        guard currentVersion != newVersion else { return }
+        
+        if currentVersion == nil {
+            //User's first tracked version
+            
+            //Untracked user that has a lock at this point, we should warn them about not having an account
+            if SettingsManager.getLockType() != .off {
+                Analytics.logEvent("user_needs_to_show_warning", parameters: nil)
+                SettingsManager.setAccountWarning(true)
+            }
+        }
+        
+        SettingsManager.updateCurrentiOSVersion()
     }
 }

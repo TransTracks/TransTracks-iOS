@@ -20,6 +20,17 @@ class SettingsManager {
     static let CODE_SALT = "iP5Rp315RpDq7gwpIUOcoeqicsxTtzzm"
     static let lockCodeDefault: String = ""
     
+    //MARK: Current iOS Version
+    
+    public static func getCurrentiOSVersion() -> Int? {
+        return UserDefaultsUtil.getInt(key: .currentiOSVersion)
+    }
+    
+    public static func updateCurrentiOSVersion() {
+        let buildVersion = Int(Bundle.main.buildVersionNumber!)!
+        UserDefaultsUtil.setInt(key: .currentiOSVersion, value: buildVersion)
+    }
+    
     //MARK: Lock Code
     
     static func getLockCode() -> String {
@@ -64,6 +75,16 @@ class SettingsManager {
         if iconName != UIApplication.shared.alternateIconName {
             UIApplication.shared.setAlternateIconName(iconName)
         }
+    }
+    
+    //MARK: Show Account Warning
+    
+    static func showAccountWarning() -> Bool {
+        return UserDefaultsUtil.getBool(key: .showAccountWarning, defaultValue: false)
+    }
+    
+    static func setAccountWarning(_ newAccountWarning: Bool) {
+        setBool(key: .showAccountWarning, value: newAccountWarning)
     }
     
     //MARK: Show Ads
@@ -190,7 +211,7 @@ class SettingsManager {
                             case .startDate: isDifferent = value is Int && value as! Int != getStartDate().toEpochDay()
                             case .theme: isDifferent = value is String && Theme(rawValue: value as! String) != nil && value as! String != getTheme().rawValue
                                 
-                            case .saveToFirebase, .showAds, .showWelcome, .userLastSeen: isDifferent = false
+                            case .currentiOSVersion, .saveToFirebase, .showAccountWarning, .showAds, .showWelcome, .userLastSeen: isDifferent = false
                             }
                             
                             if isDifferent {
@@ -241,7 +262,7 @@ class SettingsManager {
         case .showWelcome: return showWelcome()
         case .startDate: return getStartDate().toEpochDay()
         case .theme: return getTheme().rawValue
-        case .saveToFirebase, .userLastSeen: return nil
+        case .currentiOSVersion, .saveToFirebase, .showAccountWarning, .userLastSeen: return nil
         }
     }
     
@@ -250,10 +271,12 @@ class SettingsManager {
     }
     
     enum Key: String, CaseIterable {
+        case currentiOSVersion
         case lockCode
         case lockDelay
         case lockType
         case saveToFirebase
+        case showAccountWarning
         case showAds
         case showWelcome
         case startDate

@@ -28,7 +28,7 @@ class FirebaseSettingUtil {
             return
         }
         
-        db.collection(user.uid).document(FirebaseSettingUtil.SETTINGS_DOCUMENT).addSnapshotListener { snapshot, error in
+        listener = db.collection(user.uid).document(FirebaseSettingUtil.SETTINGS_DOCUMENT).addSnapshotListener { snapshot, error in
             if let error = error {
                 print(error)
             }
@@ -80,7 +80,7 @@ class FirebaseSettingUtil {
                             }
                             
                         //Don't need to sync .saveToFirebase, .userLastSeen
-                        case .saveToFirebase, .userLastSeen:
+                        case .currentiOSVersion, .saveToFirebase, .userLastSeen:
                             break
                         @unknown default:
                             break

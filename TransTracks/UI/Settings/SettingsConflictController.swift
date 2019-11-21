@@ -14,7 +14,7 @@
 
 import UIKit
 
-class SettingsConflictController: UIViewController {
+class SettingsConflictController: DialogViewController {
     //MARK: Static properties
     private static let CELL_HEIGHT:CGFloat = 50
     
@@ -33,7 +33,7 @@ class SettingsConflictController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        addDropShadow()
+        addDropShadow(background)
         
         choices = Array(repeating: true, count: differences.count)
         tableView.dataSource = self
@@ -46,18 +46,6 @@ class SettingsConflictController: UIViewController {
         }
         
         tableViewHeight.constant = height
-    }
-    
-    //MARK: UI Helpers
-    
-    private func addDropShadow(){
-        background.layer.cornerRadius = 4.0
-        background.layer.masksToBounds = false
-        
-        background.layer.shadowColor = UIColor.black.cgColor
-        background.layer.shadowOpacity = 0.5
-        background.layer.shadowRadius = 3
-        background.layer.shadowOffset = CGSize(width: 0, height: 2)
     }
     
     //MARK: Handle button
@@ -135,7 +123,7 @@ extension SettingsConflictController : UITableViewDataSource {
             localValue = SettingsManager.getTheme().getDisplayName()
             serverValue = Theme(rawValue: serverConflictValue as! String)!.getDisplayName()
 
-        case .saveToFirebase, .showAds, .showWelcome, .userLastSeen:
+        case .currentiOSVersion, .saveToFirebase, .showAccountWarning, .showAds, .showWelcome, .userLastSeen:
             fatalError("This settings should not be in conflict because they don't get synced")
         }
         

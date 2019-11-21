@@ -1,8 +1,8 @@
 //
-//  WelcomeController.swift
+//  WarningViewController.swift
 //  TransTracks
 //
-//  Created by Cassie Wilson on 16/5/19.
+//  Created by Cassie Wilson on 21/11/19.
 //  Copyright © 2019 TransTracks. All rights reserved.
 //
 //  This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
@@ -14,41 +14,37 @@
 
 import UIKit
 
-class WelcomeController: DialogViewController {
+class WarningController: DialogViewController {
     
     //MARK: Outlets
     @IBOutlet weak var background: UIView!
-    @IBOutlet weak var startDate: UILabel!
-    @IBOutlet weak var lockMode: UILabel!
-    @IBOutlet weak var settingsButton: ThemedButton!
-    @IBOutlet weak var looksGoodButton: DropShadowButton!
+    @IBOutlet weak var createAccountButton: ThemedButton!
+    @IBOutlet weak var riskItButton: DropShadowButton!
     
-    //MARK: Lifecycle
+    //MARK:Lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         addDropShadow(background)
-        enableTouchOutsideToDismiss()
         
-        startDate.text = SettingsManager.getStartDate().toFullDateString()
-        lockMode.text = SettingsManager.getLockType().getDisplayName()
-        
-        settingsButton.enableAutoSizeText()
-        looksGoodButton.enableAutoSizeText()
+        createAccountButton.enableAutoSizeText()
+        riskItButton.enableAutoSizeText()
     }
     
     //MARK: Button handling
     
-    @IBAction func changeSettings(_ sender: Any) {
+    @IBAction func createAccountClick(_ sender: Any) {
         if let navController = self.presentingViewController as? NavigationController, let homeController = navController.topViewController as? HomeViewController {
             dismiss(animated: true, completion: {
-                homeController.performSegue(withIdentifier: "Settings", sender: nil)
+                SettingsManager.setAccountWarning(false)
+                homeController.performSegue(withIdentifier: "Settings", sender: true)
             })
         }
     }
     
-    @IBAction func looksGood(_ sender: Any) {
+    @IBAction func riskItClick(_ sender: Any) {
+        SettingsManager.setAccountWarning(false)
         dismiss(animated: true)
     }
 }

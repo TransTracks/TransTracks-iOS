@@ -76,6 +76,7 @@
 "appVersionLabel" = "App Version:";
 "privacyPolicy" = "Privacy Policy";
 "copyrightWithCurrentYear" = "© 2018 - %@ by TransTracks, All rights reserved";
+"termsOfService" = "Terms of Service";
 "useLocalCode" = "Use local code";
 "useServerCode" = "Use server code";
 "noCode" = "No code";
