@@ -123,7 +123,7 @@ extension SettingsConflictController : UITableViewDataSource {
             localValue = SettingsManager.getTheme().getDisplayName()
             serverValue = Theme(rawValue: serverConflictValue as! String)!.getDisplayName()
 
-        case .currentiOSVersion, .saveToFirebase, .showAccountWarning, .showAds, .showWelcome, .userLastSeen:
+        case .currentiOSVersion, .incorrectPasswordCount, .saveToFirebase, .showAccountWarning, .showAds, .showWelcome, .userLastSeen:
             fatalError("This settings should not be in conflict because they don't get synced")
         }
         

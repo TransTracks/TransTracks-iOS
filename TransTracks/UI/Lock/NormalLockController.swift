@@ -41,8 +41,14 @@ class NormalLockController: BackgroundGradientViewController {
         
         if(SettingsManager.getLockCode() == encryptedPassword){
             navigationController?.popViewController(animated: true)
+            SettingsManager.resetIncorrectPasswordCount()
         } else {
             view.makeToast(NSLocalizedString("incorrectPassword", comment: ""))
+            SettingsManager.incrementIncorrectPasswordCount()
+            
+            if SettingsManager.showAccountWarning() && SettingsManager.getIncorrectPasswordCount() >= 25 {
+                performSegue(withIdentifier: "OneChance", sender: nil)
+            }
         }
     }
 }

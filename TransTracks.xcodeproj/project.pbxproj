@@ -77,6 +77,7 @@
 		F93CF19D221BF19B0008CC44 /* GradientSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = F93CF168221BF19B0008CC44 /* GradientSlider.swift */; };
 		F93CF19E221BF19B0008CC44 /* TextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = F93CF169221BF19B0008CC44 /* TextField.swift */; };
 		F93CF19F221BF19B0008CC44 /* Button.swift in Sources */ = {isa = PBXBuildFile; fileRef = F93CF16A221BF19B0008CC44 /* Button.swift */; };
+		F94A602423869F390046D5F0 /* OneChanceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F94A602323869F390046D5F0 /* OneChanceController.swift */; };
 		F94F81C72386487200AA432A /* WarningController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F94F81C62386487200AA432A /* WarningController.swift */; };
 		F94F81C9238649C500AA432A /* DialogViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F94F81C8238649C500AA432A /* DialogViewController.swift */; };
 		F950478A22643BD0004E2304 /* PhotoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F950478922643BD0004E2304 /* PhotoCell.swift */; };
@@ -231,6 +232,7 @@
 		F93CF168221BF19B0008CC44 /* GradientSlider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GradientSlider.swift; sourceTree = "<group>"; };
 		F93CF169221BF19B0008CC44 /* TextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextField.swift; sourceTree = "<group>"; };
 		F93CF16A221BF19B0008CC44 /* Button.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Button.swift; sourceTree = "<group>"; };
+		F94A602323869F390046D5F0 /* OneChanceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OneChanceController.swift; sourceTree = "<group>"; };
 		F94F81C62386487200AA432A /* WarningController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WarningController.swift; sourceTree = "<group>"; };
 		F94F81C8238649C500AA432A /* DialogViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DialogViewController.swift; sourceTree = "<group>"; };
 		F950478922643BD0004E2304 /* PhotoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoCell.swift; sourceTree = "<group>"; };
@@ -705,6 +707,7 @@
 			children = (
 				F9869AAB228560630049E442 /* NormalLockController.swift */,
 				F9869AAD228574610049E442 /* TrainLockController.swift */,
+				F94A602323869F390046D5F0 /* OneChanceController.swift */,
 			);
 			path = Lock;
 			sourceTree = "<group>";
@@ -1232,6 +1235,7 @@
 				F9BF5040237BAF010036457F /* BundleExt.swift in Sources */,
 				F93CF066221801C20008CC44 /* UserDefaultsUtil.swift in Sources */,
 				F97CAA98223A4F4700D6A549 /* DomainManager.swift in Sources */,
+				F94A602423869F390046D5F0 /* OneChanceController.swift in Sources */,
 				F9DAC0A22221369C0051B8E6 /* TwoPasswordTextFieldController.swift in Sources */,
 				F9F3C540229B6026006D3050 /* SelectCollectionDomain.swift in Sources */,
 				F93CF183221BF19B0008CC44 /* CurrencyCell.swift in Sources */,

@@ -31,6 +31,20 @@ class SettingsManager {
         UserDefaultsUtil.setInt(key: .currentiOSVersion, value: buildVersion)
     }
     
+    //MARK: Incorrect Password Count
+    
+    public static func getIncorrectPasswordCount() -> Int {
+        return UserDefaultsUtil.getInt(key: .incorrectPasswordCount) ?? 0
+    }
+    
+    public static func incrementIncorrectPasswordCount() {
+        UserDefaultsUtil.setInt(key: .incorrectPasswordCount, value: getIncorrectPasswordCount() + 1)
+    }
+    
+    public static func resetIncorrectPasswordCount() {
+        UserDefaultsUtil.setInt(key: .incorrectPasswordCount, value: 0)
+    }
+    
     //MARK: Lock Code
     
     static func getLockCode() -> String {
@@ -187,7 +201,7 @@ class SettingsManager {
     static func firebaseNeedsSetup(){
         disableFirebaseSync()
         
-        if let user = Auth.auth().currentUser {
+        if Auth.auth().currentUser != nil {
             attemptFirebaseAutoSetup()
         }
     }
@@ -211,7 +225,7 @@ class SettingsManager {
                             case .startDate: isDifferent = value is Int && value as! Int != getStartDate().toEpochDay()
                             case .theme: isDifferent = value is String && Theme(rawValue: value as! String) != nil && value as! String != getTheme().rawValue
                                 
-                            case .currentiOSVersion, .saveToFirebase, .showAccountWarning, .showAds, .showWelcome, .userLastSeen: isDifferent = false
+                            case .currentiOSVersion, .incorrectPasswordCount, .saveToFirebase, .showAccountWarning, .showAds, .showWelcome, .userLastSeen: isDifferent = false
                             }
                             
                             if isDifferent {
@@ -262,7 +276,7 @@ class SettingsManager {
         case .showWelcome: return showWelcome()
         case .startDate: return getStartDate().toEpochDay()
         case .theme: return getTheme().rawValue
-        case .currentiOSVersion, .saveToFirebase, .showAccountWarning, .userLastSeen: return nil
+        case .currentiOSVersion, .incorrectPasswordCount, .saveToFirebase, .showAccountWarning, .userLastSeen: return nil
         }
     }
     
@@ -272,6 +286,7 @@ class SettingsManager {
     
     enum Key: String, CaseIterable {
         case currentiOSVersion
+        case incorrectPasswordCount
         case lockCode
         case lockDelay
         case lockType

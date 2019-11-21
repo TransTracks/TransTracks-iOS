@@ -39,10 +39,14 @@ class TrainLockController: UIViewController {
         
         if(SettingsManager.getLockCode() == encryptedPassword){
             navigationController?.popViewController(animated: true)
-            FirebaseDocumentUtil.clearIncorrectPasswordCount()
+            SettingsManager.resetIncorrectPasswordCount()
         } else {
             view.makeToast(NSLocalizedString("incorrectTrain", comment: ""))
-            FirebaseDocumentUtil.incrementIncorrectPasswordCount()
+            SettingsManager.incrementIncorrectPasswordCount()
+            
+            if SettingsManager.showAccountWarning() && SettingsManager.getIncorrectPasswordCount() >= 25 {
+                performSegue(withIdentifier: "OneChance", sender: nil)
+            }
         }
     }
 }
