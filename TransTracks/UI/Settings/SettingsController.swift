@@ -63,7 +63,7 @@ class SettingsController: BackgroundGradientViewController {
     }
     
     //MARK: Helper function
-    private func showAuth(){
+    func showAuth(){
         //Sign in
         if let authUI = FUIAuth.defaultAuthUI() {
             authUI.privacyPolicyURL = privacyPolicyURL
@@ -587,6 +587,13 @@ extension SettingsController: UITableViewDelegate {
             //Nilling the passwords so they aren't kept in memory
             self.tempPassword = nil
             self.confirmPassword = nil
+            
+            if let navigationController = self.parent as? UINavigationController, Auth.auth().currentUser == nil {
+                let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                let warningController = storyboard.instantiateViewController(withIdentifier: "Warning") as! WarningController
+                warningController.modalPresentationStyle = .overFullScreen
+                navigationController.present(warningController, animated: true, completion: nil)
+            }
         }
         
         let okAction = UIAlertAction(title: NSLocalizedString("ok", comment: ""), style: .default, handler: okHandler)

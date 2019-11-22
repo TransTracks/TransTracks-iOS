@@ -35,11 +35,17 @@ class WarningController: DialogViewController {
     //MARK: Button handling
     
     @IBAction func createAccountClick(_ sender: Any) {
-        if let navController = self.presentingViewController as? NavigationController, let homeController = navController.topViewController as? HomeViewController {
-            dismiss(animated: true, completion: {
-                SettingsManager.setAccountWarning(false)
-                homeController.performSegue(withIdentifier: "Settings", sender: true)
-            })
+        if let navController = self.presentingViewController as? NavigationController {
+            if let homeController = navController.topViewController as? HomeViewController {
+                dismiss(animated: true, completion: {
+                    SettingsManager.setAccountWarning(false)
+                    homeController.performSegue(withIdentifier: "Settings", sender: true)
+                })
+            } else if let settingsController = navController.topViewController as? SettingsController {
+                dismiss(animated: true, completion: {
+                    settingsController.showAuth()
+                })
+            }
         }
     }
     
