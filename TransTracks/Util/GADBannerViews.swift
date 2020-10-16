@@ -29,7 +29,6 @@ extension GADBannerView {
         bannerView.rootViewController = rootViewController
         
         let request = GADRequest()
-        request.testDevices = [kGADSimulatorID]
         
         bannerView.load(request)
         

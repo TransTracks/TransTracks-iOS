@@ -63,13 +63,12 @@ class SettingsController: BackgroundGradientViewController {
     }
     
     //MARK: Helper function
-    func showAuth(){
+    func showAuth() {
         //Sign in
         if let authUI = FUIAuth.defaultAuthUI() {
             authUI.privacyPolicyURL = privacyPolicyURL
             authUI.tosurl = termsOfServiceURL
-            authUI.allowNewEmailAccounts = true
-            authUI.providers = [FUIGoogleAuth(), FUITwitterAuth()]
+            authUI.providers = [FUIEmailAuth(), FUIGoogleAuth(), FUIOAuth.twitterAuthProvider()]
             authUI.delegate = self
             present(authUI.authViewController(), animated: true, completion: nil)
         }

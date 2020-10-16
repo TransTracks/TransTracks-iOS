@@ -8,17 +8,14 @@ target 'TransTracks' do
   # Pods for TransTracks
   
   # Crash logging
-  pod 'Fabric', '~> 1.9.0'
-  pod 'Crashlytics', '~> 3.12.0'
+  pod 'Firebase/Crashlytics'
+  pod 'Firebase/Analytics'
 
   # General Firebase
-  pod 'Firebase/Core'
   pod 'Firebase/Firestore'
   
   # Firebase Auth
-  pod 'FirebaseUI/Auth', '5.2.2'
-  pod 'FirebaseUI/Google', '5.2.2'
-  pod 'FirebaseUI/Twitter', '5.2.2'
+  pod 'FirebaseUI'
   
   # Ads
   pod 'Google-Mobile-Ads-SDK'

@@ -8,13 +8,5 @@
 		<!-- The below ad unit id is a test id. It is not necessary to replace this for development. -->
 		<string>ca-app-pub-3940256099942544/2934735716</string>
 	</dict>
-	<key>twitter</key>
-    <dict>
-        <!-- Add in the Twitter consumer key and secret in here linked to your test Firebase setup if testing Twitter login. -->
-        <key>consumerKey</key>
-        <string></string>
-        <key>consumerSecret</key>
-        <string></string>
-    </dict>
 </dict>
 </plist>

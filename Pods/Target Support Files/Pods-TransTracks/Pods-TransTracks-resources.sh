@@ -97,18 +97,24 @@ EOM
   esac
 }
 if [[ "$CONFIGURATION" == "Debug" ]]; then
+  install_resource "${PODS_CONFIGURATION_BUILD_DIR}/FirebaseUI/FirebaseAnonymousAuthUI.bundle"
   install_resource "${PODS_CONFIGURATION_BUILD_DIR}/FirebaseUI/FirebaseAuthUI.bundle"
+  install_resource "${PODS_CONFIGURATION_BUILD_DIR}/FirebaseUI/FirebaseEmailAuthUI.bundle"
+  install_resource "${PODS_CONFIGURATION_BUILD_DIR}/FirebaseUI/FirebaseFacebookAuthUI.bundle"
   install_resource "${PODS_CONFIGURATION_BUILD_DIR}/FirebaseUI/FirebaseGoogleAuthUI.bundle"
-  install_resource "${PODS_CONFIGURATION_BUILD_DIR}/FirebaseUI/FirebaseTwitterAuthUI.bundle"
+  install_resource "${PODS_CONFIGURATION_BUILD_DIR}/FirebaseUI/FirebaseOAuthUI.bundle"
+  install_resource "${PODS_CONFIGURATION_BUILD_DIR}/FirebaseUI/FirebasePhoneAuthUI.bundle"
   install_resource "${PODS_ROOT}/GoogleSignIn/Resources/GoogleSignIn.bundle"
-  install_resource "${PODS_ROOT}/TwitterKit/iOS/TwitterKit.framework/TwitterKitResources.bundle"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
+  install_resource "${PODS_CONFIGURATION_BUILD_DIR}/FirebaseUI/FirebaseAnonymousAuthUI.bundle"
   install_resource "${PODS_CONFIGURATION_BUILD_DIR}/FirebaseUI/FirebaseAuthUI.bundle"
+  install_resource "${PODS_CONFIGURATION_BUILD_DIR}/FirebaseUI/FirebaseEmailAuthUI.bundle"
+  install_resource "${PODS_CONFIGURATION_BUILD_DIR}/FirebaseUI/FirebaseFacebookAuthUI.bundle"
   install_resource "${PODS_CONFIGURATION_BUILD_DIR}/FirebaseUI/FirebaseGoogleAuthUI.bundle"
-  install_resource "${PODS_CONFIGURATION_BUILD_DIR}/FirebaseUI/FirebaseTwitterAuthUI.bundle"
+  install_resource "${PODS_CONFIGURATION_BUILD_DIR}/FirebaseUI/FirebaseOAuthUI.bundle"
+  install_resource "${PODS_CONFIGURATION_BUILD_DIR}/FirebaseUI/FirebasePhoneAuthUI.bundle"
   install_resource "${PODS_ROOT}/GoogleSignIn/Resources/GoogleSignIn.bundle"
-  install_resource "${PODS_ROOT}/TwitterKit/iOS/TwitterKit.framework/TwitterKitResources.bundle"
 fi
 
 mkdir -p "${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}"
@@ -122,7 +128,7 @@ rm -f "$RESOURCES_TO_COPY"
 if [[ -n "${WRAPPER_EXTENSION}" ]] && [ "`xcrun --find actool`" ] && [ -n "${XCASSET_FILES:-}" ]
 then
   # Find all other xcassets (this unfortunately includes those of path pods and other targets).
-  OTHER_XCASSETS=$(find "$PWD" -iname "*.xcassets" -type d)
+  OTHER_XCASSETS=$(find -L "$PWD" -iname "*.xcassets" -type d)
   while read line; do
     if [[ $line != "${PODS_ROOT}*" ]]; then
       XCASSET_FILES+=("$line")

@@ -12,12 +12,10 @@
 //  You should have received a copy of the GNU General Public License along with this program. If not, see <https://www.gnu.org/licenses/>.
 //
 
-import Crashlytics
-import Fabric
+import FirebaseCrashlytics
 import Firebase
 import FirebaseUI
 import GoogleMobileAds
-import TwitterKit
 import UIKit
 
 @UIApplicationMain
@@ -42,7 +40,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         FirebaseApp.configure()
         
         #if DEBUG
-            AnalyticsConfiguration.shared().setAnalyticsCollectionEnabled(false)
+            Analytics.setAnalyticsCollectionEnabled(false)
         #else
             Fabric.with([Crashlytics()])
         #endif
@@ -51,13 +49,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
            let googleServiceInfo = NSDictionary(contentsOfFile: path),
            let adMobAppId = googleServiceInfo["ADMOB_APP_ID"] as? String {
             GADMobileAds.configure(withApplicationID: adMobAppId)
-        }
-        if let path = Bundle.main.path(forResource: "config", ofType: "plist"),
-           let config = NSDictionary(contentsOfFile: path),
-           let twitter = config["twitter"] as? NSDictionary,
-           let consumerKey = twitter["consumerKey"] as? String,
-           let consumerSecret = twitter["consumerSecret"] as? String {
-            TWTRTwitter.sharedInstance().start(withConsumerKey: consumerKey, consumerSecret: consumerSecret)
         }
         
         dataController = DataController(modelName: "TransTracks")
@@ -85,9 +76,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
         let sourceApplication = options[UIApplication.OpenURLOptionsKey.sourceApplication] as! String?
-        if FUIAuth.defaultAuthUI()?.handleOpen(url, sourceApplication: sourceApplication) ?? false {
-            return true
-        } else if TWTRTwitter.sharedInstance().application(app, open: url, options: options) {
+        if FUIAuth.defaultAuthUI()!.handleOpen(url, sourceApplication: sourceApplication) {
             return true
         }
         
