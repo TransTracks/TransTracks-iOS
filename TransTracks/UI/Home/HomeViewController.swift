@@ -277,6 +277,8 @@ class HomeViewController: BackgroundGradientViewController {
             }
             alert.show()
             break;
+        @unknown default:
+            break;
         }
     }
     

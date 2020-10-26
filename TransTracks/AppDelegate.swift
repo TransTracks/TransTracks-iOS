@@ -39,10 +39,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         FirebaseApp.configure()
         
-        #if DEBUG
-            Analytics.setAnalyticsCollectionEnabled(false)
-        #else
-            Fabric.with([Crashlytics()])
+        #if PRODUCTION
+            Analytics.setAnalyticsCollectionEnabled(true)
+            Crashlytics.crashlytics().setCrashlyticsCollectionEnabled(true)
         #endif
         
         if let path = Bundle.main.path(forResource: "GoogleService-Info", ofType: "plist"),
