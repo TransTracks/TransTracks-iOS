@@ -232,6 +232,7 @@
 		F93CF168221BF19B0008CC44 /* GradientSlider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GradientSlider.swift; sourceTree = "<group>"; };
 		F93CF169221BF19B0008CC44 /* TextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextField.swift; sourceTree = "<group>"; };
 		F93CF16A221BF19B0008CC44 /* Button.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Button.swift; sourceTree = "<group>"; };
+		F94770A52563D93E00237912 /* TransTracks.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = TransTracks.entitlements; sourceTree = "<group>"; };
 		F94A602323869F390046D5F0 /* OneChanceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OneChanceController.swift; sourceTree = "<group>"; };
 		F94F81C62386487200AA432A /* WarningController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WarningController.swift; sourceTree = "<group>"; };
 		F94F81C8238649C500AA432A /* DialogViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DialogViewController.swift; sourceTree = "<group>"; };
@@ -383,6 +384,7 @@
 		F919D77B219186DD0069F42B /* TransTracks */ = {
 			isa = PBXGroup;
 			children = (
+				F94770A52563D93E00237912 /* TransTracks.entitlements */,
 				F9BF2418228D3AA7002A38BA /* AltAppIcon */,
 				F919D77C219186DD0069F42B /* AppDelegate.swift */,
 				F9868C852207B94B00237C14 /* Assets.xcassets */,
@@ -794,6 +796,7 @@
 			buildConfigurationList = F919D7A1219186DF0069F42B /* Build configuration list for PBXNativeTarget "TransTracks" */;
 			buildPhases = (
 				F33326B6A76EB4F277695A59 /* [CP] Check Pods Manifest.lock */,
+				3751C2DB5262C93356183898 /* [CP] Prepare Artifacts */,
 				F97AA39025E9CF3E0015C3CC /* ShellScript */,
 				F919D775219186DD0069F42B /* Sources */,
 				F919D776219186DD0069F42B /* Frameworks */,
@@ -947,6 +950,23 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-TransTracks/Pods-TransTracks-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		3751C2DB5262C93356183898 /* [CP] Prepare Artifacts */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-TransTracks/Pods-TransTracks-artifacts-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Prepare Artifacts";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-TransTracks/Pods-TransTracks-artifacts-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-TransTracks/Pods-TransTracks-artifacts.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		46547ACEB871116BC3E27E41 /* [CP] Copy Pods Resources */ = {
@@ -1391,6 +1411,7 @@
 			baseConfigurationReference = 41AC01AE45B33B2EFEBBC7E3 /* Pods-TransTracks.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = TransTracks/TransTracks.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 13;
 				DEVELOPMENT_TEAM = SLWWTU9N3Q;
@@ -1413,6 +1434,7 @@
 			baseConfigurationReference = B82EEFBA57B4D562AE65584F /* Pods-TransTracks.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = TransTracks/TransTracks.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 13;
 				DEVELOPMENT_TEAM = SLWWTU9N3Q;

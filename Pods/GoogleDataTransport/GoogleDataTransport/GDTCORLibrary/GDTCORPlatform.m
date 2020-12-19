@@ -14,13 +14,13 @@
  * limitations under the License.
  */
 
-#import "GoogleDataTransport/GDTCORLibrary/Public/GoogleDataTransport/GDTCORPlatform.h"
+#import "GoogleDataTransport/GDTCORLibrary/Internal/GDTCORPlatform.h"
 
 #import <sys/sysctl.h>
 
-#import "GoogleDataTransport/GDTCORLibrary/Public/GoogleDataTransport/GDTCORAssert.h"
+#import "GoogleDataTransport/GDTCORLibrary/Internal/GDTCORAssert.h"
+#import "GoogleDataTransport/GDTCORLibrary/Internal/GDTCORReachability.h"
 #import "GoogleDataTransport/GDTCORLibrary/Public/GoogleDataTransport/GDTCORConsoleLogger.h"
-#import "GoogleDataTransport/GDTCORLibrary/Public/GoogleDataTransport/GDTCORReachability.h"
 
 #import "GoogleDataTransport/GDTCORLibrary/Private/GDTCORRegistrar_Private.h"
 
@@ -149,7 +149,7 @@ GDTCORNetworkMobileSubtype GDTCORNetworkMobileSubTypeMessage() {
   } else {
     return GDTCORNetworkMobileSubtypeUNKNOWN;
   }
-#else   // TARGET_OS_IOS
+#else  // TARGET_OS_IOS
   return GDTCORNetworkMobileSubtypeUNKNOWN;
 #endif  // TARGET_OS_IOS
 }

@@ -251,7 +251,7 @@ class HomeViewController: BackgroundGradientViewController {
     
     @IBAction func addPhoto(_ sender: Any) {
         switch PHPhotoLibrary.authorizationStatus(){
-        case .authorized:
+        case .authorized, .limited: //TODO replace with native selection
             performSegue(withIdentifier: "SelectPhoto", sender: sender)
             
         case .notDetermined:

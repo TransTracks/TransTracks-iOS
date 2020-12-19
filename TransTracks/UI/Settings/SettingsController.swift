@@ -35,7 +35,7 @@ class SettingsController: BackgroundGradientViewController {
     private let privacyPolicyURL = URL(string: "http://www.drspaceboo.com/privacy-policy/")!
     private let termsOfServiceURL = URL(string: "http://www.drspaceboo.com/terms-of-service/")!
     
-    var showAuthOnAppear:Bool = false
+    var showAuthOnAppear: Bool = false
     
     //MARK: Outlets
     
@@ -68,13 +68,19 @@ class SettingsController: BackgroundGradientViewController {
         if let authUI = FUIAuth.defaultAuthUI() {
             authUI.privacyPolicyURL = privacyPolicyURL
             authUI.tosurl = termsOfServiceURL
-            authUI.providers = [FUIEmailAuth(), FUIGoogleAuth(), FUIOAuth.twitterAuthProvider()]
+            
+            var providers: [FUIAuthProvider] = [FUIEmailAuth(), FUIGoogleAuth(), FUIOAuth.twitterAuthProvider()]
+            if #available(iOS 13, *) {
+                providers.append(FUIOAuth.appleAuthProvider())
+            }
+            
+            authUI.providers = providers
             authUI.delegate = self
             present(authUI.authViewController(), animated: true, completion: nil)
         }
     }
     
-    private func showRelogInDialog(){
+    private func showRelogInDialog() {
         let alert = UIAlertController(title: NSLocalizedString("sessionExpiredTitle", comment: ""), message: NSLocalizedString("sessionExpiredMessage", comment: ""), preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: NSLocalizedString("later", comment: ""), style: .destructive, handler: nil))
         alert.addAction(UIAlertAction(title: NSLocalizedString("ok", comment: ""), style: .default, handler: { action in
@@ -85,8 +91,8 @@ class SettingsController: BackgroundGradientViewController {
     
     //MARK: Button handling
     
-    @objc func accountNameClick(_ sender: Any){
-        guard let currentUser =  Auth.auth().currentUser else { return }
+    @objc func accountNameClick(_ sender: Any) {
+        guard let currentUser = Auth.auth().currentUser else { return }
         
         self.tempName = currentUser.displayName
         
@@ -112,10 +118,10 @@ class SettingsController: BackgroundGradientViewController {
         let alert = UIAlertController(title: NSLocalizedString("updateAccountName", comment: ""), message: nil, preferredStyle: .alert)
         alert.addOneTextField(configuration: config)
         alert.addAction(UIAlertAction(title: NSLocalizedString("cancel", comment: ""), style: .cancel, handler: nil))
-        alert.addAction(UIAlertAction(title: NSLocalizedString("update", comment: ""), style: .default, handler: {action in
+        alert.addAction(UIAlertAction(title: NSLocalizedString("update", comment: ""), style: .default, handler: { action in
             let changeRequest = currentUser.createProfileChangeRequest()
             changeRequest.displayName = self.tempName
-            changeRequest.commitChanges{ error in
+            changeRequest.commitChanges { error in
                 self.tableView.reloadRows(at: [IndexPath(row: Row.account.rawValue, section: 0)], with: .automatic)
                 
                 if let error = error {
@@ -134,7 +140,7 @@ class SettingsController: BackgroundGradientViewController {
     }
     
     @objc func accountEmailClick(_ sender: Any) {
-        guard let currentUser =  Auth.auth().currentUser else { return }
+        guard let currentUser = Auth.auth().currentUser else { return }
         
         self.tempEmail = currentUser.email
         
@@ -154,13 +160,13 @@ class SettingsController: BackgroundGradientViewController {
                          AuthErrorCode.userNotFound.rawValue,
                          AuthErrorCode.requiresRecentLogin.rawValue:
                         self.showRelogInDialog()
-                        
+                    
                     case AuthErrorCode.emailAlreadyInUse.rawValue:
                         toastMessage = NSLocalizedString("emailInUse", comment: "")
-                        
+                    
                     case AuthErrorCode.invalidEmail.rawValue:
                         toastMessage = NSLocalizedString("emailInvalid", comment: "")
-                        
+                    
                     default:
                         break;
                     }
@@ -220,7 +226,7 @@ class SettingsController: BackgroundGradientViewController {
         }
     }
     
-    @objc func signOut(_ sender: Any){
+    @objc func signOut(_ sender: Any) {
         guard Auth.auth().currentUser != nil else { return }
         
         if let authUI = FUIAuth.defaultAuthUI() {
@@ -440,10 +446,10 @@ extension SettingsController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, shouldHighlightRowAt indexPath: IndexPath) -> Bool {
         let row = Row(rawValue: indexPath.row)!
         
-        if  row == .account || // The account row can't be clicked only the button
-            row == .appVersion || // The App version cannot be clicked
-            row.getRowType() == RowType.divider || // Dividers cannot be clicked
-            (row == .lockDelay && SettingsManager.getLockType() == .off) { //If the lock type is set to OFF then the user cannot change the lock delay
+        if row == .account || // The account row can't be clicked only the button
+                   row == .appVersion || // The App version cannot be clicked
+                   row.getRowType() == RowType.divider || // Dividers cannot be clicked
+                   (row == .lockDelay && SettingsManager.getLockType() == .off) { //If the lock type is set to OFF then the user cannot change the lock delay
             return false
         }
         
@@ -458,16 +464,16 @@ extension SettingsController: UITableViewDelegate {
             let cell = tableView.cellForRow(at: indexPath)! as! SettingCell
             let rect = getTriggerRect(cell)
             
-            AlertHelper.showDatePicker(startingDate: SettingsManager.getStartDate(), maximumDate: nil, triggeringView: cell, specificTrigerRect: rect){ newDate in
+            AlertHelper.showDatePicker(startingDate: SettingsManager.getStartDate(), maximumDate: nil, triggeringView: cell, specificTrigerRect: rect) { newDate in
                 SettingsManager.setStartDate(newDate)
                 tableView.reloadRows(at: [IndexPath(row: Row.startDate.rawValue, section: 0)], with: .fade)
             }
-            
+        
         case .theme:
             tempTheme = nil
             
             let alert = UIAlertController(title: NSLocalizedString("selectTheme", comment: ""), message: nil, preferredStyle: .actionSheet)
-            alert.addPickerView(values: [Theme.getDisplayNamesArray()], initialSelection: (column: 0, row: SettingsManager.getTheme().getIndex()), action: {_, _ , index, _ in
+            alert.addPickerView(values: [Theme.getDisplayNamesArray()], initialSelection: (column: 0, row: SettingsManager.getTheme().getIndex()), action: { _, _, index, _ in
                 self.tempTheme = Theme.allCases[index.row]
                 
                 if let tempTheme = self.tempTheme {
@@ -487,14 +493,14 @@ extension SettingsController: UITableViewDelegate {
             
             setPopoverPresentationControllerInfo(alert, indexPath)
             alert.show()
-            
+        
         case .lockMode:
             tempLockType = nil
             tempPassword = nil
             confirmPassword = nil
             
             let alert = UIAlertController(title: NSLocalizedString("selectLockMode", comment: ""), message: nil, preferredStyle: .actionSheet)
-            alert.addPickerView(values: [LockType.getDisplayNamesArray()], initialSelection: (column: 0, row: SettingsManager.getLockType().getIndex()), action: {_, _ , index, _ in
+            alert.addPickerView(values: [LockType.getDisplayNamesArray()], initialSelection: (column: 0, row: SettingsManager.getLockType().getIndex()), action: { _, _, index, _ in
                 self.tempLockType = LockType.allCases[index.row]
             })
             alert.addAction(UIAlertAction(title: NSLocalizedString("cancel", comment: ""), style: .cancel, handler: nil))
@@ -521,12 +527,12 @@ extension SettingsController: UITableViewDelegate {
             
             setPopoverPresentationControllerInfo(alert, indexPath)
             alert.show()
-            
+        
         case .lockDelay:
             tempLockDelay = nil
             
             let alert = UIAlertController(title: NSLocalizedString("selectLockDelay", comment: ""), message: nil, preferredStyle: .actionSheet)
-            alert.addPickerView(values: [LockDelay.getDisplayNamesArray()], initialSelection: (column: 0, row: SettingsManager.getLockDelay().getIndex()), action: {_, _ , index, _ in
+            alert.addPickerView(values: [LockDelay.getDisplayNamesArray()], initialSelection: (column: 0, row: SettingsManager.getLockDelay().getIndex()), action: { _, _, index, _ in
                 self.tempLockDelay = LockDelay.allCases[index.row]
             })
             alert.addAction(UIAlertAction(title: NSLocalizedString("cancel", comment: ""), style: .cancel, handler: nil))
@@ -539,13 +545,13 @@ extension SettingsController: UITableViewDelegate {
             
             setPopoverPresentationControllerInfo(alert, indexPath)
             alert.show()
-            
+        
         case .privacyPolicy:
             UIApplication.shared.open(privacyPolicyURL, options: [:], completionHandler: nil)
-            
+        
         case .termsOfService:
             UIApplication.shared.open(termsOfServiceURL, options: [:], completionHandler: nil)
-            
+        
         default: break
         }
         
@@ -554,12 +560,12 @@ extension SettingsController: UITableViewDelegate {
     
     private func getTriggerRect(_ cell: SettingCell) -> CGRect {
         return CGRect(x: cell.bounds.maxX - cell.valueLabel.width - 8,
-                      y: cell.bounds.minY,
-                      width: cell.valueLabel.width,
-                      height: cell.bounds.height)
+                y: cell.bounds.minY,
+                width: cell.valueLabel.width,
+                height: cell.bounds.height)
     }
     
-    private func setPopoverPresentationControllerInfo(_ alert: UIAlertController, _ indexPath: IndexPath){
+    private func setPopoverPresentationControllerInfo(_ alert: UIAlertController, _ indexPath: IndexPath) {
         let cell = tableView.cellForRow(at: indexPath)! as! SettingCell
         
         if let popoverController = alert.popoverPresentationController {
@@ -568,7 +574,7 @@ extension SettingsController: UITableViewDelegate {
         }
     }
     
-    private func showSetPasswordAlert(_ indexPath: IndexPath){
+    private func showSetPasswordAlert(_ indexPath: IndexPath) {
         tempPassword = nil
         
         let alert = UIAlertController(title: NSLocalizedString("setPassword", comment: ""), message: nil, preferredStyle: .actionSheet)
@@ -581,7 +587,7 @@ extension SettingsController: UITableViewDelegate {
             
             self.tableView.reloadRows(at: [IndexPath(row: Row.lockMode.rawValue, section: 0),
                                            IndexPath(row: Row.lockDelay.rawValue, section: 0)],
-                                      with: .fade)
+                    with: .fade)
             
             //Nilling the passwords so they aren't kept in memory
             self.tempPassword = nil
@@ -614,7 +620,7 @@ extension SettingsController: UITableViewDelegate {
                 okAction.isEnabled = self.tempPassword?.count > 0 && self.tempPassword == self.confirmPassword
             }
         }
-            
+        
         let configTwo: AlertPasswordTextField.Config = { textField in
             textField.textColor = .black
             textField.placeholder = NSLocalizedString("confirmPassword", comment: "")
@@ -626,7 +632,7 @@ extension SettingsController: UITableViewDelegate {
             textField.showButtonWhile = PasswordTextField.ShowButtonWhile.Always
             
             self.tempTextFieldAction = TextFieldReturnAction({ _ in
-                if(okAction.isEnabled){
+                if (okAction.isEnabled) {
                     okHandler(okAction)
                     alert.dismiss(animated: true, completion: nil)
                 }
@@ -648,9 +654,9 @@ extension SettingsController: UITableViewDelegate {
         alert.show()
     }
     
-    private func showRemovePasswordAlert(_ indexPath: IndexPath){
+    private func showRemovePasswordAlert(_ indexPath: IndexPath) {
         tempPassword = nil
-
+        
         let alert = UIAlertController(title: NSLocalizedString("enterPasswordToDisableLock", comment: ""), message: nil, preferredStyle: .actionSheet)
         
         let okHandler: (UIAlertAction) -> Void = { action in
@@ -664,11 +670,11 @@ extension SettingsController: UITableViewDelegate {
                     self.view.makeToast(NSLocalizedString("incorrectPassword", comment: ""))
                 }
             }
-
+            
             self.tableView.reloadRows(at: [IndexPath(row: Row.lockMode.rawValue, section: 0),
                                            IndexPath(row: Row.lockDelay.rawValue, section: 0)],
-                                      with: .fade)
-
+                    with: .fade)
+            
             //Nilling the password so they aren't kept in memory
             self.tempPassword = nil
         }
@@ -687,7 +693,7 @@ extension SettingsController: UITableViewDelegate {
             textField.showButtonWhile = PasswordTextField.ShowButtonWhile.Always
             
             self.tempTextFieldAction = TextFieldReturnAction({ _ in
-                if(okAction.isEnabled){
+                if (okAction.isEnabled) {
                     okHandler(okAction)
                     alert.dismiss(animated: true, completion: nil)
                 }
@@ -717,10 +723,12 @@ extension SettingsController: FUIAuthDelegate {
             return
         }
         
-        if Auth.auth().currentUser != nil    {
+        if Auth.auth().currentUser != nil {
             SettingsManager.attemptFirebaseAutoSetup()
         }
         
         tableView.reloadRows(at: [IndexPath(row: Row.account.rawValue, section: 0)], with: .fade)
     }
+    
+    
 }
