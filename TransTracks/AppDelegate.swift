@@ -44,11 +44,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             Crashlytics.crashlytics().setCrashlyticsCollectionEnabled(true)
         #endif
         
-        if let path = Bundle.main.path(forResource: "GoogleService-Info", ofType: "plist"),
-           let googleServiceInfo = NSDictionary(contentsOfFile: path),
-           let adMobAppId = googleServiceInfo["ADMOB_APP_ID"] as? String {
-            GADMobileAds.configure(withApplicationID: adMobAppId)
-        }
+        GADMobileAds.sharedInstance().start(completionHandler: nil)
         
         dataController = DataController(modelName: "TransTracks")
         domainManager = DomainManager(dataController: dataController)
