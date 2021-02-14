@@ -18,12 +18,14 @@
 
 #import "FBSDKAppEventsUtility.h"
 
-#import <objc/runtime.h>
-
 #import <AdSupport/AdSupport.h>
+
+#import <objc/runtime.h>
 
 #import "FBSDKAccessToken.h"
 #import "FBSDKAppEvents.h"
+#import "FBSDKAppEventsConfiguration.h"
+#import "FBSDKAppEventsConfigurationManager.h"
 #import "FBSDKAppEventsDeviceInfo.h"
 #import "FBSDKConstants.h"
 #import "FBSDKDynamicFrameworkLoader.h"
@@ -38,17 +40,44 @@
 #define FBSDK_APPEVENTSUTILITY_ANONYMOUSID_KEY @"anon_id"
 #define FBSDK_APPEVENTSUTILITY_MAX_IDENTIFIER_LENGTH 40
 
+static NSArray<NSString *> *standardEvents;
+
 @implementation FBSDKAppEventsUtility
 
++ (void)initialize
+{
+  standardEvents = @[
+    FBSDKAppEventNameCompletedRegistration,
+    FBSDKAppEventNameViewedContent,
+    FBSDKAppEventNameSearched,
+    FBSDKAppEventNameRated,
+    FBSDKAppEventNameCompletedTutorial,
+    FBSDKAppEventNameAddedToCart,
+    FBSDKAppEventNameAddedToWishlist,
+    FBSDKAppEventNameInitiatedCheckout,
+    FBSDKAppEventNameAddedPaymentInfo,
+    FBSDKAppEventNamePurchased,
+    FBSDKAppEventNameAchievedLevel,
+    FBSDKAppEventNameUnlockedAchievement,
+    FBSDKAppEventNameSpentCredits,
+    FBSDKAppEventNameContact,
+    FBSDKAppEventNameCustomizeProduct,
+    FBSDKAppEventNameDonate,
+    FBSDKAppEventNameFindLocation,
+    FBSDKAppEventNameSchedule,
+    FBSDKAppEventNameStartTrial,
+    FBSDKAppEventNameSubmitApplication,
+    FBSDKAppEventNameSubscribe,
+    FBSDKAppEventNameAdImpression,
+    FBSDKAppEventNameAdClick
+  ];
+}
+
 + (NSMutableDictionary *)activityParametersDictionaryForEvent:(NSString *)eventCategory
-                                    shouldAccessAdvertisingID:(BOOL)shouldAccessAdvertisingID {
+                                    shouldAccessAdvertisingID:(BOOL)shouldAccessAdvertisingID
+{
   NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
   [FBSDKTypeUtility dictionary:parameters setObject:eventCategory forKey:@"event"];
-
-#if __IPHONE_OS_VERSION_MIN_REQUIRED < __IPHONE_7_0
-  NSString *attributionID = [[self class] attributionID];  // Only present on iOS 6 and below.
-  [FBSDKBasicUtility dictionary:parameters setObject:attributionID forKey:@"attribution"];
-#endif
 
   if (shouldAccessAdvertisingID) {
     NSString *advertiserID = [[self class] advertiserID];
@@ -57,16 +86,14 @@
 
   [FBSDKTypeUtility dictionary:parameters setObject:[FBSDKBasicUtility anonymousID] forKey:FBSDK_APPEVENTSUTILITY_ANONYMOUSID_KEY];
 
-  FBSDKAdvertisingTrackingStatus advertisingTrackingStatus = [[self class] advertisingTrackingStatus];
+  FBSDKAdvertisingTrackingStatus advertisingTrackingStatus = [FBSDKSettings getAdvertisingTrackingStatus];
   if (advertisingTrackingStatus != FBSDKAdvertisingTrackingUnspecified) {
-    BOOL allowed = (advertisingTrackingStatus == FBSDKAdvertisingTrackingAllowed);
-    [FBSDKTypeUtility dictionary:parameters setObject:@(allowed).stringValue forKey:@"advertiser_tracking_enabled"];
+    [FBSDKTypeUtility dictionary:parameters setObject:@([FBSDKSettings isAdvertiserTrackingEnabled]).stringValue forKey:@"advertiser_tracking_enabled"];
   }
-  if (advertisingTrackingStatus == FBSDKAdvertisingTrackingAllowed) {
-    NSString *userData = [FBSDKAppEvents getUserData];
-    if (userData){
-      [FBSDKTypeUtility dictionary:parameters setObject:userData forKey:@"ud"];
-    }
+
+  NSString *userData = [FBSDKAppEvents getUserData];
+  if (userData) {
+    [FBSDKTypeUtility dictionary:parameters setObject:userData forKey:@"ud"];
   }
 
   [FBSDKTypeUtility dictionary:parameters setObject:@(!FBSDKSettings.limitEventAndDataUsage).stringValue forKey:@"application_tracking_enabled"];
@@ -123,6 +150,12 @@
     return nil;
   }
 
+  if (@available(iOS 14.0, *)) {
+    if (![FBSDKAppEventsConfigurationManager cachedAppEventsConfiguration].advertiserIDCollectionEnabled) {
+      return nil;
+    }
+  }
+
   NSString *result = nil;
 
   Class ASIdentifierManagerClass = fbsdkdfl_ASIdentifierManagerClass();
@@ -134,32 +167,12 @@
   return result;
 }
 
-+ (FBSDKAdvertisingTrackingStatus)advertisingTrackingStatus
++ (BOOL)isStandardEvent:(nullable NSString *)event
 {
-  static dispatch_once_t fetchAdvertisingTrackingStatusOnce;
-  static FBSDKAdvertisingTrackingStatus status;
-
-  dispatch_once(&fetchAdvertisingTrackingStatusOnce, ^{
-    status = FBSDKAdvertisingTrackingUnspecified;
-    Class ASIdentifierManagerClass = fbsdkdfl_ASIdentifierManagerClass();
-    if ([ASIdentifierManagerClass class]) {
-      ASIdentifierManager *manager = [ASIdentifierManagerClass sharedManager];
-      if (manager) {
-        status = manager.advertisingTrackingEnabled ? FBSDKAdvertisingTrackingAllowed : FBSDKAdvertisingTrackingDisallowed;
-      }
-    }
-  });
-
-  return status;
-}
-
-+ (NSString *)attributionID
-{
-#if TARGET_OS_TV
-  return nil;
-#else
-  return [UIPasteboard pasteboardWithName:@"fb_app_attribution" create:NO].string;
-#endif
+  if (!event) {
+    return NO;
+  }
+  return [standardEvents containsObject:event];
 }
 
 #pragma mark - Internal, for testing
@@ -174,11 +187,13 @@
 
 + (void)ensureOnMainThread:(NSString *)methodName className:(NSString *)className
 {
-  FBSDKConditionalLog([NSThread isMainThread],
-                      FBSDKLoggingBehaviorDeveloperErrors,
-                      @"*** <%@, %@> is not called on the main thread. This can lead to errors.",
-                      methodName,
-                      className);
+  FBSDKConditionalLog(
+    [NSThread isMainThread],
+    FBSDKLoggingBehaviorDeveloperErrors,
+    @"*** <%@, %@> is not called on the main thread. This can lead to errors.",
+    methodName,
+    className
+  );
 }
 
 + (NSString *)flushReasonToString:(FBSDKAppEventsFlushReason)flushReason
@@ -227,9 +242,9 @@
   [[NSNotificationCenter defaultCenter] postNotificationName:FBSDKAppEventsLoggingResultNotification object:error];
 }
 
-+ (BOOL)matchString:(NSString *)string
-  firstCharacterSet:(NSCharacterSet *)firstCharacterSet
-restOfStringCharacterSet:(NSCharacterSet *)restOfStringCharacterSet
++ (BOOL)       matchString:(NSString *)string
+         firstCharacterSet:(NSCharacterSet *)firstCharacterSet
+  restOfStringCharacterSet:(NSCharacterSet *)restOfStringCharacterSet
 {
   if (string.length == 0) {
     return NO;
@@ -268,8 +283,8 @@ restOfStringCharacterSet:(NSCharacterSet *)restOfStringCharacterSet
   @synchronized(self) {
     if (![cachedIdentifiers containsObject:identifier]) {
       if ([self matchString:identifier
-          firstCharacterSet:firstCharacterSet
-   restOfStringCharacterSet:restOfStringCharacterSet]) {
+                  firstCharacterSet:firstCharacterSet
+           restOfStringCharacterSet:restOfStringCharacterSet]) {
         [cachedIdentifiers addObject:identifier];
       } else {
         return NO;
@@ -304,7 +319,7 @@ restOfStringCharacterSet:(NSCharacterSet *)restOfStringCharacterSet
     // If there's an logging override app id present, then we don't want to use the client token since the client token
     // is intended to match up with the primary app id (and AppEvents doesn't require a client token).
     NSString *clientTokenString = [FBSDKSettings clientToken];
-    if (clientTokenString && appID && [appID isEqualToString:token.appID]){
+    if (clientTokenString && appID && [appID isEqualToString:token.appID]) {
       tokenString = [NSString stringWithFormat:@"%@|%@", appID, clientTokenString];
     } else if (appID) {
       tokenString = nil;
@@ -318,19 +333,13 @@ restOfStringCharacterSet:(NSCharacterSet *)restOfStringCharacterSet
   return (long)round([NSDate date].timeIntervalSince1970);
 }
 
-+ (id)getVariable:(NSString *)variableName fromInstance:(NSObject *)instance {
-  Ivar ivar = class_getInstanceVariable([instance class], variableName.UTF8String);
-  if (ivar != NULL) {
-    const char *encoding = ivar_getTypeEncoding(ivar);
-    if (encoding != NULL && encoding[0] == '@') {
-      return object_getIvar(instance, ivar);
-    }
-  }
-
-  return nil;
++ (time_t)convertToUnixTime:(NSDate *)date
+{
+  return (time_t)round([date timeIntervalSince1970]);
 }
 
-+ (NSNumber *)getNumberValue:(NSString *)text {
++ (NSNumber *)getNumberValue:(NSString *)text
+{
   NSNumber *value = @0;
 
   NSLocale *locale = [NSLocale currentLocale];
@@ -361,15 +370,15 @@ restOfStringCharacterSet:(NSCharacterSet *)restOfStringCharacterSet
   return value;
 }
 
-+ (BOOL)isDebugBuild {
++ (BOOL)isDebugBuild
+{
 #if TARGET_IPHONE_SIMULATOR
   return YES;
 #else
   BOOL isDevelopment = NO;
 
   // There is no provisioning profile in AppStore Apps.
-  @try
-  {
+  @try {
     NSData *data = [NSData dataWithContentsOfFile:[NSBundle.mainBundle pathForResource:@"embedded" ofType:@"mobileprovision"]];
     if (data) {
       const char *bytes = [data bytes];
@@ -383,14 +392,20 @@ restOfStringCharacterSet:(NSCharacterSet *)restOfStringCharacterSet
     }
 
     return isDevelopment;
-  }
-  @catch(NSException *exception)
-  {
-
-  }
+  } @catch (NSException *exception) {}
 
   return NO;
 #endif
+}
+
++ (BOOL)shouldDropAppEvent
+{
+  if (@available(iOS 14.0, *)) {
+    if ([FBSDKSettings getAdvertisingTrackingStatus] == FBSDKAdvertisingTrackingDisallowed && ![FBSDKAppEventsConfigurationManager cachedAppEventsConfiguration].eventCollectionEnabled) {
+      return YES;
+    }
+  }
+  return NO;
 }
 
 + (BOOL)isSensitiveUserData:(NSString *)text
@@ -426,10 +441,11 @@ restOfStringCharacterSet:(NSCharacterSet *)restOfStringCharacterSet
   for (int i = (int)text.length - 1; i >= 0; i--) {
     int digit = chars[i] - '0';
 
-    if (isOdd)
+    if (isOdd) {
       oddSum += digit;
-    else
+    } else {
       evenSum += digit / 5 + (2 * digit) % 10;
+    }
 
     isOdd = !isOdd;
   }

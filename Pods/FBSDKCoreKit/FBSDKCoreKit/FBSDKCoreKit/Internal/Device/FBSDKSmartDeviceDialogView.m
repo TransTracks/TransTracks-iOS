@@ -20,10 +20,10 @@
 
 #if TARGET_OS_TV
 
-#import "FBSDKSmartDeviceDialogView.h"
+ #import "FBSDKSmartDeviceDialogView.h"
 
-#import "FBSDKCoreKit+Internal.h"
-#import "FBSDKDeviceUtilities.h"
+ #import "FBSDKCoreKit+Internal.h"
+ #import "FBSDKDeviceUtilities.h"
 
 @implementation FBSDKSmartDeviceDialogView
 {
@@ -40,7 +40,7 @@
   return self;
 }
 
-#pragma mark - Overrides
+ #pragma mark - Overrides
 
 - (void)setConfirmationCode:(NSString *)confirmationCode
 {
@@ -62,10 +62,15 @@
 
 - (void)buildView
 {
-  //intentionally blank.
+  // intentionally blank.
 }
 
-#pragma mark - Helpers
+ #pragma mark - Helpers
+
+- (UIColor *)_logoColor
+{
+  return [UIColor colorWithRed:66.0 / 255.0 green:103.0 / 255.0 blue:178.0 / 255.0 alpha:1];
+}
 
 - (void)_buildView
 {
@@ -78,7 +83,7 @@
   const CGFloat kLogoMargin = 30;
   const CGFloat kInstructionTextHorizontalMargin = 100;
   const CGFloat kConfirmationCodeFontSize = 108;
-  const CGFloat kFontColorValue = 119.0/255.0;
+  const CGFloat kFontColorValue = 119.0 / 255.0;
   const CGFloat kInstructionFontSize = 32;
   const CGFloat kVerticalMarginOrLabel = 40;
   const CGFloat kQRCodeSize = 200;
@@ -98,7 +103,7 @@
   // build the header container view (which will contain the logo and code).
   UIView *dialogHeaderView = [[UIView alloc] init];
   dialogHeaderView.translatesAutoresizingMaskIntoConstraints = NO;
-  dialogHeaderView.backgroundColor = [UIColor colorWithRed:226.0/255.0 green:231.0/255.0 blue:235.0/255.0 alpha:0.85];
+  dialogHeaderView.backgroundColor = [UIColor colorWithRed:226.0 / 255.0 green:231.0 / 255.0 blue:235.0 / 255.0 alpha:0.85];
   [dialogView addSubview:dialogHeaderView];
   [dialogHeaderView.leadingAnchor constraintEqualToAnchor:dialogView.leadingAnchor].active = YES;
   [dialogHeaderView.trailingAnchor constraintEqualToAnchor:dialogView.trailingAnchor].active = YES;
@@ -107,8 +112,8 @@
 
   // build the logo.
   CGSize imageSize = CGSizeMake(kLogoSize, kLogoSize);
-  FBSDKLogo *logoHelper =[[FBSDKLogo alloc] initWithColor:[UIColor colorWithRed:66.0/255.0 green:103.0/255.0 blue:178.0/255.0 alpha:1]];
-  UIImage *image = [logoHelper imageWithSize:imageSize];
+  FBSDKLogo *logoHelper = [FBSDKLogo new];
+  UIImage *image = [logoHelper imageWithSize:imageSize color:self._logoColor];
   image = [image resizableImageWithCapInsets:UIEdgeInsetsZero resizingMode:UIImageResizingModeStretch];
   UIImageView *imageView = [[UIImageView alloc] initWithImage:image];
   imageView.translatesAutoresizingMaskIntoConstraints = NO;
@@ -131,7 +136,7 @@
   // build the confirmation code (which replaces the spinner when the code is available).
   _confirmationCodeLabel = [[UILabel alloc] init];
   _confirmationCodeLabel.translatesAutoresizingMaskIntoConstraints = NO;
-  _confirmationCodeLabel.textColor = logoHelper.color;
+  _confirmationCodeLabel.textColor = self._logoColor;
   _confirmationCodeLabel.font = [UIFont systemFontOfSize:kConfirmationCodeFontSize weight:UIFontWeightLight];
   _confirmationCodeLabel.textAlignment = NSTextAlignmentCenter;
   [_confirmationCodeLabel sizeToFit];
@@ -143,11 +148,13 @@
   // build the smartlogin instructions
   UILabel *smartInstructionLabel = [[UILabel alloc] init];
   smartInstructionLabel.translatesAutoresizingMaskIntoConstraints = NO;
-  NSString *smartInstructionString = NSLocalizedStringWithDefaultValue(@"DeviceLogin.SmartLogInPrompt",
-                                                                       @"FacebookSDK",
-                                                                       [FBSDKInternalUtility bundleForStrings],
-                                                                       @"To connect your account, open the Facebook app on your mobile device and check for notifications.",
-                                                                       @"Instructions telling the user to open their Facebook app on a mobile device and check for a login notification.");
+  NSString *smartInstructionString = NSLocalizedStringWithDefaultValue(
+    @"DeviceLogin.SmartLogInPrompt",
+    @"FacebookSDK",
+    [FBSDKInternalUtility bundleForStrings],
+    @"To connect your account, open the Facebook app on your mobile device and check for notifications.",
+    @"Instructions telling the user to open their Facebook app on a mobile device and check for a login notification."
+  );
 
   NSMutableParagraphStyle *instructionLabelParagraphStyle = [[NSMutableParagraphStyle alloc] init];
   instructionLabelParagraphStyle.lineHeightMultiple = 1.3;
@@ -164,7 +171,7 @@
   smartInstructionLabel.textColor = [UIColor colorWithWhite:kFontColorValue alpha:1.0];
   [dialogView addSubview:smartInstructionLabel];
   [smartInstructionLabel.topAnchor constraintEqualToAnchor:dialogHeaderView.bottomAnchor
-                                             constant:kVerticalSpaceBetweenHeaderViewAndInstructionLabel].active = YES;
+                                                  constant:kVerticalSpaceBetweenHeaderViewAndInstructionLabel].active = YES;
   [smartInstructionLabel.leadingAnchor constraintEqualToAnchor:dialogView.leadingAnchor constant:kInstructionTextHorizontalMargin].active = YES;
   [dialogView.trailingAnchor constraintEqualToAnchor:smartInstructionLabel.trailingAnchor constant:kInstructionTextHorizontalMargin].active = YES;
 
@@ -172,11 +179,13 @@
   UILabel *orInstructionLabel = [[UILabel alloc] init];
   orInstructionLabel.translatesAutoresizingMaskIntoConstraints = NO;
   orInstructionLabel.font = [UIFont systemFontOfSize:kInstructionFontSize weight:UIFontWeightBold];
-  orInstructionLabel.text = NSLocalizedStringWithDefaultValue(@"DeviceLogin.SmartLogInOrLabel",
-                                                              @"FacebookSDK",
-                                                              [FBSDKInternalUtility bundleForStrings],
-                                                              @"-- OR --",
-                                                              @"The 'or' string for smart login instructions");;
+  orInstructionLabel.text = NSLocalizedStringWithDefaultValue(
+    @"DeviceLogin.SmartLogInOrLabel",
+    @"FacebookSDK",
+    [FBSDKInternalUtility bundleForStrings],
+    @"-- OR --",
+    @"The 'or' string for smart login instructions"
+  );;
   orInstructionLabel.numberOfLines = 0;
   orInstructionLabel.textAlignment = NSTextAlignmentCenter;
   [orInstructionLabel sizeToFit];
@@ -204,11 +213,13 @@
   // build the instructions UILabel
   UILabel *instructionLabel = [[UILabel alloc] init];
   instructionLabel.translatesAutoresizingMaskIntoConstraints = NO;
-  NSString *localizedFormatString = NSLocalizedStringWithDefaultValue(@"DeviceLogin.LogInPrompt",
-                                                                      @"FacebookSDK",
-                                                                      [FBSDKInternalUtility bundleForStrings],
-                                                                      @"Visit %@ and enter the code shown above.",
-                                                                      @"The format string for device login instructions");
+  NSString *localizedFormatString = NSLocalizedStringWithDefaultValue(
+    @"DeviceLogin.LogInPrompt",
+    @"FacebookSDK",
+    [FBSDKInternalUtility bundleForStrings],
+    @"Visit %@ and enter the code shown above.",
+    @"The format string for device login instructions"
+  );
 
   NSString *const deviceLoginURLString = @"facebook.com/device";
   NSString *instructionString = [NSString localizedStringWithFormat:localizedFormatString, deviceLoginURLString];
@@ -249,11 +260,13 @@
   UIButton *button = [UIButton buttonWithType:UIButtonTypeSystem];
   button.layer.cornerRadius = 4.0;
   button.translatesAutoresizingMaskIntoConstraints = NO;
-  [button setTitle:NSLocalizedStringWithDefaultValue(@"LoginButton.CancelLogout",
-                                                     @"FacebookSDK",
-                                                     [FBSDKInternalUtility bundleForStrings],
-                                                     @"Cancel",
-                                                     @"The label for the FBSDKLoginButton action sheet to cancel logging out")
+  [button setTitle:NSLocalizedStringWithDefaultValue(
+    @"LoginButton.CancelLogout",
+    @"FacebookSDK",
+    [FBSDKInternalUtility bundleForStrings],
+    @"Cancel",
+    @"The label for the FBSDKLoginButton action sheet to cancel logging out"
+  )
           forState:UIControlStateNormal];
   button.titleLabel.font = instructionLabel.font;
   [buttonContainerView addSubview:button];

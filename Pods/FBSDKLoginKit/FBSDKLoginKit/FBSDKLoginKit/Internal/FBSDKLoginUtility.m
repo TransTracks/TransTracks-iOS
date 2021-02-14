@@ -20,20 +20,20 @@
 
 #if !TARGET_OS_TV
 
-#import "FBSDKLoginUtility.h"
+ #import "FBSDKLoginUtility.h"
 
-#if SWIFT_PACKAGE
+ #if SWIFT_PACKAGE
 @import FBSDKCoreKit;
-#else
-#import <FBSDKCoreKit/FBSDKCoreKit.h>
-#endif
+ #else
+  #import <FBSDKCoreKit/FBSDKCoreKit.h>
+ #endif
 
-#ifdef FBSDKCOCOAPODS
-#import <FBSDKCoreKit/FBSDKCoreKit+Internal.h>
-#else
-#import "FBSDKCoreKit+Internal.h"
-#endif
-#import "FBSDKLoginConstants.h"
+ #ifdef FBSDKCOCOAPODS
+  #import <FBSDKCoreKit/FBSDKCoreKit+Internal.h>
+ #else
+  #import "FBSDKCoreKit+Internal.h"
+ #endif
+ #import "FBSDKLoginConstants.h"
 
 @implementation FBSDKLoginUtility
 
@@ -63,7 +63,7 @@
       return nil;
     }
   }
-  NSMutableDictionary *params = [NSMutableDictionary dictionaryWithDictionary:[FBSDKInternalUtility dictionaryFromFBURL:url]];
+  NSMutableDictionary *params = [NSMutableDictionary dictionaryWithDictionary:[FBSDKInternalUtility parametersFromFBURL:url]];
 
   NSString *userID = [[self class] userIDFromSignedRequest:params[@"signed_request"]];
   if (userID) {
