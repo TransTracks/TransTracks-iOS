@@ -123,6 +123,7 @@ class AddEditMilestoneController: BackgroundGradientViewController {
           milestoneToSave = Milestone(context: domainManager.dataController.backgroundContext)
         }
         
+        milestoneToSave!.id = UUID()
         milestoneToSave!.timestamp = Date()
         milestoneToSave!.epochDay = Int64(currentDate.toEpochDay())
         milestoneToSave!.title = titleTextField.text

@@ -12,6 +12,7 @@
 //  You should have received a copy of the GNU General Public License along with this program. If not, see <https://www.gnu.org/licenses/>.
 //
 
+import CoreData
 import FirebaseCrashlytics
 import Firebase
 import FirebaseUI
@@ -29,7 +30,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     var window: UIWindow?
     
-    var dataController:DataController!
+    var dataController: DataController!
     var domainManager: DomainManager!
     
     lazy var firebaseSettingUtil: FirebaseSettingUtil = FirebaseSettingUtil()
@@ -40,8 +41,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         FirebaseApp.configure()
         
         #if PRODUCTION
-            Analytics.setAnalyticsCollectionEnabled(true)
-            Crashlytics.crashlytics().setCrashlyticsCollectionEnabled(true)
+        Analytics.setAnalyticsCollectionEnabled(true)
+        Crashlytics.crashlytics().setCrashlyticsCollectionEnabled(true)
         #endif
         
         GADMobileAds.sharedInstance().start(completionHandler: nil)
@@ -114,7 +115,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     //MARK: Helpers
     
-    private func addBlockingViewIfRequired(_ navigationController : UINavigationController){
+    private func addBlockingViewIfRequired(_ navigationController: UINavigationController) {
         guard SettingsManager.getLockType() != LockType.off else { return }
         guard !isLockTopView(navigationController) else { return }
         guard window!.viewWithTag(AppDelegate.TAG_BLOCKING_VIEW) == nil else { return }
@@ -125,7 +126,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window!.addSubview(blockingView)
     }
     
-    private func removeBlockingView(){
+    private func removeBlockingView() {
         if let blockingView = window!.viewWithTag(AppDelegate.TAG_BLOCKING_VIEW) {
             blockingView.removeFromSuperview()
         }
@@ -135,7 +136,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return navigationController.topViewController is NormalLockController || navigationController.topViewController is TrainLockController
     }
     
-    private func lockAppIfRequired(_ navigationController: UINavigationController){
+    private func lockAppIfRequired(_ navigationController: UINavigationController) {
         guard !isLockTopView(navigationController) else { return }
         
         var shouldShow = false
@@ -159,7 +160,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     private func getLockControllerToShow() -> UIViewController? {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
-
+        
         switch SettingsManager.getLockType() {
         case .normal: return storyboard.instantiateViewController(withIdentifier: "NormalLock")
         case .trains: return storyboard.instantiateViewController(withIdentifier: "TrainLock")
@@ -167,7 +168,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
     }
     
-    func showSettingsConflictDialog(_ differences: [(SettingsManager.Key, Any)]){
+    func showSettingsConflictDialog(_ differences: [(SettingsManager.Key, Any)]) {
         if let navigationController = window!.rootViewController as? UINavigationController {
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
             let settingsConflictVC = storyboard.instantiateViewController(withIdentifier: "SettingsConflict") as! SettingsConflictController
@@ -193,6 +194,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             if SettingsManager.getLockType() != .off {
                 Analytics.logEvent("user_needs_to_show_warning", parameters: nil)
                 SettingsManager.setAccountWarning(true)
+            }
+        } else if let currentVersion = currentVersion {
+            if currentVersion <= 14 {
+                //Fix milestones not having UUIDs set when they were created
+                let milestonesRequest: NSFetchRequest<Milestone> = Milestone.fetchRequest()
+                if let milestones = try? dataController.backgroundContext.fetch(milestonesRequest) {
+                    for milestone in milestones {
+                        if milestone.id == nil {
+                            milestone.id = UUID()
+                        }
+                    }
+                    
+                    try? domainManager.dataController.backgroundContext.save()
+                }
             }
         }
         
