@@ -18,11 +18,11 @@ class AlertHelper {
     private static var tempDate: Date?
     private static var tempPhotoType: PhotoType?
     
-    static func showDatePicker(startingDate: Date, maximumDate: Date? = Date(), triggeringView: UIView, specificTrigerRect: CGRect? = nil, applyChange: @escaping (Date) -> ()){
+    static func showDatePicker(startingDate: Date, maximumDate: Date? = Date(), triggeringView: UIView, specificTriggerRect: CGRect? = nil, applyChange: @escaping (Date) -> ()) {
         AlertHelper.tempDate = nil
         
         let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-        alert.addDatePicker(mode: .date, date: startingDate, maximumDate: maximumDate, action: {date in
+        alert.addDatePicker(mode: .date, date: startingDate, maximumDate: maximumDate, action: { date in
             AlertHelper.tempDate = date
         })
         alert.addAction(UIAlertAction(title: NSLocalizedString("cancel", comment: ""), style: .cancel, handler: nil))
@@ -32,15 +32,27 @@ class AlertHelper {
             }
         }))
         
-        setPopoverPresentationControllerInfo(alert, triggeringView, specificTrigerRect)
+        setPopoverPresentationControllerInfo(alert, triggeringView, specificTriggerRect)
         alert.show()
     }
     
-    static func showPhotoTypePicker(startingType: PhotoType, triggeringView: UIView, specificTrigerRect: CGRect? = nil, applyChange: @escaping (PhotoType) -> ()){
+    static func showMessage(title: String,
+                            message: String? = nil,
+                            triggeringView: UIView,
+                            specificTriggerRect: CGRect? = nil,
+                            okHandler: ((UIAlertAction) -> Void)? = nil) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: NSLocalizedString("ok", comment: ""), style: .default, handler: okHandler))
+        
+        setPopoverPresentationControllerInfo(alert, triggeringView, specificTriggerRect)
+        alert.show()
+    }
+    
+    static func showPhotoTypePicker(startingType: PhotoType, triggeringView: UIView, specificTriggerRect: CGRect? = nil, applyChange: @escaping (PhotoType) -> ()) {
         self.tempPhotoType = nil
         
         let alert = UIAlertController(title: NSLocalizedString("selectType", comment: ""), message: nil, preferredStyle: .actionSheet)
-        alert.addPickerView(values: [PhotoType.getDisplayNamesArray()], initialSelection: (column: 0, row: startingType.getIndex()), action: {_, _ , index, _ in
+        alert.addPickerView(values: [PhotoType.getDisplayNamesArray()], initialSelection: (column: 0, row: startingType.getIndex()), action: { _, _, index, _ in
             self.tempPhotoType = PhotoType.allCases[index.row]
         })
         alert.addAction(UIAlertAction(title: NSLocalizedString("cancel", comment: ""), style: .cancel, handler: nil))
@@ -50,11 +62,11 @@ class AlertHelper {
             }
         }))
         
-        self.setPopoverPresentationControllerInfo(alert, triggeringView, specificTrigerRect)
+        self.setPopoverPresentationControllerInfo(alert, triggeringView, specificTriggerRect)
         alert.show()
     }
     
-    private static func setPopoverPresentationControllerInfo(_ alert: UIAlertController, _ view: UIView, _ specificTrigerRect: CGRect?){
+    private static func setPopoverPresentationControllerInfo(_ alert: UIAlertController, _ view: UIView, _ specificTrigerRect: CGRect?) {
         if let popoverController = alert.popoverPresentationController {
             popoverController.sourceView = view
             

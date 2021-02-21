@@ -12,12 +12,14 @@
 //  You should have received a copy of the GNU General Public License along with this program. If not, see <https://www.gnu.org/licenses/>.
 //
 
+import CoreData
 import Firebase
 import FirebaseAuth
 import FirebaseUI
 import PasswordTextField
 import Toast_Swift
 import UIKit
+import ZIPFoundation
 
 class SettingsController: BackgroundGradientViewController {
     
@@ -35,13 +37,16 @@ class SettingsController: BackgroundGradientViewController {
     private let privacyPolicyURL = URL(string: "http://www.drspaceboo.com/privacy-policy/")!
     private let termsOfServiceURL = URL(string: "http://www.drspaceboo.com/terms-of-service/")!
     
+    var dataController: DataController!
+    
     var showAuthOnAppear: Bool = false
     
     //MARK: Outlets
     
-    @IBOutlet weak var adViewHolder: AdContainerView!
-    @IBOutlet weak var tableView: UITableView!
-    @IBOutlet weak var copyrightLabel: UILabel!
+    @IBOutlet var adViewHolder: AdContainerView!
+    @IBOutlet var tableView: UITableView!
+    @IBOutlet var copyrightLabel: UILabel!
+    @IBOutlet var loadingIndicator: UIActivityIndicatorView!
     
     //MARK: Lifecycle
     
@@ -52,6 +57,8 @@ class SettingsController: BackgroundGradientViewController {
         
         navigationItem.titleView?.tintColor = UIColor.white
         copyrightLabel.text = String(format: NSLocalizedString("copyrightWithCurrentYear", comment: ""), Date.getCurrentYear())
+        
+        loadingIndicator.stopAnimating()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -242,6 +249,78 @@ class SettingsController: BackgroundGradientViewController {
             view.makeToast(NSLocalizedString("signOutError", comment: ""))
         }
     }
+    
+    @objc func importData(_ sender: Any) {
+    
+    }
+    
+    @objc func exportData(_ sender: Any) {
+        loadingIndicator.startAnimating()
+        DispatchQueue.global(qos: .userInitiated).async { [weak self] in
+            guard let self = self else { return }
+            do {
+                //Exporting Data file
+                var jsonDictionary = [String: Any]()
+                jsonDictionary["settings"] = try JSONSerialization.jsonObject(
+                        with: try JSONEncoder().encode(SettingsManager.getSettingsForJson()), options: []
+                )
+                
+                let photosRequest: NSFetchRequest<Photo> = Photo.fetchRequest()
+                let photos = try self.dataController.backgroundContext.fetch(photosRequest)
+                jsonDictionary["photos"] = try JSONSerialization.jsonObject(
+                        with: try JSONEncoder().encode(photos), options: []
+                )
+                
+                let milestonesRequest: NSFetchRequest<Milestone> = Milestone.fetchRequest()
+                let milestones = try self.dataController.backgroundContext.fetch(milestonesRequest)
+                jsonDictionary["milestones"] = try JSONSerialization.jsonObject(
+                        with: try JSONEncoder().encode(milestones), options: []
+                )
+                
+                let tempDataFileUrl = try FileUtil.getNewTempFileURL(fileName: "data.json")
+                let jsonData = try JSONSerialization.data(withJSONObject: jsonDictionary, options: .prettyPrinted)
+                try jsonData.write(to: tempDataFileUrl)
+                
+                //Create zip file
+                let timeStamp = FileUtil.timestampFormatter().string(from: Date())
+                let tempZipUrl = try FileUtil.getNewTempFileURL(fileName: "\(timeStamp).ttbackup")
+                
+                guard let archive = Archive(url: tempZipUrl, accessMode: .create) else {
+                    self.stopLoading()
+                    AlertHelper.showMessage(
+                            title: NSLocalizedString("error", comment: ""),
+                            message: NSLocalizedString("exportFailure", comment: ""),
+                            triggeringView: self.loadingIndicator)
+                    return
+                }
+                
+                try archive.addEntry(
+                        with: tempDataFileUrl.lastPathComponent,
+                        relativeTo: tempDataFileUrl.deletingLastPathComponent(),
+                        compressionMethod: .deflate
+                )
+                try archive.addDirectoryRecursively(try FileUtil.getPhotoDirectory(), compressionMethod: .deflate)
+                
+                //Sharing the resulting zip
+                let activityViewController = UIActivityViewController(activityItems: [tempZipUrl], applicationActivities: nil)
+                self.present(activityViewController, animated: true, completion: nil)
+            } catch {
+                self.stopLoading()
+                AlertHelper.showMessage(
+                        title: NSLocalizedString("error", comment: ""),
+                        message: NSLocalizedString("exportFailure", comment: ""),
+                        triggeringView: self.loadingIndicator)
+                print(error)
+            }
+            
+            self.stopLoading()
+        }
+    }
+    
+    //MARK: Helper functions
+    private func stopLoading() {
+        DispatchQueue.main.async { self.loadingIndicator.stopAnimating() }
+    }
 }
 
 extension SettingsController: UITableViewDataSource {
@@ -263,6 +342,7 @@ extension SettingsController: UITableViewDataSource {
         case .setting: configSettingRow(cell as! SettingCell, row)
         case .divider: break //Divider cells don't need configuring
         case .button: configButtonRow(cell as! ButtonCell, row)
+        case .doubleButton: configDoubleButtonRow(cell as! DoubleButtonCell, row)
         }
         
         //Styling the selected background
@@ -282,6 +362,7 @@ extension SettingsController: UITableViewDataSource {
         case .setting: identifier = "SettingCell"
         case .divider: identifier = "Divider"
         case .button: identifier = "ButtonCell"
+        case .doubleButton: identifier = "DoubleButtonCell"
         }
         
         return tableView.dequeueReusableCell(withIdentifier: identifier)!
@@ -297,9 +378,8 @@ extension SettingsController: UITableViewDataSource {
             } else {
                 return 160
             }
-        case .setting: return 50
+        case .setting, .button, .doubleButton: return 50
         case .divider: return 2
-        case .button: return 50
         }
     }
     
@@ -408,6 +488,28 @@ extension SettingsController: UITableViewDataSource {
         cell.titleLabel.text = title
     }
     
+    private func configDoubleButtonRow(_ cell: DoubleButtonCell, _ row: Row) {
+        let label: String
+        let firstButton: String
+        let secondButton: String
+        
+        switch row {
+        case .data:
+            label = NSLocalizedString("data", comment: "")
+            firstButton = NSLocalizedString("import", comment: "")
+            secondButton = NSLocalizedString("export", comment: "")
+            cell.firstButton.addTarget(self, action: #selector(importData(_:)), for: .touchUpInside)
+            cell.secondButton.addTarget(self, action: #selector(exportData(_:)), for: .touchUpInside)
+        
+        default:
+            fatalError("This row hasn't been configured")
+        }
+        
+        cell.label.text = label
+        cell.firstButton.titleLabel?.text = firstButton
+        cell.secondButton.titleLabel?.text = secondButton
+    }
+    
     enum Row: Int, CaseIterable {
         case account
         case divider1
@@ -416,6 +518,8 @@ extension SettingsController: UITableViewDataSource {
         case lockMode
         case lockDelay
         case divider2
+        case data
+        case divider3
         case appVersion
         case privacyPolicy
         case termsOfService
@@ -429,6 +533,8 @@ extension SettingsController: UITableViewDataSource {
             case .lockMode: return .setting
             case .lockDelay: return .setting
             case .divider2: return .divider
+            case .data: return .doubleButton
+            case .divider3: return .divider
             case .appVersion: return .setting
             case .privacyPolicy: return .button
             case .termsOfService: return .button
@@ -437,7 +543,7 @@ extension SettingsController: UITableViewDataSource {
     }
     
     enum RowType {
-        case setting, divider, button, account
+        case setting, divider, button, account, doubleButton
     }
 }
 
@@ -464,7 +570,7 @@ extension SettingsController: UITableViewDelegate {
             let cell = tableView.cellForRow(at: indexPath)! as! SettingCell
             let rect = getTriggerRect(cell)
             
-            AlertHelper.showDatePicker(startingDate: SettingsManager.getStartDate(), maximumDate: nil, triggeringView: cell, specificTrigerRect: rect) { newDate in
+            AlertHelper.showDatePicker(startingDate: SettingsManager.getStartDate(), maximumDate: nil, triggeringView: cell, specificTriggerRect: rect) { newDate in
                 SettingsManager.setStartDate(newDate)
                 tableView.reloadRows(at: [IndexPath(row: Row.startDate.rawValue, section: 0)], with: .fade)
             }
@@ -729,6 +835,4 @@ extension SettingsController: FUIAuthDelegate {
         
         tableView.reloadRows(at: [IndexPath(row: Row.account.rawValue, section: 0)], with: .fade)
     }
-    
-    
 }

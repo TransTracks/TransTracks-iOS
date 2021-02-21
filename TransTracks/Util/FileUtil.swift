@@ -16,10 +16,6 @@ import Foundation
 
 class FileUtil {
     
-    //MARK: Constants
-    
-    private static let PHOTOS = "photos"
-    
     //MARK: General
     
     static func deleteFile(file: URL) -> Bool {
@@ -32,27 +28,35 @@ class FileUtil {
         }
     }
     
-    //MARK: Photos
-    
-    static func getNewImageFileURL(photoDate: Date) -> URL? {
+    static func timestampFormatter() -> DateFormatter {
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyyMMdd_HHmmss"
+        return formatter
+    }
+    
+    //MARK: Photos
+    
+    static func getPhotoDirectory() throws -> URL {
+        let fileManager = FileManager.default
+        let documentDirectory = try fileManager.url(
+                for: .libraryDirectory, in: .userDomainMask, appropriateFor: nil, create: true
+        )
+        let photosDirectory = documentDirectory.appendingPathComponent("photos", isDirectory: true)
+        if !fileManager.fileExists(atPath: photosDirectory.path) {
+            try fileManager.createDirectory(at: photosDirectory, withIntermediateDirectories: true)
+        }
+        return photosDirectory
+    }
+    
+    static func getNewImageFileURL(photoDate: Date) -> URL? {
+        let formatter = timestampFormatter()
         
         let photoDateString = formatter.string(from: photoDate)
         let timeStamp = formatter.string(from: Date())
         
         let filename = "photo_\(photoDateString)_imported_\(timeStamp).jpg"
-        
-        let fileManager = FileManager.default
         do {
-            let documentDirectory = try fileManager.url(for: .libraryDirectory, in: .userDomainMask, appropriateFor:nil, create:true)
-            
-            let photosDirectory = documentDirectory.appendingPathComponent(PHOTOS, isDirectory: true)
-            if !fileManager.fileExists(atPath: photosDirectory.path){
-                try fileManager.createDirectory(at: photosDirectory, withIntermediateDirectories: true, attributes: nil)
-            }
-            
-           return photosDirectory.appendingPathComponent(filename)
+            return try getPhotoDirectory().appendingPathComponent(filename)
         } catch {
             print(error)
             return nil
@@ -62,10 +66,8 @@ class FileUtil {
     static func getFullImagePath(filename: String) -> URL? {
         let fileManager = FileManager.default
         do {
-            let documentDirectory = try fileManager.url(for: .libraryDirectory, in: .userDomainMask, appropriateFor:nil, create:false)
-            
-            let photoFile = documentDirectory.appendingPathComponent(PHOTOS, isDirectory: true).appendingPathComponent(filename)
-            if fileManager.fileExists(atPath: photoFile.path){
+            let photoFile = try getPhotoDirectory().appendingPathComponent(filename)
+            if fileManager.fileExists(atPath: photoFile.path) {
                 return photoFile
             } else {
                 return nil
@@ -74,5 +76,16 @@ class FileUtil {
             print(error)
             return nil
         }
+    }
+    
+    //MARK: Temp
+    
+    static func getNewTempFileURL(fileName: String) throws -> URL {
+        let fileManager = FileManager.default
+        let documentDirectory = fileManager.temporaryDirectory.appendingPathComponent("temp", isDirectory: true)
+        if !fileManager.fileExists(atPath: documentDirectory.path) {
+            try fileManager.createDirectory(at: documentDirectory, withIntermediateDirectories: true)
+        }
+        return documentDirectory.appendingPathComponent(fileName)
     }
 }

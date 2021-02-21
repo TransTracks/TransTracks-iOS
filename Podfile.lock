@@ -436,6 +436,7 @@ PODS:
     - SDWebImage/Core (= 5.10.4)
   - SDWebImage/Core (5.10.4)
   - Toast-Swift (5.0.1)
+  - ZIPFoundation (0.9.11)
 
 DEPENDENCIES:
   - Firebase/Analytics
@@ -450,6 +451,7 @@ DEPENDENCIES:
   - RxSwiftExt
   - RxTest (~> 4.0)
   - Toast-Swift (~> 5.0.0)
+  - ZIPFoundation
 
 SPEC REPOS:
   trunk:
@@ -490,6 +492,7 @@ SPEC REPOS:
     - RxTest
     - SDWebImage
     - Toast-Swift
+    - ZIPFoundation
 
 SPEC CHECKSUMS:
   abseil: 6c8eb7892aefa08d929b39f9bb108e5367e3228f
@@ -529,7 +532,8 @@ SPEC CHECKSUMS:
   RxTest: 3ccb66bfbace0bf7df1c43a7c75d046f8ce60372
   SDWebImage: c666b97e1fa9c64b4909816a903322018f0a9c84
   Toast-Swift: 9b6a70f28b3bf0b96c40d46c0c4b9d6639846711
+  ZIPFoundation: b1f0de4eed33e74a676f76e12559ab6b75990197
 
-PODFILE CHECKSUM: 5effd223a64cae9c3415fa9fc6d51c35b79ec047
+PODFILE CHECKSUM: aa975c5ab701c895025ce85d77e6247a4f5ec522
 
 COCOAPODS: 1.10.1

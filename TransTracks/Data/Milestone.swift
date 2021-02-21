@@ -47,7 +47,7 @@ extension Milestone {
     }
     
     static func previous(_ currentEpochDay: Int, context: NSManagedObjectContext) -> Milestone? {
-        let request:NSFetchRequest<Milestone> = Milestone.fetchRequest()
+        let request: NSFetchRequest<Milestone> = Milestone.fetchRequest()
         request.predicate = previousPredicate(currentEpochDay)
         request.sortDescriptors = [NSSortDescriptor(key: Milestone.FIELD_EPOCH_DAY, ascending: false)]
         request.fetchLimit = 1
@@ -61,5 +61,54 @@ extension Milestone {
     
     static func previousPredicate(_ currentEpochDay: Int) -> NSPredicate {
         return NSPredicate(format: "\(Milestone.FIELD_EPOCH_DAY) < %d", currentEpochDay)
+    }
+    
+    static func fromJson(json: [String: Any], context: NSManagedObjectContext) throws -> Milestone {
+        let milestone = Milestone(context: context)
+        
+        if let id = json[CodingKeys.id.rawValue] as? String {
+            milestone.id = UUID(uuidString: id)
+        }
+        
+        if let epochDay = json[CodingKeys.epochDay.rawValue] as? Int {
+            milestone.epochDay = Int64(epochDay)
+        }
+        
+        if let timestamp = json[CodingKeys.timestamp.rawValue] as? Double {
+            milestone.timestamp = Date(timeIntervalSince1970: timestamp / 1000)
+        }
+        
+        if let title = json[CodingKeys.title.rawValue] as? String {
+            milestone.title = title
+        }
+        
+        if let userDescription = json[CodingKeys.userDescription.rawValue] as? String {
+            milestone.userDescription = userDescription
+        }
+        
+        return milestone
+    }
+}
+
+extension Milestone: Encodable {
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(id, forKey: .id)
+        try container.encode(epochDay, forKey: .epochDay)
+        
+        if let timestamp = timestamp {
+            try container.encode(Int(timestamp.timeIntervalSince1970 * 1000), forKey: .timestamp)
+        }
+        
+        try container.encode(title, forKey: .title)
+        try container.encode(userDescription, forKey: .userDescription)
+    }
+    
+    private enum CodingKeys: String, CodingKey {
+        case id
+        case epochDay
+        case timestamp
+        case title
+        case userDescription = "description"
     }
 }

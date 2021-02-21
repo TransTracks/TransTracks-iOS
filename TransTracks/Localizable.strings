@@ -73,6 +73,9 @@
 "lockModeLabel" = "Lock Mode:";
 "lockModeDescription" = "Require a password to access the app";
 "lockDelayLabel" = "Lock Delay:";
+"data" = "Data:";
+"import" = "Import";
+"export" = "Export";
 "appVersionLabel" = "App Version:";
 "privacyPolicy" = "Privacy Policy";
 "copyrightWithCurrentYear" = "© 2018 - %@ by TransTracks, All rights reserved";
@@ -80,6 +83,10 @@
 "useLocalCode" = "Use local code";
 "useServerCode" = "Use server code";
 "noCode" = "No code";
+
+"importFailure" = "An error occurred importing your file, email contact@transtracks.app for help";
+"exportFailure" = "An error occurred exporting your file, email contact@transtracks.app for help";
+
 
 "selectStartDateTitle" = "Select Start Date";
 

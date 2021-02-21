@@ -164,6 +164,14 @@ class SettingsManager {
         UserDefaultsUtil.setDate(key: .userLastSeen, value: Date())
     }
     
+    //MARK: JSON Importing/Exporting
+    public static func getSettingsForJson() -> JsonSettings {
+        return JsonSettings(
+                currentiOSVersion: getCurrentiOSVersion(),
+                startDate: getStartDate().toEpochDay(),
+                theme: getTheme().rawValue)
+    }
+    
     //MARK: Helpers
     
     private static func setBool(key: SettingsManager.Key, value: Bool) {
@@ -344,7 +352,7 @@ enum LockDelay: String, CaseIterable {
     }
     
     static func getDisplayNamesArray() -> [String] {
-        return LockDelay.allCases.map{theme in theme.getDisplayName()}
+        return LockDelay.allCases.map { theme in theme.getDisplayName() }
     }
     
     func getIndex() -> Int {
@@ -355,4 +363,10 @@ enum LockDelay: String, CaseIterable {
 enum SettingsError: Error {
     case documentDoesNotExist
     case userNotLoggedIn
+}
+
+struct JsonSettings: Codable {
+    let currentiOSVersion: Int?
+    let startDate: Int?
+    let theme: String?
 }

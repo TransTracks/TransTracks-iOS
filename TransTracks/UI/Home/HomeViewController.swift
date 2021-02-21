@@ -225,8 +225,11 @@ class HomeViewController: BackgroundGradientViewController {
             if let day = sender as? Date {
                 milestonesController.initialEpochDay = day.toEpochDay()
             }
-        } else if let settingsController = segue.destination as? SettingsController, let showAuthOnAppear = sender as? Bool {
-            settingsController.showAuthOnAppear = showAuthOnAppear
+        } else if let settingsController = segue.destination as? SettingsController {
+            settingsController.dataController = domainManager.dataController
+            if let showAuthOnAppear = sender as? Bool {
+                settingsController.showAuthOnAppear = showAuthOnAppear
+            }
         }
     }
     

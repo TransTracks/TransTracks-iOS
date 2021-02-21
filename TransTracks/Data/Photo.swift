@@ -44,7 +44,7 @@ extension Photo {
     }
     
     static func previous(_ currentEpochDay: Int, context: NSManagedObjectContext) -> Photo? {
-        let request:NSFetchRequest<Photo> = Photo.fetchRequest()
+        let request: NSFetchRequest<Photo> = Photo.fetchRequest()
         request.predicate = previousPredicate(currentEpochDay)
         request.sortDescriptors = [NSSortDescriptor(key: Photo.FIELD_EPOCH_DAY, ascending: false)]
         request.fetchLimit = 1
@@ -52,12 +52,61 @@ extension Photo {
         return (try? context.fetch(request))?.first
     }
     
-    static func previousCount(_ currentEpochDay: Int,context: NSManagedObjectContext) -> Int {
+    static func previousCount(_ currentEpochDay: Int, context: NSManagedObjectContext) -> Int {
         return count(previousPredicate(currentEpochDay), context)
     }
     
     private static func previousPredicate(_ currentEpochDay: Int) -> NSPredicate {
         return NSPredicate(format: "\(Photo.FIELD_EPOCH_DAY) < %d", currentEpochDay)
+    }
+    
+    static func fromJson(json: [String: Any], context: NSManagedObjectContext) throws -> Photo {
+        let photo = Photo(context: context)
+        
+        if let id = json[CodingKeys.id.rawValue] as? String {
+            photo.id = UUID(uuidString: id)
+        }
+        
+        if let epochDay = json[CodingKeys.epochDay.rawValue] as? Int {
+            photo.epochDay = Int64(epochDay)
+        }
+        
+        if let timestamp = json[CodingKeys.timestamp.rawValue] as? Double {
+            photo.timestamp = Date(timeIntervalSince1970: timestamp / 1000)
+        }
+        
+        if let filePath = json[CodingKeys.fileName.rawValue] as? String {
+            photo.filePath = filePath
+        }
+        
+        if let type = json[CodingKeys.type.rawValue] as? Int {
+            photo.type = Int16(type)
+        }
+        
+        return photo
+    }
+}
+
+extension Photo: Encodable {
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(id, forKey: .id)
+        try container.encode(epochDay, forKey: .epochDay)
+        
+        if let timestamp = timestamp {
+            try container.encode(Int(timestamp.timeIntervalSince1970 * 1000), forKey: .timestamp)
+        }
+        
+        try container.encode(filePath, forKey: .fileName)
+        try container.encode(type, forKey: .type)
+    }
+    
+    private enum CodingKeys: String, CodingKey {
+        case id
+        case epochDay
+        case timestamp
+        case fileName
+        case type
     }
 }
 
