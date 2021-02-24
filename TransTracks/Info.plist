@@ -66,6 +66,8 @@
 	</array>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>LSSupportsOpeningDocumentsInPlace</key>
+	<true/>
 	<key>NSCameraUsageDescription</key>
 	<string>TransTracks requires access to take photos to add</string>
 	<key>NSPhotoLibraryUsageDescription</key>
@@ -118,8 +120,6 @@
 	<key>UTImportedTypeDeclarations</key>
 	<array>
 		<dict>
-			<key>LSSupportsOpeningDocumentsInPlace</key>
-			<true/>
 			<key>UTTypeConformsTo</key>
 			<array>
 				<string>public.zip-archive</string>
