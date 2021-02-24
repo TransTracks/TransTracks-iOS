@@ -123,7 +123,7 @@ extension AdContainerView: GADBannerViewDelegate {
         }
     }
     
-    func adView(_ bannerView: GADBannerView, didFailToReceiveAdWithError error: GADRequestError) {
+    func bannerView(_ bannerView: GADBannerView, didFailToReceiveAdWithError error: Error) {
         hideAd()
     }
 }
