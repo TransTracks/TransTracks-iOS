@@ -36,15 +36,9 @@ class AlertHelper {
         alert.show()
     }
     
-    static func showMessage(title: String,
-                            message: String? = nil,
-                            triggeringView: UIView,
-                            specificTriggerRect: CGRect? = nil,
-                            okHandler: ((UIAlertAction) -> Void)? = nil) {
+    static func showMessage(title: String, message: String? = nil, okHandler: ((UIAlertAction) -> ())? = nil) {
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: NSLocalizedString("ok", comment: ""), style: .default, handler: okHandler))
-        
-        setPopoverPresentationControllerInfo(alert, triggeringView, specificTriggerRect)
         alert.show()
     }
     

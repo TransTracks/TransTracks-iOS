@@ -172,6 +172,15 @@ class SettingsManager {
                 theme: getTheme().rawValue)
     }
     
+    public static func importSettingsFromJson(_ settings: JsonSettings) {
+        if let startDateInt = settings.startDate {
+            setStartDate(Date.ofEpochDay(startDateInt))
+        }
+        if let themeString = settings.theme, let theme = Theme.init(rawValue: themeString) {
+            setTheme(theme)
+        }
+    }
+    
     //MARK: Helpers
     
     private static func setBool(key: SettingsManager.Key, value: Bool) {
@@ -275,7 +284,7 @@ class SettingsManager {
         enableFirebaseSync()
     }
     
-    static func firebaseValueForKey(_ key: Key) -> Any?{
+    static func firebaseValueForKey(_ key: Key) -> Any? {
         switch key {
         case .lockCode: return getLockCode()
         case .lockDelay: return getLockDelay().rawValue
@@ -324,7 +333,7 @@ enum LockType: String, CaseIterable {
     }
     
     static func getDisplayNamesArray() -> [String] {
-        return LockType.allCases.map{theme in theme.getDisplayName()}
+        return LockType.allCases.map { theme in theme.getDisplayName() }
     }
     
     func getIndex() -> Int {

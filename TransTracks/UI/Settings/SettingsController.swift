@@ -251,7 +251,14 @@ class SettingsController: BackgroundGradientViewController {
     }
     
     @objc func importData(_ sender: Any) {
-    
+        let importMenu: UIDocumentPickerViewController
+        if #available(iOS 14.0, *) {
+            importMenu = UIDocumentPickerViewController(forOpeningContentTypes: [.init(importedAs: "com.drspaceboo.transtracks.ttbackup", conformingTo: .zip)])
+        } else {
+            importMenu = UIDocumentPickerViewController(documentTypes: ["com.drspaceboo.transtracks.ttbackup"], in: .import)
+        }
+        importMenu.delegate = self
+        present(importMenu, animated: true)
     }
     
     @objc func exportData(_ sender: Any) {
@@ -287,10 +294,7 @@ class SettingsController: BackgroundGradientViewController {
                 
                 guard let archive = Archive(url: tempZipUrl, accessMode: .create) else {
                     self.stopLoading()
-                    AlertHelper.showMessage(
-                            title: NSLocalizedString("error", comment: ""),
-                            message: NSLocalizedString("exportFailure", comment: ""),
-                            triggeringView: self.loadingIndicator)
+                    AlertHelper.showMessage(title: NSLocalizedString("error", comment: ""), message: NSLocalizedString("exportFailure", comment: ""))
                     return
                 }
                 
@@ -306,10 +310,7 @@ class SettingsController: BackgroundGradientViewController {
                 self.present(activityViewController, animated: true, completion: nil)
             } catch {
                 self.stopLoading()
-                AlertHelper.showMessage(
-                        title: NSLocalizedString("error", comment: ""),
-                        message: NSLocalizedString("exportFailure", comment: ""),
-                        triggeringView: self.loadingIndicator)
+                AlertHelper.showMessage(title: NSLocalizedString("error", comment: ""), message: NSLocalizedString("exportFailure", comment: ""))
                 print(error)
             }
             
@@ -834,5 +835,24 @@ extension SettingsController: FUIAuthDelegate {
         }
         
         tableView.reloadRows(at: [IndexPath(row: Row.account.rawValue, section: 0)], with: .fade)
+    }
+}
+
+extension SettingsController: UIDocumentPickerDelegate {
+    public func documentPicker(_ controller: UIDocumentPickerViewController, didPickDocumentsAt urls: [URL]) {
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        if urls.count > 1 {
+            //Selected more than one file
+            AlertHelper.showMessage(
+                    title: NSLocalizedString("error", comment: ""),
+                    message: NSLocalizedString("importErrorTooMany", comment: "")
+            )
+        } else if let url = urls.first, !appDelegate.handleImportingBackup(url) {
+            //Selected a file that isn't a TransTracks backup
+            AlertHelper.showMessage(
+                    title: NSLocalizedString("error", comment: ""),
+                    message: NSLocalizedString("importError", comment: "")
+            )
+        }
     }
 }

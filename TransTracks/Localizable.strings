@@ -24,6 +24,8 @@
 "ok" = "OK";
 "error" = "Error";
 "update" = "Update";
+"yes" = "Yes";
+"no" = "No";
 
 //Add/Edit Milestone
 "addMilestone" = "Add Milestone";
@@ -84,7 +86,16 @@
 "useServerCode" = "Use server code";
 "noCode" = "No code";
 
+"importErrorTooMany" = "Please only select one file to import";
+"importingBackupFile" = "Importing backup file…";
+"importError" = "We were unable to open that backup file to import. Please ensure you are opening a valid .ttbackup file.";
+"importWarningTitle" = "Import file";
+"importWarningMessage" = "You are about to import data from a backup file. This will overwrite some of your settings and any duplicate data. Would you like to continue?";
 "importFailure" = "An error occurred importing your file, email contact@transtracks.app for help";
+"importCompleteSuccess" = "Import Success";
+"importPartialSuccessTitle" = "Partial import success";
+"importPartialSuccessDescription" = "Some of the data from your import file wasn't imported correctly. Issues importing:\n%@\n\nEmail contact@transtracks.app for help";
+
 "exportFailure" = "An error occurred exporting your file, email contact@transtracks.app for help";
 
 

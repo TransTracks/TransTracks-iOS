@@ -3,7 +3,7 @@
 //  TransTracks
 //
 //  Created by Cassie Wilson on 6/11/18.
-//  Copyright © 2018 TransTracks. All rights reserved.
+//  Copyright © 2018-2021 TransTracks. All rights reserved.
 //
 //  This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
 //
@@ -18,6 +18,7 @@ import Firebase
 import FirebaseUI
 import GoogleMobileAds
 import UIKit
+import ZIPFoundation
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -74,6 +75,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let sourceApplication = options[UIApplication.OpenURLOptionsKey.sourceApplication] as! String?
         if FUIAuth.defaultAuthUI()?.handleOpen(url, sourceApplication: sourceApplication) ?? false {
             return true
+        } else if handleImportingBackup(url) {
+            return true
         }
         
         return false
@@ -113,6 +116,26 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         try? self.dataController.viewContext.save()
     }
     
+    //MARK: Handle importing backup
+    func handleImportingBackup(_ url: URL) -> Bool {
+        if url.lastPathComponent.hasSuffix(".ttbackup") {
+            let alert = UIAlertController(
+                    title: NSLocalizedString("importWarningTitle", comment: ""),
+                    message: NSLocalizedString("importWarningMessage", comment: ""),
+                    preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: NSLocalizedString("no", comment: ""), style: .cancel, handler: nil))
+            alert.addAction(UIAlertAction(title: NSLocalizedString("yes", comment: ""), style: .default) { [weak self] action in
+                guard let self = self else { return }
+                self.importBackup(url)
+            })
+            alert.show()
+            
+            return true
+        }
+        
+        return false
+    }
+    
     //MARK: Helpers
     
     private func addBlockingViewIfRequired(_ navigationController: UINavigationController) {
@@ -129,6 +152,133 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     private func removeBlockingView() {
         if let blockingView = window!.viewWithTag(AppDelegate.TAG_BLOCKING_VIEW) {
             blockingView.removeFromSuperview()
+        }
+    }
+    
+    private func importBackup(_ url: URL) {
+        let loadingAlert = UIAlertController(
+                title: NSLocalizedString("importingBackupFile", comment: ""), message: nil, preferredStyle: .alert
+        )
+        loadingAlert.show()
+        
+        DispatchQueue.global(qos: .userInitiated).async {
+            do {
+                guard let archive = Archive(url: url, accessMode: .read) else {
+                    DispatchQueue.main.async {
+                        loadingAlert.dismiss(animated: true)
+                        
+                        AlertHelper.showMessage(
+                                title: NSLocalizedString("error", comment: ""),
+                                message: NSLocalizedString("importError", comment: "")
+                        )
+                    }
+                    return
+                }
+                
+                var photoIssues = 0
+                var milestoneIssues = 0
+                
+                for entry in archive.makeIterator() {
+                    switch entry.type {
+                    
+                    case .file:
+                        if entry.path.contains("data.json") {
+                            let _ = try archive.extract(entry) { data in
+                                let json = try JSONSerialization.jsonObject(with: data) as! [String: Any]
+                                for (key, value) in json {
+                                    switch key {
+                                    case "settings":
+                                        let valueData = try JSONSerialization.data(withJSONObject: value)
+                                        let jsonSettings = try JSONDecoder().decode(JsonSettings.self, from: valueData)
+                                        SettingsManager.importSettingsFromJson(jsonSettings)
+                                        break
+                                    case "photos":
+                                        guard let value = value as? [[String: Any]] else { continue }
+                                        for photo in value {
+                                            do {
+                                                let _ = try Photo.fromJson(json: photo, context: self.dataController.backgroundContext)
+                                            } catch {
+                                                print(error)
+                                                photoIssues += 1
+                                            }
+                                        }
+                                        break
+                                    case "milestones":
+                                        guard let value = value as? [[String: Any]] else { continue }
+                                        for milestone in value {
+                                            do {
+                                                let _ = try Milestone.fromJson(json: milestone, context: self.dataController.backgroundContext)
+                                            } catch {
+                                                print(error)
+                                                milestoneIssues += 1
+                                            }
+                                        }
+                                        break
+                                    default:
+                                        break //Skip keys we don't handle
+                                    }
+                                }
+                                
+                                try self.dataController.backgroundContext.save()
+                            }
+                        } else if entry.path.contains("photos") {
+                            if let entryPathUrl = URL(string: entry.path) {
+                                do {
+                                    let photoUrl = try FileUtil.getPhotoDirectory().appendingPathComponent(entryPathUrl.lastPathComponent)
+                                    try? FileManager.default.removeItem(at: photoUrl)
+                                    let _ = try archive.extract(entry, to: photoUrl)
+                                } catch {
+                                    print(error)
+                                    photoIssues += 1
+                                }
+                            }
+                        }
+                    case .directory, .symlink:
+                        break; //Don't need to handle directories or symlinks
+                    }
+                }
+                
+                DispatchQueue.main.async {
+                    loadingAlert.dismiss(animated: true) {
+                        self.window?.rootViewController?.loadView()
+                        if photoIssues > 0 || milestoneIssues > 0 {
+                            var errors = ""
+                            if (photoIssues > 0) {
+                                let format = NSLocalizedString("photos", comment: "")
+                                errors += String.localizedStringWithFormat(format, photoIssues)
+                            }
+                            if (milestoneIssues > 0) {
+                                if errors.isNotEmpty {
+                                    errors += "\n"
+                                }
+                                let format = NSLocalizedString("milestones", comment: "")
+                                errors += String.localizedStringWithFormat(format, milestoneIssues)
+                            }
+                            let messageFormat = NSLocalizedString("importPartialSuccessDescription", comment: "")
+                            let message = String.localizedStringWithFormat(messageFormat, errors)
+                            
+                            AlertHelper.showMessage(
+                                    title: NSLocalizedString("importPartialSuccessTitle", comment: ""),
+                                    message: message
+                            )
+                        } else {
+                            AlertHelper.showMessage(title: NSLocalizedString("importCompleteSuccess", comment: ""))
+                        }
+                        
+                        self.window?.rootViewController?.loadView()
+                    }
+                }
+            } catch {
+                DispatchQueue.main.async {
+                    loadingAlert.dismiss(animated: true) {
+                        AlertHelper.showMessage(
+                                title: NSLocalizedString("error", comment: ""),
+                                message: NSLocalizedString("importFailure", comment: "")
+                        )
+                    }
+                }
+                print(error)
+            }
         }
     }
     
