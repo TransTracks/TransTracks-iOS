@@ -85,6 +85,9 @@
 "useLocalCode" = "Use local code";
 "useServerCode" = "Use server code";
 "noCode" = "No code";
+"aboutTitle" = "About TransTracks";
+"aboutMessage" = "TransTracks is a passion project that doesn't have a full-time development team. We try to fix things up and make improvements when we can. If you would like to contribute we would love to have the help.";
+"contribute" = "Contribute";
 
 "importErrorTooMany" = "Please only select one file to import";
 "importingBackupFile" = "Importing backup file…";
