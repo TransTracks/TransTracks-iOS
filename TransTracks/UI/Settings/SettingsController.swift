@@ -38,8 +38,8 @@ class SettingsController: BackgroundGradientViewController {
     
     private var tempTextFieldAction: TextFieldReturnAction?
     
-    private let privacyPolicyURL = URL(string: "http://www.drspaceboo.com/privacy-policy/")!
-    private let termsOfServiceURL = URL(string: "http://www.drspaceboo.com/terms-of-service/")!
+    private let privacyPolicyURL = URL(string: "http://transtracks.app/privacy-policy/")!
+    private let termsOfServiceURL = URL(string: "http://transtracks.app/terms-of-service/")!
     
     var dataController: DataController!
     
