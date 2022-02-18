@@ -1,9 +1,8 @@
 CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = NO
 CONFIGURATION_BUILD_DIR = ${PODS_CONFIGURATION_BUILD_DIR}/FBSDKLoginKit
-FRAMEWORK_SEARCH_PATHS = $(inherited) "${PODS_CONFIGURATION_BUILD_DIR}/FBSDKCoreKit"
+FRAMEWORK_SEARCH_PATHS = $(inherited) "${PODS_ROOT}/FBAEMKit/XCFrameworks" "${PODS_ROOT}/FBSDKCoreKit/XCFrameworks" "${PODS_ROOT}/FBSDKCoreKit_Basics/XCFrameworks" "${PODS_ROOT}/FBSDKLoginKit/XCFrameworks" "${PODS_XCFRAMEWORKS_BUILD_DIR}/FBAEMKit" "${PODS_XCFRAMEWORKS_BUILD_DIR}/FBSDKCoreKit" "${PODS_XCFRAMEWORKS_BUILD_DIR}/FBSDKCoreKit_Basics" "${PODS_XCFRAMEWORKS_BUILD_DIR}/FBSDKLoginKit"
 GCC_PREPROCESSOR_DEFINITIONS = $(inherited) COCOAPODS=1
-OTHER_LDFLAGS = $(inherited) -weak_framework "Accelerate" -weak_framework "Accounts" -weak_framework "AdSupport" -weak_framework "AudioToolbox" -weak_framework "CoreGraphics" -weak_framework "Foundation" -weak_framework "QuartzCore" -weak_framework "Security" -weak_framework "Social" -weak_framework "StoreKit" -weak_framework "UIKit"
-OTHER_SWIFT_FLAGS = $(inherited) -D COCOAPODS
+OTHER_LDFLAGS = $(inherited) -framework "FBAEMKit" -framework "FBSDKCoreKit" -framework "FBSDKCoreKit_Basics"
 PODS_BUILD_DIR = ${BUILD_DIR}
 PODS_CONFIGURATION_BUILD_DIR = ${PODS_BUILD_DIR}/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)
 PODS_ROOT = ${SRCROOT}

@@ -15,11 +15,15 @@
 import CoreData
 import Firebase
 import FirebaseAuth
-import FirebaseUI
+import FirebaseAuthUI
+import FirebaseGoogleAuthUI
 import PasswordTextField
 import Toast_Swift
 import UIKit
 import ZIPFoundation
+import FirebaseEmailAuthUI
+import FirebaseGoogleAuthUI
+import FirebaseOAuthUI
 
 class SettingsController: BackgroundGradientViewController {
     
@@ -76,7 +80,9 @@ class SettingsController: BackgroundGradientViewController {
             authUI.privacyPolicyURL = privacyPolicyURL
             authUI.tosurl = termsOfServiceURL
             
-            var providers: [FUIAuthProvider] = [FUIEmailAuth(), FUIGoogleAuth(), FUIOAuth.twitterAuthProvider()]
+            var providers: [FUIAuthProvider] = [FUIEmailAuth(),
+                                                FUIGoogleAuth(authUI: authUI),
+                                                FUIOAuth.twitterAuthProvider()]
             if #available(iOS 13, *) {
                 providers.append(FUIOAuth.appleAuthProvider())
             }

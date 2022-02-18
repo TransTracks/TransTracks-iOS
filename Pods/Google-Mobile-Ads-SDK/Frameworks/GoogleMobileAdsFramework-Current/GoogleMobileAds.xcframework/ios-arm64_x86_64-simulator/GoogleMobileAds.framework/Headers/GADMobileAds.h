@@ -56,22 +56,16 @@ typedef void (^GADAdInspectorCompletionHandler)(NSError *_Nullable error);
 /// Available in Google Mobile Ads SDK 7.10 and onwards. Before calling this method check if the
 /// GADMobileAds's shared instance responds to this method. Calling this method on a Google Mobile
 /// Ads SDK lower than 7.10 can crash the app.
-- (BOOL)isSDKVersionAtLeastMajor:(NSInteger)major minor:(NSInteger)minor patch:(NSInteger)patch;
+- (BOOL)isSDKVersionAtLeastMajor:(NSInteger)major
+                           minor:(NSInteger)minor
+                           patch:(NSInteger)patch
+    NS_SWIFT_NAME(isSDKVersionAtLeast(major:minor:patch:));
 
 /// Starts the Google Mobile Ads SDK. Call this method as early as possible to reduce latency on the
 /// session's first ad request. Calls completionHandler when the GMA SDK and all mediation networks
 /// are fully set up or if set-up times out. The Google Mobile Ads SDK starts on the first ad
 /// request if this method is not called.
 - (void)startWithCompletionHandler:(nullable GADInitializationCompletionHandler)completionHandler;
-
-/// Disables automated in-app purchase (IAP) reporting. IAP reporting is enabled by default but can
-/// be disabled by calling this method before initializing the GMA SDK or loading ads. IAP reporting
-/// is used to track IAP ad conversions. Don't disable reporting if you use IAP ads.
-- (void)disableAutomatedInAppPurchaseReporting;
-
-/// Enables automated in-app purchase (IAP) reporting. IAP reporting is used to track IAP ad
-/// conversions.
-- (void)enableAutomatedInAppPurchaseReporting;
 
 /// Disables automated SDK crash reporting. If not called, the SDK records the original exception
 /// handler if available and registers a new exception handler. The new exception handler only

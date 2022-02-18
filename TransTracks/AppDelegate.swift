@@ -15,7 +15,7 @@
 import CoreData
 import FirebaseCrashlytics
 import Firebase
-import FirebaseUI
+import FirebaseAuthUI
 import GoogleMobileAds
 import UIKit
 import ZIPFoundation
