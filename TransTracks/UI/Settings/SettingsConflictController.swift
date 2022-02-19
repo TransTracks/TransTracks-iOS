@@ -3,7 +3,7 @@
 //  TransTracks
 //
 //  Created by Cassie Wilson on 31/8/19.
-//  Copyright © 2019 TransTracks. All rights reserved.
+//  Copyright © 2019-2022 TransTracks. All rights reserved.
 //
 //  This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
 //
@@ -123,7 +123,22 @@ extension SettingsConflictController : UITableViewDataSource {
             localValue = SettingsManager.getTheme().getDisplayName()
             serverValue = Theme(rawValue: serverConflictValue as! String)!.getDisplayName()
 
-        case .currentiOSVersion, .incorrectPasswordCount, .saveToFirebase, .showAccountWarning, .showAds, .showWelcome, .userLastSeen:
+        case .enableAnalytics:
+            name = NSLocalizedString("anonymousAnalytics", comment: "")
+            localValue = SettingsManager.getEnableAnalytics().getDisplayName()
+            serverValue = (serverConflictValue as! Bool).getDisplayName()
+
+        case .enableCrashReports:
+            name = NSLocalizedString("anonymousCrashReports", comment: "")
+            localValue = SettingsManager.getEnableAnalytics().getDisplayName()
+            serverValue = (serverConflictValue as! Bool).getDisplayName()
+
+        case .showAds:
+            name = NSLocalizedString("supportAds", comment: "")
+            localValue = SettingsManager.getEnableAnalytics().getDisplayName()
+            serverValue = (serverConflictValue as! Bool).getDisplayName()
+
+        case .currentiOSVersion, .incorrectPasswordCount, .saveToFirebase, .showAccountWarning, .showWelcome, .userLastSeen:
             fatalError("This settings should not be in conflict because they don't get synced")
         }
         
@@ -177,5 +192,15 @@ extension SettingsConflictController : UITableViewDataSource {
 extension SettingsConflictController : UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return SettingsConflictController.CELL_HEIGHT
+    }
+}
+
+extension Bool {
+    func getDisplayName() -> String {
+        if self {
+            return NSLocalizedString("enabled", comment: "")
+        } else {
+            return NSLocalizedString("disabled", comment: "")
+        }
     }
 }

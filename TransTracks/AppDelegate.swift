@@ -3,7 +3,7 @@
 //  TransTracks
 //
 //  Created by Cassie Wilson on 6/11/18.
-//  Copyright © 2018-2021 TransTracks. All rights reserved.
+//  Copyright © 2018-2022 TransTracks. All rights reserved.
 //
 //  This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
 //
@@ -42,8 +42,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         FirebaseApp.configure()
         
         #if PRODUCTION
-        Analytics.setAnalyticsCollectionEnabled(true)
-        Crashlytics.crashlytics().setCrashlyticsCollectionEnabled(true)
+        Analytics.setAnalyticsCollectionEnabled(SettingsManager.getEnableAnalytics())
+        Crashlytics.crashlytics().setCrashlyticsCollectionEnabled(SettingsManager.getEnableCrashReports())
         #endif
         
         GADMobileAds.sharedInstance().start(completionHandler: nil)

@@ -3,7 +3,7 @@
   TransTracks
 
   Created by Cassie Wilson on 18/2/19.
-  Copyright © 2019 TransTracks. All rights reserved.
+  Copyright © 2019-2022 TransTracks. All rights reserved.
 
   This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
 
@@ -78,6 +78,9 @@
 "data" = "Data:";
 "import" = "Import";
 "export" = "Export";
+"anonymousAnalytics" = "Collect Anonymous Analytics:";
+"anonymousCrashReports" = "Collect Anonymous Crash Reports:";
+"supportAds" = "Support Via Ads:";
 "appVersionLabel" = "App Version:";
 "privacyPolicy" = "Privacy Policy";
 "copyrightWithCurrentYear" = "© 2018 - %@ by TransTracks, All rights reserved";
@@ -115,6 +118,8 @@
 "enabledTrains" = "Enabled (Train Tracks)";
 "enterPasswordToDisableLock" = "Enter Password to Disable Lock";
 "setPassword" = "Set Password";
+
+"enabled" = "Enabled";
 
 "selectLockDelay" = "Select Lock Delay";
 "instant" = "Instant";

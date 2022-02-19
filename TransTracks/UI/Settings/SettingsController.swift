@@ -3,7 +3,7 @@
 //  TransTracks
 //
 //  Created by Cassie Wilson on 18/2/19.
-//  Copyright © 2019 TransTracks. All rights reserved.
+//  Copyright © 2019-2022 TransTracks. All rights reserved.
 //
 //  This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
 //
@@ -325,9 +325,30 @@ class SettingsController: BackgroundGradientViewController {
         }
     }
     
+    //MARK: Switch handling
+    
+    @objc func analyticsOnChanged(_ sender: Any) {
+        SettingsManager.toggleEnableAnalytics()
+    }
+    
+    @objc func crashReportingOnChanged(_ sender: Any) {
+        SettingsManager.toggleEnableCrashReports()
+    }
+    
+    @objc func showAdsOnChanged(_ sender: Any) {
+        SettingsManager.toggleShowAds()
+        if SettingsManager.showAds() {
+            adViewHolder.showAd()
+        } else {
+            adViewHolder.hideAd()
+        }
+    }
+    
     //MARK: Helper functions
     private func stopLoading() {
-        DispatchQueue.main.async { self.loadingIndicator.stopAnimating() }
+        DispatchQueue.main.async {
+            self.loadingIndicator.stopAnimating()
+        }
     }
 }
 
@@ -353,6 +374,7 @@ extension SettingsController: UITableViewDataSource {
         case .doubleButton: configDoubleButtonRow(cell as! DoubleButtonCell, row)
         case .title: configTitleRow(cell as! TitleCell, row)
         case .text: configTextRow(cell as! TextCell, row)
+        case .settingSwitch: configSwitchSettingRow(cell as! SwitchCell, row)
         }
         
         //Styling the selected background
@@ -375,6 +397,7 @@ extension SettingsController: UITableViewDataSource {
         case .doubleButton: identifier = "DoubleButtonCell"
         case .title: identifier = "TitleCell"
         case .text: identifier = "TextCell"
+        case .settingSwitch: identifier = "SwitchCell"
         }
         
         return tableView.dequeueReusableCell(withIdentifier: identifier)!
@@ -390,7 +413,7 @@ extension SettingsController: UITableViewDataSource {
             } else {
                 return 160
             }
-        case .setting, .button, .doubleButton, .title: return 50
+        case .setting, .button, .doubleButton, .title, .settingSwitch: return 50
         case .divider: return 2
         case .text: return UITableView.automaticDimension
         }
@@ -524,35 +547,65 @@ extension SettingsController: UITableViewDataSource {
         cell.firstButton.titleLabel?.text = firstButton
         cell.secondButton.titleLabel?.text = secondButton
     }
-
-    private func configTitleRow(_ cell: TitleCell, _ row: Row){
+    
+    private func configTitleRow(_ cell: TitleCell, _ row: Row) {
         let title: String
-
+        
         switch row {
         case .aboutTitle:
             title = NSLocalizedString("aboutTitle", comment: "")
-
+        
         default:
             fatalError("This row hasn't been configured")
         }
-
+        
         cell.titleLabel.text = title
     }
-
-    private func configTextRow(_ cell: TextCell, _ row: Row){
+    
+    private func configTextRow(_ cell: TextCell, _ row: Row) {
         let text: String
-
+        
         switch row {
         case .aboutMessage:
             text = NSLocalizedString("aboutMessage", comment: "")
-
+        
         default:
             fatalError("This row hasn't been configured")
         }
-
+        
         cell.labelForText.text = text
     }
-
+    
+    private func configSwitchSettingRow(_ cell: SwitchCell, _ row: Row) {
+        let title: String
+        let switchOn: Bool
+        var description: String?
+        
+        switch row {
+        case .analytics:
+            title = NSLocalizedString("anonymousAnalytics", comment: "")
+            switchOn = SettingsManager.getEnableAnalytics()
+            cell.switchControl.addTarget(self, action: #selector(analyticsOnChanged(_:)), for: UIControl.Event.valueChanged)
+        
+        case .crashReports:
+            title = NSLocalizedString("anonymousCrashReports", comment: "")
+            switchOn = SettingsManager.getEnableCrashReports()
+            cell.switchControl.addTarget(self, action: #selector(crashReportingOnChanged(_:)), for: UIControl.Event.valueChanged)
+        
+        case .showAds:
+            title = NSLocalizedString("supportAds", comment: "")
+            switchOn = SettingsManager.showAds()
+            cell.switchControl.addTarget(self, action: #selector(showAdsOnChanged(_:)), for: UIControl.Event.valueChanged)
+        
+        default:
+            fatalError("This row hasn't been configured")
+        }
+        
+        cell.titleLabel.text = title
+        cell.switchControl.isOn = switchOn
+        cell.descriptionLabel.text = description
+    }
+    
     enum Row: Int, CaseIterable {
         case account
         case divider1
@@ -563,10 +616,14 @@ extension SettingsController: UITableViewDataSource {
         case divider2
         case data
         case divider3
+        case analytics
+        case crashReports
+        case showAds
+        case divider4
         case aboutTitle
         case aboutMessage
         case contribute
-        case divider4
+        case divider5
         case appVersion
         case privacyPolicy
         case termsOfService
@@ -582,10 +639,14 @@ extension SettingsController: UITableViewDataSource {
             case .divider2: return .divider
             case .data: return .doubleButton
             case .divider3: return .divider
+            case .analytics: return .settingSwitch
+            case .crashReports: return .settingSwitch
+            case .showAds: return .settingSwitch
+            case .divider4: return .divider
             case .aboutTitle: return .title
             case .aboutMessage: return .text
             case .contribute: return .button
-            case .divider4: return .divider
+            case .divider5: return .divider
             case .appVersion: return .setting
             case .privacyPolicy: return .button
             case .termsOfService: return .button
@@ -594,7 +655,7 @@ extension SettingsController: UITableViewDataSource {
     }
     
     enum RowType {
-        case setting, divider, button, account, doubleButton, title, text
+        case setting, divider, button, account, doubleButton, title, text, settingSwitch
     }
 }
 
@@ -606,6 +667,8 @@ extension SettingsController: UITableViewDelegate {
         if row == .account || // The account row can't be clicked only the button
                    row == .appVersion || // The App version cannot be clicked
                    row.getRowType() == RowType.divider || // Dividers cannot be clicked
+                   row.getRowType() == RowType.title || // Titles cannot be clicked
+                   row.getRowType() == RowType.text || // Text cannot be clicked
                    (row == .lockDelay && SettingsManager.getLockType() == .off) { //If the lock type is set to OFF then the user cannot change the lock delay
             return false
         }
@@ -702,7 +765,11 @@ extension SettingsController: UITableViewDelegate {
             
             setPopoverPresentationControllerInfo(alert, indexPath)
             alert.show()
-            
+        
+        case .analytics:
+            let cell = dequeueCell(tableView, row.getRowType()) as! SwitchCell
+            cell.switchControl.isOn = !cell.switchControl.isOn
+        
         case .contribute:
             UIApplication.shared.open(contributeURL, options: [:], completionHandler: nil)
         
