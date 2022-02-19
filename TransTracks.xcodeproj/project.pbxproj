@@ -132,6 +132,8 @@
 		F9EBDAA7222B998700268392 /* TransTracks.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = F9EBDAA5222B998700268392 /* TransTracks.xcdatamodeld */; };
 		F9EBDAAA222BA3D800268392 /* HomeDomain.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9EBDAA9222BA3D800268392 /* HomeDomain.swift */; };
 		F9F3C540229B6026006D3050 /* SelectCollectionDomain.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9F3C53F229B6026006D3050 /* SelectCollectionDomain.swift */; };
+		F9F4F8BB27BFA96100D688C5 /* TitleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9F4F8BA27BFA96100D688C5 /* TitleCell.swift */; };
+		F9F4F8BD27BFAB3B00D688C5 /* TextCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9F4F8BC27BFAB3B00D688C5 /* TextCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -290,6 +292,8 @@
 		F9EBDAA6222B998700268392 /* TransTracks.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = TransTracks.xcdatamodel; sourceTree = "<group>"; };
 		F9EBDAA9222BA3D800268392 /* HomeDomain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeDomain.swift; sourceTree = "<group>"; };
 		F9F3C53F229B6026006D3050 /* SelectCollectionDomain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectCollectionDomain.swift; sourceTree = "<group>"; };
+		F9F4F8BA27BFA96100D688C5 /* TitleCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleCell.swift; sourceTree = "<group>"; };
+		F9F4F8BC27BFAB3B00D688C5 /* TextCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextCell.swift; sourceTree = "<group>"; };
 		FF434DD97890C69334CEABF7 /* Pods-TransTracksUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TransTracksUITests.debug.xcconfig"; path = "Target Support Files/Pods-TransTracksUITests/Pods-TransTracksUITests.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -490,6 +494,8 @@
 				F93CF074221A51F30008CC44 /* SettingsController.swift */,
 				F9528923231A3D0D00BAFC7B /* SettingsConflictController.swift */,
 				F92A2D3925D8D8500068ADAF /* DoubleButtonCell.swift */,
+				F9F4F8BA27BFA96100D688C5 /* TitleCell.swift */,
+				F9F4F8BC27BFAB3B00D688C5 /* TextCell.swift */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -1128,6 +1134,7 @@
 				F9BF2417228D011A002A38BA /* WelcomeController.swift in Sources */,
 				F9869AB022858D390049E442 /* ThemedButton.swift in Sources */,
 				F900234522815AB9003F3304 /* GalleryDomain.swift in Sources */,
+				F9F4F8BD27BFAB3B00D688C5 /* TextCell.swift in Sources */,
 				F93CF16B221BF19B0008CC44 /* Array+Extensions.swift in Sources */,
 				F9C1C44822EF02A5008D6107 /* SettingsManager.swift in Sources */,
 				F97FFBEF227AAFB9009503A4 /* HomePhotoCollectionController.swift in Sources */,
@@ -1161,6 +1168,7 @@
 				F93CF16D221BF19B0008CC44 /* UIImageView+Extensions.swift in Sources */,
 				F93CF178221BF19B0008CC44 /* Optional+Extensions.swift in Sources */,
 				F9EBDAAA222BA3D800268392 /* HomeDomain.swift in Sources */,
+				F9F4F8BB27BFA96100D688C5 /* TitleCell.swift in Sources */,
 				F9DAC0A022212BA20051B8E6 /* AlertPasswordTextField.swift in Sources */,
 				F93CF17D221BF19B0008CC44 /* TextViewController.swift in Sources */,
 				F97CAA94223A3A9D00D6A549 /* Milestone.swift in Sources */,

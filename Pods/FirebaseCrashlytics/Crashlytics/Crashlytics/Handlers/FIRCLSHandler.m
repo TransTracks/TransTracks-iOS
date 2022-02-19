@@ -46,16 +46,4 @@ void FIRCLSHandler(FIRCLSFile* file, thread_t crashedThread, void* uapVoid) {
   FIRCLSCreateCrashedMarkerFile();
 
   FIRCLSProcessResumeAllOtherThreads(&process);
-
-  // clean up after ourselves
-  FIRCLSProcessDestroy(&process);
-}
-
-void FIRCLSHandlerAttemptImmediateDelivery(void) {
-  // now, attempt to relay the event to the delegate
-  FIRCLSReportManager* manager = (__bridge id)_firclsContext.readonly->delegate;
-
-  if ([manager respondsToSelector:@selector(potentiallySubmittableCrashOccurred)]) {
-    [manager potentiallySubmittableCrashOccurred];
-  }
 }

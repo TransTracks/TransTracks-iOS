@@ -15,11 +15,15 @@
 import CoreData
 import Firebase
 import FirebaseAuth
-import FirebaseUI
+import FirebaseAuthUI
+import FirebaseGoogleAuthUI
 import PasswordTextField
 import Toast_Swift
 import UIKit
 import ZIPFoundation
+import FirebaseEmailAuthUI
+import FirebaseGoogleAuthUI
+import FirebaseOAuthUI
 
 class SettingsController: BackgroundGradientViewController {
     
@@ -34,8 +38,9 @@ class SettingsController: BackgroundGradientViewController {
     
     private var tempTextFieldAction: TextFieldReturnAction?
     
-    private let privacyPolicyURL = URL(string: "http://www.drspaceboo.com/privacy-policy/")!
-    private let termsOfServiceURL = URL(string: "http://www.drspaceboo.com/terms-of-service/")!
+    private let contributeURL = URL(string: "https://transtracks.app/contributing/")!
+    private let privacyPolicyURL = URL(string: "https://transtracks.app/privacy-policy/")!
+    private let termsOfServiceURL = URL(string: "https://transtracks.app/terms-of-service/")!
     
     var dataController: DataController!
     
@@ -76,7 +81,9 @@ class SettingsController: BackgroundGradientViewController {
             authUI.privacyPolicyURL = privacyPolicyURL
             authUI.tosurl = termsOfServiceURL
             
-            var providers: [FUIAuthProvider] = [FUIEmailAuth(), FUIGoogleAuth(), FUIOAuth.twitterAuthProvider()]
+            var providers: [FUIAuthProvider] = [FUIEmailAuth(),
+                                                FUIGoogleAuth(authUI: authUI),
+                                                FUIOAuth.twitterAuthProvider()]
             if #available(iOS 13, *) {
                 providers.append(FUIOAuth.appleAuthProvider())
             }
@@ -344,6 +351,8 @@ extension SettingsController: UITableViewDataSource {
         case .divider: break //Divider cells don't need configuring
         case .button: configButtonRow(cell as! ButtonCell, row)
         case .doubleButton: configDoubleButtonRow(cell as! DoubleButtonCell, row)
+        case .title: configTitleRow(cell as! TitleCell, row)
+        case .text: configTextRow(cell as! TextCell, row)
         }
         
         //Styling the selected background
@@ -364,6 +373,8 @@ extension SettingsController: UITableViewDataSource {
         case .divider: identifier = "Divider"
         case .button: identifier = "ButtonCell"
         case .doubleButton: identifier = "DoubleButtonCell"
+        case .title: identifier = "TitleCell"
+        case .text: identifier = "TextCell"
         }
         
         return tableView.dequeueReusableCell(withIdentifier: identifier)!
@@ -379,8 +390,9 @@ extension SettingsController: UITableViewDataSource {
             } else {
                 return 160
             }
-        case .setting, .button, .doubleButton: return 50
+        case .setting, .button, .doubleButton, .title: return 50
         case .divider: return 2
+        case .text: return UITableView.automaticDimension
         }
     }
     
@@ -481,6 +493,8 @@ extension SettingsController: UITableViewDataSource {
             title = NSLocalizedString("privacyPolicy", comment: "")
         case .termsOfService:
             title = NSLocalizedString("termsOfService", comment: "")
+        case .contribute:
+            title = NSLocalizedString("contribute", comment: "")
         
         default:
             fatalError("This row hasn't been configured")
@@ -510,7 +524,35 @@ extension SettingsController: UITableViewDataSource {
         cell.firstButton.titleLabel?.text = firstButton
         cell.secondButton.titleLabel?.text = secondButton
     }
-    
+
+    private func configTitleRow(_ cell: TitleCell, _ row: Row){
+        let title: String
+
+        switch row {
+        case .aboutTitle:
+            title = NSLocalizedString("aboutTitle", comment: "")
+
+        default:
+            fatalError("This row hasn't been configured")
+        }
+
+        cell.titleLabel.text = title
+    }
+
+    private func configTextRow(_ cell: TextCell, _ row: Row){
+        let text: String
+
+        switch row {
+        case .aboutMessage:
+            text = NSLocalizedString("aboutMessage", comment: "")
+
+        default:
+            fatalError("This row hasn't been configured")
+        }
+
+        cell.labelForText.text = text
+    }
+
     enum Row: Int, CaseIterable {
         case account
         case divider1
@@ -521,6 +563,10 @@ extension SettingsController: UITableViewDataSource {
         case divider2
         case data
         case divider3
+        case aboutTitle
+        case aboutMessage
+        case contribute
+        case divider4
         case appVersion
         case privacyPolicy
         case termsOfService
@@ -536,6 +582,10 @@ extension SettingsController: UITableViewDataSource {
             case .divider2: return .divider
             case .data: return .doubleButton
             case .divider3: return .divider
+            case .aboutTitle: return .title
+            case .aboutMessage: return .text
+            case .contribute: return .button
+            case .divider4: return .divider
             case .appVersion: return .setting
             case .privacyPolicy: return .button
             case .termsOfService: return .button
@@ -544,7 +594,7 @@ extension SettingsController: UITableViewDataSource {
     }
     
     enum RowType {
-        case setting, divider, button, account, doubleButton
+        case setting, divider, button, account, doubleButton, title, text
     }
 }
 
@@ -652,6 +702,9 @@ extension SettingsController: UITableViewDelegate {
             
             setPopoverPresentationControllerInfo(alert, indexPath)
             alert.show()
+            
+        case .contribute:
+            UIApplication.shared.open(contributeURL, options: [:], completionHandler: nil)
         
         case .privacyPolicy:
             UIApplication.shared.open(privacyPolicyURL, options: [:], completionHandler: nil)
