@@ -17,6 +17,8 @@
 		F900234322814DE3003F3304 /* GalleryController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F900234222814DE3003F3304 /* GalleryController.swift */; };
 		F900234522815AB9003F3304 /* GalleryDomain.swift in Sources */ = {isa = PBXBuildFile; fileRef = F900234422815AB9003F3304 /* GalleryDomain.swift */; };
 		F90F8C0822B8F3EE00BA91A9 /* Users.swift in Sources */ = {isa = PBXBuildFile; fileRef = F90F8C0722B8F3EE00BA91A9 /* Users.swift */; };
+		F91115DA27C0771800AD4C3E /* SwitchCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F91115D927C0771800AD4C3E /* SwitchCell.swift */; };
+		F91115DC27C079DD00AD4C3E /* ThemedSwitch.swift in Sources */ = {isa = PBXBuildFile; fileRef = F91115DB27C079DD00AD4C3E /* ThemedSwitch.swift */; };
 		F9164E8D22A3B8890066D1A2 /* DateComponents.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9164E8C22A3B8890066D1A2 /* DateComponents.swift */; };
 		F919D77D219186DD0069F42B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F919D77C219186DD0069F42B /* AppDelegate.swift */; };
 		F919D77F219186DD0069F42B /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F919D77E219186DD0069F42B /* HomeViewController.swift */; };
@@ -169,6 +171,8 @@
 		F900234222814DE3003F3304 /* GalleryController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GalleryController.swift; sourceTree = "<group>"; };
 		F900234422815AB9003F3304 /* GalleryDomain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GalleryDomain.swift; sourceTree = "<group>"; };
 		F90F8C0722B8F3EE00BA91A9 /* Users.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Users.swift; sourceTree = "<group>"; };
+		F91115D927C0771800AD4C3E /* SwitchCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwitchCell.swift; sourceTree = "<group>"; };
+		F91115DB27C079DD00AD4C3E /* ThemedSwitch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemedSwitch.swift; sourceTree = "<group>"; };
 		F9164E8C22A3B8890066D1A2 /* DateComponents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateComponents.swift; sourceTree = "<group>"; };
 		F919D779219186DD0069F42B /* TransTracks.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TransTracks.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F919D77C219186DD0069F42B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -496,6 +500,7 @@
 				F92A2D3925D8D8500068ADAF /* DoubleButtonCell.swift */,
 				F9F4F8BA27BFA96100D688C5 /* TitleCell.swift */,
 				F9F4F8BC27BFAB3B00D688C5 /* TextCell.swift */,
+				F91115D927C0771800AD4C3E /* SwitchCell.swift */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -760,6 +765,7 @@
 				F9869AAF22858D390049E442 /* ThemedButton.swift */,
 				F9DAC0A12221369C0051B8E6 /* TwoPasswordTextFieldController.swift */,
 				F94F81C8238649C500AA432A /* DialogViewController.swift */,
+				F91115DB27C079DD00AD4C3E /* ThemedSwitch.swift */,
 			);
 			path = Custom;
 			sourceTree = "<group>";
@@ -1194,6 +1200,7 @@
 				F93CF066221801C20008CC44 /* UserDefaultsUtil.swift in Sources */,
 				F97CAA98223A4F4700D6A549 /* DomainManager.swift in Sources */,
 				F94A602423869F390046D5F0 /* OneChanceController.swift in Sources */,
+				F91115DC27C079DD00AD4C3E /* ThemedSwitch.swift in Sources */,
 				F9DAC0A22221369C0051B8E6 /* TwoPasswordTextFieldController.swift in Sources */,
 				F9F3C540229B6026006D3050 /* SelectCollectionDomain.swift in Sources */,
 				F93CF183221BF19B0008CC44 /* CurrencyCell.swift in Sources */,
@@ -1204,6 +1211,7 @@
 				F93CF188221BF19B0008CC44 /* PhotoLibraryPickerViewController.swift in Sources */,
 				F93CF19C221BF19B0008CC44 /* SegmentedControl.swift in Sources */,
 				F93CF195221BF19B0008CC44 /* ImagePickerViewController.swift in Sources */,
+				F91115DA27C0771800AD4C3E /* SwitchCell.swift in Sources */,
 				F93CF19F221BF19B0008CC44 /* Button.swift in Sources */,
 				F97FFBF2227C38B6009503A4 /* PhotoDetailsController.swift in Sources */,
 				F93CF175221BF19B0008CC44 /* UISearchBar+Extensions.swift in Sources */,

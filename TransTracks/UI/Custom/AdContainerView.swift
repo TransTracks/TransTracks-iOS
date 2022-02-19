@@ -103,12 +103,12 @@ class AdContainerView: UIView {
         }
     }
     
-    private func showAd() {
+    func showAd() {
         isHidden = false
         superview?.removeConstraint(zeroHeightContraint)
     }
     
-    private func hideAd() {
+    func hideAd() {
         isHidden = true
         superview?.addConstraint(zeroHeightContraint)
     }
