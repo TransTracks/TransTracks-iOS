@@ -137,7 +137,6 @@
 "passwordResetSuccess" = "You have been sent a password reset email, follow its instruction to reset your password";
 "sessionExpiredMessage" = "You session has expired please log in again.";
 "sessionExpiredTitle" = "Session Expired";
-"setPassword" = "Set Account Password";
 "signIn" = "Sign In";
 "signInError" = "An error occurred signing in, please try again";
 "signOutError" = "An error occurred signing out, please try again";
@@ -147,3 +146,9 @@
 "unknown" = "Unknown";
 "updateAccountName" = "Update Account Name";
 "updateEmailAddress" = "Update Email Address";
+
+"deleteAccountWarningTitle" = "Delete Account Permanently";
+"deleteAccountWarningMessage" = "This will delete your account and all synchronised data. Once deleted it cannot be recovered.\n\nAre you sure you want to PERMANENTLY delete your TransTrack account?";
+"deleteFailed" = "Error occurred trying to delete your account";
+"deleteSuccess" = "Account Deleted";
+"logInBeforeDelete" = "Please log in again before deleting";

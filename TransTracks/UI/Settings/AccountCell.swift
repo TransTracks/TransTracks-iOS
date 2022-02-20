@@ -23,5 +23,6 @@ class AccountCell: UITableViewCell {
     @IBOutlet weak var userEmailLabel: UILabel!
     
     @IBOutlet weak var primaryActionButton: ThemedButton!
+    @IBOutlet weak var deleteAccountButton: DropShadowButton!
     @IBOutlet weak var signOutButton: DropShadowButton!
 }
