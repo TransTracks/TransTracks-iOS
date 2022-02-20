@@ -848,10 +848,6 @@
                                                                     <state key="normal" title="Change Password">
                                                                         <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                     </state>
-                                                                    <connections>
-                                                                        <action selector="changeSettings:" destination="GO0-cX-WUb" eventType="touchUpInside" id="f6c-Fz-VGL"/>
-                                                                        <action selector="savePhotoClick:" destination="0jf-g8-Jdq" eventType="touchUpInside" id="M3I-55-Rz2"/>
-                                                                    </connections>
                                                                 </button>
                                                                 <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="1000" verticalHuggingPriority="1000" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aJv-XK-8FJ" userLabel="Delete Account Button" customClass="DropShadowButton" customModule="TransTracks" customModuleProvider="target">
                                                                     <rect key="frame" x="145" y="0.0" width="128" height="36"/>
@@ -861,10 +857,6 @@
                                                                     <state key="normal" title="Delete Account">
                                                                         <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                     </state>
-                                                                    <connections>
-                                                                        <action selector="looksGood:" destination="GO0-cX-WUb" eventType="touchUpInside" id="4zM-oW-5iq"/>
-                                                                        <action selector="skipPhotoClick:" destination="0jf-g8-Jdq" eventType="touchUpInside" id="6Zf-xm-lgY"/>
-                                                                    </connections>
                                                                 </button>
                                                                 <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="1000" verticalHuggingPriority="1000" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zi5-wV-gK3" customClass="DropShadowButton" customModule="TransTracks" customModuleProvider="target">
                                                                     <rect key="frame" x="281" y="0.0" width="76" height="36"/>
@@ -874,10 +866,6 @@
                                                                     <state key="normal" title="Sign out">
                                                                         <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                     </state>
-                                                                    <connections>
-                                                                        <action selector="looksGood:" destination="GO0-cX-WUb" eventType="touchUpInside" id="2F8-fp-MLi"/>
-                                                                        <action selector="skipPhotoClick:" destination="0jf-g8-Jdq" eventType="touchUpInside" id="HjN-u4-rJ3"/>
-                                                                    </connections>
                                                                 </button>
                                                                 <view contentMode="scaleToFill" ambiguous="YES" placeholderIntrinsicWidth="1" placeholderIntrinsicHeight="infinite" translatesAutoresizingMaskIntoConstraints="NO" id="0YR-PR-x3W">
                                                                     <rect key="frame" x="365" y="0.0" width="1" height="36"/>
