@@ -835,13 +835,13 @@
                                                         <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="MS7-PQ-whN" userLabel="Buttons">
                                                             <rect key="frame" x="0.0" y="72" width="366" height="36"/>
                                                             <subviews>
-                                                                <view contentMode="scaleToFill" placeholderIntrinsicWidth="1" placeholderIntrinsicHeight="infinite" translatesAutoresizingMaskIntoConstraints="NO" id="icL-pj-blx">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="1" height="36"/>
+                                                                <view contentMode="scaleToFill" ambiguous="YES" placeholderIntrinsicWidth="1" placeholderIntrinsicHeight="infinite" translatesAutoresizingMaskIntoConstraints="NO" id="icL-pj-blx">
+                                                                    <rect key="frame" x="0.0" y="0.0" width="0.0" height="36"/>
                                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                     <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 </view>
-                                                                <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="1000" verticalHuggingPriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nsz-XY-ixr" customClass="ThemedButton" customModule="TransTracks" customModuleProvider="target">
-                                                                    <rect key="frame" x="48.5" y="0.0" width="146" height="36"/>
+                                                                <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="1000" verticalHuggingPriority="1000" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nsz-XY-ixr" customClass="ThemedButton" customModule="TransTracks" customModuleProvider="target">
+                                                                    <rect key="frame" x="8" y="0.0" width="129" height="36"/>
                                                                     <color key="backgroundColor" red="0.0091119781140000002" green="0.70185786490000002" blue="0.8939476609" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                                     <inset key="contentEdgeInsets" minX="8" minY="8" maxX="8" maxY="8"/>
@@ -853,8 +853,21 @@
                                                                         <action selector="savePhotoClick:" destination="0jf-g8-Jdq" eventType="touchUpInside" id="M3I-55-Rz2"/>
                                                                     </connections>
                                                                 </button>
+                                                                <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="1000" verticalHuggingPriority="1000" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aJv-XK-8FJ" userLabel="Delete Account Button" customClass="DropShadowButton" customModule="TransTracks" customModuleProvider="target">
+                                                                    <rect key="frame" x="145" y="0.0" width="128" height="36"/>
+                                                                    <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                                    <inset key="contentEdgeInsets" minX="8" minY="8" maxX="8" maxY="8"/>
+                                                                    <state key="normal" title="Delete Account">
+                                                                        <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                    </state>
+                                                                    <connections>
+                                                                        <action selector="looksGood:" destination="GO0-cX-WUb" eventType="touchUpInside" id="4zM-oW-5iq"/>
+                                                                        <action selector="skipPhotoClick:" destination="0jf-g8-Jdq" eventType="touchUpInside" id="6Zf-xm-lgY"/>
+                                                                    </connections>
+                                                                </button>
                                                                 <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="1000" verticalHuggingPriority="1000" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zi5-wV-gK3" customClass="DropShadowButton" customModule="TransTracks" customModuleProvider="target">
-                                                                    <rect key="frame" x="241.5" y="0.0" width="76" height="36"/>
+                                                                    <rect key="frame" x="281" y="0.0" width="76" height="36"/>
                                                                     <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                                     <inset key="contentEdgeInsets" minX="8" minY="8" maxX="8" maxY="8"/>
@@ -890,6 +903,7 @@
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <connections>
+                                            <outlet property="deleteAccountButton" destination="aJv-XK-8FJ" id="VVX-s5-9jj"/>
                                             <outlet property="emailViews" destination="So1-Vp-SXl" id="FW2-i3-mKb"/>
                                             <outlet property="infoLabel" destination="L4W-Ms-hvH" id="f7F-aY-bSR"/>
                                             <outlet property="nameViews" destination="T3i-eU-d2d" id="dfz-kS-x4k"/>
@@ -2381,6 +2395,9 @@ We would like to give you ONE opportunity to remove your Lock Code to gain acces
         <designable name="Zf4-Ze-2kK">
             <size key="intrinsicContentSize" width="148" height="39"/>
         </designable>
+        <designable name="aJv-XK-8FJ">
+            <size key="intrinsicContentSize" width="128" height="36"/>
+        </designable>
         <designable name="bmJ-Yk-Maz">
             <size key="intrinsicContentSize" width="41" height="39"/>
         </designable>
@@ -2395,6 +2412,9 @@ We would like to give you ONE opportunity to remove your Lock Code to gain acces
         </designable>
         <designable name="kcX-1C-5kt">
             <size key="intrinsicContentSize" width="108" height="39"/>
+        </designable>
+        <designable name="lG3-UO-4JO">
+            <size key="intrinsicContentSize" width="49" height="31"/>
         </designable>
         <designable name="lfY-iC-9SJ">
             <size key="intrinsicContentSize" width="157" height="39"/>

@@ -240,6 +240,38 @@ class SettingsController: BackgroundGradientViewController {
         }
     }
     
+    @objc func deleteAccount(_ sender: Any) {
+        guard let currentUser = Auth.auth().currentUser else { return }
+        
+        let alert = UIAlertController(
+                title: NSLocalizedString("deleteAccountWarningTitle", comment: ""),
+                message: NSLocalizedString("deleteAccountWarningMessage", comment: ""),
+                preferredStyle: .alert
+        )
+        alert.addAction(UIAlertAction(
+                title: NSLocalizedString("yes", comment: ""),
+                style: .destructive,
+                handler: { action in
+                    currentUser.delete { error in
+                        if let error = error {
+                            let code = (error as NSError).code
+                            if code == AuthErrorCode.requiresRecentLogin.rawValue {
+                                self.view.makeToast(NSLocalizedString("logInBeforeDelete", comment: ""))
+                                self.showRelogInDialog()
+                            } else {
+                                self.view.makeToast(NSLocalizedString("deleteFailed", comment: ""))
+                            }
+                        } else {
+                            self.view.makeToast(NSLocalizedString("deleteSuccess", comment: ""))
+                            SettingsManager.disableFirebaseSync()
+                            self.tableView.reloadRows(at: [IndexPath(row: Row.account.rawValue, section: 0)], with: .automatic)
+                        }
+                    }
+                }))
+        alert.addAction(UIAlertAction(title: NSLocalizedString("no", comment: ""), style: .cancel, handler: nil))
+        alert.show()
+    }
+    
     @objc func signOut(_ sender: Any) {
         guard Auth.auth().currentUser != nil else { return }
         
@@ -424,6 +456,14 @@ extension SettingsController: UITableViewDataSource {
         let primaryActionText: String
         var hidePrimaryAction: Bool = false
         
+        //Making sure the buttons fit their text
+        cell.primaryActionButton.titleLabel?.minimumScaleFactor = 0.5
+        cell.primaryActionButton.titleLabel?.adjustsFontSizeToFitWidth = true
+        cell.deleteAccountButton.titleLabel?.minimumScaleFactor = 0.5
+        cell.deleteAccountButton.titleLabel?.adjustsFontSizeToFitWidth = true
+        cell.signOutButton.titleLabel?.minimumScaleFactor = 0.5
+        cell.signOutButton.titleLabel?.adjustsFontSizeToFitWidth = true
+        
         if let user = Auth.auth().currentUser {
             userLoggedIn = true
             
@@ -448,6 +488,7 @@ extension SettingsController: UITableViewDataSource {
         cell.infoLabel.isHidden = userLoggedIn
         cell.nameViews.isHidden = !userLoggedIn
         cell.emailViews.isHidden = !userLoggedIn
+        cell.deleteAccountButton.isHidden = !userLoggedIn
         cell.signOutButton.isHidden = !userLoggedIn
         
         cell.primaryActionButton.isHidden = hidePrimaryAction
@@ -457,6 +498,7 @@ extension SettingsController: UITableViewDataSource {
         cell.nameViews.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(accountNameClick(_:))))
         cell.emailViews.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(accountEmailClick(_:))))
         cell.primaryActionButton.addTarget(self, action: #selector(primaryActionClick(_:)), for: .touchUpInside)
+        cell.deleteAccountButton.addTarget(self, action: #selector(deleteAccount(_:)), for: .touchUpInside)
         cell.signOutButton.addTarget(self, action: #selector(signOut(_:)), for: .touchUpInside)
     }
     
