@@ -346,7 +346,9 @@ class SettingsController: BackgroundGradientViewController {
                 
                 //Sharing the resulting zip
                 let activityViewController = UIActivityViewController(activityItems: [tempZipUrl], applicationActivities: nil)
-                self.present(activityViewController, animated: true, completion: nil)
+                DispatchQueue.main.async {
+                    self.present(activityViewController, animated: true, completion: nil)
+                }
             } catch {
                 self.stopLoading()
                 AlertHelper.showMessage(title: NSLocalizedString("error", comment: ""), message: NSLocalizedString("exportFailure", comment: ""))
