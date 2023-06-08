@@ -11,19 +11,33 @@ on:
 
 jobs:
   build:
-    name: Build and Test default scheme using any available iPhone simulator
     runs-on: macos-latest
 
     steps:
-      - name: Checkout
+      - name: 🚚 Checkout
         uses: actions/checkout@v3
-      - name: Set Default Scheme
+        
+      - name: 🎯 Set Default Scheme
         run: |
           scheme_list=$(xcodebuild -list -json | tr -d "\n")
           default=$(echo $scheme_list | ruby -e "require 'json'; puts JSON.parse(STDIN.gets)['project']['targets'][0]")
           echo $default | cat >default
           echo Using default scheme: $default
-      - name: Build
+        
+      - name: 📑 Create Google Services file
+        env:
+          GOOGLE_SERVICES_64: ${{ secrets.GOOGLE_SERVICES_64 }}
+        run: echo $GOOGLE_SERVICES_64 | base64 -di > ./TransTracks/GoogleService-Info.plist
+        
+      - name: 📏 Copy config files
+        run: |
+          cp TransTracks/config.plist.example TransTracks/config.plist
+          cp TransTracks/InfoConfig.plist.example TransTracks/InfoConfig.plist
+        
+      - name: 🙌 Copy secrets file
+        run: cp TransTracks/config.plist.example TransTracks/config.plist
+      
+      - name: 👷‍♀️ Build
         env:
           scheme: ${{ 'default' }}
           platform: ${{ 'iOS Simulator' }}
@@ -34,7 +48,8 @@ jobs:
           if [ "`ls -A | grep -i \\.xcworkspace\$`" ]; then filetype_parameter="workspace" && file_to_build="`ls -A | grep -i \\.xcworkspace\$`"; else filetype_parameter="project" && file_to_build="`ls -A | grep -i \\.xcodeproj\$`"; fi
           file_to_build=`echo $file_to_build | awk '{$1=$1;print}'`
           xcodebuild build-for-testing -scheme "$scheme" -"$filetype_parameter" "$file_to_build" -destination "platform=$platform,name=$device"
-      - name: Test
+      
+      - name: 🧪 Test
         env:
           scheme: ${{ 'default' }}
           platform: ${{ 'iOS Simulator' }}
