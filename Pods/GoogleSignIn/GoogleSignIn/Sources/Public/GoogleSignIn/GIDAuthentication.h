@@ -16,7 +16,14 @@
 
 #import <Foundation/Foundation.h>
 
-@protocol GTMFetcherAuthorizationProtocol;
+// We have to import GTMAppAuth because forward declaring the protocol does
+// not generate the `fetcherAuthorizer` method below for Swift.
+#ifdef SWIFT_PACKAGE
+@import GTMAppAuth;
+#else
+#import <GTMAppAuth/GTMAppAuthFetcherAuthorization.h>
+#endif
+
 @class GIDAuthentication;
 
 NS_ASSUME_NONNULL_BEGIN
@@ -52,7 +59,10 @@ typedef void (^GIDAuthenticationAction)(GIDAuthentication *_Nullable authenticat
 /// Gets a new authorizer for `GTLService`, `GTMSessionFetcher`, or `GTMHTTPFetcher`.
 ///
 /// @return A new authorizer
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
 - (id<GTMFetcherAuthorizationProtocol>)fetcherAuthorizer;
+#pragma clang diagnostic pop
 
 /// Get a valid access token and a valid ID token, refreshing them first if they have expired or are
 /// about to expire.
@@ -62,5 +72,6 @@ typedef void (^GIDAuthenticationAction)(GIDAuthentication *_Nullable authenticat
 - (void)doWithFreshTokens:(GIDAuthenticationAction)action;
 
 @end
+
 
 NS_ASSUME_NONNULL_END

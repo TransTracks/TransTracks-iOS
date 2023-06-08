@@ -93,7 +93,7 @@ static exception_mask_t FIRCLSMachExceptionMask(void) {
   // is a confirmed kernel bug.  Lacking access to EXC_CRASH means we must use signal handlers to
   // cover all types of crashes.
   // EXC_GUARD is relatively new, and isn't available on all OS versions. You have to be careful,
-  // becuase you cannot succesfully register hanlders if there are any unrecognized masks. We've
+  // because you cannot successfully register hanlders if there are any unrecognized masks. We've
   // dropped support for old OS versions that didn't have EXC_GUARD (iOS 5 and below, macOS 10.6 and
   // below) so we always add it now
 
@@ -339,7 +339,7 @@ static bool FIRCLSMachExceptionUnregister(FIRCLSMachExceptionOriginalPorts* orig
 }
 
 #pragma mark - Recording
-static void FIRCLSMachExceptionNameLookup(exception_type_t number,
+void FIRCLSMachExceptionNameLookup(exception_type_t number,
                                           mach_exception_data_type_t code,
                                           const char** name,
                                           const char** codeName) {

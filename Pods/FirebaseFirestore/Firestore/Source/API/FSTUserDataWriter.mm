@@ -55,8 +55,8 @@ using model::GetLocalWriteTime;
 using model::GetPreviousValue;
 using model::GetTypeOrder;
 using model::TypeOrder;
-using nanopb::MakeByteString;
 using nanopb::MakeBytesArray;
+using nanopb::MakeByteString;
 using nanopb::MakeNSData;
 using nanopb::MakeString;
 using nanopb::MakeStringView;
@@ -105,6 +105,9 @@ NS_ASSUME_NONNULL_BEGIN
     case TypeOrder::kGeoPoint:
       return MakeFIRGeoPoint(
           GeoPoint(value.geo_point_value.latitude, value.geo_point_value.longitude));
+    case TypeOrder::kMaxValue:
+      // It is not possible for users to construct a kMaxValue manually.
+      break;
   }
 
   UNREACHABLE();

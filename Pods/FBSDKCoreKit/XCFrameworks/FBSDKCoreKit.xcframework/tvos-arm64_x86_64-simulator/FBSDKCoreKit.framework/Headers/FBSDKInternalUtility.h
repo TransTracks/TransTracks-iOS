@@ -12,6 +12,7 @@
 #import <FBSDKCoreKit/FBSDKAppAvailabilityChecker.h>
 #import <FBSDKCoreKit/FBSDKAppURLSchemeProviding.h>
 #import <FBSDKCoreKit/FBSDKInternalUtilityProtocol.h>
+#import <FBSDKCoreKit/_FBSDKWindowFinding.h>
 
 #if !TARGET_OS_TV
  #import <FBSDKCoreKit/FBSDKURLHosting.h>
@@ -19,26 +20,15 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-FOUNDATION_EXPORT NSString *const FBSDK_CANOPENURL_FACEBOOK
-  DEPRECATED_MSG_ATTRIBUTE("`FBSDK_CANOPENURL_FACEBOOK` is deprecated and will be removed in the next major release; please use `URLScheme.facebookAPI` instead");
-FOUNDATION_EXPORT NSString *const FBSDK_CANOPENURL_FBAPI
-  DEPRECATED_MSG_ATTRIBUTE("`FBSDK_CANOPENURL_FBAPI` is deprecated and will be removed in the next major release; please use `URLScheme.facebookAPI` instead");
-FOUNDATION_EXPORT NSString *const FBSDK_CANOPENURL_MESSENGER
-  DEPRECATED_MSG_ATTRIBUTE("`FBSDK_CANOPENURL_MESSENGER` is deprecated and will be removed in the next major release; please use `URLScheme.messengerApp` instead");
-FOUNDATION_EXPORT NSString *const FBSDK_CANOPENURL_MSQRD_PLAYER
-  DEPRECATED_MSG_ATTRIBUTE("`FBSDK_CANOPENURL_MSQRD_PLAYER` is deprecated and will be removed in the next major release");
-FOUNDATION_EXPORT NSString *const FBSDK_CANOPENURL_SHARE_EXTENSION
-  DEPRECATED_MSG_ATTRIBUTE("`FBSDK_CANOPENURL_SHARE_EXTENSION` is deprecated and will be removed in the next major release; please use `URLScheme.facebookAPI`");
-
 NS_SWIFT_NAME(InternalUtility)
 @interface FBSDKInternalUtility : NSObject
 #if !TARGET_OS_TV
-  <FBSDKAppAvailabilityChecker, FBSDKAppURLSchemeProviding, FBSDKInternalUtility, FBSDKURLHosting>
+  <FBSDKAppAvailabilityChecker, FBSDKAppURLSchemeProviding, FBSDKInternalUtility, FBSDKURLHosting, _FBSDKWindowFinding>
 #else
   <FBSDKAppAvailabilityChecker, FBSDKAppURLSchemeProviding, FBSDKInternalUtility>
 #endif
 
-#if !FBTEST
+#if !DEBUG
 - (instancetype)init NS_UNAVAILABLE;
 + (instancetype)new NS_UNAVAILABLE;
 #endif
@@ -54,14 +44,14 @@ NS_SWIFT_NAME(InternalUtility)
 @property (nonatomic, readonly, strong) NSBundle *bundleForStrings;
 
 /**
-  Tests whether the supplied URL is a valid URL for opening in the browser.
+ Tests whether the supplied URL is a valid URL for opening in the browser.
  @param URL The URL to test.
  @return YES if the URL refers to an http or https resource, otherwise NO.
  */
 - (BOOL)isBrowserURL:(NSURL *)URL;
 
 /**
-  Checks equality between 2 objects.
+ Checks equality between 2 objects.
 
  Checks for pointer equality, nils, isEqual:.
  @param object The first object to compare.
@@ -70,24 +60,16 @@ NS_SWIFT_NAME(InternalUtility)
  */
 - (BOOL)object:(id)object isEqualToObject:(id)other;
 
-/**
-  Attempts to find the first UIViewController in the view's responder chain. Returns nil if not found.
- */
+/// Attempts to find the first UIViewController in the view's responder chain. Returns nil if not found.
 - (nullable UIViewController *)viewControllerForView:(UIView *)view;
 
-/**
-  returns true if the url scheme is registered in the CFBundleURLTypes
- */
+/// returns true if the url scheme is registered in the CFBundleURLTypes
 - (BOOL)isRegisteredURLScheme:(NSString *)urlScheme;
 
-/**
-  returns currently displayed top view controller.
- */
+/// returns currently displayed top view controller.
 - (nullable UIViewController *)topMostViewController;
 
-/**
- returns the current key window
- */
+/// returns the current key window
 - (nullable UIWindow *)findWindow;
 
 #pragma mark - FB Apps Installed

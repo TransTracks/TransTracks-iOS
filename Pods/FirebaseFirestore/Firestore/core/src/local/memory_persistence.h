@@ -18,6 +18,7 @@
 #define FIRESTORE_CORE_SRC_LOCAL_MEMORY_PERSISTENCE_H_
 
 #include <memory>
+#include <string>
 #include <unordered_map>
 #include <unordered_set>
 #include <utility>
@@ -25,10 +26,12 @@
 
 #include "Firestore/core/src/credentials/user.h"
 #include "Firestore/core/src/local/memory_bundle_cache.h"
+#include "Firestore/core/src/local/memory_document_overlay_cache.h"
 #include "Firestore/core/src/local/memory_index_manager.h"
 #include "Firestore/core/src/local/memory_mutation_queue.h"
 #include "Firestore/core/src/local/memory_remote_document_cache.h"
 #include "Firestore/core/src/local/memory_target_cache.h"
+#include "Firestore/core/src/local/overlay_migration_manager.h"
 #include "Firestore/core/src/local/persistence.h"
 
 namespace firebase {
@@ -38,6 +41,7 @@ namespace local {
 struct LruParams;
 class MemoryIndexManager;
 class MemoryMutationQueue;
+class MemoryOverlayMigrationManager;
 class MemoryRemoteDocumentCache;
 class MemoryTargetCache;
 class MutationQueue;
@@ -55,7 +59,12 @@ class MemoryPersistence : public Persistence {
   using MutationQueues =
       std::unordered_map<credentials::User,
                          std::unique_ptr<MemoryMutationQueue>,
-                         credentials::HashUser>;
+                         firebase::firestore::credentials::HashUser>;
+
+  using DocumentOverlayCaches =
+      std::unordered_map<credentials::User,
+                         std::unique_ptr<MemoryDocumentOverlayCache>,
+                         firebase::firestore::credentials::HashUser>;
 
   static std::unique_ptr<MemoryPersistence> WithEagerGarbageCollector();
 
@@ -74,18 +83,26 @@ class MemoryPersistence : public Persistence {
 
   void Shutdown() override;
 
-  MemoryMutationQueue* GetMutationQueueForUser(
-      const credentials::User& user) override;
+  MemoryMutationQueue* GetMutationQueue(const credentials::User& user,
+                                        IndexManager* manager) override;
 
   MemoryTargetCache* target_cache() override;
 
   MemoryBundleCache* bundle_cache() override;
 
+  MemoryDocumentOverlayCache* GetDocumentOverlayCache(
+      const credentials::User& user) override;
+
+  OverlayMigrationManager* GetOverlayMigrationManager(
+      const credentials::User& user) override;
+
   MemoryRemoteDocumentCache* remote_document_cache() override;
 
-  MemoryIndexManager* index_manager() override;
+  MemoryIndexManager* GetIndexManager(const credentials::User& user) override;
 
   ReferenceDelegate* reference_delegate() override;
+
+  void ReleaseOtherUserSpecificComponents(const std::string& uid) override;
 
  protected:
   void RunInternal(absl::string_view label,
@@ -118,6 +135,9 @@ class MemoryPersistence : public Persistence {
   MemoryIndexManager index_manager_;
 
   MemoryBundleCache bundle_cache_;
+
+  DocumentOverlayCaches document_overlay_caches_;
+  MemoryOverlayMigrationManager overlay_migration_manager_;
 
   std::unique_ptr<ReferenceDelegate> reference_delegate_;
 

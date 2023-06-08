@@ -33,7 +33,6 @@
 #import <FBSDKCoreKit/FBSDKDeviceViewControllerBase.h>
 #import <FBSDKCoreKit/FBSDKDynamicFrameworkLoaderProxy.h>
 #import <FBSDKCoreKit/FBSDKDynamicSocialFrameworkLoader.h>
-#import <FBSDKCoreKit/FBSDKError.h>
 #import <FBSDKCoreKit/FBSDKErrorCreating.h>
 #import <FBSDKCoreKit/FBSDKErrorFactory.h>
 #import <FBSDKCoreKit/FBSDKErrorRecoveryAttempting.h>
@@ -83,7 +82,6 @@
  #import <FBSDKCoreKit/FBSDKAppLink.h>
  #import <FBSDKCoreKit/FBSDKAppLinkNavigation.h>
  #import <FBSDKCoreKit/FBSDKAppLinkResolver.h>
- #import <FBSDKCoreKit/FBSDKAppLinkResolverRequestBuilder.h>
  #import <FBSDKCoreKit/FBSDKAppLinkResolving.h>
  #import <FBSDKCoreKit/FBSDKAppLinkTarget.h>
  #import <FBSDKCoreKit/FBSDKAppLinkTargetProtocol.h>
@@ -110,5 +108,5 @@
  #import <FBSDKCoreKit/FBSDKWebDialogDelegate.h>
  #import <FBSDKCoreKit/FBSDKWebDialogView.h>
  #import <FBSDKCoreKit/FBSDKWebViewAppLinkResolver.h>
- #import <FBSDKCoreKit/FBSDKWindowFinding.h>
+ #import <FBSDKCoreKit/_FBSDKWindowFinding.h>
 #endif

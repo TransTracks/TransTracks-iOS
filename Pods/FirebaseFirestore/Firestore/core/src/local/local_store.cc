@@ -16,25 +16,32 @@
 
 #include "Firestore/core/src/local/local_store.h"
 
+#include <set>
 #include <string>
+#include <unordered_set>
 #include <utility>
 
+#include "Firestore/core/src/credentials/user.h"
 #include "Firestore/core/src/local/bundle_cache.h"
+#include "Firestore/core/src/local/index_backfiller.h"
 #include "Firestore/core/src/local/local_documents_view.h"
 #include "Firestore/core/src/local/local_view_changes.h"
 #include "Firestore/core/src/local/local_write_result.h"
 #include "Firestore/core/src/local/lru_garbage_collector.h"
+#include "Firestore/core/src/local/overlay_migration_manager.h"
 #include "Firestore/core/src/local/persistence.h"
 #include "Firestore/core/src/local/query_engine.h"
 #include "Firestore/core/src/local/query_result.h"
 #include "Firestore/core/src/local/reference_delegate.h"
 #include "Firestore/core/src/local/target_cache.h"
+#include "Firestore/core/src/model/document_key.h"
 #include "Firestore/core/src/model/mutable_document.h"
 #include "Firestore/core/src/model/mutation_batch.h"
 #include "Firestore/core/src/model/mutation_batch_result.h"
 #include "Firestore/core/src/model/patch_mutation.h"
 #include "Firestore/core/src/remote/remote_event.h"
 #include "Firestore/core/src/util/log.h"
+#include "Firestore/core/src/util/set_util.h"
 #include "Firestore/core/src/util/to_string.h"
 
 namespace firebase {
@@ -49,10 +56,12 @@ using credentials::User;
 using model::BatchId;
 using model::Document;
 using model::DocumentKey;
+using model::DocumentKeyHash;
 using model::DocumentKeySet;
 using model::DocumentMap;
 using model::DocumentUpdateMap;
 using model::DocumentVersionMap;
+using model::FieldIndex;
 using model::ListenSequenceNumber;
 using model::MutableDocument;
 using model::MutableDocumentMap;
@@ -76,30 +85,53 @@ using remote::TargetChange;
  */
 const int64_t kResumeTokenMaxAgeSeconds = 5 * 60;  // 5 minutes
 
+DocumentKeySet GetKeysWithTransformResults(
+    const MutationBatchResult& batch_result) {
+  DocumentKeySet result;
+
+  for (size_t i = 0; i < batch_result.mutation_results().size(); ++i) {
+    if (batch_result.mutation_results()[i]
+            .transform_results()
+            .fields()
+            ->array_size == 0) {
+      result = result.insert(batch_result.batch().mutations()[i].key());
+    }
+  }
+  return result;
+}
+
 }  // namespace
 
 LocalStore::LocalStore(Persistence* persistence,
                        QueryEngine* query_engine,
                        const User& initial_user)
     : persistence_(persistence),
-      mutation_queue_(persistence->GetMutationQueueForUser(initial_user)),
       remote_document_cache_(persistence->remote_document_cache()),
       target_cache_(persistence->target_cache()),
       bundle_cache_(persistence->bundle_cache()),
-      query_engine_(query_engine),
-      local_documents_(
-          absl::make_unique<LocalDocumentsView>(remote_document_cache_,
-                                                mutation_queue_,
-                                                persistence->index_manager())) {
+      query_engine_(query_engine) {
+  index_manager_ = persistence->GetIndexManager(initial_user);
+  mutation_queue_ = persistence->GetMutationQueue(initial_user, index_manager_);
+  document_overlay_cache_ = persistence->GetDocumentOverlayCache(initial_user);
+  local_documents_ = absl::make_unique<LocalDocumentsView>(
+      remote_document_cache_, mutation_queue_, document_overlay_cache_,
+      index_manager_);
+  remote_document_cache_->SetIndexManager(index_manager_);
+  overlay_migration_manager_ =
+      persistence_->GetOverlayMigrationManager(initial_user);
+
   persistence->reference_delegate()->AddInMemoryPins(&local_view_references_);
   target_id_generator_ = TargetIdGenerator::TargetCacheTargetIdGenerator(0);
-  query_engine_->SetLocalDocumentsView(local_documents_.get());
+  query_engine_->Initialize(local_documents_.get());
+  index_backfiller_ = absl::make_unique<IndexBackfiller>();
 }
 
 LocalStore::~LocalStore() = default;
 
 void LocalStore::Start() {
   StartMutationQueue();
+  StartIndexManager();
+  overlay_migration_manager_->Run();
   TargetId target_id = target_cache_->highest_target_id();
   target_id_generator_ =
       TargetIdGenerator::TargetCacheTargetIdGenerator(target_id);
@@ -107,6 +139,10 @@ void LocalStore::Start() {
 
 void LocalStore::StartMutationQueue() {
   persistence_->Run("Start MutationQueue", [&] { mutation_queue_->Start(); });
+}
+
+void LocalStore::StartIndexManager() {
+  persistence_->Run("Start IndexManager", [&] { index_manager_->Start(); });
 }
 
 DocumentMap LocalStore::HandleUserChange(const User& user) {
@@ -117,9 +153,15 @@ DocumentMap LocalStore::HandleUserChange(const User& user) {
 
   // The old one has a reference to the mutation queue, so null it out first.
   local_documents_.reset();
-  mutation_queue_ = persistence_->GetMutationQueueForUser(user);
+  index_manager_ = persistence_->GetIndexManager(user);
+  mutation_queue_ = persistence_->GetMutationQueue(user, index_manager_);
+  document_overlay_cache_ = persistence_->GetDocumentOverlayCache(user);
+  remote_document_cache_->SetIndexManager(index_manager_);
 
   StartMutationQueue();
+  StartIndexManager();
+
+  persistence_->ReleaseOtherUserSpecificComponents(user.uid());
 
   return persistence_->Run("NewBatches", [&] {
     std::vector<MutationBatch> new_batches =
@@ -127,8 +169,9 @@ DocumentMap LocalStore::HandleUserChange(const User& user) {
 
     // Recreate our LocalDocumentsView using the new MutationQueue.
     local_documents_ = absl::make_unique<LocalDocumentsView>(
-        remote_document_cache_, mutation_queue_, persistence_->index_manager());
-    query_engine_->SetLocalDocumentsView(local_documents_.get());
+        remote_document_cache_, mutation_queue_, document_overlay_cache_,
+        index_manager_);
+    query_engine_->Initialize(local_documents_.get());
 
     // Union the old/new changed keys.
     DocumentKeySet changed_keys;
@@ -155,10 +198,24 @@ LocalWriteResult LocalStore::WriteLocally(std::vector<Mutation>&& mutations) {
   }
 
   return persistence_->Run("Locally write mutations", [&] {
+    // Figure out which keys do not have a remote version in the cache, this is
+    // needed to create the right overlay mutation: if no remote version
+    // presents, we do not need to create overlays as patch mutations.
+    // TODO(Overlay): Is there a better way to determine this? Document version
+    // does not work because local mutations set them back to 0.
+    auto remote_docs = remote_document_cache_->GetAll(keys);
+    std::unordered_set<DocumentKey, DocumentKeyHash>
+        docs_without_remote_version;
+    for (const auto& entry : remote_docs) {
+      if (!entry.second.is_valid_document()) {
+        docs_without_remote_version.insert(entry.first);
+      }
+    }
     // Load and apply all existing mutations. This lets us compute the current
     // base state for all non-idempotent transforms before applying any
     // additional user-provided writes.
-    DocumentMap existing_documents = local_documents_->GetDocuments(keys);
+    auto overlayed_documents =
+        local_documents_->GetOverlayedDocuments(remote_docs);
 
     // For non-idempotent mutations (such as `FieldValue.increment()`), we
     // record the base state in a separate patch mutation. This is later used to
@@ -166,11 +223,12 @@ LocalWriteResult LocalStore::WriteLocally(std::vector<Mutation>&& mutations) {
     // sends us an update that already includes our transform.
     std::vector<Mutation> base_mutations;
     for (const Mutation& mutation : mutations) {
-      absl::optional<Document> base_document =
-          existing_documents.get(mutation.key());
-
+      auto it = overlayed_documents.find(mutation.key());
+      HARD_ASSERT(it != overlayed_documents.end(),
+                  "Failed to find overlayed document with mutation key: %s",
+                  it->first.ToString());
       absl::optional<ObjectValue> base_value =
-          mutation.ExtractTransformBaseValue(*base_document);
+          mutation.ExtractTransformBaseValue(it->second.document());
       if (base_value) {
         // NOTE: The base state should only be applied if there's some existing
         // document to override, so use a Precondition of exists=true
@@ -183,8 +241,11 @@ LocalWriteResult LocalStore::WriteLocally(std::vector<Mutation>&& mutations) {
 
     MutationBatch batch = mutation_queue_->AddMutationBatch(
         local_write_time, std::move(base_mutations), std::move(mutations));
-    batch.ApplyToLocalDocumentSet(existing_documents);
-    return LocalWriteResult{batch.batch_id(), std::move(existing_documents)};
+    std::unordered_map<DocumentKey, Mutation, DocumentKeyHash> overlays =
+        batch.ApplyToLocalDocumentSet(overlayed_documents);
+    document_overlay_cache_->SaveOverlays(batch.batch_id(), overlays);
+    return LocalWriteResult::FromOverlayedDocuments(
+        batch.batch_id(), std::move(overlayed_documents));
   });
 }
 
@@ -195,6 +256,11 @@ DocumentMap LocalStore::AcknowledgeBatch(
     mutation_queue_->AcknowledgeBatch(batch, batch_result.stream_token());
     ApplyBatchResult(batch_result);
     mutation_queue_->PerformConsistencyCheck();
+
+    document_overlay_cache_->RemoveOverlaysForBatchId(
+        batch_result.batch().batch_id());
+    local_documents_->RecalculateAndSaveOverlays(
+        GetKeysWithTransformResults(batch_result));
 
     return local_documents_->GetDocuments(batch.keys());
   });
@@ -232,6 +298,9 @@ DocumentMap LocalStore::RejectBatch(BatchId batch_id) {
 
     mutation_queue_->RemoveMutationBatch(*to_reject);
     mutation_queue_->PerformConsistencyCheck();
+
+    document_overlay_cache_->RemoveOverlaysForBatchId(batch_id);
+    local_documents_->RecalculateAndSaveOverlays(to_reject.value().keys());
 
     return local_documents_->GetDocuments(to_reject->keys());
   });
@@ -309,9 +378,9 @@ model::DocumentMap LocalStore::ApplyRemoteEvent(
       }
     }
 
-    auto changed_docs = PopulateDocumentChanges(
-        remote_event.document_updates(), DocumentVersionMap(),
-        remote_event.snapshot_version());
+    auto result = PopulateDocumentChanges(remote_event.document_updates(),
+                                          DocumentVersionMap(),
+                                          remote_event.snapshot_version());
 
     // HACK: The only reason we allow omitting snapshot version is so we can
     // synthesize remote events when we get permission denied errors while
@@ -325,7 +394,9 @@ model::DocumentMap LocalStore::ApplyRemoteEvent(
       target_cache_->SetLastRemoteSnapshotVersion(remote_version);
     }
 
-    return local_documents_->GetLocalViewOfDocuments(changed_docs);
+    return local_documents_->GetLocalViewOfDocuments(
+        std::move(result.changed_docs),
+        std::move(result.existence_changed_keys));
   });
 }
 
@@ -345,6 +416,16 @@ bool LocalStore::ShouldPersistTargetData(const TargetData& new_target_data,
       old_target_data.snapshot_version().timestamp().seconds();
   int64_t time_delta = new_seconds - old_seconds;
   if (time_delta >= kResumeTokenMaxAgeSeconds) return true;
+
+  // Update the target cache if sufficient time has passed since the last
+  // LastLimboFreeSnapshotVersion
+  int64_t new_limbo_free_seconds =
+      new_target_data.last_limbo_free_snapshot_version().timestamp().seconds();
+  int64_t old_limbo_free_seconds =
+      old_target_data.last_limbo_free_snapshot_version().timestamp().seconds();
+  int64_t limbo_free_time_delta =
+      new_limbo_free_seconds - old_limbo_free_seconds;
+  if (limbo_free_time_delta >= kResumeTokenMaxAgeSeconds) return true;
 
   // Otherwise if the only thing that has changed about a target is its resume
   // token then it's not worth persisting. Note that the RemoteStore keeps an
@@ -394,6 +475,10 @@ void LocalStore::NotifyLocalViewChanges(
             target_data.WithLastLimboFreeSnapshotVersion(
                 last_limbo_free_snapshot_version);
         target_data_by_target_[target_id] = updated_target_data;
+
+        if (ShouldPersistTargetData(updated_target_data, target_data, {})) {
+          target_cache_->UpdateTarget(updated_target_data);
+        }
       }
     }
   });
@@ -500,6 +585,12 @@ LruResults LocalStore::CollectGarbage(LruGarbageCollector* garbage_collector) {
   });
 }
 
+int LocalStore::Backfill() const {
+  return persistence_->Run("Backfill Indexes", [&] {
+    return index_backfiller_->WriteIndexEntries(this);
+  });
+}
+
 bool LocalStore::HasNewerBundle(const bundle::BundleMetadata& metadata) {
   return persistence_->Run("Has newer bundle", [&] {
     absl::optional<bundle::BundleMetadata> cached_metadata =
@@ -537,9 +628,11 @@ DocumentMap LocalStore::ApplyBundledDocuments(
     target_cache_->RemoveMatchingKeysForTarget(umbrella_target.target_id());
     target_cache_->AddMatchingKeys(keys, umbrella_target.target_id());
 
-    auto changed_docs = PopulateDocumentChanges(document_updates, versions,
-                                                SnapshotVersion::None());
-    return local_documents_->GetLocalViewOfDocuments(changed_docs);
+    auto result = PopulateDocumentChanges(document_updates, versions,
+                                          SnapshotVersion::None());
+    return local_documents_->GetLocalViewOfDocuments(
+        std::move(result.changed_docs),
+        std::move(result.existence_changed_keys));
   });
 }
 
@@ -570,10 +663,40 @@ void LocalStore::SaveNamedQuery(const bundle::NamedQuery& query,
   });
 }
 
+std::vector<model::FieldIndex> LocalStore::GetFieldIndexes() {
+  return persistence_->Run("Get FieldIndexes",
+                           [&] { return index_manager_->GetFieldIndexes(); });
+}
+
 absl::optional<bundle::NamedQuery> LocalStore::GetNamedQuery(
     const std::string& query) {
   return persistence_->Run("Get named query",
                            [&] { return bundle_cache_->GetNamedQuery(query); });
+}
+
+void LocalStore::ConfigureFieldIndexes(
+    std::vector<FieldIndex> new_field_indexes) {
+  // This lambda function takes a rvalue vector as parameter,
+  // then coverts it to a sorted set based on the compare function above.
+  auto convertToSet = [](std::vector<FieldIndex>&& vec) {
+    std::set<FieldIndex, FieldIndex::SemanticLess> result;
+    for (auto& index : vec) {
+      result.insert(std::move(index));
+    }
+    return result;
+  };
+
+  return persistence_->Run("Configure indexes", [&] {
+    return util::DiffSets<FieldIndex, FieldIndex::SemanticLess>(
+        convertToSet(index_manager_->GetFieldIndexes()),
+        convertToSet(std::move(new_field_indexes)), FieldIndex::SemanticCompare,
+        [this](const model::FieldIndex& index) {
+          this->index_manager_->AddFieldIndex(index);
+        },
+        [this](const model::FieldIndex& index) {
+          this->index_manager_->DeleteFieldIndex(index);
+        });
+  });
 }
 
 Target LocalStore::NewUmbrellaTarget(const std::string& bundle_id) {
@@ -583,11 +706,12 @@ Target LocalStore::NewUmbrellaTarget(const std::string& bundle_id) {
       .ToTarget();
 }
 
-MutableDocumentMap LocalStore::PopulateDocumentChanges(
+LocalStore::DocumentChangeResult LocalStore::PopulateDocumentChanges(
     const DocumentUpdateMap& documents,
     const DocumentVersionMap& document_versions,
     const SnapshotVersion& global_version) {
   MutableDocumentMap changed_docs;
+  DocumentKeySet condition_changed;
 
   DocumentKeySet updated_keys;
   for (const auto& kv : documents) {
@@ -606,6 +730,11 @@ MutableDocumentMap LocalStore::PopulateDocumentChanges(
     const SnapshotVersion& read_time = search_version != document_versions.end()
                                            ? search_version->second
                                            : global_version;
+
+    // Check to see if there is an existence state change for this document.
+    if (doc.is_found_document() != existing_doc.is_found_document()) {
+      condition_changed = condition_changed.insert(key);
+    }
 
     // Note: The order of the steps below is important, since we want to
     // ensure that rejected limbo resolutions (which fabricate NoDocuments
@@ -631,7 +760,7 @@ MutableDocumentMap LocalStore::PopulateDocumentChanges(
           doc.version().ToString());
     }
   }
-  return changed_docs;
+  return {std::move(changed_docs), std::move(condition_changed)};
 }
 
 }  // namespace local

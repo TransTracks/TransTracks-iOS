@@ -13,20 +13,16 @@ NS_ASSUME_NONNULL_BEGIN
 NS_SWIFT_NAME(Location)
 @interface FBSDKLocation : NSObject <NSCopying, NSObject, NSSecureCoding>
 
-/**
-  Location id
- */
+/// Location id
 @property (nonatomic, readonly, strong) NSString *id;
-/**
-  Location name
- */
+/// Location name
 @property (nonatomic, readonly, strong) NSString *name;
 
 - (instancetype)init NS_UNAVAILABLE;
 + (instancetype)new NS_UNAVAILABLE;
 
 /**
-  Returns a Location object from a dinctionary containing valid location information.
+ Returns a Location object from a dinctionary containing valid location information.
   @param dictionary The dictionary containing raw location
 
   Valid location will consist of "id" and "name" strings.

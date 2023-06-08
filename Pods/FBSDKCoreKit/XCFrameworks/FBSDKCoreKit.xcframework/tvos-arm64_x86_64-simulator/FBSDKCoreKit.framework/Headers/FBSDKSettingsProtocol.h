@@ -21,8 +21,6 @@ NS_SWIFT_NAME(SettingsProtocol)
 @property (nullable, nonatomic, copy) NSString *displayName;
 @property (nullable, nonatomic, copy) NSString *facebookDomainPart;
 @property (nonnull, nonatomic, copy) NSSet<FBSDKLoggingBehavior> *loggingBehaviors;
-@property (class, nonnull, nonatomic, copy) NSSet<FBSDKLoggingBehavior> *loggingBehaviors
-  DEPRECATED_MSG_ATTRIBUTE("property class `loggingBehaviors` is deprecated and will be removed in the next major release, please use property instance`loggingBehaviors` instead");
 @property (nullable, nonatomic, copy) NSString *appURLSchemeSuffix;
 @property (nonatomic, readonly) BOOL isDataProcessingRestricted;
 @property (nonatomic, readonly) BOOL isAutoLogAppEventsEnabled;
@@ -46,7 +44,7 @@ NS_SWIFT_NAME(SettingsProtocol)
  Set the data processing options.
 
  @param options list of options
-*/
+ */
 - (void)setDataProcessingOptions:(nullable NSArray<NSString *> *)options;
 
 /**
@@ -55,7 +53,7 @@ NS_SWIFT_NAME(SettingsProtocol)
  @param options list of the options
  @param country code of the country
  @param state code of the state
-*/
+ */
 - (void)setDataProcessingOptions:(nullable NSArray<NSString *> *)options
                          country:(int)country
                            state:(int)state;

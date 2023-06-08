@@ -4,3 +4,8 @@ framework module FBAEMKit {
     export *
     module * { export * }
 }
+
+module FBAEMKit.Swift {
+    header "FBAEMKit-Swift.h"
+    requires objc
+}

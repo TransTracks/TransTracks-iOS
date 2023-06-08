@@ -16,7 +16,15 @@
 
 #import <UIKit/UIKit.h>
 
-#import <FirebaseStorage/FirebaseStorage.h>
+#if __has_include(<FirebaseStorage/FirebaseStorage.h>)
+  // Firebase 8.x
+  #import <FirebaseStorage/FirebaseStorage.h>
+#elif (__has_include(<FirebaseStorage/FirebaseStorage-Swift.h>) && defined(COCOAPODS))
+  // Firebase 9.0+
+  #import <FirebaseStorage/FirebaseStorage-Swift.h>
+#else
+  @import FirebaseStorage;
+#endif
 #import <SDWebImage/SDWebImage.h>
 
 NS_ASSUME_NONNULL_BEGIN

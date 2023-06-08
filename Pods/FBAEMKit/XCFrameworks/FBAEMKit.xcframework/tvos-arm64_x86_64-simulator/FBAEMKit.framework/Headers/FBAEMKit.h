@@ -8,4 +8,8 @@
 
 #import <FBAEMKit/FBAEMNetworking.h>
 #import <FBAEMKit/FBAEMReporter.h>
-#import <FBAEMKit/FBSKAdNetworkReporting.h>
+
+// Temporarily public
+#import <FBAEMKit/FBAEMAdvertiserRuleMatching.h>
+#import <FBAEMKit/FBAEMKit-Prefix-Header.h>
+#import <FBAEMKit/FBAEMKitVersions.h>

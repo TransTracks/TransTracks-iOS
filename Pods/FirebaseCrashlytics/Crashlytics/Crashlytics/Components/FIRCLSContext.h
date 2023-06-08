@@ -45,6 +45,9 @@ typedef struct {
   volatile bool debuggerAttached;
   const char* previouslyCrashedFileFullPath;
   const char* logPath;
+  // Initial report path represents the report path used to initialized the context;
+  // where non-on-demand exceptions and other crashes will be written.
+  const char* initialReportPath;
 #if CLS_USE_SIGALTSTACK
   void* signalStack;
 #endif
@@ -83,6 +86,7 @@ typedef struct {
   const char* rootPath;
   const char* previouslyCrashedFileRootPath;
   const char* sessionId;
+  const char* appQualitySessionId;
   const char* betaToken;
   bool errorsEnabled;
   bool customExceptionsEnabled;
@@ -93,10 +97,12 @@ typedef struct {
 } FIRCLSContextInitData;
 
 #ifdef __OBJC__
-bool FIRCLSContextInitialize(FIRCLSInternalReport* report,
-                             FIRCLSSettings* settings,
-                             FIRCLSFileManager* fileManager);
-
+bool FIRCLSContextInitialize(FIRCLSContextInitData* initData, FIRCLSFileManager* fileManager);
+FIRCLSContextInitData FIRCLSContextBuildInitData(FIRCLSInternalReport* report,
+                                                 FIRCLSSettings* settings,
+                                                 FIRCLSFileManager* fileManager,
+                                                 NSString* appQualitySessionId);
+bool FIRCLSContextRecordMetadata(NSString* rootPath, const FIRCLSContextInitData* initData);
 #endif
 
 void FIRCLSContextBaseInit(void);

@@ -39,6 +39,7 @@ using core::Transaction;
 using local::LocalStore;
 using local::QueryPurpose;
 using local::TargetData;
+using model::AggregateField;
 using model::BatchId;
 using model::DocumentKeySet;
 using model::kBatchIdUnknown;
@@ -151,20 +152,20 @@ void RemoteStore::Shutdown() {
 
 // Watch Stream
 
-void RemoteStore::Listen(const TargetData& target_data) {
+void RemoteStore::Listen(TargetData target_data) {
   TargetId target_key = target_data.target_id();
   if (listen_targets_.find(target_key) != listen_targets_.end()) {
     return;
   }
 
   // Mark this as something the client is currently listening for.
-  listen_targets_[target_key] = target_data;
+  listen_targets_[target_key] = std::move(target_data);
 
   if (ShouldStartWatchStream()) {
     // The listen will be sent in `OnWatchStreamOpen`
     StartWatchStream();
   } else if (watch_stream_->IsOpen()) {
-    SendWatchRequest(target_data);
+    SendWatchRequest(listen_targets_[target_key]);
   }
 }
 
@@ -190,7 +191,7 @@ void RemoteStore::StopListening(TargetId target_id) {
 }
 
 void RemoteStore::SendWatchRequest(const TargetData& target_data) {
-  // We need to increment the the expected number of pending responses we're due
+  // We need to increment the expected number of pending responses we're due
   // from watch so we wait for the ack to process any messages from this target.
   watch_change_aggregator_->RecordPendingTargetRequest(target_data.target_id());
   watch_stream_->WatchQuery(target_data);
@@ -362,6 +363,19 @@ void RemoteStore::ProcessTargetError(const WatchTargetChange& change) {
       watch_change_aggregator_->RemoveTarget(target_id);
       sync_engine_->HandleRejectedListen(target_id, change.cause());
     }
+  }
+}
+
+void RemoteStore::RunAggregateQuery(
+    const core::Query& query,
+    const std::vector<AggregateField>& aggregates,
+    api::AggregateQueryCallback&& result_callback) {
+  if (CanUseNetwork()) {
+    datastore_->RunAggregateQuery(query, aggregates,
+                                  std::move(result_callback));
+  } else {
+    result_callback(Status::FromErrno(Error::kErrorUnavailable,
+                                      "Failed to get result from server."));
   }
 }
 

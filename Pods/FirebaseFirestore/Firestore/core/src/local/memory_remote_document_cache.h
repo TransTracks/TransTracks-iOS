@@ -17,14 +17,17 @@
 #ifndef FIRESTORE_CORE_SRC_LOCAL_MEMORY_REMOTE_DOCUMENT_CACHE_H_
 #define FIRESTORE_CORE_SRC_LOCAL_MEMORY_REMOTE_DOCUMENT_CACHE_H_
 
+#include <string>
 #include <utility>
 #include <vector>
 
 #include "Firestore/core/src/immutable/sorted_map.h"
+#include "Firestore/core/src/local/memory_index_manager.h"
 #include "Firestore/core/src/local/remote_document_cache.h"
 #include "Firestore/core/src/model/document_key.h"
 #include "Firestore/core/src/model/model_fwd.h"
 #include "Firestore/core/src/model/mutable_document.h"
+#include "Firestore/core/src/model/overlay.h"
 #include "Firestore/core/src/model/types.h"
 
 namespace firebase {
@@ -43,11 +46,19 @@ class MemoryRemoteDocumentCache : public RemoteDocumentCache {
            const model::SnapshotVersion& read_time) override;
   void Remove(const model::DocumentKey& key) override;
 
-  model::MutableDocument Get(const model::DocumentKey& key) override;
-  model::MutableDocumentMap GetAll(const model::DocumentKeySet& keys) override;
-  model::MutableDocumentMap GetMatching(
+  model::MutableDocument Get(const model::DocumentKey& key) const override;
+  model::MutableDocumentMap GetAll(
+      const model::DocumentKeySet& keys) const override;
+  model::MutableDocumentMap GetAll(const std::string&,
+                                   const model::IndexOffset&,
+                                   size_t) const override;
+  model::MutableDocumentMap GetDocumentsMatchingQuery(
       const core::Query& query,
-      const model::SnapshotVersion& since_read_time) override;
+      const model::IndexOffset& offset,
+      absl::optional<size_t> limit = absl::nullopt,
+      const model::OverlayByDocumentKeyMap& mutated_docs = {}) const override;
+
+  void SetIndexManager(IndexManager* manager) override;
 
   std::vector<model::DocumentKey> RemoveOrphanedDocuments(
       MemoryLruReferenceDelegate* reference_delegate,
@@ -57,13 +68,12 @@ class MemoryRemoteDocumentCache : public RemoteDocumentCache {
 
  private:
   /** Underlying cache of documents and their read times. */
-  immutable::SortedMap<
-      model::DocumentKey,
-      std::pair<model::MutableDocument, model::SnapshotVersion>>
-      docs_;
+  immutable::SortedMap<model::DocumentKey, model::MutableDocument> docs_;
 
   // This instance is owned by MemoryPersistence; avoid a retain cycle.
   MemoryPersistence* persistence_;
+  // This instance is also owned by MemoryPersistence.
+  IndexManager* index_manager_ = nullptr;
 };
 
 }  // namespace local

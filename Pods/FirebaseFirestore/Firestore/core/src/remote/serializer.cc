@@ -42,6 +42,7 @@
 #include "Firestore/core/src/model/resource_path.h"
 #include "Firestore/core/src/model/server_timestamp_util.h"
 #include "Firestore/core/src/model/set_mutation.h"
+#include "Firestore/core/src/model/snapshot_version.h"
 #include "Firestore/core/src/model/value_util.h"
 #include "Firestore/core/src/model/verify_mutation.h"
 #include "Firestore/core/src/nanopb/byte_string.h"
@@ -49,6 +50,7 @@
 #include "Firestore/core/src/nanopb/reader.h"
 #include "Firestore/core/src/nanopb/writer.h"
 #include "Firestore/core/src/timestamp_internal.h"
+#include "Firestore/core/src/util/comparison.h"
 #include "Firestore/core/src/util/hard_assert.h"
 #include "Firestore/core/src/util/status.h"
 #include "Firestore/core/src/util/statusor.h"
@@ -62,12 +64,11 @@ namespace remote {
 
 using core::Bound;
 using core::CollectionGroupId;
+using core::CompositeFilter;
 using core::Direction;
 using core::FieldFilter;
 using core::Filter;
-using core::FilterList;
 using core::OrderBy;
-using core::OrderByList;
 using core::Query;
 using core::Target;
 using local::QueryPurpose;
@@ -112,6 +113,7 @@ using nanopb::SetRepeatedField;
 using nanopb::SharedMessage;
 using nanopb::Writer;
 using remote::WatchChange;
+using util::ComparisonResult;
 using util::ReadContext;
 using util::Status;
 using util::StatusOr;
@@ -378,8 +380,9 @@ google_firestore_v1_Write Serializer::EncodeMutation(
       // what makes the backend treat this as a patch mutation, not a set
       // mutation.
       result.has_update_mask = true;
-      if (patch_mutation.mask().size() != 0) {
-        result.update_mask = EncodeFieldMask(patch_mutation.mask());
+      if (patch_mutation.field_mask().value().size() != 0) {
+        result.update_mask =
+            EncodeFieldMask(patch_mutation.field_mask().value());
       }
       return result;
     }
@@ -635,6 +638,11 @@ google_firestore_v1_Target Serializer::EncodeTarget(
     result.which_resume_type = google_firestore_v1_Target_resume_token_tag;
     result.resume_type.resume_token =
         nanopb::CopyBytesArray(target_data.resume_token().get());
+  } else if (target_data.snapshot_version().CompareTo(
+                 SnapshotVersion::None()) == ComparisonResult::Descending) {
+    result.which_resume_type = google_firestore_v1_Target_read_time_tag;
+    result.resume_type.read_time =
+        EncodeVersion(target_data.snapshot_version());
   }
 
   return result;
@@ -699,9 +707,9 @@ google_firestore_v1_Target_QueryTarget Serializer::EncodeQueryTarget(
   }
 
   // Encode the filters.
-  const auto& filters = target.filters();
-  if (!filters.empty()) {
-    result.structured_query.where = EncodeFilters(filters);
+  const auto& filter_list = target.filters();
+  if (!filter_list.empty()) {
+    result.structured_query.where = EncodeFilters(filter_list);
   }
 
   const auto& orders = target.order_bys();
@@ -716,11 +724,14 @@ google_firestore_v1_Target_QueryTarget Serializer::EncodeQueryTarget(
   }
 
   if (target.start_at()) {
-    result.structured_query.start_at = EncodeBound(*target.start_at());
+    result.structured_query.start_at =
+        EncodeCursor(target.start_at()->position(),
+                     /* before= */ target.start_at()->inclusive());
   }
 
   if (target.end_at()) {
-    result.structured_query.end_at = EncodeBound(*target.end_at());
+    result.structured_query.end_at = EncodeCursor(
+        target.end_at()->position(), /*before*/ !target.end_at()->inclusive());
   }
 
   return result;
@@ -752,12 +763,12 @@ Target Serializer::DecodeStructuredQuery(
     }
   }
 
-  FilterList filter_by;
+  std::vector<Filter> filter_by;
   if (query.where.which_filter_type != 0) {
     filter_by = DecodeFilters(context, query.where);
   }
 
-  OrderByList order_by;
+  std::vector<OrderBy> order_by;
   if (query.order_by_count > 0) {
     order_by = DecodeOrderBys(context, query.order_by, query.order_by_count);
   }
@@ -769,12 +780,14 @@ Target Serializer::DecodeStructuredQuery(
 
   absl::optional<Bound> start_at;
   if (query.start_at.values_count > 0) {
-    start_at = DecodeBound(query.start_at);
+    bool inclusive = query.start_at.before;
+    start_at = Bound::FromValue(DecodeCursorValue(query.start_at), inclusive);
   }
 
   absl::optional<Bound> end_at;
   if (query.end_at.values_count > 0) {
-    end_at = DecodeBound(query.end_at);
+    bool inclusive = !query.end_at.before;
+    end_at = Bound::FromValue(DecodeCursorValue(query.end_at), inclusive);
   }
 
   return Target(std::move(path), std::move(collection_group),
@@ -796,61 +809,68 @@ Target Serializer::DecodeQueryTarget(
 }
 
 google_firestore_v1_StructuredQuery_Filter Serializer::EncodeFilters(
-    const FilterList& filters) const {
-  google_firestore_v1_StructuredQuery_Filter result{};
-
-  auto is_field_filter = [](const Filter& f) { return f.IsAFieldFilter(); };
-  size_t filters_count = absl::c_count_if(filters, is_field_filter);
-  if (filters_count == 1) {
-    auto first = absl::c_find_if(filters, is_field_filter);
-    // Special case: no existing filters and we only need to add one filter.
-    // This can be made the single root filter without a composite filter.
-    FieldFilter filter{*first};
-    return EncodeSingularFilter(filter);
-  }
-
-  result.which_filter_type =
-      google_firestore_v1_StructuredQuery_Filter_composite_filter_tag;
-  google_firestore_v1_StructuredQuery_CompositeFilter& composite =
-      result.composite_filter;
-  composite.op =
-      google_firestore_v1_StructuredQuery_CompositeFilter_Operator_AND;
-
-  SetRepeatedField(
-      &composite.filters, &composite.filters_count, filters,
-      [&](const Filter& f) { return EncodeSingularFilter(FieldFilter{f}); });
-
-  return result;
+    const std::vector<Filter>& filter_list) const {
+  return EncodeCompositeFilter(CompositeFilter::Create(
+      std::vector<Filter>(filter_list), CompositeFilter::Operator::And));
 }
 
-FilterList Serializer::DecodeFilters(
+std::vector<Filter> Serializer::DecodeFilters(
     ReadContext* context,
     google_firestore_v1_StructuredQuery_Filter& proto) const {
-  FilterList result;
+  Filter decoded_filter = DecodeFilter(context, proto).ValueOrDie();
 
+  // Instead of a singletonList containing AND(F1, F2, ...), we can return
+  // a list containing F1, F2, ...
+  if (decoded_filter.IsACompositeFilter()) {
+    CompositeFilter composite_filter(decoded_filter);
+    if (composite_filter.IsFlatConjunction()) {
+      return composite_filter.filters();
+    }
+  }
+
+  return {decoded_filter};
+}
+
+StatusOr<Filter> Serializer::DecodeFilter(
+    ReadContext* context,
+    google_firestore_v1_StructuredQuery_Filter& proto) const {
   switch (proto.which_filter_type) {
     case google_firestore_v1_StructuredQuery_Filter_composite_filter_tag:
       return DecodeCompositeFilter(context, proto.composite_filter);
 
     case google_firestore_v1_StructuredQuery_Filter_unary_filter_tag:
-      return result.push_back(DecodeUnaryFilter(context, proto.unary_filter));
+      return DecodeUnaryFilter(context, proto.unary_filter);
 
     case google_firestore_v1_StructuredQuery_Filter_field_filter_tag:
-      return result.push_back(DecodeFieldFilter(context, proto.field_filter));
+      return DecodeFieldFilter(context, proto.field_filter);
 
     default:
-      context->Fail(StringFormat("Unrecognized Filter.which_filter_type %s",
-                                 proto.which_filter_type));
-      return result;
+      std::string description = StringFormat(
+          "Unrecognized Filter.which_filter_type %s", proto.which_filter_type);
+      context->Fail(description);
+      return util::Status(Error::kErrorDataLoss, description);
   }
 }
 
-google_firestore_v1_StructuredQuery_Filter Serializer::EncodeSingularFilter(
+google_firestore_v1_StructuredQuery_Filter Serializer::EncodeFilter(
+    const Filter& filter) const {
+  if (filter.IsAFieldFilter()) {
+    const FieldFilter field_filter(filter);
+    return EncodeUnaryOrFieldFilter(field_filter);
+  } else if (filter.IsACompositeFilter()) {
+    const CompositeFilter composite_filter(filter);
+    return EncodeCompositeFilter(composite_filter);
+  } else {
+    HARD_FAIL("Unrecognized filter type %s", filter.ToString());
+  }
+}
+
+google_firestore_v1_StructuredQuery_Filter Serializer::EncodeUnaryOrFieldFilter(
     const FieldFilter& filter) const {
   google_firestore_v1_StructuredQuery_Filter result{};
 
-  bool is_unary = (filter.op() == Filter::Operator::Equal ||
-                   filter.op() == Filter::Operator::NotEqual) &&
+  bool is_unary = (filter.op() == FieldFilter::Operator::Equal ||
+                   filter.op() == FieldFilter::Operator::NotEqual) &&
                   (IsNaNValue(filter.value()) || IsNullValue(filter.value()));
   if (is_unary) {
     result.which_filter_type =
@@ -859,7 +879,7 @@ google_firestore_v1_StructuredQuery_Filter Serializer::EncodeSingularFilter(
         google_firestore_v1_StructuredQuery_UnaryFilter_field_tag;
     result.unary_filter.field.field_path = EncodeFieldPath(filter.field());
 
-    bool is_equality = filter.op() == Filter::Operator::Equal;
+    bool is_equality = filter.op() == FieldFilter::Operator::Equal;
     if (IsNaNValue(filter.value())) {
       result.unary_filter.op =
           is_equality
@@ -890,12 +910,34 @@ google_firestore_v1_StructuredQuery_Filter Serializer::EncodeSingularFilter(
   return result;
 }
 
+google_firestore_v1_StructuredQuery_Filter Serializer::EncodeCompositeFilter(
+    const core::CompositeFilter& filter) const {
+  // If there's only one filter in the composite filter, use it directly.
+  if (filter.filters().size() == 1U) {
+    return EncodeFilter(filter.filters()[0]);
+  }
+
+  google_firestore_v1_StructuredQuery_Filter result{};
+  result.which_filter_type =
+      google_firestore_v1_StructuredQuery_Filter_composite_filter_tag;
+  google_firestore_v1_StructuredQuery_CompositeFilter& composite =
+      result.composite_filter;
+  composite.op = EncodeCompositeFilterOperator(filter.op());
+
+  SetRepeatedField(&composite.filters, &composite.filters_count,
+                   filter.filters(),
+                   [&](const Filter& f) { return EncodeFilter(f); });
+
+  return result;
+}
+
 Filter Serializer::DecodeFieldFilter(
     ReadContext* context,
     google_firestore_v1_StructuredQuery_FieldFilter& field_filter) const {
   FieldPath field_path =
       DecodeFieldPath(context, field_filter.field.field_path);
-  Filter::Operator op = DecodeFieldFilterOperator(context, field_filter.op);
+  FieldFilter::Operator op =
+      DecodeFieldFilterOperator(context, field_filter.op);
   Filter result = FieldFilter::Create(std::move(field_path), op,
                                       MakeSharedMessage(field_filter.value));
   field_filter.value = {};  // Release field ownership
@@ -914,17 +956,20 @@ Filter Serializer::DecodeUnaryFilter(
 
   switch (unary.op) {
     case google_firestore_v1_StructuredQuery_UnaryFilter_Operator_IS_NULL:
-      return FieldFilter::Create(field, Filter::Operator::Equal, NullValue());
+      return FieldFilter::Create(field, FieldFilter::Operator::Equal,
+                                 DeepClone(NullValue()));
 
     case google_firestore_v1_StructuredQuery_UnaryFilter_Operator_IS_NAN:
-      return FieldFilter::Create(field, Filter::Operator::Equal, NaNValue());
+      return FieldFilter::Create(field, FieldFilter::Operator::Equal,
+                                 DeepClone(NaNValue()));
 
     case google_firestore_v1_StructuredQuery_UnaryFilter_Operator_IS_NOT_NULL:
-      return FieldFilter::Create(field, Filter::Operator::NotEqual,
-                                 NullValue());
+      return FieldFilter::Create(field, FieldFilter::Operator::NotEqual,
+                                 DeepClone(NullValue()));
 
     case google_firestore_v1_StructuredQuery_UnaryFilter_Operator_IS_NOT_NAN:
-      return FieldFilter::Create(field, Filter::Operator::NotEqual, NaNValue());
+      return FieldFilter::Create(field, FieldFilter::Operator::NotEqual,
+                                 DeepClone(NaNValue()));
 
     default:
       context->Fail(StringFormat("Unrecognized UnaryFilter.op %s", unary.op));
@@ -932,127 +977,130 @@ Filter Serializer::DecodeUnaryFilter(
   }
 }
 
-FilterList Serializer::DecodeCompositeFilter(
+core::Filter Serializer::DecodeCompositeFilter(
     ReadContext* context,
     const google_firestore_v1_StructuredQuery_CompositeFilter& composite)
     const {
-  if (composite.op !=
-      google_firestore_v1_StructuredQuery_CompositeFilter_Operator_AND) {
-    context->Fail(StringFormat(
-        "Only AND-type composite filters are supported, got %s", composite.op));
-    return FilterList{};
-  }
-
-  FilterList result;
-  result = result.reserve(composite.filters_count);
-
+  std::vector<core::Filter> filters;
   for (pb_size_t i = 0; i != composite.filters_count; ++i) {
     auto& filter = composite.filters[i];
-    switch (filter.which_filter_type) {
-      case google_firestore_v1_StructuredQuery_Filter_composite_filter_tag:
-        context->Fail("Nested composite filters are not supported");
-        return FilterList{};
-
-      case google_firestore_v1_StructuredQuery_Filter_unary_filter_tag:
-        result =
-            result.push_back(DecodeUnaryFilter(context, filter.unary_filter));
-        break;
-
-      case google_firestore_v1_StructuredQuery_Filter_field_filter_tag:
-        result =
-            result.push_back(DecodeFieldFilter(context, filter.field_filter));
-        break;
-
-      default:
-        context->Fail(StringFormat("Unrecognized Filter.which_filter_type %s",
-                                   filter.which_filter_type));
-        return FilterList{};
-    }
+    filters.push_back(DecodeFilter(context, filter).ValueOrDie());
   }
 
-  return result;
+  return CompositeFilter::Create(
+      std::move(filters), DecodeCompositeFilterOperator(context, composite.op));
 }
 
 google_firestore_v1_StructuredQuery_FieldFilter_Operator
-Serializer::EncodeFieldFilterOperator(Filter::Operator op) const {
+Serializer::EncodeFieldFilterOperator(FieldFilter::Operator op) const {
   switch (op) {
-    case Filter::Operator::LessThan:
+    case FieldFilter::Operator::LessThan:
       return google_firestore_v1_StructuredQuery_FieldFilter_Operator_LESS_THAN;
 
-    case Filter::Operator::LessThanOrEqual:
+    case FieldFilter::Operator::LessThanOrEqual:
       return google_firestore_v1_StructuredQuery_FieldFilter_Operator_LESS_THAN_OR_EQUAL;  // NOLINT
 
-    case Filter::Operator::GreaterThan:
+    case FieldFilter::Operator::GreaterThan:
       return google_firestore_v1_StructuredQuery_FieldFilter_Operator_GREATER_THAN;  // NOLINT
 
-    case Filter::Operator::GreaterThanOrEqual:
+    case FieldFilter::Operator::GreaterThanOrEqual:
       return google_firestore_v1_StructuredQuery_FieldFilter_Operator_GREATER_THAN_OR_EQUAL;  // NOLINT
 
-    case Filter::Operator::Equal:
+    case FieldFilter::Operator::Equal:
       return google_firestore_v1_StructuredQuery_FieldFilter_Operator_EQUAL;
 
-    case Filter::Operator::NotEqual:
+    case FieldFilter::Operator::NotEqual:
       return google_firestore_v1_StructuredQuery_FieldFilter_Operator_NOT_EQUAL;
 
-    case Filter::Operator::ArrayContains:
+    case FieldFilter::Operator::ArrayContains:
       return google_firestore_v1_StructuredQuery_FieldFilter_Operator_ARRAY_CONTAINS;  // NOLINT
 
-    case Filter::Operator::In:
+    case FieldFilter::Operator::In:
       return google_firestore_v1_StructuredQuery_FieldFilter_Operator_IN;
 
-    case Filter::Operator::ArrayContainsAny:
+    case FieldFilter::Operator::ArrayContainsAny:
       return google_firestore_v1_StructuredQuery_FieldFilter_Operator_ARRAY_CONTAINS_ANY;  // NOLINT
 
-    case Filter::Operator::NotIn:
+    case FieldFilter::Operator::NotIn:
       return google_firestore_v1_StructuredQuery_FieldFilter_Operator_NOT_IN;  // NOLINT
 
     default:
-      HARD_FAIL("Unhandled Filter::Operator: %s", op);
+      HARD_FAIL("Unhandled FieldFilter::Operator: %s", op);
   }
 }
 
-Filter::Operator Serializer::DecodeFieldFilterOperator(
+google_firestore_v1_StructuredQuery_CompositeFilter_Operator
+Serializer::EncodeCompositeFilterOperator(CompositeFilter::Operator op) const {
+  switch (op) {
+    case CompositeFilter::Operator::And:
+      return google_firestore_v1_StructuredQuery_CompositeFilter_Operator_AND;
+
+    case CompositeFilter::Operator::Or:
+      return google_firestore_v1_StructuredQuery_CompositeFilter_Operator_OR;
+
+    default:
+      HARD_FAIL("Unhandled CompositeFilter::Operator: %s", op);
+  }
+}
+
+FieldFilter::Operator Serializer::DecodeFieldFilterOperator(
     ReadContext* context,
     google_firestore_v1_StructuredQuery_FieldFilter_Operator op) const {
   switch (op) {
     case google_firestore_v1_StructuredQuery_FieldFilter_Operator_LESS_THAN:
-      return Filter::Operator::LessThan;
+      return FieldFilter::Operator::LessThan;
 
     case google_firestore_v1_StructuredQuery_FieldFilter_Operator_LESS_THAN_OR_EQUAL:  // NOLINT
-      return Filter::Operator::LessThanOrEqual;
+      return FieldFilter::Operator::LessThanOrEqual;
 
     case google_firestore_v1_StructuredQuery_FieldFilter_Operator_GREATER_THAN:
-      return Filter::Operator::GreaterThan;
+      return FieldFilter::Operator::GreaterThan;
 
     case google_firestore_v1_StructuredQuery_FieldFilter_Operator_GREATER_THAN_OR_EQUAL:  // NOLINT
-      return Filter::Operator::GreaterThanOrEqual;
+      return FieldFilter::Operator::GreaterThanOrEqual;
 
     case google_firestore_v1_StructuredQuery_FieldFilter_Operator_EQUAL:
-      return Filter::Operator::Equal;
+      return FieldFilter::Operator::Equal;
 
     case google_firestore_v1_StructuredQuery_FieldFilter_Operator_NOT_EQUAL:
-      return Filter::Operator::NotEqual;
+      return FieldFilter::Operator::NotEqual;
 
     case google_firestore_v1_StructuredQuery_FieldFilter_Operator_ARRAY_CONTAINS:  // NOLINT
-      return Filter::Operator::ArrayContains;
+      return FieldFilter::Operator::ArrayContains;
 
     case google_firestore_v1_StructuredQuery_FieldFilter_Operator_IN:
-      return Filter::Operator::In;
+      return FieldFilter::Operator::In;
 
     case google_firestore_v1_StructuredQuery_FieldFilter_Operator_ARRAY_CONTAINS_ANY:  // NOLINT
-      return Filter::Operator::ArrayContainsAny;
+      return FieldFilter::Operator::ArrayContainsAny;
 
     case google_firestore_v1_StructuredQuery_FieldFilter_Operator_NOT_IN:  // NOLINT
-      return Filter::Operator::NotIn;
+      return FieldFilter::Operator::NotIn;
 
     default:
       context->Fail(StringFormat("Unhandled FieldFilter.op: %s", op));
-      return Filter::Operator{};
+      return FieldFilter::Operator{};
+  }
+}
+
+CompositeFilter::Operator Serializer::DecodeCompositeFilterOperator(
+    ReadContext* context,
+    google_firestore_v1_StructuredQuery_CompositeFilter_Operator op) const {
+  switch (op) {
+    case google_firestore_v1_StructuredQuery_CompositeFilter_Operator_AND:
+      return CompositeFilter::Operator::And;
+
+    case google_firestore_v1_StructuredQuery_CompositeFilter_Operator_OR:
+      return CompositeFilter::Operator::Or;
+
+    default:
+      context->Fail(StringFormat("Unhandled CompositeFilter.op: %s", op));
+      return CompositeFilter::Operator{};
   }
 }
 
 google_firestore_v1_StructuredQuery_Order* Serializer::EncodeOrderBys(
-    const OrderByList& orders) const {
+    const std::vector<OrderBy>& orders) const {
   auto* result = MakeArray<google_firestore_v1_StructuredQuery_Order>(
       CheckedSize(orders.size()));
 
@@ -1072,15 +1120,15 @@ google_firestore_v1_StructuredQuery_Order* Serializer::EncodeOrderBys(
   return result;
 }
 
-OrderByList Serializer::DecodeOrderBys(
+std::vector<OrderBy> Serializer::DecodeOrderBys(
     ReadContext* context,
     google_firestore_v1_StructuredQuery_Order* order_bys,
     pb_size_t size) const {
-  OrderByList result;
-  result = result.reserve(size);
+  std::vector<OrderBy> result;
+  result.reserve(size);
 
   for (pb_size_t i = 0; i != size; ++i) {
-    result = result.push_back(DecodeOrderBy(context, order_bys[i]));
+    result.push_back(DecodeOrderBy(context, order_bys[i]));
   }
 
   return result;
@@ -1111,20 +1159,22 @@ OrderBy Serializer::DecodeOrderBy(
   return OrderBy(std::move(field_path), direction);
 }
 
-google_firestore_v1_Cursor Serializer::EncodeBound(const Bound& bound) const {
+google_firestore_v1_Cursor Serializer::EncodeCursor(
+    const nanopb::SharedMessage<google_firestore_v1_ArrayValue>& bound,
+    bool before) const {
   google_firestore_v1_Cursor result{};
-  result.before = bound.before();
+  result.before = before;
   SetRepeatedField(
       &result.values, &result.values_count,
-      absl::Span<google_firestore_v1_Value>(bound.position()->values,
-                                            bound.position()->values_count),
+      absl::Span<google_firestore_v1_Value>(bound->values, bound->values_count),
       [](const google_firestore_v1_Value& value) {
         return *DeepClone(value).release();
       });
   return result;
 }
 
-Bound Serializer::DecodeBound(google_firestore_v1_Cursor& cursor) const {
+nanopb::SharedMessage<google_firestore_v1_ArrayValue>
+Serializer::DecodeCursorValue(google_firestore_v1_Cursor& cursor) const {
   SharedMessage<google_firestore_v1_ArrayValue> index_components{{}};
   SetRepeatedField(&index_components->values, &index_components->values_count,
                    absl::Span<google_firestore_v1_Value>(cursor.values,
@@ -1132,7 +1182,8 @@ Bound Serializer::DecodeBound(google_firestore_v1_Cursor& cursor) const {
   // Prevent double-freeing of the cursors's fields. The fields are now owned by
   // the bound.
   ReleaseFieldOwnership(cursor.values, cursor.values_count);
-  return Bound::FromValue(std::move(index_components), cursor.before);
+
+  return index_components;
 }
 
 /* static */

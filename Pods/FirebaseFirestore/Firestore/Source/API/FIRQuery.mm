@@ -22,10 +22,14 @@
 
 #import "FIRDocumentReference.h"
 #import "FIRFirestoreErrors.h"
+
+#import "Firestore/Source/API/FIRAggregateField+Internal.h"
+#import "Firestore/Source/API/FIRAggregateQuery+Internal.h"
 #import "Firestore/Source/API/FIRDocumentReference+Internal.h"
 #import "Firestore/Source/API/FIRDocumentSnapshot+Internal.h"
 #import "Firestore/Source/API/FIRFieldPath+Internal.h"
 #import "Firestore/Source/API/FIRFieldValue+Internal.h"
+#import "Firestore/Source/API/FIRFilter+Internal.h"
 #import "Firestore/Source/API/FIRFirestore+Internal.h"
 #import "Firestore/Source/API/FIRFirestoreSource+Internal.h"
 #import "Firestore/Source/API/FIRListenerRegistration+Internal.h"
@@ -39,7 +43,9 @@
 #include "Firestore/core/src/api/query_snapshot.h"
 #include "Firestore/core/src/api/source.h"
 #include "Firestore/core/src/core/bound.h"
+#include "Firestore/core/src/core/composite_filter.h"
 #include "Firestore/core/src/core/direction.h"
+#include "Firestore/core/src/core/field_filter.h"
 #include "Firestore/core/src/core/filter.h"
 #include "Firestore/core/src/core/firestore_client.h"
 #include "Firestore/core/src/core/listen_options.h"
@@ -54,13 +60,14 @@
 #include "Firestore/core/src/nanopb/nanopb_util.h"
 #include "Firestore/core/src/util/error_apple.h"
 #include "Firestore/core/src/util/exception.h"
-#include "Firestore/core/src/util/hard_assert.h"
 #include "Firestore/core/src/util/statusor.h"
 #include "Firestore/core/src/util/string_apple.h"
-#include "absl/memory/memory.h"
 #include "absl/strings/match.h"
 
 namespace nanopb = firebase::firestore::nanopb;
+using firebase::firestore::google_firestore_v1_ArrayValue;
+using firebase::firestore::google_firestore_v1_Value;
+using firebase::firestore::google_firestore_v1_Value_fields;
 using firebase::firestore::api::Firestore;
 using firebase::firestore::api::Query;
 using firebase::firestore::api::QueryListenerRegistration;
@@ -70,17 +77,15 @@ using firebase::firestore::api::SnapshotMetadata;
 using firebase::firestore::api::Source;
 using firebase::firestore::core::AsyncEventListener;
 using firebase::firestore::core::Bound;
+using firebase::firestore::core::CompositeFilter;
 using firebase::firestore::core::Direction;
 using firebase::firestore::core::EventListener;
+using firebase::firestore::core::FieldFilter;
 using firebase::firestore::core::Filter;
 using firebase::firestore::core::ListenOptions;
 using firebase::firestore::core::OrderBy;
-using firebase::firestore::core::OrderByList;
 using firebase::firestore::core::QueryListener;
 using firebase::firestore::core::ViewSnapshot;
-using firebase::firestore::google_firestore_v1_ArrayValue;
-using firebase::firestore::google_firestore_v1_Value;
-using firebase::firestore::google_firestore_v1_Value_fields;
 using firebase::firestore::model::DatabaseId;
 using firebase::firestore::model::DeepClone;
 using firebase::firestore::model::Document;
@@ -93,10 +98,10 @@ using firebase::firestore::model::ResourcePath;
 using firebase::firestore::model::TypeOrder;
 using firebase::firestore::nanopb::CheckedSize;
 using firebase::firestore::nanopb::MakeArray;
+using firebase::firestore::nanopb::MakeSharedMessage;
 using firebase::firestore::nanopb::MakeString;
 using firebase::firestore::nanopb::Message;
 using firebase::firestore::nanopb::SharedMessage;
-using firebase::firestore::nanopb::MakeSharedMessage;
 using firebase::firestore::util::MakeNSError;
 using firebase::firestore::util::MakeString;
 using firebase::firestore::util::StatusOr;
@@ -223,102 +228,93 @@ int32_t SaturatedLimitValue(NSInteger limit) {
                                                                         std::move(query_listener))];
 }
 
+- (FIRQuery *)queryWhereFilter:(FIRFilter *)filter {
+  Filter parsedFilter = [self parseFilter:filter];
+  if (parsedFilter.IsEmpty()) {
+    // Return the existing query if not adding any more filters (e.g. an empty composite filter).
+    return self;
+  }
+  return Wrap(_query.AddNewFilter(std::move(parsedFilter)));
+}
+
 - (FIRQuery *)queryWhereField:(NSString *)field isEqualTo:(id)value {
-  return [self queryWithFilterOperator:Filter::Operator::Equal field:field value:value];
+  return [self queryWhereFilter:[FIRFilter filterWhereField:field isEqualTo:value]];
 }
 
 - (FIRQuery *)queryWhereFieldPath:(FIRFieldPath *)path isEqualTo:(id)value {
-  return [self queryWithFilterOperator:Filter::Operator::Equal path:path.internalValue value:value];
+  return [self queryWhereFilter:[FIRFilter filterWhereFieldPath:path isEqualTo:value]];
 }
 
 - (FIRQuery *)queryWhereField:(NSString *)field isNotEqualTo:(id)value {
-  return [self queryWithFilterOperator:Filter::Operator::NotEqual field:field value:value];
+  return [self queryWhereFilter:[FIRFilter filterWhereField:field isNotEqualTo:value]];
 }
 
 - (FIRQuery *)queryWhereFieldPath:(FIRFieldPath *)path isNotEqualTo:(id)value {
-  return [self queryWithFilterOperator:Filter::Operator::NotEqual
-                                  path:path.internalValue
-                                 value:value];
-}
-
-- (FIRQuery *)queryWhereField:(NSString *)field isLessThan:(id)value {
-  return [self queryWithFilterOperator:Filter::Operator::LessThan field:field value:value];
-}
-
-- (FIRQuery *)queryWhereFieldPath:(FIRFieldPath *)path isLessThan:(id)value {
-  return [self queryWithFilterOperator:Filter::Operator::LessThan
-                                  path:path.internalValue
-                                 value:value];
-}
-
-- (FIRQuery *)queryWhereField:(NSString *)field isLessThanOrEqualTo:(id)value {
-  return [self queryWithFilterOperator:Filter::Operator::LessThanOrEqual field:field value:value];
-}
-
-- (FIRQuery *)queryWhereFieldPath:(FIRFieldPath *)path isLessThanOrEqualTo:(id)value {
-  return [self queryWithFilterOperator:Filter::Operator::LessThanOrEqual
-                                  path:path.internalValue
-                                 value:value];
+  return [self queryWhereFilter:[FIRFilter filterWhereFieldPath:path isNotEqualTo:value]];
 }
 
 - (FIRQuery *)queryWhereField:(NSString *)field isGreaterThan:(id)value {
-  return [self queryWithFilterOperator:Filter::Operator::GreaterThan field:field value:value];
+  return [self queryWhereFilter:[FIRFilter filterWhereField:field isGreaterThan:value]];
 }
 
 - (FIRQuery *)queryWhereFieldPath:(FIRFieldPath *)path isGreaterThan:(id)value {
-  return [self queryWithFilterOperator:Filter::Operator::GreaterThan
-                                  path:path.internalValue
-                                 value:value];
-}
-
-- (FIRQuery *)queryWhereField:(NSString *)field arrayContains:(id)value {
-  return [self queryWithFilterOperator:Filter::Operator::ArrayContains field:field value:value];
-}
-
-- (FIRQuery *)queryWhereFieldPath:(FIRFieldPath *)path arrayContains:(id)value {
-  return [self queryWithFilterOperator:Filter::Operator::ArrayContains
-                                  path:path.internalValue
-                                 value:value];
+  return [self queryWhereFilter:[FIRFilter filterWhereFieldPath:path isGreaterThan:value]];
 }
 
 - (FIRQuery *)queryWhereField:(NSString *)field isGreaterThanOrEqualTo:(id)value {
-  return [self queryWithFilterOperator:Filter::Operator::GreaterThanOrEqual
-                                 field:field
-                                 value:value];
+  return [self queryWhereFilter:[FIRFilter filterWhereField:field isGreaterThanOrEqualTo:value]];
 }
 
 - (FIRQuery *)queryWhereFieldPath:(FIRFieldPath *)path isGreaterThanOrEqualTo:(id)value {
-  return [self queryWithFilterOperator:Filter::Operator::GreaterThanOrEqual
-                                  path:path.internalValue
-                                 value:value];
+  return [self queryWhereFilter:[FIRFilter filterWhereFieldPath:path isGreaterThanOrEqualTo:value]];
+}
+
+- (FIRQuery *)queryWhereField:(NSString *)field isLessThan:(id)value {
+  return [self queryWhereFilter:[FIRFilter filterWhereField:field isLessThan:value]];
+}
+
+- (FIRQuery *)queryWhereFieldPath:(FIRFieldPath *)path isLessThan:(id)value {
+  return [self queryWhereFilter:[FIRFilter filterWhereFieldPath:path isLessThan:value]];
+}
+
+- (FIRQuery *)queryWhereField:(NSString *)field isLessThanOrEqualTo:(id)value {
+  return [self queryWhereFilter:[FIRFilter filterWhereField:field isLessThanOrEqualTo:value]];
+}
+
+- (FIRQuery *)queryWhereFieldPath:(FIRFieldPath *)path isLessThanOrEqualTo:(id)value {
+  return [self queryWhereFilter:[FIRFilter filterWhereFieldPath:path isLessThanOrEqualTo:value]];
+}
+
+- (FIRQuery *)queryWhereField:(NSString *)field arrayContains:(id)value {
+  return [self queryWhereFilter:[FIRFilter filterWhereField:field arrayContains:value]];
+}
+
+- (FIRQuery *)queryWhereFieldPath:(FIRFieldPath *)path arrayContains:(id)value {
+  return [self queryWhereFilter:[FIRFilter filterWhereFieldPath:path arrayContains:value]];
 }
 
 - (FIRQuery *)queryWhereField:(NSString *)field arrayContainsAny:(NSArray<id> *)values {
-  return [self queryWithFilterOperator:Filter::Operator::ArrayContainsAny field:field value:values];
+  return [self queryWhereFilter:[FIRFilter filterWhereField:field arrayContainsAny:values]];
 }
 
 - (FIRQuery *)queryWhereFieldPath:(FIRFieldPath *)path arrayContainsAny:(NSArray<id> *)values {
-  return [self queryWithFilterOperator:Filter::Operator::ArrayContainsAny
-                                  path:path.internalValue
-                                 value:values];
+  return [self queryWhereFilter:[FIRFilter filterWhereFieldPath:path arrayContainsAny:values]];
 }
 
 - (FIRQuery *)queryWhereField:(NSString *)field in:(NSArray<id> *)values {
-  return [self queryWithFilterOperator:Filter::Operator::In field:field value:values];
+  return [self queryWhereFilter:[FIRFilter filterWhereField:field in:values]];
 }
 
 - (FIRQuery *)queryWhereFieldPath:(FIRFieldPath *)path in:(NSArray<id> *)values {
-  return [self queryWithFilterOperator:Filter::Operator::In path:path.internalValue value:values];
+  return [self queryWhereFilter:[FIRFilter filterWhereFieldPath:path in:values]];
 }
 
 - (FIRQuery *)queryWhereField:(NSString *)field notIn:(NSArray<id> *)values {
-  return [self queryWithFilterOperator:Filter::Operator::NotIn field:field value:values];
+  return [self queryWhereFilter:[FIRFilter filterWhereField:field notIn:values]];
 }
 
 - (FIRQuery *)queryWhereFieldPath:(FIRFieldPath *)path notIn:(NSArray<id> *)values {
-  return [self queryWithFilterOperator:Filter::Operator::NotIn
-                                  path:path.internalValue
-                                 value:values];
+  return [self queryWhereFilter:[FIRFilter filterWhereFieldPath:path notIn:values]];
 }
 
 - (FIRQuery *)queryFilteredUsingComparisonPredicate:(NSPredicate *)predicate {
@@ -448,43 +444,52 @@ int32_t SaturatedLimitValue(NSInteger limit) {
 }
 
 - (FIRQuery *)queryStartingAtDocument:(FIRDocumentSnapshot *)snapshot {
-  Bound bound = [self boundFromSnapshot:snapshot isBefore:YES];
+  Bound bound = [self boundFromSnapshot:snapshot isInclusive:YES];
   return Wrap(_query.StartAt(std::move(bound)));
 }
 
 - (FIRQuery *)queryStartingAtValues:(NSArray *)fieldValues {
-  Bound bound = [self boundFromFieldValues:fieldValues isBefore:YES];
+  Bound bound = [self boundFromFieldValues:fieldValues isInclusive:YES];
   return Wrap(_query.StartAt(std::move(bound)));
 }
 
 - (FIRQuery *)queryStartingAfterDocument:(FIRDocumentSnapshot *)snapshot {
-  Bound bound = [self boundFromSnapshot:snapshot isBefore:NO];
+  Bound bound = [self boundFromSnapshot:snapshot isInclusive:NO];
   return Wrap(_query.StartAt(std::move(bound)));
 }
 
 - (FIRQuery *)queryStartingAfterValues:(NSArray *)fieldValues {
-  Bound bound = [self boundFromFieldValues:fieldValues isBefore:NO];
+  Bound bound = [self boundFromFieldValues:fieldValues isInclusive:NO];
   return Wrap(_query.StartAt(std::move(bound)));
 }
 
 - (FIRQuery *)queryEndingBeforeDocument:(FIRDocumentSnapshot *)snapshot {
-  Bound bound = [self boundFromSnapshot:snapshot isBefore:YES];
+  Bound bound = [self boundFromSnapshot:snapshot isInclusive:NO];
   return Wrap(_query.EndAt(std::move(bound)));
 }
 
 - (FIRQuery *)queryEndingBeforeValues:(NSArray *)fieldValues {
-  Bound bound = [self boundFromFieldValues:fieldValues isBefore:YES];
+  Bound bound = [self boundFromFieldValues:fieldValues isInclusive:NO];
   return Wrap(_query.EndAt(std::move(bound)));
 }
 
 - (FIRQuery *)queryEndingAtDocument:(FIRDocumentSnapshot *)snapshot {
-  Bound bound = [self boundFromSnapshot:snapshot isBefore:NO];
+  Bound bound = [self boundFromSnapshot:snapshot isInclusive:YES];
   return Wrap(_query.EndAt(std::move(bound)));
 }
 
 - (FIRQuery *)queryEndingAtValues:(NSArray *)fieldValues {
-  Bound bound = [self boundFromFieldValues:fieldValues isBefore:NO];
+  Bound bound = [self boundFromFieldValues:fieldValues isInclusive:YES];
   return Wrap(_query.EndAt(std::move(bound)));
+}
+
+- (FIRAggregateQuery *)count {
+  FIRAggregateField *countAF = [FIRAggregateField aggregateFieldForCount];
+  return [[FIRAggregateQuery alloc] initWithQueryAndAggregations:self aggregations:@[ countAF ]];
+}
+
+- (FIRAggregateQuery *)aggregate:(NSArray<FIRAggregateField *> *)aggregations {
+  return [[FIRAggregateQuery alloc] initWithQueryAndAggregations:self aggregations:aggregations];
 }
 
 #pragma mark - Private Methods
@@ -520,22 +525,49 @@ int32_t SaturatedLimitValue(NSInteger limit) {
   return absl::make_unique<Converter>(block);
 }
 
-/** Private helper for all of the queryWhereField: methods. */
-- (FIRQuery *)queryWithFilterOperator:(Filter::Operator)filterOperator
-                                field:(NSString *)field
-                                value:(id)value {
-  return [self queryWithFilterOperator:filterOperator path:MakeFieldPath(field) value:value];
+- (Filter)parseFieldFilter:(FSTUnaryFilter *)unaryFilter {
+  auto describer = [&unaryFilter] {
+    return MakeString(NSStringFromClass([unaryFilter.value class]));
+  };
+  Message<google_firestore_v1_Value> fieldValue =
+      [self parsedQueryValue:unaryFilter.value
+                 allowArrays:unaryFilter.unaryOp == FieldFilter::Operator::In ||
+                             unaryFilter.unaryOp == FieldFilter::Operator::NotIn];
+  Filter parsedFieldFilter = _query.ParseFieldFilter(
+      unaryFilter.fieldPath.internalValue, unaryFilter.unaryOp, std::move(fieldValue), describer);
+  return parsedFieldFilter;
 }
 
-- (FIRQuery *)queryWithFilterOperator:(Filter::Operator)filterOperator
-                                 path:(const FieldPath &)fieldPath
-                                value:(id)value {
-  Message<google_firestore_v1_Value> fieldValue =
-      [self parsedQueryValue:value
-                 allowArrays:filterOperator == Filter::Operator::In ||
-                             filterOperator == Filter::Operator::NotIn];
-  auto describer = [value] { return MakeString(NSStringFromClass([value class])); };
-  return Wrap(_query.Filter(fieldPath, filterOperator, std::move(fieldValue), describer));
+- (Filter)parseCompositeFilter:(FSTCompositeFilter *)compositeFilter {
+  std::vector<Filter> filters;
+  for (FIRFilter *filter in compositeFilter.filters) {
+    Filter parsedFilter = [self parseFilter:filter];
+    if (!parsedFilter.IsEmpty()) {
+      filters.push_back(std::move(parsedFilter));
+    }
+  }
+
+  // For composite filters containing 1 filter, return the only filter.
+  // For example: AND(FieldFilter1) == FieldFilter1
+  if (filters.size() == 1u) {
+    return filters[0];
+  }
+
+  Filter parsedCompositeFilter =
+      CompositeFilter::Create(std::move(filters), compositeFilter.compOp);
+  return parsedCompositeFilter;
+}
+
+- (Filter)parseFilter:(FIRFilter *)filter {
+  if ([filter isKindOfClass:[FSTUnaryFilter class]]) {
+    FSTUnaryFilter *unaryFilter = (FSTUnaryFilter *)filter;
+    return [self parseFieldFilter:unaryFilter];
+  } else if ([filter isKindOfClass:[FSTCompositeFilter class]]) {
+    FSTCompositeFilter *compositeFilter = (FSTCompositeFilter *)filter;
+    return [self parseCompositeFilter:compositeFilter];
+  } else {
+    ThrowInvalidArgument("Parsing only supports Filter.UnaryFilter and Filter.CompositeFilter.");
+  }
 }
 
 /**
@@ -548,14 +580,14 @@ int32_t SaturatedLimitValue(NSInteger limit) {
  * the query or if any of the fields in the order by are an uncommitted server
  * timestamp.
  */
-- (Bound)boundFromSnapshot:(FIRDocumentSnapshot *)snapshot isBefore:(BOOL)isBefore {
+- (Bound)boundFromSnapshot:(FIRDocumentSnapshot *)snapshot isInclusive:(BOOL)isInclusive {
   if (![snapshot exists]) {
     ThrowInvalidArgument("Invalid query. You are trying to start or end a query using a document "
                          "that doesn't exist.");
   }
   const Document &document = *snapshot.internalDocument;
   const DatabaseId &databaseID = self.firestore.databaseID;
-  const OrderByList &order_bys = self.query.order_bys();
+  const std::vector<OrderBy> &order_bys = self.query.order_bys();
 
   SharedMessage<google_firestore_v1_ArrayValue> components{{}};
   components->values_count = CheckedSize(order_bys.size());
@@ -590,13 +622,13 @@ int32_t SaturatedLimitValue(NSInteger limit) {
       }
     }
   }
-  return Bound::FromValue(std::move(components), isBefore);
+  return Bound::FromValue(std::move(components), isInclusive);
 }
 
 /** Converts a list of field values to an Bound. */
-- (Bound)boundFromFieldValues:(NSArray<id> *)fieldValues isBefore:(BOOL)isBefore {
+- (Bound)boundFromFieldValues:(NSArray<id> *)fieldValues isInclusive:(BOOL)isInclusive {
   // Use explicit sort order because it has to match the query the user made
-  const OrderByList &explicitSortOrders = self.query.explicit_order_bys();
+  const std::vector<OrderBy> &explicitSortOrders = self.query.explicit_order_bys();
   if (fieldValues.count > explicitSortOrders.size()) {
     ThrowInvalidArgument("Invalid query. You are trying to start or end a query using more values "
                          "than were specified in the order by.");
@@ -635,7 +667,7 @@ int32_t SaturatedLimitValue(NSInteger limit) {
     }
   }
 
-  return Bound::FromValue(std::move(components), isBefore);
+  return Bound::FromValue(std::move(components), isInclusive);
 }
 
 @end
