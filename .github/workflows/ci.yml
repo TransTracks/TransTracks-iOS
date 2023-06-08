@@ -27,7 +27,7 @@ jobs:
       - name: 📑 Create Google Services file
         env:
           GOOGLE_SERVICE_64: ${{ secrets.GOOGLE_SERVICE_64 }}
-        run: echo $GOOGLE_SERVICE_64 | base64 -di > ./TransTracks/GoogleService-Info.plist
+        run: echo $GOOGLE_SERVICE_64 | base64 --decode > ./TransTracks/GoogleService-Info.plist
 
       - name: 📏 Copy config files
         run: |
