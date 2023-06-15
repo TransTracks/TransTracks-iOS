@@ -24,8 +24,8 @@ target 'TransTracks' do
   pod 'PasswordTextField'
 
   # RX
-  pod 'RxSwift', '~> 4.0'
-  pod 'RxCocoa', '~> 4.0'
+  pod 'RxSwift'
+  pod 'RxCocoa'
   pod 'RxSwiftExt'
   
   # Toast
@@ -37,8 +37,8 @@ target 'TransTracks' do
   target 'TransTracksTests' do
     inherit! :search_paths
     
-    pod 'RxBlocking', '~> 4.0'
-    pod 'RxTest', '~> 4.0'
+    pod 'RxBlocking'
+    pod 'RxTest'
   end
 
   target 'TransTracksUITests' do
@@ -46,4 +46,14 @@ target 'TransTracks' do
     # Pods for testing
   end
 
+end
+
+post_install do |installer|
+    installer.generated_projects.each do |project|
+          project.targets.each do |target|
+              target.build_configurations.each do |config|
+                  config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '13.0'
+               end
+          end
+   end
 end

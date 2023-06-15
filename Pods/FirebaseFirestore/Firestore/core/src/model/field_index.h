@@ -80,8 +80,20 @@ class IndexOffset : public util::Comparable<IndexOffset> {
    * Creates an offset that matches all documents with a read time higher than
    * `read_time` or with a key higher than `key` for equal read times.
    */
-  IndexOffset(SnapshotVersion read_time, DocumentKey key)
-      : read_time_(std::move(read_time)), document_key_(std::move(key)) {
+  IndexOffset(SnapshotVersion read_time,
+              DocumentKey key,
+              model::BatchId largest_batch_id)
+      : read_time_(std::move(read_time)),
+        document_key_(std::move(key)),
+        largest_batch_id_(largest_batch_id) {
+  }
+
+  /**
+   * The initial mutation batch id for each index. Gets updated during index
+   * backfill.
+   */
+  static constexpr model::BatchId InitialLargestBatchId() {
+    return -1;
   }
 
   static IndexOffset None();
@@ -90,13 +102,13 @@ class IndexOffset : public util::Comparable<IndexOffset> {
    * Creates an offset that matches all documents with a read time higher than
    * `read_time`.
    */
-  static IndexOffset Create(SnapshotVersion read_time);
+  static IndexOffset CreateSuccessor(SnapshotVersion read_time);
 
   /** Creates a new offset based on the provided document. */
   static IndexOffset FromDocument(const Document& document);
 
-  static util::ComparisonResult DocumentCompare(const Document& a,
-                                                const Document& b);
+  static util::ComparisonResult DocumentCompare(const Document& lhs,
+                                                const Document& rhs);
 
   /**
    * Returns the latest read time version that has been indexed by Firestore for
@@ -114,11 +126,28 @@ class IndexOffset : public util::Comparable<IndexOffset> {
     return document_key_;
   }
 
+  /**
+   * Returns the largest mutation batch id that's been processed by index
+   * backfilling.
+   */
+  model::BatchId largest_batch_id() const {
+    return largest_batch_id_;
+  }
+
+  /** Creates a pretty-printed description of the IndexOffset for debugging. */
+  std::string ToString() const {
+    return absl::StrCat(
+        "Index Offset: {read time: ", read_time_.ToString(),
+        ", document key: ", document_key_.ToString(),
+        ", largest batch id: ", std::to_string(largest_batch_id_), "}");
+  }
+
   util::ComparisonResult CompareTo(const IndexOffset& rhs) const;
 
  private:
   SnapshotVersion read_time_;
   DocumentKey document_key_;
+  model::BatchId largest_batch_id_;
 };
 
 /**
@@ -127,14 +156,28 @@ class IndexOffset : public util::Comparable<IndexOffset> {
  */
 class IndexState {
  public:
+  /**
+   * The initial sequence number for each index. Gets updated during index
+   * backfill.
+   */
+  constexpr static ListenSequenceNumber InitialSequenceNumber() {
+    return 0;
+  }
+
+  IndexState()
+      : sequence_number_(InitialSequenceNumber()),
+        index_offset_(IndexOffset::None()) {
+  }
+
   IndexState(ListenSequenceNumber sequence_number, IndexOffset offset)
       : sequence_number_(sequence_number), index_offset_(std::move(offset)) {
   }
   IndexState(ListenSequenceNumber sequence_number,
              SnapshotVersion read_time,
-             DocumentKey key)
+             DocumentKey key,
+             model::BatchId largest_batch_id)
       : sequence_number_(sequence_number),
-        index_offset_(std::move(read_time), std::move(key)) {
+        index_offset_(std::move(read_time), std::move(key), largest_batch_id) {
   }
 
   /**
@@ -151,9 +194,21 @@ class IndexState {
   }
 
  private:
+  friend bool operator==(const IndexState& lhs, const IndexState& rhs);
+  friend bool operator!=(const IndexState& lhs, const IndexState& rhs);
+
   ListenSequenceNumber sequence_number_;
   IndexOffset index_offset_;
 };
+
+inline bool operator==(const IndexState& lhs, const IndexState& rhs) {
+  return lhs.sequence_number_ == rhs.sequence_number_ &&
+         lhs.index_offset_ == rhs.index_offset_;
+}
+
+inline bool operator!=(const IndexState& lhs, const IndexState& rhs) {
+  return !(lhs == rhs);
+}
 
 /**
  * An index definition for field indices in Firestore.
@@ -174,17 +229,10 @@ class FieldIndex {
     return -1;
   }
 
-  /**
-   * The initial sequence number for each index. Gets updated during index
-   * backfill.
-   */
-  constexpr static ListenSequenceNumber InitialSequenceNumber() {
-    return 0;
-  }
-
   /** The state of an index that has not yet been backfilled. */
   static IndexState InitialState() {
-    static const IndexState kNone(InitialSequenceNumber(), IndexOffset::None());
+    static const IndexState kNone(IndexState::InitialSequenceNumber(),
+                                  IndexOffset::None());
     return kNone;
   }
 
@@ -194,6 +242,9 @@ class FieldIndex {
    */
   static util::ComparisonResult SemanticCompare(const FieldIndex& left,
                                                 const FieldIndex& right);
+
+  FieldIndex() : index_id_(UnknownId()) {
+  }
 
   FieldIndex(int32_t index_id,
              std::string collection_group,
@@ -234,12 +285,40 @@ class FieldIndex {
   /** Returns the ArrayContains/ArrayContainsAny segment for this index. */
   absl::optional<Segment> GetArraySegment() const;
 
+  /**
+   * A type that can be used as the "Compare" template parameter of ordered
+   * collections to have the elements ordered using
+   * `FieldIndex::SemanticCompare()`.
+   *
+   * Example:
+   * std::set<FieldIndex, FieldIndex::SemanticLess> result;
+   */
+  struct SemanticLess {
+    bool operator()(const FieldIndex& left, const FieldIndex& right) const {
+      return FieldIndex::SemanticCompare(left, right) ==
+             util::ComparisonResult::Ascending;
+    }
+  };
+
  private:
+  friend bool operator==(const FieldIndex& lhs, const FieldIndex& rhs);
+  friend bool operator!=(const FieldIndex& lhs, const FieldIndex& rhs);
+
   int32_t index_id_ = UnknownId();
   std::string collection_group_;
   std::vector<Segment> segments_;
   IndexState state_;
 };
+
+inline bool operator==(const FieldIndex& lhs, const FieldIndex& rhs) {
+  return lhs.index_id_ == rhs.index_id_ &&
+         lhs.collection_group_ == rhs.collection_group_ &&
+         lhs.segments_ == rhs.segments_ && lhs.state_ == rhs.state_;
+}
+
+inline bool operator!=(const FieldIndex& lhs, const FieldIndex& rhs) {
+  return !(lhs == rhs);
+}
 
 }  // namespace model
 }  // namespace firestore

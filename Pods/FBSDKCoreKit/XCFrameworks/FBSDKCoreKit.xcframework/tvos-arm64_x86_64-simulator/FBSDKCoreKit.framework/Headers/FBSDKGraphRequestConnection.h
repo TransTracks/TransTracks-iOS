@@ -17,7 +17,6 @@ NS_ASSUME_NONNULL_BEGIN
  The key in the result dictionary for requests to old versions of the Graph API
  whose response is not a JSON object.
 
-
  When a request returns a non-JSON response (such as a "true" literal), that response
  will be wrapped into a dictionary using this const as the key. This only applies for very few Graph API
  prior to v2.1.
@@ -33,24 +32,17 @@ NS_SWIFT_NAME(NonJSONResponseProperty);
  The request settings are encapsulated in a reusable <FBSDKGraphRequest> object. The
  `FBSDKGraphRequestConnection` object encapsulates the concerns of a single communication
  e.g. starting a connection, canceling a connection, or batching requests.
-
  */
 NS_SWIFT_NAME(GraphRequestConnection)
 @interface FBSDKGraphRequestConnection : NSObject <FBSDKGraphRequestConnecting>
 
-/**
- The default timeout on all FBSDKGraphRequestConnection instances. Defaults to 60 seconds.
- */
+/// The default timeout on all FBSDKGraphRequestConnection instances. Defaults to 60 seconds.
 @property (class, nonatomic, assign) NSTimeInterval defaultConnectionTimeout;
 
-/**
- The delegate object that receives updates.
- */
+/// The delegate object that receives updates.
 @property (nullable, nonatomic, weak) id<FBSDKGraphRequestConnectionDelegate> delegate;
 
-/**
- Gets or sets the timeout interval to wait for a response before giving up.
- */
+/// Gets or sets the timeout interval to wait for a response before giving up.
 @property (nonatomic, assign) NSTimeInterval timeout;
 
 /**
@@ -72,13 +64,9 @@ NS_SWIFT_NAME(GraphRequestConnection)
  */
 @property (nullable, nonatomic) NSOperationQueue *delegateQueue;
 
-/**
- @methodgroup Class methods
- */
+/// @methodgroup Class methods
 
-/**
- @methodgroup Adding requests
- */
+/// @methodgroup Adding requests
 
 /**
  @method
@@ -138,9 +126,7 @@ NS_SWIFT_NAME(GraphRequestConnection)
         parameters:(nullable NSDictionary<NSString *, id> *)parameters
         completion:(FBSDKGraphRequestCompletion)completion;
 
-/**
- @methodgroup Instance methods
- */
+/// @methodgroup Instance methods
 
 /**
  @method

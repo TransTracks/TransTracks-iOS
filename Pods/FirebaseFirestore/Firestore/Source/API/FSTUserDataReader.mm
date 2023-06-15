@@ -61,6 +61,13 @@ namespace nanopb = firebase::firestore::nanopb;
 using firebase::Timestamp;
 using firebase::TimestampInternal;
 using firebase::firestore::GeoPoint;
+using firebase::firestore::google_firestore_v1_ArrayValue;
+using firebase::firestore::google_firestore_v1_MapValue;
+using firebase::firestore::google_firestore_v1_MapValue_FieldsEntry;
+using firebase::firestore::google_firestore_v1_Value;
+using firebase::firestore::google_protobuf_NullValue_NULL_VALUE;
+using firebase::firestore::google_protobuf_Timestamp;
+using firebase::firestore::google_type_LatLng;
 using firebase::firestore::core::ParseAccumulator;
 using firebase::firestore::core::ParseContext;
 using firebase::firestore::core::ParsedSetData;
@@ -68,6 +75,7 @@ using firebase::firestore::core::ParsedUpdateData;
 using firebase::firestore::core::UserDataSource;
 using firebase::firestore::model::ArrayTransform;
 using firebase::firestore::model::DatabaseId;
+using firebase::firestore::model::DeepClone;
 using firebase::firestore::model::DocumentKey;
 using firebase::firestore::model::FieldMask;
 using firebase::firestore::model::FieldPath;
@@ -82,15 +90,8 @@ using firebase::firestore::nanopb::CheckedSize;
 using firebase::firestore::nanopb::Message;
 using firebase::firestore::remote::Serializer;
 using firebase::firestore::util::MakeString;
-using firebase::firestore::util::ThrowInvalidArgument;
 using firebase::firestore::util::ReadContext;
-using firebase::firestore::google_firestore_v1_Value;
-using firebase::firestore::google_firestore_v1_MapValue;
-using firebase::firestore::google_firestore_v1_ArrayValue;
-using firebase::firestore::google_protobuf_NullValue_NULL_VALUE;
-using firebase::firestore::google_firestore_v1_MapValue_FieldsEntry;
-using firebase::firestore::google_type_LatLng;
-using firebase::firestore::google_protobuf_Timestamp;
+using firebase::firestore::util::ThrowInvalidArgument;
 using nanopb::StringReader;
 
 NS_ASSUME_NONNULL_BEGIN
@@ -351,7 +352,7 @@ NS_ASSUME_NONNULL_BEGIN
     auto parsedEntry = [self parseData:entry context:context.ChildContext(idx)];
     if (!parsedEntry) {
       // Just include nulls in the array for fields being replaced with a sentinel.
-      parsedEntry = NullValue();
+      parsedEntry.emplace(DeepClone(NullValue()));
     }
     result->array_value.values[idx] = *parsedEntry->release();
   }];
@@ -432,7 +433,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (Message<google_firestore_v1_Value>)parseScalarValue:(nullable id)input
                                                context:(ParseContext &&)context {
   if (!input || [input isMemberOfClass:[NSNull class]]) {
-    return NullValue();
+    return DeepClone(NullValue());
 
   } else if ([input isKindOfClass:[NSNumber class]]) {
     // Recover the underlying type of the number, using the method described here:

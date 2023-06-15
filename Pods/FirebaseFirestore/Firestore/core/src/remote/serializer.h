@@ -28,8 +28,11 @@
 #include "Firestore/Protos/nanopb/google/firestore/v1/document.nanopb.h"
 #include "Firestore/Protos/nanopb/google/firestore/v1/firestore.nanopb.h"
 #include "Firestore/Protos/nanopb/google/type/latlng.nanopb.h"
+#include "Firestore/core/src/core/composite_filter.h"
 #include "Firestore/core/src/core/core_fwd.h"
+#include "Firestore/core/src/core/field_filter.h"
 #include "Firestore/core/src/core/filter.h"
+#include "Firestore/core/src/core/order_by.h"
 #include "Firestore/core/src/model/database_id.h"
 #include "Firestore/core/src/model/model_fwd.h"
 #include "Firestore/core/src/model/resource_path.h"
@@ -213,15 +216,11 @@ class Serializer {
       util::ReadContext* context,
       const google_firestore_v1_ListenResponse& listen_response) const;
 
-  // Public for the sake of tests.
-  google_firestore_v1_StructuredQuery_Filter EncodeFilters(
-      const core::FilterList& filters) const;
-
   /**
    * Decodes the structured query. Modifies the provided proto to release
    * ownership of any Value messages.
    */
-  core::FilterList DecodeFilters(
+  std::vector<core::Filter> DecodeFilters(
       util::ReadContext* context,
       google_firestore_v1_StructuredQuery_Filter& proto) const;
 
@@ -238,7 +237,13 @@ class Serializer {
 
   bool IsLocalDocumentKey(absl::string_view path) const;
 
+  const model::DatabaseId& database_id() const {
+    return database_id_;
+  }
+
  private:
+  friend class SerializerTest;
+
   model::MutableDocument DecodeFoundDocument(
       util::ReadContext* context,
       google_firestore_v1_BatchGetDocumentsResponse& response) const;
@@ -265,28 +270,44 @@ class Serializer {
 
   std::string EncodeLabel(local::QueryPurpose purpose) const;
 
-  google_firestore_v1_StructuredQuery_Filter EncodeSingularFilter(
+  google_firestore_v1_StructuredQuery_Filter EncodeFilters(
+      const std::vector<core::Filter>& filter_list) const;
+  google_firestore_v1_StructuredQuery_Filter EncodeFilter(
+      const core::Filter& filter) const;
+  google_firestore_v1_StructuredQuery_Filter EncodeUnaryOrFieldFilter(
       const core::FieldFilter& filter) const;
+  google_firestore_v1_StructuredQuery_Filter EncodeCompositeFilter(
+      const core::CompositeFilter& filter) const;
+
+  util::StatusOr<core::Filter> DecodeFilter(
+      util::ReadContext* context,
+      google_firestore_v1_StructuredQuery_Filter& proto) const;
   core::Filter DecodeFieldFilter(
       util::ReadContext* context,
       google_firestore_v1_StructuredQuery_FieldFilter& field_filter) const;
   core::Filter DecodeUnaryFilter(
       util::ReadContext* context,
       const google_firestore_v1_StructuredQuery_UnaryFilter& unary) const;
-  core::FilterList DecodeCompositeFilter(
+  core::Filter DecodeCompositeFilter(
       util::ReadContext* context,
       const google_firestore_v1_StructuredQuery_CompositeFilter& composite)
       const;
 
   google_firestore_v1_StructuredQuery_FieldFilter_Operator
-  EncodeFieldFilterOperator(core::Filter::Operator op) const;
-  core::Filter::Operator DecodeFieldFilterOperator(
+  EncodeFieldFilterOperator(core::FieldFilter::Operator op) const;
+  google_firestore_v1_StructuredQuery_CompositeFilter_Operator
+  EncodeCompositeFilterOperator(core::CompositeFilter::Operator op) const;
+
+  core::FieldFilter::Operator DecodeFieldFilterOperator(
       util::ReadContext* context,
       google_firestore_v1_StructuredQuery_FieldFilter_Operator op) const;
+  core::CompositeFilter::Operator DecodeCompositeFilterOperator(
+      util::ReadContext* context,
+      google_firestore_v1_StructuredQuery_CompositeFilter_Operator op) const;
 
   google_firestore_v1_StructuredQuery_Order* EncodeOrderBys(
-      const core::OrderByList& orders) const;
-  core::OrderByList DecodeOrderBys(
+      const std::vector<core::OrderBy>& orders) const;
+  std::vector<core::OrderBy> DecodeOrderBys(
       util::ReadContext* context,
       google_firestore_v1_StructuredQuery_Order* order_bys,
       pb_size_t size) const;
@@ -294,8 +315,11 @@ class Serializer {
       util::ReadContext* context,
       const google_firestore_v1_StructuredQuery_Order& order_by) const;
 
-  google_firestore_v1_Cursor EncodeBound(const core::Bound& bound) const;
-  core::Bound DecodeBound(google_firestore_v1_Cursor& cursor) const;
+  google_firestore_v1_Cursor EncodeCursor(
+      const nanopb::SharedMessage<_google_firestore_v1_ArrayValue>& bound,
+      bool before) const;
+  nanopb::SharedMessage<_google_firestore_v1_ArrayValue> DecodeCursorValue(
+      google_firestore_v1_Cursor& cursor) const;
 
   std::unique_ptr<remote::WatchChange> DecodeTargetChange(
       util::ReadContext* context,

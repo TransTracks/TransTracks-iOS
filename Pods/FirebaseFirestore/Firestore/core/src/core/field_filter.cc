@@ -17,7 +17,6 @@
 #include "Firestore/core/src/core/field_filter.h"
 
 #include <utility>
-#include <vector>
 
 #include "Firestore/core/src/core/array_contains_any_filter.h"
 #include "Firestore/core/src/core/array_contains_filter.h"
@@ -30,6 +29,7 @@
 #include "Firestore/core/src/model/document.h"
 #include "Firestore/core/src/model/value_util.h"
 #include "Firestore/core/src/util/exception.h"
+#include "Firestore/core/src/util/hard_assert.h"
 #include "Firestore/core/src/util/hashing.h"
 #include "absl/algorithm/container.h"
 #include "absl/strings/str_cat.h"
@@ -49,31 +49,31 @@ using util::ComparisonResult;
 
 namespace {
 
-const char* CanonicalName(Filter::Operator op) {
+const char* CanonicalName(FieldFilter::Operator op) {
   switch (op) {
-    case Filter::Operator::LessThan:
+    case FieldFilter::Operator::LessThan:
       return "<";
-    case Filter::Operator::LessThanOrEqual:
+    case FieldFilter::Operator::LessThanOrEqual:
       return "<=";
-    case Filter::Operator::Equal:
+    case FieldFilter::Operator::Equal:
       return "==";
-    case Filter::Operator::NotEqual:
+    case FieldFilter::Operator::NotEqual:
       return "!=";
-    case Filter::Operator::GreaterThanOrEqual:
+    case FieldFilter::Operator::GreaterThanOrEqual:
       return ">=";
-    case Filter::Operator::GreaterThan:
+    case FieldFilter::Operator::GreaterThan:
       return ">";
-    case Filter::Operator::ArrayContains:
+    case FieldFilter::Operator::ArrayContains:
       // The canonical name for this is array_contains for compatibility with
       // existing entries in `query_targets` stored on user devices. This cannot
       // be changed without causing users to lose their associated resume
       // tokens.
       return "array_contains";
-    case Filter::Operator::In:
+    case FieldFilter::Operator::In:
       return "in";
-    case Filter::Operator::ArrayContainsAny:
+    case FieldFilter::Operator::ArrayContainsAny:
       return "array-contains-any";
-    case Filter::Operator::NotIn:
+    case FieldFilter::Operator::NotIn:
       return "not-in";
   }
 
@@ -89,9 +89,9 @@ FieldFilter FieldFilter::Create(
   google_firestore_v1_Value& value = *value_rhs;
   model::SortFields(value);
   if (path.IsKeyFieldPath()) {
-    if (op == Filter::Operator::In) {
+    if (op == Operator::In) {
       return KeyFieldInFilter(path, std::move(value_rhs));
-    } else if (op == Filter::Operator::NotIn) {
+    } else if (op == Operator::NotIn) {
       return KeyFieldNotInFilter(path, std::move(value_rhs));
     } else {
       HARD_ASSERT(!IsArrayOperator(op),
@@ -115,11 +115,26 @@ FieldFilter FieldFilter::Create(
 }
 
 FieldFilter::FieldFilter(const Filter& other) : Filter(other) {
-  HARD_ASSERT(IsAFieldFilter());
+  HARD_ASSERT(other.IsAFieldFilter());
 }
 
 FieldFilter::FieldFilter(std::shared_ptr<const Filter::Rep> rep)
     : Filter(std::move(rep)) {
+}
+
+const std::vector<FieldFilter>& FieldFilter::Rep::GetFlattenedFilters() const {
+  // This is already a field filter, so we return a vector of size one.
+  if (Filter::Rep::memoized_flattened_filters_.empty()) {
+    Filter::Rep::memoized_flattened_filters_ = std::vector<FieldFilter>{
+        FieldFilter(std::make_shared<const Rep>(*this))};
+  }
+  return Filter::Rep::memoized_flattened_filters_;
+}
+
+std::vector<Filter> FieldFilter::Rep::GetFilters() const {
+  // This is the only filter within this object, so we return a list of size
+  // one.
+  return std::vector<Filter>{FieldFilter(std::make_shared<const Rep>(*this))};
 }
 
 FieldFilter::Rep::Rep(FieldPath field,
@@ -177,13 +192,7 @@ std::string FieldFilter::Rep::CanonicalId() const {
 }
 
 std::string FieldFilter::Rep::ToString() const {
-  return util::StringFormat("%s %s %s", field_.CanonicalString(),
-                            CanonicalName(op_),
-                            model::CanonicalId(*value_rhs_));
-}
-
-size_t FieldFilter::Rep::Hash() const {
-  return util::Hash(field_, op_, model::CanonicalId(*value_rhs_));
+  return CanonicalId();
 }
 
 bool FieldFilter::Rep::Equals(const Filter::Rep& other) const {
@@ -192,6 +201,13 @@ bool FieldFilter::Rep::Equals(const Filter::Rep& other) const {
   const auto& other_rep = static_cast<const FieldFilter::Rep&>(other);
   return op_ == other_rep.op_ && field_ == other_rep.field_ &&
          *value_rhs_ == *other_rep.value_rhs_;
+}
+
+const model::FieldPath* FieldFilter::Rep::GetFirstInequalityField() const {
+  if (IsInequality()) {
+    return &field();
+  }
+  return nullptr;
 }
 
 }  // namespace core

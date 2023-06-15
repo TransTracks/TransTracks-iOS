@@ -2,10 +2,13 @@ ${PODS_ROOT}/Target Support Files/Pods-TransTracks/Pods-TransTracks-frameworks.s
 ${BUILT_PRODUCTS_DIR}/AppAuth/AppAuth.framework
 ${BUILT_PRODUCTS_DIR}/BoringSSL-GRPC/openssl_grpc.framework
 ${BUILT_PRODUCTS_DIR}/FirebaseAnonymousAuthUI/FirebaseAnonymousAuthUI.framework
+${BUILT_PRODUCTS_DIR}/FirebaseAppCheckInterop/FirebaseAppCheckInterop.framework
 ${BUILT_PRODUCTS_DIR}/FirebaseAuth/FirebaseAuth.framework
+${BUILT_PRODUCTS_DIR}/FirebaseAuthInterop/FirebaseAuthInterop.framework
 ${BUILT_PRODUCTS_DIR}/FirebaseAuthUI/FirebaseAuthUI.framework
 ${BUILT_PRODUCTS_DIR}/FirebaseCore/FirebaseCore.framework
-${BUILT_PRODUCTS_DIR}/FirebaseCoreDiagnostics/FirebaseCoreDiagnostics.framework
+${BUILT_PRODUCTS_DIR}/FirebaseCoreExtension/FirebaseCoreExtension.framework
+${BUILT_PRODUCTS_DIR}/FirebaseCoreInternal/FirebaseCoreInternal.framework
 ${BUILT_PRODUCTS_DIR}/FirebaseCrashlytics/FirebaseCrashlytics.framework
 ${BUILT_PRODUCTS_DIR}/FirebaseDatabase/FirebaseDatabase.framework
 ${BUILT_PRODUCTS_DIR}/FirebaseDatabaseUI/FirebaseDatabaseUI.framework
@@ -13,9 +16,11 @@ ${BUILT_PRODUCTS_DIR}/FirebaseEmailAuthUI/FirebaseEmailAuthUI.framework
 ${BUILT_PRODUCTS_DIR}/FirebaseFacebookAuthUI/FirebaseFacebookAuthUI.framework
 ${BUILT_PRODUCTS_DIR}/FirebaseFirestore/FirebaseFirestore.framework
 ${BUILT_PRODUCTS_DIR}/FirebaseFirestoreUI/FirebaseFirestoreUI.framework
+${BUILT_PRODUCTS_DIR}/FirebaseGoogleAuthUI/FirebaseGoogleAuthUI.framework
 ${BUILT_PRODUCTS_DIR}/FirebaseInstallations/FirebaseInstallations.framework
 ${BUILT_PRODUCTS_DIR}/FirebaseOAuthUI/FirebaseOAuthUI.framework
 ${BUILT_PRODUCTS_DIR}/FirebasePhoneAuthUI/FirebasePhoneAuthUI.framework
+${BUILT_PRODUCTS_DIR}/FirebaseSessions/FirebaseSessions.framework
 ${BUILT_PRODUCTS_DIR}/FirebaseStorage/FirebaseStorage.framework
 ${BUILT_PRODUCTS_DIR}/FirebaseStorageUI/FirebaseStorageUI.framework
 ${BUILT_PRODUCTS_DIR}/GTMAppAuth/GTMAppAuth.framework
@@ -25,7 +30,9 @@ ${BUILT_PRODUCTS_DIR}/GoogleSignIn/GoogleSignIn.framework
 ${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework
 ${BUILT_PRODUCTS_DIR}/PasswordTextField/PasswordTextField.framework
 ${BUILT_PRODUCTS_DIR}/PromisesObjC/FBLPromises.framework
+${BUILT_PRODUCTS_DIR}/PromisesSwift/Promises.framework
 ${BUILT_PRODUCTS_DIR}/RxCocoa/RxCocoa.framework
+${BUILT_PRODUCTS_DIR}/RxRelay/RxRelay.framework
 ${BUILT_PRODUCTS_DIR}/RxSwift/RxSwift.framework
 ${BUILT_PRODUCTS_DIR}/RxSwiftExt/RxSwiftExt.framework
 ${BUILT_PRODUCTS_DIR}/SDWebImage/SDWebImage.framework

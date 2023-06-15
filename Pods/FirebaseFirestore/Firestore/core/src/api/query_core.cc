@@ -21,16 +21,19 @@
 #include <utility>
 #include <vector>
 
+#include "Firestore/core/src/api/aggregate_query.h"
 #include "Firestore/core/src/api/firestore.h"
 #include "Firestore/core/src/api/query_listener_registration.h"
 #include "Firestore/core/src/api/query_snapshot.h"
 #include "Firestore/core/src/api/source.h"
 #include "Firestore/core/src/core/bound.h"
+#include "Firestore/core/src/core/composite_filter.h"
 #include "Firestore/core/src/core/field_filter.h"
 #include "Firestore/core/src/core/filter.h"
 #include "Firestore/core/src/core/firestore_client.h"
 #include "Firestore/core/src/core/listen_options.h"
 #include "Firestore/core/src/core/operator.h"
+#include "Firestore/core/src/model/aggregate_field.h"
 #include "Firestore/core/src/model/resource_path.h"
 #include "Firestore/core/src/model/value_util.h"
 #include "Firestore/core/src/nanopb/nanopb_util.h"
@@ -45,6 +48,7 @@ namespace api {
 
 using core::AsyncEventListener;
 using core::Bound;
+using core::CompositeFilter;
 using core::Direction;
 using core::EventListener;
 using core::FieldFilter;
@@ -54,6 +58,8 @@ using core::IsDisjunctiveOperator;
 using core::ListenOptions;
 using core::QueryListener;
 using core::ViewSnapshot;
+using model::AggregateAlias;
+using model::AggregateField;
 using model::DocumentKey;
 using model::FieldPath;
 using model::GetTypeOrder;
@@ -67,39 +73,33 @@ using util::Status;
 using util::StatusOr;
 using util::ThrowInvalidArgument;
 
-using Operator = Filter::Operator;
+using Operator = FieldFilter::Operator;
 
 namespace {
 /**
  * Given an operator, returns the set of operators that cannot be used with
  * it.
  *
- * Operators in a query must adhere to the following set of rules:
- * 1. Only one array operator is allowed.
- * 2. Only one disjunctive operator is allowed.
- * 3. NOT_EQUAL cannot be used with another NOT_EQUAL operator.
- * 4. NOT_IN cannot be used with array, disjunctive, or NOT_EQUAL operators.
+ * This is not a comprehensive check, and this function should be removed in the
+ * long term.
+ * Validations should occur in the Firestore backend.
  *
- * Array operators: ARRAY_CONTAINS, ARRAY_CONTAINS_ANY
- * Disjunctive operators: IN, ARRAY_CONTAINS_ANY, NOT_IN
+ * Operators in a query must adhere to the following set of rules:
+ * 1. Only one inequality per query.
+ * 2. NOT_IN cannot be used with array, disjunctive, or NOT_EQUAL operators.
  */
 static std::vector<Operator> ConflictingOps(Operator op) {
   switch (op) {
     case Operator::NotEqual:
       return {Operator::NotEqual, Operator::NotIn};
-    case Operator::ArrayContains:
-      return {Operator::ArrayContains, Operator::ArrayContainsAny,
-              Operator::NotIn};
-    case Operator::In:
-      return {Operator::ArrayContainsAny, Operator::In, Operator::NotIn};
     case Operator::ArrayContainsAny:
-      return {Operator::ArrayContains, Operator::ArrayContainsAny, Operator::In,
-              Operator::NotIn};
+    case Operator::In:
+      return {Operator::NotIn};
     case Operator::NotIn:
-      return {Operator::ArrayContains, Operator::ArrayContainsAny, Operator::In,
-              Operator::NotIn, Operator::NotEqual};
+      return {Operator::ArrayContainsAny, Operator::In, Operator::NotIn,
+              Operator::NotEqual};
     default:
-      return std::vector<Operator>();
+      return {};
   }
 }
 }  // unnamed namespace
@@ -172,7 +172,7 @@ void Query::GetDocuments(Source source, QuerySnapshotListener&& callback) {
   };
 
   auto listener = absl::make_unique<ListenOnce>(source, std::move(callback));
-  auto listener_unowned = listener.get();
+  auto* listener_unowned = listener.get();
 
   std::unique_ptr<ListenerRegistration> registration =
       AddSnapshotListener(std::move(options), std::move(listener));
@@ -229,10 +229,11 @@ std::unique_ptr<ListenerRegistration> Query::AddSnapshotListener(
       std::move(query_listener));
 }
 
-Query Query::Filter(const FieldPath& field_path,
-                    Operator op,
-                    nanopb::SharedMessage<google_firestore_v1_Value> value,
-                    const std::function<std::string()>& type_describer) const {
+core::FieldFilter Query::ParseFieldFilter(
+    const FieldPath& field_path,
+    Operator op,
+    nanopb::SharedMessage<google_firestore_v1_Value> value,
+    const std::function<std::string()>& type_describer) const {
   if (field_path.IsKeyFieldPath()) {
     if (IsArrayOperator(op)) {
       ThrowInvalidArgument(
@@ -263,10 +264,11 @@ Query Query::Filter(const FieldPath& field_path,
       ValidateDisjunctiveFilterElements(*value, op);
     }
   }
+  return FieldFilter::Create(field_path, op, std::move(value));
+}
 
-  FieldFilter filter = FieldFilter::Create(field_path, op, std::move(value));
+Query Query::AddNewFilter(core::Filter&& filter) const {
   ValidateNewFilter(filter);
-
   return Wrap(query_.AddingFilter(std::move(filter)));
 }
 
@@ -316,47 +318,52 @@ Query Query::EndAt(Bound bound) const {
   return Wrap(query_.EndingAt(std::move(bound)));
 }
 
-void Query::ValidateNewFilter(const class Filter& filter) const {
-  if (filter.IsAFieldFilter()) {
-    FieldFilter field_filter(filter);
+void Query::ValidateNewFieldFilter(const core::Query& query,
+                                   const FieldFilter& field_filter) const {
+  if (field_filter.IsInequality()) {
+    const FieldPath* existing_inequality = query.InequalityFilterField();
+    const FieldPath& new_inequality = field_filter.field();
 
-    if (field_filter.IsInequality()) {
-      const FieldPath* existing_inequality = query_.InequalityFilterField();
-      const FieldPath* new_inequality = &filter.field();
-
-      if (existing_inequality && *existing_inequality != *new_inequality) {
-        ThrowInvalidArgument(
-            "Invalid Query. All where filters with an inequality (notEqual, "
-            "lessThan, lessThanOrEqual, greaterThan, or greaterThanOrEqual) "
-            "must be on the same field. But you have inequality filters on "
-            "'%s' and '%s'",
-            existing_inequality->CanonicalString(),
-            new_inequality->CanonicalString());
-      }
-
-      const FieldPath* first_order_by_field = query_.FirstOrderByField();
-      if (first_order_by_field) {
-        ValidateOrderByField(*first_order_by_field, filter.field());
-      }
+    if (existing_inequality && *existing_inequality != new_inequality) {
+      ThrowInvalidArgument(
+          "Invalid Query. All where filters with an inequality (notEqual, "
+          "lessThan, lessThanOrEqual, greaterThan, or greaterThanOrEqual) "
+          "must be on the same field. But you have inequality filters on "
+          "'%s' and '%s'",
+          existing_inequality->CanonicalString(),
+          new_inequality.CanonicalString());
     }
-    Operator filter_op = field_filter.op();
-    absl::optional<Operator> conflicting_op =
-        query_.FindOperator(ConflictingOps(filter_op));
 
-    if (conflicting_op) {
-      // We special case when it's a duplicate op to give a slightly clearer
-      // error message.
-      if (*conflicting_op == filter_op) {
-        ThrowInvalidArgument(
-            "Invalid Query. You cannot use more than one '%s' filter.",
-            Describe(filter_op));
-      } else {
-        ThrowInvalidArgument(
-            "Invalid Query. You cannot use '%s' filters with"
-            " '%s' filters.",
-            Describe(filter_op), Describe(conflicting_op.value()));
-      }
+    const FieldPath* first_order_by_field = query.FirstOrderByField();
+    if (first_order_by_field) {
+      ValidateOrderByField(*first_order_by_field, field_filter.field());
     }
+  }
+
+  Operator filter_op = field_filter.op();
+  absl::optional<Operator> conflicting_op =
+      query.FindOpInsideFilters(ConflictingOps(filter_op));
+  if (conflicting_op) {
+    // We special case when it's a duplicate op to give a slightly clearer
+    // error message.
+    if (*conflicting_op == filter_op) {
+      ThrowInvalidArgument(
+          "Invalid Query. You cannot use more than one '%s' filter.",
+          Describe(filter_op));
+    } else {
+      ThrowInvalidArgument(
+          "Invalid Query. You cannot use '%s' filters with"
+          " '%s' filters.",
+          Describe(filter_op), Describe(conflicting_op.value()));
+    }
+  }
+}
+
+void Query::ValidateNewFilter(const Filter& filter) const {
+  core::Query test_query(query_);
+  for (const auto& field_filter : filter.GetFlattenedFilters()) {
+    ValidateNewFieldFilter(test_query, field_filter);
+    test_query = test_query.AddingFilter(field_filter);
   }
 }
 
@@ -401,12 +408,6 @@ void Query::ValidateDisjunctiveFilterElements(
     ThrowInvalidArgument(
         "Invalid Query. A non-empty array is required for '%s'"
         " filters.",
-        Describe(op));
-  }
-  if (value.array_value.values_count > 10) {
-    ThrowInvalidArgument(
-        "Invalid Query. '%s' filters support a maximum of 10"
-        " elements in the value array.",
         Describe(op));
   }
 }
@@ -473,6 +474,19 @@ std::string Query::Describe(Operator op) const {
   }
 
   UNREACHABLE();
+}
+
+AggregateQuery Query::Aggregate(
+    std::vector<AggregateField>&& aggregations) const {
+  return AggregateQuery(*this, std::move(aggregations));
+}
+
+// TODO(b/280805906) Remove this count specific API after the c++ SDK migrates
+// to the new Aggregate API
+AggregateQuery Query::Count() const {
+  return AggregateQuery(
+      *this, std::vector<AggregateField>{AggregateField(
+                 AggregateField::OpKind::Count, AggregateAlias("count"))});
 }
 
 }  // namespace api

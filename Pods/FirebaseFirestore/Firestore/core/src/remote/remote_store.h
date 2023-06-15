@@ -42,6 +42,10 @@ namespace local {
 class LocalStore;
 }  // namespace local
 
+namespace model {
+class AggregateField;
+}  // namespace model
+
 namespace remote {
 
 class ConnectivityMonitor;
@@ -159,7 +163,7 @@ class RemoteStore : public TargetMetadataProvider,
    * It is a no-op if the target of the given target data is already being
    * listened to.
    */
-  void Listen(const local::TargetData& target_data);
+  void Listen(local::TargetData target_data);
 
   /**
    * Stops listening to the target with the given target ID.
@@ -193,6 +197,10 @@ class RemoteStore : public TargetMetadataProvider,
       model::TargetId target_id) const override;
   absl::optional<local::TargetData> GetTargetDataForTarget(
       model::TargetId target_id) const override;
+
+  void RunAggregateQuery(const core::Query& query,
+                         const std::vector<model::AggregateField>& aggregates,
+                         api::AggregateQueryCallback&& result_callback);
 
   void OnWatchStreamOpen() override;
   void OnWatchStreamChange(

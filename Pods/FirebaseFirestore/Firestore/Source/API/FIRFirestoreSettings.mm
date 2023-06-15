@@ -14,13 +14,17 @@
  * limitations under the License.
  */
 
+// TODO(wuandy): Delete this once isPersistenceEnabled and cacheSizeBytes are removed.
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
+
 #import "FIRFirestoreSettings.h"
+#import <Foundation/NSObject.h>
+#import "FIRLocalCacheSettings+Internal.h"
+#include "Firestore/Source/Public/FirebaseFirestore/FIRLocalCacheSettings.h"
 
 #include "Firestore/core/src/api/settings.h"
 #include "Firestore/core/src/util/exception.h"
 #include "Firestore/core/src/util/string_apple.h"
-#include "absl/base/attributes.h"
-#include "absl/memory/memory.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -30,8 +34,7 @@ using firebase::firestore::util::MakeString;
 using firebase::firestore::util::ThrowInvalidArgument;
 
 // Public constant
-ABSL_CONST_INIT extern "C" const int64_t kFIRFirestoreCacheSizeUnlimited =
-    Settings::CacheSizeUnlimited;
+extern "C" const int64_t kFIRFirestoreCacheSizeUnlimited = Settings::CacheSizeUnlimited;
 
 @implementation FIRFirestoreSettings
 
@@ -54,11 +57,19 @@ ABSL_CONST_INIT extern "C" const int64_t kFIRFirestoreCacheSizeUnlimited =
   }
 
   FIRFirestoreSettings *otherSettings = (FIRFirestoreSettings *)other;
-  return [self.host isEqual:otherSettings.host] &&
-         self.isSSLEnabled == otherSettings.isSSLEnabled &&
-         self.dispatchQueue == otherSettings.dispatchQueue &&
-         self.isPersistenceEnabled == otherSettings.isPersistenceEnabled &&
-         self.cacheSizeBytes == otherSettings.cacheSizeBytes;
+  BOOL equal = [self.host isEqual:otherSettings.host] &&
+               self.isSSLEnabled == otherSettings.isSSLEnabled &&
+               self.dispatchQueue == otherSettings.dispatchQueue &&
+               self.isPersistenceEnabled == otherSettings.isPersistenceEnabled &&
+               self.cacheSizeBytes == otherSettings.cacheSizeBytes;
+
+  if (equal && self.cacheSettings != nil && otherSettings.cacheSettings != nil) {
+    equal = [self.cacheSettings isEqual:otherSettings];
+  } else if (equal) {
+    equal = (self.cacheSettings == otherSettings.cacheSettings);
+  }
+
+  return equal;
 }
 
 - (NSUInteger)hash {
@@ -67,6 +78,15 @@ ABSL_CONST_INIT extern "C" const int64_t kFIRFirestoreCacheSizeUnlimited =
   // Ignore the dispatchQueue to avoid having to deal with sizeof(dispatch_queue_t).
   result = 31 * result + (self.isPersistenceEnabled ? 1231 : 1237);
   result = 31 * result + (NSUInteger)self.cacheSizeBytes;
+
+  if ([_cacheSettings isKindOfClass:[FIRPersistentCacheSettings class]]) {
+    FIRPersistentCacheSettings *casted = (FIRPersistentCacheSettings *)_cacheSettings;
+    result = 31 * result + casted.internalSettings.Hash();
+  } else if ([_cacheSettings isKindOfClass:[FIRMemoryCacheSettings class]]) {
+    FIRMemoryCacheSettings *casted = (FIRMemoryCacheSettings *)_cacheSettings;
+    result = 31 * result + casted.internalSettings.Hash();
+  }
+
   return result;
 }
 
@@ -77,6 +97,7 @@ ABSL_CONST_INIT extern "C" const int64_t kFIRFirestoreCacheSizeUnlimited =
   copy.dispatchQueue = _dispatchQueue;
   copy.persistenceEnabled = _persistenceEnabled;
   copy.cacheSizeBytes = _cacheSizeBytes;
+  copy.cacheSettings = _cacheSettings;
   return copy;
 }
 
@@ -108,6 +129,10 @@ ABSL_CONST_INIT extern "C" const int64_t kFIRFirestoreCacheSizeUnlimited =
   _cacheSizeBytes = cacheSizeBytes;
 }
 
+- (void)setCacheSettings:(id<FIRLocalCacheSettings, NSObject>)cacheSettings {
+  _cacheSettings = cacheSettings;
+}
+
 - (BOOL)isUsingDefaultHost {
   NSString *defaultHost = [NSString stringWithUTF8String:Settings::DefaultHost];
   return [self.host isEqualToString:defaultHost];
@@ -119,6 +144,15 @@ ABSL_CONST_INIT extern "C" const int64_t kFIRFirestoreCacheSizeUnlimited =
   settings.set_ssl_enabled(_sslEnabled);
   settings.set_persistence_enabled(_persistenceEnabled);
   settings.set_cache_size_bytes(_cacheSizeBytes);
+
+  if ([_cacheSettings isKindOfClass:[FIRPersistentCacheSettings class]]) {
+    FIRPersistentCacheSettings *casted = (FIRPersistentCacheSettings *)_cacheSettings;
+    settings.set_local_cache_settings(casted.internalSettings);
+  } else if ([_cacheSettings isKindOfClass:[FIRMemoryCacheSettings class]]) {
+    FIRMemoryCacheSettings *casted = (FIRMemoryCacheSettings *)_cacheSettings;
+    settings.set_local_cache_settings(casted.internalSettings);
+  }
+
   return settings;
 }
 

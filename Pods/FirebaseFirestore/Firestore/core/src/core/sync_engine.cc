@@ -28,6 +28,7 @@
 #include "Firestore/core/src/local/local_write_result.h"
 #include "Firestore/core/src/local/query_result.h"
 #include "Firestore/core/src/local/target_data.h"
+#include "Firestore/core/src/model/aggregate_field.h"
 #include "Firestore/core/src/model/document_key.h"
 #include "Firestore/core/src/model/document_key_set.h"
 #include "Firestore/core/src/model/document_set.h"
@@ -56,6 +57,7 @@ using local::LocalWriteResult;
 using local::QueryPurpose;
 using local::QueryResult;
 using local::TargetData;
+using model::AggregateField;
 using model::BatchId;
 using model::DocumentKey;
 using model::DocumentKeySet;
@@ -109,20 +111,22 @@ TargetId SyncEngine::Listen(Query query) {
               "We already listen to query: %s", query.ToString());
 
   TargetData target_data = local_store_->AllocateTarget(query.ToTarget());
-  ViewSnapshot view_snapshot =
-      InitializeViewAndComputeSnapshot(query, target_data.target_id());
+  TargetId target_id = target_data.target_id();
+  nanopb::ByteString resume_token = target_data.resume_token();
+  remote_store_->Listen(std::move(target_data));
+
+  ViewSnapshot view_snapshot = InitializeViewAndComputeSnapshot(
+      query, target_id, std::move(resume_token));
   std::vector<ViewSnapshot> snapshots;
   // Not using the `std::initializer_list` constructor to avoid extra copies.
   snapshots.push_back(std::move(view_snapshot));
   sync_engine_callback_->OnViewSnapshots(std::move(snapshots));
 
-  // TODO(wuandy): move `target_data` into `Listen`.
-  remote_store_->Listen(target_data);
-  return target_data.target_id();
+  return target_id;
 }
 
-ViewSnapshot SyncEngine::InitializeViewAndComputeSnapshot(const Query& query,
-                                                          TargetId target_id) {
+ViewSnapshot SyncEngine::InitializeViewAndComputeSnapshot(
+    const Query& query, TargetId target_id, nanopb::ByteString resume_token) {
   QueryResult query_result =
       local_store_->ExecuteQuery(query, /* use_previous_results= */ true);
 
@@ -134,9 +138,9 @@ ViewSnapshot SyncEngine::InitializeViewAndComputeSnapshot(const Query& query,
     const Query& mirror_query = queries_by_target_[target_id][0];
     current_sync_state =
         query_views_by_query_[mirror_query]->view().sync_state();
-    synthesized_current_change = TargetChange::CreateSynthesizedTargetChange(
-        current_sync_state == SyncState::Synced);
   }
+  synthesized_current_change = TargetChange::CreateSynthesizedTargetChange(
+      current_sync_state == SyncState::Synced, std::move(resume_token));
 
   View view(query, query_result.remote_keys());
   ViewDocumentChanges view_doc_changes =
@@ -234,18 +238,26 @@ void SyncEngine::RegisterPendingWritesCallback(StatusCallback callback) {
       std::move(callback));
 }
 
-void SyncEngine::Transaction(int retries,
+void SyncEngine::Transaction(int max_attempts,
                              const std::shared_ptr<AsyncQueue>& worker_queue,
                              TransactionUpdateCallback update_callback,
                              TransactionResultCallback result_callback) {
+  HARD_ASSERT(max_attempts >= 0, "invalid max_attempts: %s", max_attempts);
   worker_queue->VerifyIsCurrentQueue();
-  HARD_ASSERT(retries >= 0, "Got negative number of retries for transaction");
 
   // Allocate a shared_ptr so that the TransactionRunner can outlive this frame.
-  auto runner = std::make_shared<TransactionRunner>(worker_queue, remote_store_,
-                                                    std::move(update_callback),
-                                                    std::move(result_callback));
+  auto runner = std::make_shared<TransactionRunner>(
+      worker_queue, remote_store_, std::move(update_callback),
+      std::move(result_callback), max_attempts);
   runner->Run();
+}
+
+void SyncEngine::RunAggregateQuery(
+    const core::Query& query,
+    const std::vector<model::AggregateField>& aggregates,
+    api::AggregateQueryCallback&& result_callback) {
+  remote_store_->RunAggregateQuery(query, aggregates,
+                                   std::move(result_callback));
 }
 
 void SyncEngine::HandleCredentialChange(const credentials::User& user) {

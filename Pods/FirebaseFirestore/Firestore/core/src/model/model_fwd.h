@@ -68,12 +68,15 @@ class DocumentSet;
 class FieldMask;
 class FieldPath;
 class FieldTransform;
+class IndexOffset;
 class MutableDocument;
 class Mutation;
 class MutationBatch;
 class MutationBatchResult;
 class MutationResult;
 class ObjectValue;
+class Overlay;
+class OverlayedDocument;
 class PatchMutation;
 class Precondition;
 class SetMutation;
@@ -103,6 +106,23 @@ using DocumentVersionMap =
 
 using DocumentUpdateMap =
     std::unordered_map<DocumentKey, MutableDocument, DocumentKeyHash>;
+
+using OverlayedDocumentMap = std::unordered_map<model::DocumentKey,
+                                                model::OverlayedDocument,
+                                                model::DocumentKeyHash>;
+using FieldMaskMap = std::unordered_map<model::DocumentKey,
+                                        absl::optional<model::FieldMask>,
+                                        model::DocumentKeyHash>;
+
+using MutableDocumentPtrMap = std::unordered_map<model::DocumentKey,
+                                                 model::MutableDocument*,
+                                                 model::DocumentKeyHash>;
+
+using OverlayByDocumentKeyMap = std::
+    unordered_map<model::DocumentKey, model::Overlay, model::DocumentKeyHash>;
+
+using MutationByDocumentKeyMap = std::
+    unordered_map<model::DocumentKey, model::Mutation, model::DocumentKeyHash>;
 
 // A map of FieldPaths to transforms. Sorted so it can be used in
 // ObjectValue::SetAll, which makes it more efficient as it processes field

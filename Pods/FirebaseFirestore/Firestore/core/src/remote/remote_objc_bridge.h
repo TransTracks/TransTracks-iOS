@@ -32,6 +32,8 @@
 #include "Firestore/core/src/util/status_fwd.h"
 #include "grpcpp/support/byte_buffer.h"
 
+#include "absl/container/flat_hash_map.h"
+
 namespace firebase {
 namespace firestore {
 
@@ -40,6 +42,7 @@ class TargetData;
 }  // namespace local
 
 namespace model {
+class AggregateField;
 class DocumentKey;
 class SnapshotVersion;
 }  // namespace model
@@ -132,6 +135,16 @@ class DatastoreSerializer {
    */
   util::StatusOr<std::vector<model::Document>> MergeLookupResponses(
       const std::vector<grpc::ByteBuffer>& responses) const;
+
+  nanopb::Message<google_firestore_v1_RunAggregationQueryRequest>
+  EncodeAggregateQueryRequest(
+      const core::Query& query,
+      const std::vector<model::AggregateField>& aggregates,
+      absl::flat_hash_map<std::string, std::string>& aliasMap) const;
+
+  util::StatusOr<model::ObjectValue> DecodeAggregateQueryResponse(
+      const grpc::ByteBuffer& response,
+      const absl::flat_hash_map<std::string, std::string>& aliasMap) const;
 
   const Serializer& serializer() const {
     return serializer_;

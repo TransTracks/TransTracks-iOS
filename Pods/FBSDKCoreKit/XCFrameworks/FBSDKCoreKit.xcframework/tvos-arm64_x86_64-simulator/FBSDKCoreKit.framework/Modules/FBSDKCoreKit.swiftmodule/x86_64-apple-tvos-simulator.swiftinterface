@@ -1,10 +1,13 @@
 // swift-interface-format-version: 1.0
-// swift-compiler-version: Apple Swift version 5.4 (swiftlang-1205.0.26.9 clang-1205.0.19.55)
-// swift-module-flags: -target x86_64-apple-tvos10.0-simulator -enable-objc-interop -enable-library-evolution -swift-version 5 -enforce-exclusivity=checked -O -module-name FBSDKCoreKit
+// swift-compiler-version: Apple Swift version 5.5.1 (swiftlang-1300.0.31.4 clang-1300.0.29.6)
+// swift-module-flags: -target x86_64-apple-tvos11.0-simulator -enable-objc-interop -enable-library-evolution -swift-version 5 -enforce-exclusivity=checked -O -module-name FBSDKCoreKit
 @_exported import FBSDKCoreKit
+import FBSDKCoreKit_Basics
 import Foundation
 import Swift
-extension AccessToken {
+import UIKit
+import _Concurrency
+extension FBSDKCoreKit.AccessToken {
   public var permissions: Swift.Set<FBSDKCoreKit.Permission> {
     get
   }
@@ -15,6 +18,34 @@ extension AccessToken {
     get
   }
   public func hasGranted(_ permission: FBSDKCoreKit.Permission) -> Swift.Bool
+}
+@objc(FBSDKCAPIReporter) public protocol CAPIReporter {
+  @objc func enable()
+  @objc func configure(factory: FBSDKCoreKit.GraphRequestFactoryProtocol, settings: FBSDKCoreKit.SettingsProtocol)
+  @objc func recordEvent(_ parameters: [Swift.String : Any])
+}
+@objc @_inheritsConvenienceInitializers @objcMembers final public class FBSDKAppEventsCAPIManager : ObjectiveC.NSObject, FBSDKCoreKit.CAPIReporter {
+  @objc public static let shared: FBSDKCoreKit.FBSDKAppEventsCAPIManager
+  @objc override dynamic public init()
+  @objc final public func configure(factory: FBSDKCoreKit.GraphRequestFactoryProtocol, settings: FBSDKCoreKit.SettingsProtocol)
+  @objc final public func enable()
+  @objc final public func recordEvent(_ parameters: [Swift.String : Any])
+  @objc deinit
+}
+@objc @_inheritsConvenienceInitializers @objcMembers public class FBSDKTransformerGraphRequestFactory : ObjectiveC.NSObject {
+  @objc public static let shared: FBSDKCoreKit.FBSDKTransformerGraphRequestFactory
+  public var credentials: FBSDKCoreKit.FBSDKTransformerGraphRequestFactory.CapiGCredentials? {
+    get
+  }
+  public struct CapiGCredentials {
+    public let accessKey: Swift.String
+    public let capiGatewayURL: Swift.String
+    public let datasetID: Swift.String
+  }
+  @objc override dynamic public init()
+  @objc public func configure(datasetID: Swift.String, url: Swift.String, accessKey: Swift.String)
+  @objc public func callCapiGatewayAPI(with parameters: [Swift.String : Any])
+  @objc deinit
 }
 public enum Permission : Swift.Hashable, Swift.ExpressibleByStringLiteral {
   case publicProfile

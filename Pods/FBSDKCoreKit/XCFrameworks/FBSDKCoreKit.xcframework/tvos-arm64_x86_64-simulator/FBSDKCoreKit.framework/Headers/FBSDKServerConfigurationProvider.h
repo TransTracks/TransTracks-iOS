@@ -26,7 +26,7 @@ Internal Type exposed to facilitate transition to Swift.
 API Subject to change or removal without warning. Do not use.
 
 @warning INTERNAL - DO NOT USE
-*/
+ */
 NS_SWIFT_NAME(ServerConfigurationProvider)
 @interface FBSDKServerConfigurationProvider : NSObject
 
@@ -60,7 +60,8 @@ NS_SWIFT_NAME(ServerConfigurationProvider)
 
  @warning INTERNAL - DO NOT USE
  */
-- (void)loadServerConfigurationWithCompletionBlock:(nullable FBSDKLoginTooltipBlock)completionBlock;
+- (void)loadServerConfigurationWithCompletionBlock:(nullable FBSDKLoginTooltipBlock)completionBlock
+  NS_SWIFT_NAME(loadServerConfiguration(completion:));
 @end
 
 NS_ASSUME_NONNULL_END

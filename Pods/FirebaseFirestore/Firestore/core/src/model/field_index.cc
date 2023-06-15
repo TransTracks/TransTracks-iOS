@@ -36,11 +36,12 @@ util::ComparisonResult Segment::CompareTo(const Segment& rhs) const {
 }
 
 IndexOffset IndexOffset::None() {
-  static const IndexOffset kNone(SnapshotVersion::None(), DocumentKey::Empty());
+  static const IndexOffset kNone(SnapshotVersion::None(), DocumentKey::Empty(),
+                                 InitialLargestBatchId());
   return kNone;
 }
 
-IndexOffset IndexOffset::Create(SnapshotVersion read_time) {
+IndexOffset IndexOffset::CreateSuccessor(SnapshotVersion read_time) {
   // We want to create an offset that matches all documents with a read time
   // greater than the provided read time. To do so, we technically need to
   // create an offset for `(readTime, MAX_DOCUMENT_KEY)`. While we could use
@@ -52,11 +53,12 @@ IndexOffset IndexOffset::Create(SnapshotVersion read_time) {
   Timestamp successor = successor_nanos == 1e9
                             ? Timestamp{successor_seconds + 1, 0}
                             : Timestamp{successor_seconds, successor_nanos};
-  return {SnapshotVersion(std::move(successor)), DocumentKey::Empty()};
+  return {SnapshotVersion(std::move(successor)), DocumentKey::Empty(),
+          InitialLargestBatchId()};
 }
 
 IndexOffset IndexOffset::FromDocument(const Document& document) {
-  return {document.read_time(), document->key()};
+  return {document.read_time(), document->key(), InitialLargestBatchId()};
 }
 
 util::ComparisonResult IndexOffset::CompareTo(const IndexOffset& rhs) const {
