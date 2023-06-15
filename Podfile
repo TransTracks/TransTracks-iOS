@@ -42,7 +42,7 @@ target 'TransTracks' do
   end
 
   target 'TransTracksUITests' do
-    inherit! :search_paths
+    inherit! :complete
     # Pods for testing
   end
 

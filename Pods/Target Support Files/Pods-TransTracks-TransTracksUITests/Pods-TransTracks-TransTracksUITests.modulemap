@@ -1,0 +1,6 @@
+framework module Pods_TransTracks_TransTracksUITests {
+  umbrella header "Pods-TransTracks-TransTracksUITests-umbrella.h"
+
+  export *
+  module * { export * }
+}

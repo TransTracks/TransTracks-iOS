@@ -1,0 +1,31 @@
+{
+  "configurations" : [
+    {
+      "id" : "53B3BFF2-9D59-42B4-BB02-D3F094D3DD69",
+      "name" : "Configuration 1",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "testTimeoutsEnabled" : true
+  },
+  "testTargets" : [
+    {
+      "target" : {
+        "containerPath" : "container:TransTracks.xcodeproj",
+        "identifier" : "F919D78C219186DF0069F42B",
+        "name" : "TransTracksTests"
+      }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:TransTracks.xcodeproj",
+        "identifier" : "F919D797219186DF0069F42B",
+        "name" : "TransTracksUITests"
+      }
+    }
+  ],
+  "version" : 1
+}
