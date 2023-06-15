@@ -39,9 +39,6 @@ jobs:
           INFO_CONFIG_64: ${{ secrets.INFO_CONFIG_64 }}
         run: echo $INFO_CONFIG_64 | base64 --decode > ./TransTracks/InfoConfig.plist
 
-      - name: 🙌 Copy secrets file
-        run: cp TransTracks/config.plist.example TransTracks/config.plist
-
       - name: 👷‍♀️ Build
         env:
           scheme: ${{ 'default' }}
