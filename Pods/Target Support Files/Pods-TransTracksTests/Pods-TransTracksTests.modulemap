@@ -1,6 +1,0 @@
-framework module Pods_TransTracksTests {
-  umbrella header "Pods-TransTracksTests-umbrella.h"
-
-  export *
-  module * { export * }
-}

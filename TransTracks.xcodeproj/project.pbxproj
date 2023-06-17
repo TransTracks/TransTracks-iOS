@@ -7,11 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		429FBCBBD483AFB9C6C3766D /* Pods_TransTracks_TransTracksUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B64C4FF7907A999F30186AE /* Pods_TransTracks_TransTracksUITests.framework */; };
 		75250CD039C8C0A34FAC03D2 /* Archive+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7525064EB02B5AF830F52B4E /* Archive+Extensions.swift */; };
 		75250F90816E6A57551C6562 /* InfoConfig.plist in Resources */ = {isa = PBXBuildFile; fileRef = 75250BC5F7C75E458AD00F28 /* InfoConfig.plist */; };
-		A5756C8F769ED45E21515476 /* Pods_TransTracks.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 782FBA8E640899E5F5254E51 /* Pods_TransTracks.framework */; };
-		DCE6C5BCAA6FF46553BA5989 /* Pods_TransTracksTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8FC4469DD808C8C3D2F6BE7B /* Pods_TransTracksTests.framework */; };
 		F900233E227D71D3003F3304 /* EditPhotoContoller.swift in Sources */ = {isa = PBXBuildFile; fileRef = F900233D227D71D3003F3304 /* EditPhotoContoller.swift */; };
 		F9002340227D7BE5003F3304 /* EditPhotoDomain.swift in Sources */ = {isa = PBXBuildFile; fileRef = F900233F227D7BE5003F3304 /* EditPhotoDomain.swift */; };
 		F900234322814DE3003F3304 /* GalleryController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F900234222814DE3003F3304 /* GalleryController.swift */; };
@@ -124,6 +121,7 @@
 		F99B37192A3D61C6005ECB23 /* RxSwiftExt in Frameworks */ = {isa = PBXBuildFile; productRef = F99B37182A3D61C6005ECB23 /* RxSwiftExt */; };
 		F99B371C2A3D6600005ECB23 /* PasswordTextField in Frameworks */ = {isa = PBXBuildFile; productRef = F99B371B2A3D6600005ECB23 /* PasswordTextField */; };
 		F99B371F2A3D682E005ECB23 /* ZIPFoundation in Frameworks */ = {isa = PBXBuildFile; productRef = F99B371E2A3D682E005ECB23 /* ZIPFoundation */; };
+		F99B37222A3D6AB1005ECB23 /* Toast in Frameworks */ = {isa = PBXBuildFile; productRef = F99B37212A3D6AB1005ECB23 /* Toast */; };
 		F9BF2415228D0098002A38BA /* DropShadowButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9BF2414228D0098002A38BA /* DropShadowButton.swift */; };
 		F9BF2417228D011A002A38BA /* WelcomeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9BF2416228D011A002A38BA /* WelcomeController.swift */; };
 		F9BF2428228D3ACC002A38BA /* AltAppIcon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = F9BF2419228D3ACB002A38BA /* AltAppIcon@3x.png */; };
@@ -172,18 +170,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		0349B228E859ABB58619B7FB /* Pods-TransTracksUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TransTracksUITests.release.xcconfig"; path = "Target Support Files/Pods-TransTracksUITests/Pods-TransTracksUITests.release.xcconfig"; sourceTree = "<group>"; };
-		0BA10CB0E9FE0B3F7E9DE166 /* Pods-TransTracks-TransTracksUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TransTracks-TransTracksUITests.debug.xcconfig"; path = "Target Support Files/Pods-TransTracks-TransTracksUITests/Pods-TransTracks-TransTracksUITests.debug.xcconfig"; sourceTree = "<group>"; };
-		22D51A3152436AA34C2E6687 /* Pods-TransTracksTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TransTracksTests.debug.xcconfig"; path = "Target Support Files/Pods-TransTracksTests/Pods-TransTracksTests.debug.xcconfig"; sourceTree = "<group>"; };
-		3B64C4FF7907A999F30186AE /* Pods_TransTracks_TransTracksUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TransTracks_TransTracksUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		41AC01AE45B33B2EFEBBC7E3 /* Pods-TransTracks.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TransTracks.debug.xcconfig"; path = "Target Support Files/Pods-TransTracks/Pods-TransTracks.debug.xcconfig"; sourceTree = "<group>"; };
 		7525064EB02B5AF830F52B4E /* Archive+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Archive+Extensions.swift"; sourceTree = "<group>"; };
 		75250BC5F7C75E458AD00F28 /* InfoConfig.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.info; path = InfoConfig.plist; sourceTree = "<group>"; };
-		782FBA8E640899E5F5254E51 /* Pods_TransTracks.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TransTracks.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		8FC4469DD808C8C3D2F6BE7B /* Pods_TransTracksTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TransTracksTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		B82EEFBA57B4D562AE65584F /* Pods-TransTracks.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TransTracks.release.xcconfig"; path = "Target Support Files/Pods-TransTracks/Pods-TransTracks.release.xcconfig"; sourceTree = "<group>"; };
-		B98662463C999C7F3B480739 /* Pods-TransTracksTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TransTracksTests.release.xcconfig"; path = "Target Support Files/Pods-TransTracksTests/Pods-TransTracksTests.release.xcconfig"; sourceTree = "<group>"; };
-		CB492C6F0AD46770CAFE24EB /* Pods-TransTracks-TransTracksUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TransTracks-TransTracksUITests.release.xcconfig"; path = "Target Support Files/Pods-TransTracks-TransTracksUITests/Pods-TransTracks-TransTracksUITests.release.xcconfig"; sourceTree = "<group>"; };
 		F900233D227D71D3003F3304 /* EditPhotoContoller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPhotoContoller.swift; sourceTree = "<group>"; };
 		F900233F227D7BE5003F3304 /* EditPhotoDomain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPhotoDomain.swift; sourceTree = "<group>"; };
 		F900234222814DE3003F3304 /* GalleryController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GalleryController.swift; sourceTree = "<group>"; };
@@ -317,7 +305,6 @@
 		F9F3C53F229B6026006D3050 /* SelectCollectionDomain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectCollectionDomain.swift; sourceTree = "<group>"; };
 		F9F4F8BA27BFA96100D688C5 /* TitleCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleCell.swift; sourceTree = "<group>"; };
 		F9F4F8BC27BFAB3B00D688C5 /* TextCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextCell.swift; sourceTree = "<group>"; };
-		FF434DD97890C69334CEABF7 /* Pods-TransTracksUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TransTracksUITests.debug.xcconfig"; path = "Target Support Files/Pods-TransTracksUITests/Pods-TransTracksUITests.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -325,10 +312,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F99B37222A3D6AB1005ECB23 /* Toast in Frameworks */,
 				F9F1E83F2A3D508F0097AC9C /* FirebaseAnalyticsSwift in Frameworks */,
 				F9F1E8382A3D4FC50097AC9C /* FirebaseEmailAuthUI in Frameworks */,
 				F99B370D2A3D5969005ECB23 /* GoogleMobileAds in Frameworks */,
-				A5756C8F769ED45E21515476 /* Pods_TransTracks.framework in Frameworks */,
 				F9F1E83C2A3D4FC50097AC9C /* FirebaseOAuthUI in Frameworks */,
 				F9F1E83A2A3D4FC50097AC9C /* FirebaseGoogleAuthUI in Frameworks */,
 				F99B37142A3D6156005ECB23 /* RxSwift in Frameworks */,
@@ -349,7 +336,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				F99B37162A3D6156005ECB23 /* RxTest in Frameworks */,
-				DCE6C5BCAA6FF46553BA5989 /* Pods_TransTracksTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -357,7 +343,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				429FBCBBD483AFB9C6C3766D /* Pods_TransTracks_TransTracksUITests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -368,26 +353,8 @@
 			isa = PBXGroup;
 			children = (
 				F93CF092221BEFB50008CC44 /* Alerts and Pickers */,
-				782FBA8E640899E5F5254E51 /* Pods_TransTracks.framework */,
-				8FC4469DD808C8C3D2F6BE7B /* Pods_TransTracksTests.framework */,
-				3B64C4FF7907A999F30186AE /* Pods_TransTracks_TransTracksUITests.framework */,
 			);
 			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		D42504F338B3BCB53845E229 /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				41AC01AE45B33B2EFEBBC7E3 /* Pods-TransTracks.debug.xcconfig */,
-				B82EEFBA57B4D562AE65584F /* Pods-TransTracks.release.xcconfig */,
-				22D51A3152436AA34C2E6687 /* Pods-TransTracksTests.debug.xcconfig */,
-				B98662463C999C7F3B480739 /* Pods-TransTracksTests.release.xcconfig */,
-				FF434DD97890C69334CEABF7 /* Pods-TransTracksUITests.debug.xcconfig */,
-				0349B228E859ABB58619B7FB /* Pods-TransTracksUITests.release.xcconfig */,
-				0BA10CB0E9FE0B3F7E9DE166 /* Pods-TransTracks-TransTracksUITests.debug.xcconfig */,
-				CB492C6F0AD46770CAFE24EB /* Pods-TransTracks-TransTracksUITests.release.xcconfig */,
-			);
-			path = Pods;
 			sourceTree = "<group>";
 		};
 		F900233C227D71AE003F3304 /* Edit Photo */ = {
@@ -417,7 +384,6 @@
 				F919D77B219186DD0069F42B /* TransTracks */,
 				F919D790219186DF0069F42B /* TransTracksTests */,
 				F919D79B219186DF0069F42B /* TransTracksUITests */,
-				D42504F338B3BCB53845E229 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -851,12 +817,10 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = F919D7A1219186DF0069F42B /* Build configuration list for PBXNativeTarget "TransTracks" */;
 			buildPhases = (
-				F33326B6A76EB4F277695A59 /* [CP] Check Pods Manifest.lock */,
 				F97AA39025E9CF3E0015C3CC /* ShellScript */,
 				F919D775219186DD0069F42B /* Sources */,
 				F919D776219186DD0069F42B /* Frameworks */,
 				F919D777219186DD0069F42B /* Resources */,
-				009F93C366935DD36E06DAC1 /* [CP] Embed Pods Frameworks */,
 				F97AA39D25E9D3070015C3CC /* ShellScript */,
 				F9BC695B25594DF4008D5794 /* Crashlytics */,
 			);
@@ -881,6 +845,7 @@
 				F99B37182A3D61C6005ECB23 /* RxSwiftExt */,
 				F99B371B2A3D6600005ECB23 /* PasswordTextField */,
 				F99B371E2A3D682E005ECB23 /* ZIPFoundation */,
+				F99B37212A3D6AB1005ECB23 /* Toast */,
 			);
 			productName = TransTracks;
 			productReference = F919D779219186DD0069F42B /* TransTracks.app */;
@@ -890,7 +855,6 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = F919D7A4219186DF0069F42B /* Build configuration list for PBXNativeTarget "TransTracksTests" */;
 			buildPhases = (
-				F8DEE50CE8A2076EE46ED811 /* [CP] Check Pods Manifest.lock */,
 				F919D789219186DF0069F42B /* Sources */,
 				F919D78A219186DF0069F42B /* Frameworks */,
 				F919D78B219186DF0069F42B /* Resources */,
@@ -912,11 +876,9 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = F919D7A7219186DF0069F42B /* Build configuration list for PBXNativeTarget "TransTracksUITests" */;
 			buildPhases = (
-				E5893C40568EB3E67B6312EC /* [CP] Check Pods Manifest.lock */,
 				F919D794219186DF0069F42B /* Sources */,
 				F919D795219186DF0069F42B /* Frameworks */,
 				F919D796219186DF0069F42B /* Resources */,
-				3A2C7BED3F5FF3C6B9413171 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -969,6 +931,7 @@
 				F99B37172A3D61C6005ECB23 /* XCRemoteSwiftPackageReference "RxSwiftExt" */,
 				F99B371A2A3D6600005ECB23 /* XCRemoteSwiftPackageReference "PasswordTextField" */,
 				F99B371D2A3D682E005ECB23 /* XCRemoteSwiftPackageReference "ZIPFoundation" */,
+				F99B37202A3D6AB1005ECB23 /* XCRemoteSwiftPackageReference "Toast-Swift" */,
 			);
 			productRefGroup = F919D77A219186DD0069F42B /* Products */;
 			projectDirPath = "";
@@ -1018,106 +981,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		009F93C366935DD36E06DAC1 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-TransTracks/Pods-TransTracks-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-TransTracks/Pods-TransTracks-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-TransTracks/Pods-TransTracks-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		3A2C7BED3F5FF3C6B9413171 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-TransTracks-TransTracksUITests/Pods-TransTracks-TransTracksUITests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-TransTracks-TransTracksUITests/Pods-TransTracks-TransTracksUITests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-TransTracks-TransTracksUITests/Pods-TransTracks-TransTracksUITests-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		E5893C40568EB3E67B6312EC /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-TransTracks-TransTracksUITests-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		F33326B6A76EB4F277695A59 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-TransTracks-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		F8DEE50CE8A2076EE46ED811 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-TransTracksTests-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
 		F97AA39025E9CF3E0015C3CC /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1463,7 +1326,6 @@
 		};
 		F919D7A2219186DF0069F42B /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 41AC01AE45B33B2EFEBBC7E3 /* Pods-TransTracks.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = TransTracks/TransTracks.entitlements;
@@ -1486,7 +1348,6 @@
 		};
 		F919D7A3219186DF0069F42B /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = B82EEFBA57B4D562AE65584F /* Pods-TransTracks.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = TransTracks/TransTracks.entitlements;
@@ -1509,7 +1370,6 @@
 		};
 		F919D7A5219186DF0069F42B /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 22D51A3152436AA34C2E6687 /* Pods-TransTracksTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -1531,7 +1391,6 @@
 		};
 		F919D7A6219186DF0069F42B /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = B98662463C999C7F3B480739 /* Pods-TransTracksTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -1553,7 +1412,6 @@
 		};
 		F919D7A8219186DF0069F42B /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 0BA10CB0E9FE0B3F7E9DE166 /* Pods-TransTracks-TransTracksUITests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
@@ -1574,7 +1432,6 @@
 		};
 		F919D7A9219186DF0069F42B /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = CB492C6F0AD46770CAFE24EB /* Pods-TransTracks-TransTracksUITests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
@@ -1675,6 +1532,14 @@
 				version = 0.9.16;
 			};
 		};
+		F99B37202A3D6AB1005ECB23 /* XCRemoteSwiftPackageReference "Toast-Swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/scalessec/Toast-Swift";
+			requirement = {
+				kind = exactVersion;
+				version = 5.0.1;
+			};
+		};
 		F9F1E8342A3D4FC50097AC9C /* XCRemoteSwiftPackageReference "FirebaseUI-iOS" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/firebase/FirebaseUI-iOS/";
@@ -1733,6 +1598,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = F99B371D2A3D682E005ECB23 /* XCRemoteSwiftPackageReference "ZIPFoundation" */;
 			productName = ZIPFoundation;
+		};
+		F99B37212A3D6AB1005ECB23 /* Toast */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F99B37202A3D6AB1005ECB23 /* XCRemoteSwiftPackageReference "Toast-Swift" */;
+			productName = Toast;
 		};
 		F9F1E8352A3D4FC50097AC9C /* FirebaseAuthUI */ = {
 			isa = XCSwiftPackageProductDependency;
