@@ -207,7 +207,6 @@
 		F93CF07C221A59A00008CC44 /* SettingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingCell.swift; sourceTree = "<group>"; };
 		F93CF080221A5A0A0008CC44 /* ButtonCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonCell.swift; sourceTree = "<group>"; };
 		F93CF082221A66B70008CC44 /* DividerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DividerView.swift; sourceTree = "<group>"; };
-		F93CF092221BEFB50008CC44 /* Alerts and Pickers */ = {isa = PBXFileReference; lastKnownFileType = folder; path = "Alerts and Pickers"; sourceTree = "<group>"; };
 		F93CF11C221BF19B0008CC44 /* Array+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Array+Extensions.swift"; sourceTree = "<group>"; };
 		F93CF11D221BF19B0008CC44 /* UISegmentedControl+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UISegmentedControl+Extensions.swift"; sourceTree = "<group>"; };
 		F93CF11E221BF19B0008CC44 /* UIImageView+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImageView+Extensions.swift"; sourceTree = "<group>"; };
@@ -349,14 +348,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		08E661EAAB70FAC54179A444 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				F93CF092221BEFB50008CC44 /* Alerts and Pickers */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
 		F900233C227D71AE003F3304 /* Edit Photo */ = {
 			isa = PBXGroup;
 			children = (
@@ -379,7 +370,6 @@
 			children = (
 				F9F1E82A2A3B252D0097AC9C /* TestPlan.xctestplan */,
 				F93CF11A221BF19B0008CC44 /* Alerts and Pickers Library */,
-				08E661EAAB70FAC54179A444 /* Frameworks */,
 				F919D77A219186DD0069F42B /* Products */,
 				F919D77B219186DD0069F42B /* TransTracks */,
 				F919D790219186DF0069F42B /* TransTracksTests */,
