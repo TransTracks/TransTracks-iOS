@@ -5,18 +5,6 @@ target 'TransTracks' do
   # Comment the next line if you're not using Swift and don't want to use dynamic frameworks
   use_frameworks!
 
-  # Pods for TransTracks
-  
-  # Crash logging
-  pod 'Firebase/Crashlytics'
-  pod 'Firebase/Analytics'
-
-  # General Firebase
-  pod 'Firebase/Firestore'
-  
-  # Firebase Auth
-  pod 'FirebaseUI'
-  
   # Ads
   pod 'Google-Mobile-Ads-SDK'
 
