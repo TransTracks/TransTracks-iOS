@@ -127,6 +127,14 @@
       }
     },
     {
+      "identity" : "passwordtextfield",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/touchbyte/PasswordTextField",
+      "state" : {
+        "revision" : "a1f2f0c9d1c40a57640bc8199dba5d4fde820014"
+      }
+    },
+    {
       "identity" : "promises",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/google/promises.git",

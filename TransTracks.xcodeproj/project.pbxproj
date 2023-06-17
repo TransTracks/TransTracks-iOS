@@ -122,6 +122,7 @@
 		F99B37142A3D6156005ECB23 /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = F99B37132A3D6156005ECB23 /* RxSwift */; };
 		F99B37162A3D6156005ECB23 /* RxTest in Frameworks */ = {isa = PBXBuildFile; productRef = F99B37152A3D6156005ECB23 /* RxTest */; };
 		F99B37192A3D61C6005ECB23 /* RxSwiftExt in Frameworks */ = {isa = PBXBuildFile; productRef = F99B37182A3D61C6005ECB23 /* RxSwiftExt */; };
+		F99B371C2A3D6600005ECB23 /* PasswordTextField in Frameworks */ = {isa = PBXBuildFile; productRef = F99B371B2A3D6600005ECB23 /* PasswordTextField */; };
 		F9BF2415228D0098002A38BA /* DropShadowButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9BF2414228D0098002A38BA /* DropShadowButton.swift */; };
 		F9BF2417228D011A002A38BA /* WelcomeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9BF2416228D011A002A38BA /* WelcomeController.swift */; };
 		F9BF2428228D3ACC002A38BA /* AltAppIcon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = F9BF2419228D3ACB002A38BA /* AltAppIcon@3x.png */; };
@@ -334,6 +335,7 @@
 				F99B37102A3D6156005ECB23 /* RxBlocking in Frameworks */,
 				F9F1E8432A3D508F0097AC9C /* FirebaseCrashlytics in Frameworks */,
 				F9F1E8412A3D508F0097AC9C /* FirebaseAuth in Frameworks */,
+				F99B371C2A3D6600005ECB23 /* PasswordTextField in Frameworks */,
 				F9F1E8362A3D4FC50097AC9C /* FirebaseAuthUI in Frameworks */,
 				F99B37192A3D61C6005ECB23 /* RxSwiftExt in Frameworks */,
 				F9F1E8452A3D508F0097AC9C /* FirebaseFirestoreSwift in Frameworks */,
@@ -875,6 +877,7 @@
 				F99B37112A3D6156005ECB23 /* RxCocoa */,
 				F99B37132A3D6156005ECB23 /* RxSwift */,
 				F99B37182A3D61C6005ECB23 /* RxSwiftExt */,
+				F99B371B2A3D6600005ECB23 /* PasswordTextField */,
 			);
 			productName = TransTracks;
 			productReference = F919D779219186DD0069F42B /* TransTracks.app */;
@@ -961,6 +964,7 @@
 				F99B370B2A3D5969005ECB23 /* XCRemoteSwiftPackageReference "swift-package-manager-google-mobile-ads" */,
 				F99B370E2A3D6156005ECB23 /* XCRemoteSwiftPackageReference "RxSwift" */,
 				F99B37172A3D61C6005ECB23 /* XCRemoteSwiftPackageReference "RxSwiftExt" */,
+				F99B371A2A3D6600005ECB23 /* XCRemoteSwiftPackageReference "PasswordTextField" */,
 			);
 			productRefGroup = F919D77A219186DD0069F42B /* Products */;
 			projectDirPath = "";
@@ -1651,6 +1655,14 @@
 				version = 6.1.0;
 			};
 		};
+		F99B371A2A3D6600005ECB23 /* XCRemoteSwiftPackageReference "PasswordTextField" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/touchbyte/PasswordTextField";
+			requirement = {
+				kind = revision;
+				revision = a1f2f0c9d1c40a57640bc8199dba5d4fde820014;
+			};
+		};
 		F9F1E8342A3D4FC50097AC9C /* XCRemoteSwiftPackageReference "FirebaseUI-iOS" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/firebase/FirebaseUI-iOS/";
@@ -1699,6 +1711,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = F99B37172A3D61C6005ECB23 /* XCRemoteSwiftPackageReference "RxSwiftExt" */;
 			productName = RxSwiftExt;
+		};
+		F99B371B2A3D6600005ECB23 /* PasswordTextField */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F99B371A2A3D6600005ECB23 /* XCRemoteSwiftPackageReference "PasswordTextField" */;
+			productName = PasswordTextField;
 		};
 		F9F1E8352A3D4FC50097AC9C /* FirebaseAuthUI */ = {
 			isa = XCSwiftPackageProductDependency;
