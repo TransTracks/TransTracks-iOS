@@ -13,9 +13,12 @@
 //
 
 import CoreData
-import FirebaseCrashlytics
 import Firebase
+import FirebaseAnalytics
 import FirebaseAuthUI
+import FirebaseCore
+import FirebaseCrashlytics
+import FirebaseFirestore
 import GoogleMobileAds
 import UIKit
 import ZIPFoundation
