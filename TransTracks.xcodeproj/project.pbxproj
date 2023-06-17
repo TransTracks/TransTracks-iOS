@@ -129,6 +129,9 @@
 		F9BF2436228D3ACC002A38BA /* AltAppIcon@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = F9BF2427228D3ACC002A38BA /* AltAppIcon@1x.png */; };
 		F9BF2438228E2A29002A38BA /* Buttons.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9BF2437228E2A29002A38BA /* Buttons.swift */; };
 		F9BF5040237BAF010036457F /* BundleExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9BF503F237BAF010036457F /* BundleExt.swift */; };
+		F9C193A82A3D917C00852A79 /* DateCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9C193A72A3D917C00852A79 /* DateCell.swift */; };
+		F9C193AA2A3DA7F500852A79 /* UIDatePicker+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9C193A92A3DA7F500852A79 /* UIDatePicker+Extensions.swift */; };
+		F9C193AC2A3DCC7600852A79 /* ThemedDatePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9C193AB2A3DCC7600852A79 /* ThemedDatePicker.swift */; };
 		F9C1C44822EF02A5008D6107 /* SettingsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9C1C44722EF02A5008D6107 /* SettingsManager.swift */; };
 		F9C1C44B22F04EE9008D6107 /* FirebaseSettingUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9C1C44A22F04EE9008D6107 /* FirebaseSettingUtil.swift */; };
 		F9C2E42C22922F3400C0C245 /* SelectCollectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9C2E42B22922F3400C0C245 /* SelectCollectionController.swift */; };
@@ -290,6 +293,9 @@
 		F9BF2427228D3ACC002A38BA /* AltAppIcon@1x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "AltAppIcon@1x.png"; sourceTree = "<group>"; };
 		F9BF2437228E2A29002A38BA /* Buttons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Buttons.swift; sourceTree = "<group>"; };
 		F9BF503F237BAF010036457F /* BundleExt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BundleExt.swift; sourceTree = "<group>"; };
+		F9C193A72A3D917C00852A79 /* DateCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateCell.swift; sourceTree = "<group>"; };
+		F9C193A92A3DA7F500852A79 /* UIDatePicker+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIDatePicker+Extensions.swift"; sourceTree = "<group>"; };
+		F9C193AB2A3DCC7600852A79 /* ThemedDatePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemedDatePicker.swift; sourceTree = "<group>"; };
 		F9C1C44722EF02A5008D6107 /* SettingsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsManager.swift; sourceTree = "<group>"; };
 		F9C1C44A22F04EE9008D6107 /* FirebaseSettingUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseSettingUtil.swift; sourceTree = "<group>"; };
 		F9C2E42B22922F3400C0C245 /* SelectCollectionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectCollectionController.swift; sourceTree = "<group>"; };
@@ -440,6 +446,8 @@
 			isa = PBXGroup;
 			children = (
 				F9869AA82283FEBE0049E442 /* AlertHelper.swift */,
+				7525064EB02B5AF830F52B4E /* Archive+Extensions.swift */,
+				F9BF503F237BAF010036457F /* BundleExt.swift */,
 				F9BF2437228E2A29002A38BA /* Buttons.swift */,
 				F9164E8C22A3B8890066D1A2 /* DateComponents.swift */,
 				F93CF079221A55CC0008CC44 /* Dates.swift */,
@@ -454,10 +462,9 @@
 				F9DAC0A3222144B10051B8E6 /* TextFieldReturnAction.swift */,
 				F93CF0632217FD860008CC44 /* ThemeManager.swift */,
 				F93CF067221805BC0008CC44 /* UIColors.swift */,
+				F9C193A92A3DA7F500852A79 /* UIDatePicker+Extensions.swift */,
 				F9869AB1228662490049E442 /* UIViewControllers.swift */,
 				F90F8C0722B8F3EE00BA91A9 /* Users.swift */,
-				F9BF503F237BAF010036457F /* BundleExt.swift */,
-				7525064EB02B5AF830F52B4E /* Archive+Extensions.swift */,
 			);
 			path = Util;
 			sourceTree = "<group>";
@@ -495,6 +502,7 @@
 				F9F4F8BA27BFA96100D688C5 /* TitleCell.swift */,
 				F9F4F8BC27BFAB3B00D688C5 /* TextCell.swift */,
 				F91115D927C0771800AD4C3E /* SwitchCell.swift */,
+				F9C193A72A3D917C00852A79 /* DateCell.swift */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -760,6 +768,7 @@
 				F9DAC0A12221369C0051B8E6 /* TwoPasswordTextFieldController.swift */,
 				F94F81C8238649C500AA432A /* DialogViewController.swift */,
 				F91115DB27C079DD00AD4C3E /* ThemedSwitch.swift */,
+				F9C193AB2A3DCC7600852A79 /* ThemedDatePicker.swift */,
 			);
 			path = Custom;
 			sourceTree = "<group>";
@@ -1061,6 +1070,7 @@
 				F9EBDAA7222B998700268392 /* TransTracks.xcdatamodeld in Sources */,
 				F93CF17F221BF19B0008CC44 /* LocaleStore.swift in Sources */,
 				F93CF187221BF19B0008CC44 /* Assets.swift in Sources */,
+				F9C193AC2A3DCC7600852A79 /* ThemedDatePicker.swift in Sources */,
 				F9869AA92283FEBE0049E442 /* AlertHelper.swift in Sources */,
 				F9869AB2228662490049E442 /* UIViewControllers.swift in Sources */,
 				F97CAA90223A262300D6A549 /* Rx.swift in Sources */,
@@ -1095,6 +1105,8 @@
 				F93CF083221A66B70008CC44 /* DividerView.swift in Sources */,
 				F93CF180221BF19B0008CC44 /* LocaleInfo.swift in Sources */,
 				F93CF172221BF19B0008CC44 /* UITextView+Extensions.swift in Sources */,
+				F9C193A82A3D917C00852A79 /* DateCell.swift in Sources */,
+				F9C193AA2A3DA7F500852A79 /* UIDatePicker+Extensions.swift in Sources */,
 				F93CF194221BF19B0008CC44 /* DatePickerViewController.swift in Sources */,
 				F93CF182221BF19B0008CC44 /* PhoneCodeCell.swift in Sources */,
 				F95C51DD22546F54002499F4 /* BackgroundGradientCollectionViewController.swift in Sources */,
@@ -1253,7 +1265,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -1309,7 +1321,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -1328,7 +1340,7 @@
 				CURRENT_PROJECT_VERSION = 18;
 				DEVELOPMENT_TEAM = SLWWTU9N3Q;
 				INFOPLIST_FILE = TransTracks/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1350,7 +1362,7 @@
 				CURRENT_PROJECT_VERSION = 18;
 				DEVELOPMENT_TEAM = SLWWTU9N3Q;
 				INFOPLIST_FILE = TransTracks/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

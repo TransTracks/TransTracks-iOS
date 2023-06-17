@@ -409,6 +409,7 @@ extension SettingsController: UITableViewDataSource {
         case .title: configTitleRow(cell as! TitleCell, row)
         case .text: configTextRow(cell as! TextCell, row)
         case .settingSwitch: configSwitchSettingRow(cell as! SwitchCell, row)
+        case .date: configDateRow(cell as! DateCell, row, indexPath)
         }
         
         //Styling the selected background
@@ -432,6 +433,7 @@ extension SettingsController: UITableViewDataSource {
         case .title: identifier = "TitleCell"
         case .text: identifier = "TextCell"
         case .settingSwitch: identifier = "SwitchCell"
+        case .date: identifier = "DateCell"
         }
         
         return tableView.dequeueReusableCell(withIdentifier: identifier)!
@@ -449,7 +451,7 @@ extension SettingsController: UITableViewDataSource {
             }
         case .setting, .button, .doubleButton, .title, .settingSwitch: return 50
         case .divider: return 2
-        case .text: return UITableView.automaticDimension
+        case .text, .date: return UITableView.automaticDimension
         }
     }
     
@@ -512,10 +514,6 @@ extension SettingsController: UITableViewDataSource {
         var rowEnabled = true
         
         switch row {
-        case .startDate:
-            title = NSLocalizedString("startDateLabel", comment: "")
-            value = SettingsManager.getStartDate().toFullDateString()
-        
         case .theme:
             title = NSLocalizedString("themeLabel", comment: "")
             value = SettingsManager.getTheme().getDisplayName()
@@ -568,6 +566,27 @@ extension SettingsController: UITableViewDataSource {
         }
         
         cell.titleLabel.text = title
+    }
+    
+    private func configDateRow(_ cell: DateCell, _ row: Row, _ indexPath: IndexPath) {
+        let title: String
+        let value: Date
+        
+        switch row {
+        case .startDate:
+            title = NSLocalizedString("startDateLabel", comment: "")
+            value = SettingsManager.getStartDate()
+        default:
+            fatalError("This row hasn't been configured")
+        }
+        cell.titleLabel.text = title
+        cell.datePicker.date = value
+        cell.datePicker.onDateChange = { [weak self] newDate in
+            SettingsManager.setStartDate(newDate)
+            
+            guard let self = self else { return }
+            self.tableView.reloadRows(at: [indexPath], with: .fade)
+        }
     }
     
     private func configDoubleButtonRow(_ cell: DoubleButtonCell, _ row: Row) {
@@ -676,7 +695,7 @@ extension SettingsController: UITableViewDataSource {
             switch self {
             case .account: return .account
             case .divider1: return .divider
-            case .startDate: return .setting
+            case .startDate: return .date
             case .theme: return .setting
             case .lockMode: return .setting
             case .lockDelay: return .setting
@@ -699,7 +718,7 @@ extension SettingsController: UITableViewDataSource {
     }
     
     enum RowType {
-        case setting, divider, button, account, doubleButton, title, text, settingSwitch
+        case setting, divider, button, account, doubleButton, title, text, settingSwitch, date
     }
 }
 
@@ -709,11 +728,12 @@ extension SettingsController: UITableViewDelegate {
         let row = Row(rawValue: indexPath.row)!
         
         if row == .account || // The account row can't be clicked only the button
-                   row == .appVersion || // The App version cannot be clicked
-                   row.getRowType() == RowType.divider || // Dividers cannot be clicked
-                   row.getRowType() == RowType.title || // Titles cannot be clicked
-                   row.getRowType() == RowType.text || // Text cannot be clicked
-                   (row == .lockDelay && SettingsManager.getLockType() == .off) { //If the lock type is set to OFF then the user cannot change the lock delay
+            row == .startDate || // The DatePicker needs to be tapped, can't do it programmatically
+            row == .appVersion || // The App version cannot be clicked
+            row.getRowType() == RowType.divider || // Dividers cannot be clicked
+            row.getRowType() == RowType.title || // Titles cannot be clicked
+            row.getRowType() == RowType.text || // Text cannot be clicked
+            (row == .lockDelay && SettingsManager.getLockType() == .off) { //If the lock type is set to OFF then the user cannot change the lock delay
             return false
         }
         
@@ -724,15 +744,6 @@ extension SettingsController: UITableViewDelegate {
         let row = Row(rawValue: indexPath.row)!
         
         switch row {
-        case .startDate:
-            let cell = tableView.cellForRow(at: indexPath)! as! SettingCell
-            let rect = getTriggerRect(cell)
-            
-            AlertHelper.showDatePicker(startingDate: SettingsManager.getStartDate(), maximumDate: nil, triggeringView: cell, specificTriggerRect: rect) { newDate in
-                SettingsManager.setStartDate(newDate)
-                tableView.reloadRows(at: [IndexPath(row: Row.startDate.rawValue, section: 0)], with: .fade)
-            }
-        
         case .theme:
             tempTheme = nil
             
