@@ -30,7 +30,7 @@ class AddEditMilestoneController: BackgroundGradientViewController {
     
     @IBOutlet weak var deleteButton: UIBarButtonItem!
     @IBOutlet weak var titleTextField: UITextField!
-    @IBOutlet weak var dateValue: UILabel!
+    @IBOutlet weak var datePicker: ThemedDatePicker!
     @IBOutlet weak var descriptionLabel: UILabel!
     @IBOutlet weak var descriptionTextField: UITextView!
     @IBOutlet weak var saveButton: UIButton!
@@ -66,8 +66,10 @@ class AddEditMilestoneController: BackgroundGradientViewController {
     //MARK: UI Helpers
     
     private func setupCallbacks(){
-        let dateTap = UITapGestureRecognizer(target: self, action: #selector(dateClick(_:)))
-        dateValue.addGestureRecognizer(dateTap)
+        datePicker.onDateChange = { newDate in
+            self.currentDate = newDate
+            self.updateDateValue()
+        }
         
         let descriptionTap = UITapGestureRecognizer(target: self, action: #selector(descriptionFocus(_:)))
         descriptionLabel.addGestureRecognizer(descriptionTap)
@@ -85,7 +87,7 @@ class AddEditMilestoneController: BackgroundGradientViewController {
     }
     
     func updateDateValue(){
-        dateValue.text = currentDate.toFullDateString()
+        datePicker.date = currentDate
     }
     
     //MARK: Button Handling
@@ -103,13 +105,6 @@ class AddEditMilestoneController: BackgroundGradientViewController {
             self.navigationController?.popViewController(animated: true)
         }))
         alert.show()
-    }
-    
-    @objc func dateClick(_ sender: Any){
-        AlertHelper.showDatePicker(startingDate: currentDate, triggeringView: dateValue){ newDate in
-            self.currentDate = newDate
-            self.updateDateValue()
-        }
     }
     
     @objc func descriptionFocus(_ sender: Any){

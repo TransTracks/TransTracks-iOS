@@ -30,10 +30,7 @@ class ThemedDatePicker: UIDatePicker {
     
     private func setup() {
         let theme = SettingsManager.getTheme()
-        
-        tintColor = .white
         backgroundColor = theme.colorAccent
-        textColor = .white
         
         layer.shadowColor = UIColor.black.cgColor
         layer.shadowOpacity = 0.5

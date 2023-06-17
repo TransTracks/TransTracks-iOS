@@ -981,7 +981,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <datePicker opaque="NO" contentMode="right" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" ambiguous="YES" preservesSuperviewLayoutMargins="YES" contentHorizontalAlignment="trailing" contentVerticalAlignment="fill" datePickerMode="date" style="compact" translatesAutoresizingMaskIntoConstraints="NO" id="mtp-6l-82b" customClass="ThemedDatePicker" customModule="TransTracks" customModuleProvider="target">
-                                                    <rect key="frame" x="45" y="11" width="316" height="42"/>
+                                                    <rect key="frame" x="45" y="11" width="317" height="42"/>
                                                     <userDefinedRuntimeAttributes>
                                                         <userDefinedRuntimeAttribute type="boolean" keyPath="circleCorner" value="YES"/>
                                                         <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
@@ -1890,12 +1890,10 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="12/02/2019" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bWy-al-yN4" userLabel="Date Value">
-                                <rect key="frame" x="74.5" y="151.5" width="323.5" height="26.5"/>
-                                <fontDescription key="fontDescription" style="UICTFontTextStyleTitle2"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                            <datePicker contentMode="scaleAspectFit" ambiguous="YES" contentHorizontalAlignment="trailing" contentVerticalAlignment="center" datePickerMode="date" style="compact" translatesAutoresizingMaskIntoConstraints="NO" id="E3C-rh-Zr6" userLabel="Date Picker" customClass="ThemedDatePicker" customModule="TransTracks" customModuleProvider="target">
+                                <rect key="frame" x="82.5" y="147.5" width="315.5" height="34.5"/>
+                                <rect key="contentStretch" x="0.0" y="0.0" width="0.0" height="1"/>
+                            </datePicker>
                             <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Description:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AWz-1l-KnU" userLabel="Description Label">
                                 <rect key="frame" x="16" y="194" width="382" height="26.5"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleTitle2"/>
@@ -1951,7 +1949,7 @@
                             <constraint firstItem="RMY-pF-p2Q" firstAttribute="firstBaseline" secondItem="CUS-4j-WzN" secondAttribute="firstBaseline" id="6F9-zc-Gaz"/>
                             <constraint firstItem="aht-3I-TmC" firstAttribute="leading" secondItem="6ca-6s-IOz" secondAttribute="leading" id="92J-fb-Nyn"/>
                             <constraint firstItem="RMY-pF-p2Q" firstAttribute="leading" secondItem="6ca-6s-IOz" secondAttribute="leading" constant="16" id="I7J-DW-vbK"/>
-                            <constraint firstItem="bWy-al-yN4" firstAttribute="firstBaseline" secondItem="85x-kd-UdF" secondAttribute="firstBaseline" id="MbU-dv-sBQ"/>
+                            <constraint firstItem="E3C-rh-Zr6" firstAttribute="centerY" secondItem="85x-kd-UdF" secondAttribute="centerY" id="MbU-dv-sBQ"/>
                             <constraint firstItem="85x-kd-UdF" firstAttribute="leading" secondItem="6ca-6s-IOz" secondAttribute="leading" constant="16" id="Mjm-Qm-V1t"/>
                             <constraint firstItem="kv6-IY-NM6" firstAttribute="leading" secondItem="6ca-6s-IOz" secondAttribute="leading" constant="8" id="MuH-6k-8TS"/>
                             <constraint firstItem="Izw-wL-TDD" firstAttribute="leading" secondItem="6ca-6s-IOz" secondAttribute="leading" constant="16" id="My3-eo-TCz"/>
@@ -1964,9 +1962,9 @@
                             <constraint firstItem="Izw-wL-TDD" firstAttribute="bottom" secondItem="aht-3I-TmC" secondAttribute="bottom" constant="-8" id="ej3-a4-W7V"/>
                             <constraint firstItem="85x-kd-UdF" firstAttribute="top" secondItem="RMY-pF-p2Q" secondAttribute="bottom" constant="16" id="h1i-Gc-gKK"/>
                             <constraint firstItem="6ca-6s-IOz" firstAttribute="trailing" secondItem="AWz-1l-KnU" secondAttribute="trailing" constant="16" id="lNE-fZ-P51"/>
-                            <constraint firstItem="6ca-6s-IOz" firstAttribute="trailing" secondItem="bWy-al-yN4" secondAttribute="trailing" constant="16" id="ooq-5R-dja"/>
+                            <constraint firstItem="6ca-6s-IOz" firstAttribute="trailing" secondItem="E3C-rh-Zr6" secondAttribute="trailing" constant="16" id="ooq-5R-dja"/>
                             <constraint firstItem="6ca-6s-IOz" firstAttribute="trailing" secondItem="Izw-wL-TDD" secondAttribute="trailing" constant="16" id="qhh-7s-tT7"/>
-                            <constraint firstItem="bWy-al-yN4" firstAttribute="leading" secondItem="85x-kd-UdF" secondAttribute="trailing" constant="8" id="uam-sa-69a"/>
+                            <constraint firstItem="E3C-rh-Zr6" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="85x-kd-UdF" secondAttribute="trailing" constant="16" id="uam-sa-69a"/>
                             <constraint firstItem="CUS-4j-WzN" firstAttribute="top" secondItem="6ca-6s-IOz" secondAttribute="top" constant="16" id="uhf-Gb-zGO"/>
                             <constraint firstItem="6ca-6s-IOz" firstAttribute="trailing" secondItem="aht-3I-TmC" secondAttribute="trailing" id="z5a-Jk-R7p"/>
                         </constraints>
@@ -1980,7 +1978,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="dateValue" destination="bWy-al-yN4" id="Ha0-Jg-KZe"/>
+                        <outlet property="datePicker" destination="E3C-rh-Zr6" id="baV-Xs-QaO"/>
                         <outlet property="deleteButton" destination="eFb-rM-AQh" id="WOn-cD-edX"/>
                         <outlet property="descriptionLabel" destination="AWz-1l-KnU" id="vAI-yB-Su5"/>
                         <outlet property="descriptionTextField" destination="Izw-wL-TDD" id="HV1-Fh-XAb"/>
