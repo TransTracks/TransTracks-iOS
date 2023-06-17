@@ -16,7 +16,7 @@ import Photos
 import RxCocoa
 import RxSwift
 import RxSwiftExt
-import Toast_Swift
+import Toast
 import UIKit
 
 class AssignPhotoController : BackgroundGradientViewController {

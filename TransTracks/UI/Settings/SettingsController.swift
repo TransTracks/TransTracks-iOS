@@ -18,7 +18,7 @@ import FirebaseAuth
 import FirebaseAuthUI
 import FirebaseGoogleAuthUI
 import PasswordTextField
-import Toast_Swift
+import Toast
 import UIKit
 import ZIPFoundation
 import FirebaseEmailAuthUI
