@@ -874,7 +874,6 @@
 				F919D789219186DF0069F42B /* Sources */,
 				F919D78A219186DF0069F42B /* Frameworks */,
 				F919D78B219186DF0069F42B /* Resources */,
-				AA3875C05FB7118D9DADD584 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -942,7 +941,7 @@
 			packageReferences = (
 				F9F1E8342A3D4FC50097AC9C /* XCRemoteSwiftPackageReference "FirebaseUI-iOS" */,
 				F9F1E83D2A3D508F0097AC9C /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
-				F99B370B2A3D5969005ECB23 /* XCRemoteSwiftPackageReference "swift-package-manager-google-mobile-ads" */,
+				F99B370B2A3D5969005ECB23 /* XCRemoteSwiftPackageReference "swift-package-manager-google-mobile-ads.git" */,
 			);
 			productRefGroup = F919D77A219186DD0069F42B /* Products */;
 			projectDirPath = "";
@@ -1024,23 +1023,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-TransTracks-TransTracksUITests/Pods-TransTracks-TransTracksUITests-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		AA3875C05FB7118D9DADD584 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-TransTracksTests/Pods-TransTracksTests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-TransTracksTests/Pods-TransTracksTests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-TransTracksTests/Pods-TransTracksTests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		E5893C40568EB3E67B6312EC /* [CP] Check Pods Manifest.lock */ = {
@@ -1626,7 +1608,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		F99B370B2A3D5969005ECB23 /* XCRemoteSwiftPackageReference "swift-package-manager-google-mobile-ads" */ = {
+		F99B370B2A3D5969005ECB23 /* XCRemoteSwiftPackageReference "swift-package-manager-google-mobile-ads.git" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/googleads/swift-package-manager-google-mobile-ads.git";
 			requirement = {
@@ -1655,7 +1637,7 @@
 /* Begin XCSwiftPackageProductDependency section */
 		F99B370C2A3D5969005ECB23 /* GoogleMobileAds */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = F99B370B2A3D5969005ECB23 /* XCRemoteSwiftPackageReference "swift-package-manager-google-mobile-ads" */;
+			package = F99B370B2A3D5969005ECB23 /* XCRemoteSwiftPackageReference "swift-package-manager-google-mobile-ads.git" */;
 			productName = GoogleMobileAds;
 		};
 		F9F1E8352A3D4FC50097AC9C /* FirebaseAuthUI */ = {
