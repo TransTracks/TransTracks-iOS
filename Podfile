@@ -7,11 +7,6 @@ target 'TransTracks' do
 
   # Password Text Field
   pod 'PasswordTextField'
-
-  # RX
-  pod 'RxSwift'
-  pod 'RxCocoa'
-  pod 'RxSwiftExt'
   
   # Toast
   pod 'Toast-Swift', '~> 5.0.0'
@@ -21,14 +16,10 @@ target 'TransTracks' do
 
   target 'TransTracksTests' do
     inherit! :search_paths
-    
-    pod 'RxBlocking'
-    pod 'RxTest'
   end
 
   target 'TransTracksUITests' do
     inherit! :complete
-    # Pods for testing
   end
 
 end

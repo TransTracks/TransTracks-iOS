@@ -1,59 +1,24 @@
 PODS:
   - PasswordTextField (1.2.0)
-  - RxBlocking (6.5.0):
-    - RxSwift (= 6.5.0)
-  - RxCocoa (6.5.0):
-    - RxRelay (= 6.5.0)
-    - RxSwift (= 6.5.0)
-  - RxRelay (6.5.0):
-    - RxSwift (= 6.5.0)
-  - RxSwift (6.5.0)
-  - RxSwiftExt (6.0.1):
-    - RxSwiftExt/Core (= 6.0.1)
-    - RxSwiftExt/RxCocoa (= 6.0.1)
-  - RxSwiftExt/Core (6.0.1):
-    - RxSwift (~> 6.0)
-  - RxSwiftExt/RxCocoa (6.0.1):
-    - RxCocoa (~> 6.0)
-    - RxSwiftExt/Core
-  - RxTest (6.5.0):
-    - RxSwift (= 6.5.0)
   - Toast-Swift (5.0.1)
   - ZIPFoundation (0.9.11)
 
 DEPENDENCIES:
   - PasswordTextField
-  - RxBlocking
-  - RxCocoa
-  - RxSwift
-  - RxSwiftExt
-  - RxTest
   - Toast-Swift (~> 5.0.0)
   - ZIPFoundation
 
 SPEC REPOS:
   trunk:
     - PasswordTextField
-    - RxBlocking
-    - RxCocoa
-    - RxRelay
-    - RxSwift
-    - RxSwiftExt
-    - RxTest
     - Toast-Swift
     - ZIPFoundation
 
 SPEC CHECKSUMS:
   PasswordTextField: 2548de43f150fc90a014da47b0d97e31aada4b94
-  RxBlocking: 04b5fd28bb5ea49f7d64b80db8bbfe50d9cc1c7d
-  RxCocoa: 94f817b71c07517321eb4f9ad299112ca8af743b
-  RxRelay: 1de1523e604c72b6c68feadedd1af3b1b4d0ecbd
-  RxSwift: 5710a9e6b17f3c3d6e40d6e559b9fa1e813b2ef8
-  RxSwiftExt: d61c4b9b06e0a448041b1c659e0f1b5c5a035afc
-  RxTest: eb2d23adefc5a5ebf5779c7792fa3edfe6ebcc17
   Toast-Swift: 9b6a70f28b3bf0b96c40d46c0c4b9d6639846711
   ZIPFoundation: b1f0de4eed33e74a676f76e12559ab6b75990197
 
-PODFILE CHECKSUM: 6a95fd4c3885e53a078e248f7773786579f5ad72
+PODFILE CHECKSUM: 5680c14125cf5a1fb3623e6245713e66249b3e17
 
 COCOAPODS: 1.12.1
