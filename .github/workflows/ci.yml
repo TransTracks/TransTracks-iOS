@@ -9,6 +9,10 @@ on:
   pull_request:
     branches: [ "production" ]
 
+concurrency:
+  group: build-ios-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   build:
     runs-on: macos-latest
