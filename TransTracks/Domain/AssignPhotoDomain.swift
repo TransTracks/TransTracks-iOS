@@ -18,6 +18,7 @@ import Photos
 import RxCocoa
 import RxSwift
 import RxSwiftExt
+import UIKit
 
 enum AssignPhotoAction {
     case InitialData(photos: [PHAsset]?, image: UIImage?, epochDay: Int?, type: PhotoType)

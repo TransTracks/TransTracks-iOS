@@ -117,6 +117,11 @@
 		F9869AB2228662490049E442 /* UIViewControllers.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9869AB1228662490049E442 /* UIViewControllers.swift */; };
 		F998422222C1A3E400C08FBE /* Strings.swift in Sources */ = {isa = PBXBuildFile; fileRef = F998422122C1A3E400C08FBE /* Strings.swift */; };
 		F99B370D2A3D5969005ECB23 /* GoogleMobileAds in Frameworks */ = {isa = PBXBuildFile; productRef = F99B370C2A3D5969005ECB23 /* GoogleMobileAds */; };
+		F99B37102A3D6156005ECB23 /* RxBlocking in Frameworks */ = {isa = PBXBuildFile; productRef = F99B370F2A3D6156005ECB23 /* RxBlocking */; };
+		F99B37122A3D6156005ECB23 /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = F99B37112A3D6156005ECB23 /* RxCocoa */; };
+		F99B37142A3D6156005ECB23 /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = F99B37132A3D6156005ECB23 /* RxSwift */; };
+		F99B37162A3D6156005ECB23 /* RxTest in Frameworks */ = {isa = PBXBuildFile; productRef = F99B37152A3D6156005ECB23 /* RxTest */; };
+		F99B37192A3D61C6005ECB23 /* RxSwiftExt in Frameworks */ = {isa = PBXBuildFile; productRef = F99B37182A3D61C6005ECB23 /* RxSwiftExt */; };
 		F9BF2415228D0098002A38BA /* DropShadowButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9BF2414228D0098002A38BA /* DropShadowButton.swift */; };
 		F9BF2417228D011A002A38BA /* WelcomeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9BF2416228D011A002A38BA /* WelcomeController.swift */; };
 		F9BF2428228D3ACC002A38BA /* AltAppIcon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = F9BF2419228D3ACB002A38BA /* AltAppIcon@3x.png */; };
@@ -324,9 +329,13 @@
 				A5756C8F769ED45E21515476 /* Pods_TransTracks.framework in Frameworks */,
 				F9F1E83C2A3D4FC50097AC9C /* FirebaseOAuthUI in Frameworks */,
 				F9F1E83A2A3D4FC50097AC9C /* FirebaseGoogleAuthUI in Frameworks */,
+				F99B37142A3D6156005ECB23 /* RxSwift in Frameworks */,
+				F99B37122A3D6156005ECB23 /* RxCocoa in Frameworks */,
+				F99B37102A3D6156005ECB23 /* RxBlocking in Frameworks */,
 				F9F1E8432A3D508F0097AC9C /* FirebaseCrashlytics in Frameworks */,
 				F9F1E8412A3D508F0097AC9C /* FirebaseAuth in Frameworks */,
 				F9F1E8362A3D4FC50097AC9C /* FirebaseAuthUI in Frameworks */,
+				F99B37192A3D61C6005ECB23 /* RxSwiftExt in Frameworks */,
 				F9F1E8452A3D508F0097AC9C /* FirebaseFirestoreSwift in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -335,6 +344,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F99B37162A3D6156005ECB23 /* RxTest in Frameworks */,
 				DCE6C5BCAA6FF46553BA5989 /* Pods_TransTracksTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -861,6 +871,10 @@
 				F9F1E8422A3D508F0097AC9C /* FirebaseCrashlytics */,
 				F9F1E8442A3D508F0097AC9C /* FirebaseFirestoreSwift */,
 				F99B370C2A3D5969005ECB23 /* GoogleMobileAds */,
+				F99B370F2A3D6156005ECB23 /* RxBlocking */,
+				F99B37112A3D6156005ECB23 /* RxCocoa */,
+				F99B37132A3D6156005ECB23 /* RxSwift */,
+				F99B37182A3D61C6005ECB23 /* RxSwiftExt */,
 			);
 			productName = TransTracks;
 			productReference = F919D779219186DD0069F42B /* TransTracks.app */;
@@ -881,6 +895,9 @@
 				F919D78F219186DF0069F42B /* PBXTargetDependency */,
 			);
 			name = TransTracksTests;
+			packageProductDependencies = (
+				F99B37152A3D6156005ECB23 /* RxTest */,
+			);
 			productName = TransTracksTests;
 			productReference = F919D78D219186DF0069F42B /* TransTracksTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
@@ -941,7 +958,9 @@
 			packageReferences = (
 				F9F1E8342A3D4FC50097AC9C /* XCRemoteSwiftPackageReference "FirebaseUI-iOS" */,
 				F9F1E83D2A3D508F0097AC9C /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
-				F99B370B2A3D5969005ECB23 /* XCRemoteSwiftPackageReference "swift-package-manager-google-mobile-ads.git" */,
+				F99B370B2A3D5969005ECB23 /* XCRemoteSwiftPackageReference "swift-package-manager-google-mobile-ads" */,
+				F99B370E2A3D6156005ECB23 /* XCRemoteSwiftPackageReference "RxSwift" */,
+				F99B37172A3D61C6005ECB23 /* XCRemoteSwiftPackageReference "RxSwiftExt" */,
 			);
 			productRefGroup = F919D77A219186DD0069F42B /* Products */;
 			projectDirPath = "";
@@ -1608,12 +1627,28 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		F99B370B2A3D5969005ECB23 /* XCRemoteSwiftPackageReference "swift-package-manager-google-mobile-ads.git" */ = {
+		F99B370B2A3D5969005ECB23 /* XCRemoteSwiftPackageReference "swift-package-manager-google-mobile-ads" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/googleads/swift-package-manager-google-mobile-ads.git";
 			requirement = {
 				kind = exactVersion;
 				version = 10.6.0;
+			};
+		};
+		F99B370E2A3D6156005ECB23 /* XCRemoteSwiftPackageReference "RxSwift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/ReactiveX/RxSwift";
+			requirement = {
+				kind = exactVersion;
+				version = 6.6.0;
+			};
+		};
+		F99B37172A3D61C6005ECB23 /* XCRemoteSwiftPackageReference "RxSwiftExt" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/RxSwiftCommunity/RxSwiftExt";
+			requirement = {
+				kind = exactVersion;
+				version = 6.1.0;
 			};
 		};
 		F9F1E8342A3D4FC50097AC9C /* XCRemoteSwiftPackageReference "FirebaseUI-iOS" */ = {
@@ -1637,8 +1672,33 @@
 /* Begin XCSwiftPackageProductDependency section */
 		F99B370C2A3D5969005ECB23 /* GoogleMobileAds */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = F99B370B2A3D5969005ECB23 /* XCRemoteSwiftPackageReference "swift-package-manager-google-mobile-ads.git" */;
+			package = F99B370B2A3D5969005ECB23 /* XCRemoteSwiftPackageReference "swift-package-manager-google-mobile-ads" */;
 			productName = GoogleMobileAds;
+		};
+		F99B370F2A3D6156005ECB23 /* RxBlocking */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F99B370E2A3D6156005ECB23 /* XCRemoteSwiftPackageReference "RxSwift" */;
+			productName = RxBlocking;
+		};
+		F99B37112A3D6156005ECB23 /* RxCocoa */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F99B370E2A3D6156005ECB23 /* XCRemoteSwiftPackageReference "RxSwift" */;
+			productName = RxCocoa;
+		};
+		F99B37132A3D6156005ECB23 /* RxSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F99B370E2A3D6156005ECB23 /* XCRemoteSwiftPackageReference "RxSwift" */;
+			productName = RxSwift;
+		};
+		F99B37152A3D6156005ECB23 /* RxTest */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F99B370E2A3D6156005ECB23 /* XCRemoteSwiftPackageReference "RxSwift" */;
+			productName = RxTest;
+		};
+		F99B37182A3D61C6005ECB23 /* RxSwiftExt */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F99B37172A3D61C6005ECB23 /* XCRemoteSwiftPackageReference "RxSwiftExt" */;
+			productName = RxSwiftExt;
 		};
 		F9F1E8352A3D4FC50097AC9C /* FirebaseAuthUI */ = {
 			isa = XCSwiftPackageProductDependency;
