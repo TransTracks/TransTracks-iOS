@@ -5,9 +5,6 @@ target 'TransTracks' do
   # Comment the next line if you're not using Swift and don't want to use dynamic frameworks
   use_frameworks!
 
-  # Ads
-  pod 'Google-Mobile-Ads-SDK'
-
   # Password Text Field
   pod 'PasswordTextField'
 
