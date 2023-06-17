@@ -7,9 +7,6 @@ target 'TransTracks' do
 
   # Toast
   pod 'Toast-Swift', '~> 5.0.0'
-  
-  # ZIP Foundation
-  pod 'ZIPFoundation'
 
   target 'TransTracksTests' do
     inherit! :search_paths

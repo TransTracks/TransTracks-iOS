@@ -1,20 +1,16 @@
 PODS:
   - Toast-Swift (5.0.1)
-  - ZIPFoundation (0.9.11)
 
 DEPENDENCIES:
   - Toast-Swift (~> 5.0.0)
-  - ZIPFoundation
 
 SPEC REPOS:
   trunk:
     - Toast-Swift
-    - ZIPFoundation
 
 SPEC CHECKSUMS:
   Toast-Swift: 9b6a70f28b3bf0b96c40d46c0c4b9d6639846711
-  ZIPFoundation: b1f0de4eed33e74a676f76e12559ab6b75990197
 
-PODFILE CHECKSUM: 54679f3a39cedba0587277a7e9e300832b2359c4
+PODFILE CHECKSUM: fa51797f4839c01f50d57a7de5a266391c90da1d
 
 COCOAPODS: 1.12.1
