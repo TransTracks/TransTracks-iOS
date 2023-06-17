@@ -13,7 +13,7 @@
 //
 
 import PasswordTextField
-import Toast_Swift
+import Toast
 import UIKit
 
 class NormalLockController: BackgroundGradientViewController {
