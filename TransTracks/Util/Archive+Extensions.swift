@@ -3,12 +3,13 @@
 // Copyright (c) 2021 TransTracks. All rights reserved.
 //
 
+import Foundation
 import ZIPFoundation
 
 extension Archive {
     func addDirectoryRecursively(_ directory: URL,
                                  compressionMethod: CompressionMethod = .none,
-                                 bufferSize: UInt32 = defaultWriteChunkSize,
+                                 bufferSize: Int = defaultWriteChunkSize,
                                  progress: Progress? = nil, currentDepth: Int = 0) throws {
         let fileManager = FileManager.default
         let contents = try fileManager.contentsOfDirectory(at: directory, includingPropertiesForKeys: nil)
