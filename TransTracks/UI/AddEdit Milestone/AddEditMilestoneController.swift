@@ -66,7 +66,8 @@ class AddEditMilestoneController: BackgroundGradientViewController {
     //MARK: UI Helpers
     
     private func setupCallbacks(){
-        datePicker.onDateChange = { newDate in
+        datePicker.onDateChange = { [weak self] newDate in
+            guard let self = self else { return }
             self.currentDate = newDate
             self.updateDateValue()
         }

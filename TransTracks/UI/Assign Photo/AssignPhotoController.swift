@@ -66,7 +66,8 @@ class AssignPhotoController : BackgroundGradientViewController {
             }
         }).subscribe()
             
-        datePicker.onDateChange = { newDate in
+        datePicker.onDateChange = { [weak self] newDate in
+            guard let self = self else { return }
             self.domainManager.assignPhotoDomain.actions.accept(.ChangeDate(index: self.currentIndex, newDate: newDate))
         }
     }

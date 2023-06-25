@@ -1249,7 +1249,7 @@
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="3Fy-Xn-Lib">
                                 <rect key="frame" x="16" y="108" width="382" height="586"/>
                             </imageView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="esh-5z-QWU" userLabel="Bottom View">
+                            <view contentMode="scaleToFill" horizontalHuggingPriority="253" translatesAutoresizingMaskIntoConstraints="NO" id="esh-5z-QWU" userLabel="Bottom View">
                                 <rect key="frame" x="0.0" y="710" width="414" height="186"/>
                                 <color key="backgroundColor" white="1" alpha="0.25" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
@@ -1298,12 +1298,10 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="11/02/2019" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0ab-lP-SFA" userLabel="Date Value">
-                                <rect key="frame" x="74.5" y="726" width="323.5" height="26.5"/>
-                                <fontDescription key="fontDescription" style="UICTFontTextStyleTitle2"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                            <datePicker autoresizesSubviews="NO" contentMode="right" horizontalHuggingPriority="255" verticalHuggingPriority="251" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" ambiguous="YES" contentHorizontalAlignment="trailing" contentVerticalAlignment="center" datePickerMode="date" style="compact" translatesAutoresizingMaskIntoConstraints="NO" id="3wJ-GJ-Hyr" userLabel="Date Picker" customClass="ThemedDatePicker" customModule="TransTracks" customModuleProvider="target">
+                                <rect key="frame" x="73" y="722" width="325" height="35"/>
+                                <rect key="contentStretch" x="0.0" y="0.0" width="0.0" height="0.0"/>
+                            </datePicker>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="9yZ-pN-9jG"/>
                         <color key="backgroundColor" red="0.3716022095" green="0.85488450579999997" blue="0.94019670050000004" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
@@ -1314,25 +1312,25 @@
                             <constraint firstItem="ul4-Mh-dlR" firstAttribute="leading" secondItem="9yZ-pN-9jG" secondAttribute="leading" constant="16" id="3jE-ny-HrH"/>
                             <constraint firstItem="rex-9A-X4U" firstAttribute="leading" secondItem="9yZ-pN-9jG" secondAttribute="leading" constant="8" id="4iJ-7s-JLX"/>
                             <constraint firstItem="9yZ-pN-9jG" firstAttribute="trailing" secondItem="esh-5z-QWU" secondAttribute="trailing" id="6rk-SD-R4D"/>
-                            <constraint firstItem="esh-5z-QWU" firstAttribute="top" secondItem="aaS-lQ-6jU" secondAttribute="top" constant="-16" id="Hdx-74-lof"/>
+                            <constraint firstItem="aaS-lQ-6jU" firstAttribute="top" secondItem="esh-5z-QWU" secondAttribute="top" constant="16" id="Hdx-74-lof"/>
                             <constraint firstItem="9yZ-pN-9jG" firstAttribute="bottom" secondItem="rex-9A-X4U" secondAttribute="bottom" constant="16" id="Inh-PG-aF6"/>
-                            <constraint firstItem="tzw-AV-rk0" firstAttribute="top" secondItem="0ab-lP-SFA" secondAttribute="bottom" constant="16" id="K9K-Sm-JU2"/>
-                            <constraint firstItem="0ab-lP-SFA" firstAttribute="leading" secondItem="aaS-lQ-6jU" secondAttribute="trailing" constant="8" id="KWu-hN-EzT"/>
                             <constraint firstItem="3Fy-Xn-Lib" firstAttribute="leading" secondItem="9yZ-pN-9jG" secondAttribute="leading" constant="16" id="RyO-rc-6DE"/>
                             <constraint firstItem="esh-5z-QWU" firstAttribute="top" secondItem="3Fy-Xn-Lib" secondAttribute="bottom" constant="16" id="U0z-Wk-wVb"/>
-                            <constraint firstItem="9yZ-pN-9jG" firstAttribute="trailing" secondItem="0ab-lP-SFA" secondAttribute="trailing" constant="16" id="b0q-IK-vEs"/>
+                            <constraint firstItem="9yZ-pN-9jG" firstAttribute="trailing" secondItem="3wJ-GJ-Hyr" secondAttribute="trailing" constant="16" id="b0q-IK-vEs"/>
+                            <constraint firstItem="3wJ-GJ-Hyr" firstAttribute="centerY" secondItem="aaS-lQ-6jU" secondAttribute="centerY" id="dts-e4-6uE"/>
                             <constraint firstItem="tzw-AV-rk0" firstAttribute="leading" secondItem="ul4-Mh-dlR" secondAttribute="trailing" constant="8" id="g8j-Nl-l9K"/>
                             <constraint firstItem="9yZ-pN-9jG" firstAttribute="trailing" secondItem="rex-9A-X4U" secondAttribute="trailing" constant="8" id="gia-pd-bs7"/>
                             <constraint firstItem="aaS-lQ-6jU" firstAttribute="leading" secondItem="9yZ-pN-9jG" secondAttribute="leading" constant="16" id="h6f-M3-0gv"/>
-                            <constraint firstItem="tY8-76-liQ" firstAttribute="top" secondItem="tzw-AV-rk0" secondAttribute="bottom" constant="8" id="k4f-4B-Wg5"/>
-                            <constraint firstItem="tY8-76-liQ" firstAttribute="top" secondItem="ul4-Mh-dlR" secondAttribute="bottom" constant="8" id="rsg-hk-28A"/>
+                            <constraint firstItem="3wJ-GJ-Hyr" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="aaS-lQ-6jU" secondAttribute="trailing" constant="16" id="ice-Hp-Nv1"/>
+                            <constraint firstItem="rex-9A-X4U" firstAttribute="top" secondItem="tzw-AV-rk0" secondAttribute="bottom" constant="8" id="k4f-4B-Wg5"/>
+                            <constraint firstItem="rex-9A-X4U" firstAttribute="top" secondItem="ul4-Mh-dlR" secondAttribute="bottom" constant="8" id="rsg-hk-28A"/>
                             <constraint firstItem="esh-5z-QWU" firstAttribute="leading" secondItem="9yZ-pN-9jG" secondAttribute="leading" id="wDH-SB-ZCW"/>
                             <constraint firstItem="ul4-Mh-dlR" firstAttribute="top" secondItem="aaS-lQ-6jU" secondAttribute="bottom" constant="16" id="xwG-IE-fmS"/>
                             <constraint firstItem="9yZ-pN-9jG" firstAttribute="trailing" secondItem="tzw-AV-rk0" secondAttribute="trailing" constant="16" id="xxo-rf-L0N"/>
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="dateLabel" destination="0ab-lP-SFA" id="z3a-8h-fSk"/>
+                        <outlet property="datePicker" destination="3wJ-GJ-Hyr" id="17w-lH-tYa"/>
                         <outlet property="imageView" destination="3Fy-Xn-Lib" id="oJS-w6-5bc"/>
                         <outlet property="typeLabel" destination="tzw-AV-rk0" id="n9F-3I-kOd"/>
                         <outlet property="updateButton" destination="tY8-76-liQ" id="lCa-4Q-HFs"/>
