@@ -624,10 +624,10 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="700" verticalCompressionResistancePriority="700" insetsLayoutMarginsFromSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lMf-ax-dJy">
-                                <rect key="frame" x="16" y="92" width="382" height="607.5"/>
+                                <rect key="frame" x="16" y="92" width="382" height="603.5"/>
                             </imageView>
-                            <view contentMode="scaleToFill" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="9zu-pD-WiU" userLabel="Bottom View">
-                                <rect key="frame" x="0.0" y="715.5" width="414" height="180.5"/>
+                            <view contentMode="scaleToFill" verticalHuggingPriority="253" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="9zu-pD-WiU" userLabel="Bottom View">
+                                <rect key="frame" x="0.0" y="711.5" width="414" height="184.5"/>
                                 <color key="backgroundColor" white="1" alpha="0.25" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
                             <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="AgN-GI-IzZ" userLabel="Buttons">
@@ -681,13 +681,13 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="252" text="Date:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gFD-it-K5i" userLabel="Date Label">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="252" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" text="Date:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gFD-it-K5i" userLabel="Date Label">
                                 <rect key="frame" x="16" y="726" width="50.5" height="26.5"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleTitle2"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="q2r-jJ-Jc6" userLabel="Use Photo Date">
+                            <button opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="q2r-jJ-Jc6" userLabel="Use Photo Date">
                                 <rect key="frame" x="358" y="715.5" width="48" height="48"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="48" id="LRe-Ja-HY7"/>
@@ -698,22 +698,20 @@
                                     <action selector="usePhotoDateClick:" destination="0jf-g8-Jdq" eventType="touchUpInside" id="vdx-7a-aCw"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="11/02/2019" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9M6-GP-uYR" userLabel="Date Value">
-                                <rect key="frame" x="74.5" y="726" width="275.5" height="26.5"/>
-                                <fontDescription key="fontDescription" style="UICTFontTextStyleTitle2"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                            <datePicker autoresizesSubviews="NO" contentMode="right" horizontalHuggingPriority="255" verticalHuggingPriority="251" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" ambiguous="YES" contentHorizontalAlignment="trailing" contentVerticalAlignment="center" datePickerMode="date" style="compact" translatesAutoresizingMaskIntoConstraints="NO" id="giJ-3X-2WP" customClass="ThemedDatePicker" customModule="TransTracks" customModuleProvider="target">
+                                <rect key="frame" x="82" y="722" width="268" height="35"/>
+                                <rect key="contentStretch" x="0.0" y="0.0" width="1" height="0.0"/>
+                            </datePicker>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="8IQ-p1-X9N"/>
                         <color key="backgroundColor" red="0.3716022095" green="0.85488450579999997" blue="0.94019670050000004" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         <constraints>
                             <constraint firstItem="8IQ-p1-X9N" firstAttribute="trailing" secondItem="9zu-pD-WiU" secondAttribute="trailing" id="0gE-Or-dT4"/>
                             <constraint firstItem="lMf-ax-dJy" firstAttribute="top" secondItem="8IQ-p1-X9N" secondAttribute="top" id="32U-V1-gdt"/>
+                            <constraint firstItem="giJ-3X-2WP" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="gFD-it-K5i" secondAttribute="trailing" constant="16" id="3S4-2o-5j9"/>
                             <constraint firstItem="8IQ-p1-X9N" firstAttribute="trailing" secondItem="O0Q-DJ-zFf" secondAttribute="trailing" constant="16" id="52U-qg-C4V"/>
-                            <constraint firstItem="O0Q-DJ-zFf" firstAttribute="top" secondItem="9M6-GP-uYR" secondAttribute="bottom" constant="16" id="6aD-3C-Mr0"/>
-                            <constraint firstItem="9M6-GP-uYR" firstAttribute="leading" secondItem="gFD-it-K5i" secondAttribute="trailing" constant="8" id="CCw-o9-Jth"/>
                             <constraint firstItem="dyn-Tb-Erd" firstAttribute="leading" secondItem="8IQ-p1-X9N" secondAttribute="leading" constant="16" id="FjN-PI-Vkt"/>
+                            <constraint firstItem="giJ-3X-2WP" firstAttribute="centerY" secondItem="gFD-it-K5i" secondAttribute="centerY" id="HMh-6h-Rni"/>
                             <constraint firstAttribute="bottom" secondItem="9zu-pD-WiU" secondAttribute="bottom" id="J9X-1f-60o"/>
                             <constraint firstItem="9zu-pD-WiU" firstAttribute="leading" secondItem="8IQ-p1-X9N" secondAttribute="leading" id="JE9-P7-dUB"/>
                             <constraint firstItem="lMf-ax-dJy" firstAttribute="leading" secondItem="8IQ-p1-X9N" secondAttribute="leading" constant="16" id="Scj-1R-uyD"/>
@@ -722,19 +720,19 @@
                             <constraint firstItem="O0Q-DJ-zFf" firstAttribute="leading" secondItem="dyn-Tb-Erd" secondAttribute="trailing" constant="8" id="f3p-tm-grL"/>
                             <constraint firstItem="vq5-8e-zaE" firstAttribute="top" secondItem="O0Q-DJ-zFf" secondAttribute="bottom" constant="8" id="fM6-JP-9Bf"/>
                             <constraint firstItem="8IQ-p1-X9N" firstAttribute="bottom" secondItem="AgN-GI-IzZ" secondAttribute="bottom" constant="16" id="flo-Gq-G7Q"/>
-                            <constraint firstItem="q2r-jJ-Jc6" firstAttribute="leading" secondItem="9M6-GP-uYR" secondAttribute="trailing" constant="8" id="gTw-dg-1dX"/>
-                            <constraint firstItem="9zu-pD-WiU" firstAttribute="top" secondItem="q2r-jJ-Jc6" secondAttribute="top" id="gzq-ia-YlO"/>
+                            <constraint firstItem="q2r-jJ-Jc6" firstAttribute="leading" secondItem="giJ-3X-2WP" secondAttribute="trailing" constant="8" id="gTw-dg-1dX"/>
+                            <constraint firstItem="9zu-pD-WiU" firstAttribute="top" secondItem="q2r-jJ-Jc6" secondAttribute="top" constant="-4" id="gzq-ia-YlO"/>
                             <constraint firstItem="vq5-8e-zaE" firstAttribute="top" secondItem="dyn-Tb-Erd" secondAttribute="bottom" constant="8" id="jCT-GV-Lg1"/>
+                            <constraint firstItem="q2r-jJ-Jc6" firstAttribute="centerY" secondItem="gFD-it-K5i" secondAttribute="centerY" id="jvi-es-k4L"/>
                             <constraint firstItem="8IQ-p1-X9N" firstAttribute="trailing" secondItem="AgN-GI-IzZ" secondAttribute="trailing" constant="8" id="kzx-zd-8ze"/>
                             <constraint firstItem="gFD-it-K5i" firstAttribute="leading" secondItem="8IQ-p1-X9N" secondAttribute="leading" constant="16" id="pQ6-JH-nRm"/>
-                            <constraint firstItem="q2r-jJ-Jc6" firstAttribute="centerY" secondItem="9M6-GP-uYR" secondAttribute="centerY" id="pkl-De-ZfD"/>
                             <constraint firstItem="8IQ-p1-X9N" firstAttribute="trailing" secondItem="q2r-jJ-Jc6" secondAttribute="trailing" constant="8" id="vz3-dS-TCF"/>
                             <constraint firstItem="8IQ-p1-X9N" firstAttribute="trailing" secondItem="lMf-ax-dJy" secondAttribute="trailing" constant="16" id="xsI-Te-WCs"/>
                             <constraint firstItem="9zu-pD-WiU" firstAttribute="top" secondItem="lMf-ax-dJy" secondAttribute="bottom" constant="16" id="z6D-OV-92w"/>
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="dateLabel" destination="9M6-GP-uYR" id="8Cy-FG-3f7"/>
+                        <outlet property="datePicker" destination="giJ-3X-2WP" id="Fk8-HG-6jt"/>
                         <outlet property="imageView" destination="lMf-ax-dJy" id="5oV-d2-dBW"/>
                         <outlet property="saveButton" destination="vq5-8e-zaE" id="jqg-ww-Xa2"/>
                         <outlet property="skipButton" destination="kcX-1C-5kt" id="g6v-7L-7Qf"/>
@@ -1891,7 +1889,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <datePicker contentMode="scaleAspectFit" ambiguous="YES" contentHorizontalAlignment="trailing" contentVerticalAlignment="center" datePickerMode="date" style="compact" translatesAutoresizingMaskIntoConstraints="NO" id="E3C-rh-Zr6" userLabel="Date Picker" customClass="ThemedDatePicker" customModule="TransTracks" customModuleProvider="target">
-                                <rect key="frame" x="82.5" y="147.5" width="315.5" height="34.5"/>
+                                <rect key="frame" x="83" y="147.5" width="315" height="34.5"/>
                                 <rect key="contentStretch" x="0.0" y="0.0" width="0.0" height="1"/>
                             </datePicker>
                             <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Description:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AWz-1l-KnU" userLabel="Description Label">

@@ -3,7 +3,7 @@
 //  TransTracks
 //
 //  Created by Cassie Wilson on 16/4/19.
-//  Copyright © 2019 TransTracks. All rights reserved.
+//  Copyright © 2019-2023 TransTracks. All rights reserved.
 //
 //  This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
 //
@@ -45,7 +45,7 @@ class AssignPhotoController : BackgroundGradientViewController {
     
     @IBOutlet weak var imageView: UIImageView!
     
-    @IBOutlet weak var dateLabel: UILabel!
+    @IBOutlet weak var datePicker: ThemedDatePicker!
     @IBOutlet weak var usePhotoDate: UIButton!
     @IBOutlet weak var usePhotoDateWidthConstraint: NSLayoutConstraint!
     
@@ -60,13 +60,15 @@ class AssignPhotoController : BackgroundGradientViewController {
         
         setupLabelTapRecognizers()
         
-        resultsDisposable = domainManager.assignPhotoDomain.results
-            .do(onSubscribe: {
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
-                    self.domainManager.assignPhotoDomain.actions.accept(.InitialData(photos: self.photos, image: self.image, epochDay: self.epochDay, type: self.type))
-                }
-            })
-            .subscribe()
+        resultsDisposable = domainManager.assignPhotoDomain.results.do(onSubscribe: {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                self.domainManager.assignPhotoDomain.actions.accept(.InitialData(photos: self.photos, image: self.image, epochDay: self.epochDay, type: self.type))
+            }
+        }).subscribe()
+            
+        datePicker.onDateChange = { newDate in
+            self.domainManager.assignPhotoDomain.actions.accept(.ChangeDate(index: self.currentIndex, newDate: newDate))
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -98,10 +100,6 @@ class AssignPhotoController : BackgroundGradientViewController {
                 
                 DispatchQueue.main.async {
                     switch viewEffect {
-                    case .ShowDateDialog(let date):
-                        AlertHelper.showDatePicker(startingDate: date, triggeringView: self.dateLabel){ newDate in
-                            self.domainManager.assignPhotoDomain.actions.accept(.ChangeDate(index: self.currentIndex, newDate: newDate))
-                        }
                         
                     case .ShowTypeDialog(let type):
                         AlertHelper.showPhotoTypePicker(startingType: type, triggeringView: self.typeLabel){ newType in
@@ -159,7 +157,7 @@ class AssignPhotoController : BackgroundGradientViewController {
             fatalError("Image or Asset needs to be set")
         }
         
-        dateLabel.text = date.toFullDateString()
+        datePicker.date = date
         
         let hideUsePhotoDate: Bool = photoDate == nil || Calendar.current.isDate(date, inSameDayAs:photoDate!)
         
@@ -171,11 +169,7 @@ class AssignPhotoController : BackgroundGradientViewController {
     }
     
     private func setupLabelTapRecognizers(){
-        let dateTap = UITapGestureRecognizer(target: self, action: #selector(dateClick(_:)))
-        dateLabel.addGestureRecognizer(dateTap)
-        
-        let typeTap = UITapGestureRecognizer(target: self, action: #selector(typeClick(_:)))
-        typeLabel.addGestureRecognizer(typeTap)
+        typeLabel.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(typeClick(_:))))
     }
     
     private func updateSkipVisibility(count: Int){
@@ -191,12 +185,6 @@ class AssignPhotoController : BackgroundGradientViewController {
     }
     
     //MARK: Button handling
-    
-    @objc func dateClick(_ sender: Any){
-        guard interactionEnabled else { return }
-        
-        domainManager.assignPhotoDomain.actions.accept(.ShowDateDialog(index: currentIndex))
-    }
     
     @IBAction func usePhotoDateClick(_ sender: Any) {
         if let currentPhotoDate = currentPhotoDate {
