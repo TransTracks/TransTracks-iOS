@@ -62,7 +62,6 @@
 		F93CF187221BF19B0008CC44 /* Assets.swift in Sources */ = {isa = PBXBuildFile; fileRef = F93CF142221BF19B0008CC44 /* Assets.swift */; };
 		F93CF188221BF19B0008CC44 /* PhotoLibraryPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F93CF143221BF19B0008CC44 /* PhotoLibraryPickerViewController.swift */; };
 		F93CF18E221BF19B0008CC44 /* PickerViewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F93CF14D221BF19B0008CC44 /* PickerViewViewController.swift */; };
-		F93CF193221BF19B0008CC44 /* ColorPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F93CF157221BF19B0008CC44 /* ColorPickerViewController.swift */; };
 		F93CF195221BF19B0008CC44 /* ImagePickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F93CF15B221BF19B0008CC44 /* ImagePickerViewController.swift */; };
 		F93CF196221BF19B0008CC44 /* ItemWithImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = F93CF15D221BF19B0008CC44 /* ItemWithImage.swift */; };
 		F93CF19B221BF19B0008CC44 /* Label.swift in Sources */ = {isa = PBXBuildFile; fileRef = F93CF166221BF19B0008CC44 /* Label.swift */; };
@@ -225,7 +224,6 @@
 		F93CF142221BF19B0008CC44 /* Assets.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Assets.swift; sourceTree = "<group>"; };
 		F93CF143221BF19B0008CC44 /* PhotoLibraryPickerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoLibraryPickerViewController.swift; sourceTree = "<group>"; };
 		F93CF14D221BF19B0008CC44 /* PickerViewViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PickerViewViewController.swift; sourceTree = "<group>"; };
-		F93CF157221BF19B0008CC44 /* ColorPickerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorPickerViewController.swift; sourceTree = "<group>"; };
 		F93CF15B221BF19B0008CC44 /* ImagePickerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImagePickerViewController.swift; sourceTree = "<group>"; };
 		F93CF15D221BF19B0008CC44 /* ItemWithImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemWithImage.swift; sourceTree = "<group>"; };
 		F93CF166221BF19B0008CC44 /* Label.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Label.swift; sourceTree = "<group>"; };
@@ -546,7 +544,6 @@
 				F93CF13D221BF19B0008CC44 /* TextFields */,
 				F93CF140221BF19B0008CC44 /* PhotoLibrary */,
 				F93CF14C221BF19B0008CC44 /* PickerView */,
-				F93CF156221BF19B0008CC44 /* Color */,
 				F93CF15A221BF19B0008CC44 /* Image */,
 			);
 			path = Pickers;
@@ -584,14 +581,6 @@
 				F93CF14D221BF19B0008CC44 /* PickerViewViewController.swift */,
 			);
 			path = PickerView;
-			sourceTree = "<group>";
-		};
-		F93CF156221BF19B0008CC44 /* Color */ = {
-			isa = PBXGroup;
-			children = (
-				F93CF157221BF19B0008CC44 /* ColorPickerViewController.swift */,
-			);
-			path = Color;
 			sourceTree = "<group>";
 		};
 		F93CF15A221BF19B0008CC44 /* Image */ = {
@@ -1060,7 +1049,6 @@
 				F93CF177221BF19B0008CC44 /* UIAlertController+Extensions.swift in Sources */,
 				F93CF06D221957FD0008CC44 /* BackgroundGradientViewController.swift in Sources */,
 				F9869AA22283B5D20049E442 /* MilestoneCell.swift in Sources */,
-				F93CF193221BF19B0008CC44 /* ColorPickerViewController.swift in Sources */,
 				F9869AA42283BD8C0049E442 /* MilestonesDomain.swift in Sources */,
 				F93CF174221BF19B0008CC44 /* UIImage+Extensions.swift in Sources */,
 				F93CF16F221BF19B0008CC44 /* UIView+Extensions.swift in Sources */,
