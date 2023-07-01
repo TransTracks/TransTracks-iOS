@@ -55,8 +55,6 @@
 		F93CF179221BF19B0008CC44 /* Common+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F93CF12A221BF19B0008CC44 /* Common+Extensions.swift */; };
 		F93CF17A221BF19B0008CC44 /* Locale+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F93CF12B221BF19B0008CC44 /* Locale+Extensions.swift */; };
 		F93CF17B221BF19B0008CC44 /* UITextField+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F93CF12C221BF19B0008CC44 /* UITextField+Extensions.swift */; };
-		F93CF17C221BF19B0008CC44 /* AttributedTextBlock.swift in Sources */ = {isa = PBXBuildFile; fileRef = F93CF12F221BF19B0008CC44 /* AttributedTextBlock.swift */; };
-		F93CF17D221BF19B0008CC44 /* TextViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F93CF130221BF19B0008CC44 /* TextViewController.swift */; };
 		F93CF185221BF19B0008CC44 /* TwoTextFieldsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F93CF13E221BF19B0008CC44 /* TwoTextFieldsViewController.swift */; };
 		F93CF186221BF19B0008CC44 /* OneTextFieldViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F93CF13F221BF19B0008CC44 /* OneTextFieldViewController.swift */; };
 		F93CF187221BF19B0008CC44 /* Assets.swift in Sources */ = {isa = PBXBuildFile; fileRef = F93CF142221BF19B0008CC44 /* Assets.swift */; };
@@ -217,8 +215,6 @@
 		F93CF12A221BF19B0008CC44 /* Common+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Common+Extensions.swift"; sourceTree = "<group>"; };
 		F93CF12B221BF19B0008CC44 /* Locale+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Locale+Extensions.swift"; sourceTree = "<group>"; };
 		F93CF12C221BF19B0008CC44 /* UITextField+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UITextField+Extensions.swift"; sourceTree = "<group>"; };
-		F93CF12F221BF19B0008CC44 /* AttributedTextBlock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AttributedTextBlock.swift; sourceTree = "<group>"; };
-		F93CF130221BF19B0008CC44 /* TextViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextViewController.swift; sourceTree = "<group>"; };
 		F93CF13E221BF19B0008CC44 /* TwoTextFieldsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TwoTextFieldsViewController.swift; sourceTree = "<group>"; };
 		F93CF13F221BF19B0008CC44 /* OneTextFieldViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OneTextFieldViewController.swift; sourceTree = "<group>"; };
 		F93CF142221BF19B0008CC44 /* Assets.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Assets.swift; sourceTree = "<group>"; };
@@ -490,7 +486,6 @@
 			isa = PBXGroup;
 			children = (
 				F93CF11B221BF19B0008CC44 /* Extensions */,
-				F93CF12D221BF19B0008CC44 /* Viewers */,
 				F93CF131221BF19B0008CC44 /* Pickers */,
 				F93CF165221BF19B0008CC44 /* Views */,
 			);
@@ -519,23 +514,6 @@
 				F93CF12C221BF19B0008CC44 /* UITextField+Extensions.swift */,
 			);
 			path = Extensions;
-			sourceTree = "<group>";
-		};
-		F93CF12D221BF19B0008CC44 /* Viewers */ = {
-			isa = PBXGroup;
-			children = (
-				F93CF12E221BF19B0008CC44 /* Models */,
-				F93CF130221BF19B0008CC44 /* TextViewController.swift */,
-			);
-			path = Viewers;
-			sourceTree = "<group>";
-		};
-		F93CF12E221BF19B0008CC44 /* Models */ = {
-			isa = PBXGroup;
-			children = (
-				F93CF12F221BF19B0008CC44 /* AttributedTextBlock.swift */,
-			);
-			path = Models;
 			sourceTree = "<group>";
 		};
 		F93CF131221BF19B0008CC44 /* Pickers */ = {
@@ -1009,7 +987,6 @@
 				F9EBDAAA222BA3D800268392 /* HomeDomain.swift in Sources */,
 				F9F4F8BB27BFA96100D688C5 /* TitleCell.swift in Sources */,
 				F9DAC0A022212BA20051B8E6 /* AlertPasswordTextField.swift in Sources */,
-				F93CF17D221BF19B0008CC44 /* TextViewController.swift in Sources */,
 				F97CAA94223A3A9D00D6A549 /* Milestone.swift in Sources */,
 				F92A2D3A25D8D8500068ADAF /* DoubleButtonCell.swift in Sources */,
 				F9BF2438228E2A29002A38BA /* Buttons.swift in Sources */,
@@ -1061,7 +1038,6 @@
 				F93CF06F221A1BDD0008CC44 /* GADBannerViews.swift in Sources */,
 				F93CF185221BF19B0008CC44 /* TwoTextFieldsViewController.swift in Sources */,
 				F90F8C0822B8F3EE00BA91A9 /* Users.swift in Sources */,
-				F93CF17C221BF19B0008CC44 /* AttributedTextBlock.swift in Sources */,
 				F93CF173221BF19B0008CC44 /* UIColor+Extensions.swift in Sources */,
 				F9869A9B22829A550049E442 /* GallerySectionTitle.swift in Sources */,
 				F93CF081221A5A0A0008CC44 /* ButtonCell.swift in Sources */,
