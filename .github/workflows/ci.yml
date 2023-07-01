@@ -49,3 +49,4 @@ jobs:
         with:
           scheme: ${{ vars.SCHEME }}
           platform: iOS
+          action: test
