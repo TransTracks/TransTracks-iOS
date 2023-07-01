@@ -38,3 +38,5 @@ jobs:
 
       - name: 👷‍♀️ Build
         uses: mxcl/xcodebuild@v1
+        with:
+          scheme: ${{ vars.SCHEME }}
