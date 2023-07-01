@@ -70,7 +70,6 @@
 		F93CF188221BF19B0008CC44 /* PhotoLibraryPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F93CF143221BF19B0008CC44 /* PhotoLibraryPickerViewController.swift */; };
 		F93CF18E221BF19B0008CC44 /* PickerViewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F93CF14D221BF19B0008CC44 /* PickerViewViewController.swift */; };
 		F93CF193221BF19B0008CC44 /* ColorPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F93CF157221BF19B0008CC44 /* ColorPickerViewController.swift */; };
-		F93CF194221BF19B0008CC44 /* DatePickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F93CF159221BF19B0008CC44 /* DatePickerViewController.swift */; };
 		F93CF195221BF19B0008CC44 /* ImagePickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F93CF15B221BF19B0008CC44 /* ImagePickerViewController.swift */; };
 		F93CF196221BF19B0008CC44 /* ItemWithImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = F93CF15D221BF19B0008CC44 /* ItemWithImage.swift */; };
 		F93CF19B221BF19B0008CC44 /* Label.swift in Sources */ = {isa = PBXBuildFile; fileRef = F93CF166221BF19B0008CC44 /* Label.swift */; };
@@ -241,7 +240,6 @@
 		F93CF143221BF19B0008CC44 /* PhotoLibraryPickerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoLibraryPickerViewController.swift; sourceTree = "<group>"; };
 		F93CF14D221BF19B0008CC44 /* PickerViewViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PickerViewViewController.swift; sourceTree = "<group>"; };
 		F93CF157221BF19B0008CC44 /* ColorPickerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorPickerViewController.swift; sourceTree = "<group>"; };
-		F93CF159221BF19B0008CC44 /* DatePickerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DatePickerViewController.swift; sourceTree = "<group>"; };
 		F93CF15B221BF19B0008CC44 /* ImagePickerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImagePickerViewController.swift; sourceTree = "<group>"; };
 		F93CF15D221BF19B0008CC44 /* ItemWithImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemWithImage.swift; sourceTree = "<group>"; };
 		F93CF166221BF19B0008CC44 /* Label.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Label.swift; sourceTree = "<group>"; };
@@ -564,7 +562,6 @@
 				F93CF140221BF19B0008CC44 /* PhotoLibrary */,
 				F93CF14C221BF19B0008CC44 /* PickerView */,
 				F93CF156221BF19B0008CC44 /* Color */,
-				F93CF158221BF19B0008CC44 /* Date */,
 				F93CF15A221BF19B0008CC44 /* Image */,
 			);
 			path = Pickers;
@@ -648,14 +645,6 @@
 				F93CF157221BF19B0008CC44 /* ColorPickerViewController.swift */,
 			);
 			path = Color;
-			sourceTree = "<group>";
-		};
-		F93CF158221BF19B0008CC44 /* Date */ = {
-			isa = PBXGroup;
-			children = (
-				F93CF159221BF19B0008CC44 /* DatePickerViewController.swift */,
-			);
-			path = Date;
 			sourceTree = "<group>";
 		};
 		F93CF15A221BF19B0008CC44 /* Image */ = {
@@ -1103,7 +1092,6 @@
 				F93CF180221BF19B0008CC44 /* LocaleInfo.swift in Sources */,
 				F93CF172221BF19B0008CC44 /* UITextView+Extensions.swift in Sources */,
 				F9C193A82A3D917C00852A79 /* DateCell.swift in Sources */,
-				F93CF194221BF19B0008CC44 /* DatePickerViewController.swift in Sources */,
 				F93CF182221BF19B0008CC44 /* PhoneCodeCell.swift in Sources */,
 				F95C51DD22546F54002499F4 /* BackgroundGradientCollectionViewController.swift in Sources */,
 				F93CF179221BF19B0008CC44 /* Common+Extensions.swift in Sources */,
