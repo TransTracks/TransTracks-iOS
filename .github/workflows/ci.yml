@@ -40,3 +40,4 @@ jobs:
         uses: mxcl/xcodebuild@v1
         with:
           scheme: ${{ vars.SCHEME }}
+          platform: iOS
