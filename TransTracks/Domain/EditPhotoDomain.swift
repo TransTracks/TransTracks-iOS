@@ -21,7 +21,6 @@ import RxSwiftExt
 enum EditPhotoAction {
     case InitialData(photo: Photo)
     
-    case ShowDateDialog
     case ChangeDate(newDate: Date)
     
     case ShowTypeDialog
@@ -36,7 +35,6 @@ enum EditPhotoResult {
 }
 
 enum EditPhotoViewEffect {
-    case ShowDateDialog(currentDate: Date)
     case ShowTypeDialog(currentType: PhotoType)
     
     case SaveSuccess
@@ -78,10 +76,6 @@ class EditPhotoDomain {
                 self.photo = photo
                 date = Date.ofEpochDay(photo.epochDay)
                 type = PhotoType(rawValue: Int(photo.type))!
-                return Observable.just(.Display(image: getImageUrl(photo), date: date, type: type))
-
-            case .ShowDateDialog:
-                viewEffectRelay.accept(.ShowDateDialog(currentDate: date))
                 return Observable.just(.Display(image: getImageUrl(photo), date: date, type: type))
 
             case .ChangeDate(let newDate):

@@ -3,7 +3,7 @@
 //  TransTracks
 //
 //  Created by Cassie Wilson on 30/4/19.
-//  Copyright © 2019 TransTracks. All rights reserved.
+//  Copyright © 2019-2023 TransTracks. All rights reserved.
 //
 //  This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
 //
@@ -24,7 +24,6 @@ enum AssignPhotoAction {
     case InitialData(photos: [PHAsset]?, image: UIImage?, epochDay: Int?, type: PhotoType)
     case LoadImage(index: Int)
     
-    case ShowDateDialog(index: Int)
     case ChangeDate(index: Int, newDate: Date)
     
     case ShowTypeDialog(index: Int)
@@ -44,7 +43,6 @@ enum AssignPhotoResult {
 }
 
 enum AssignPhotoViewEffect {
-    case ShowDateDialog(date: Date)
     case ShowTypeDialog(type: PhotoType)
     case ShowSaveSuccess
     case ShowSaveError
@@ -97,10 +95,6 @@ class AssignPhotoDomain {
                 
             case .LoadImage(let index):
                 return Observable.just(loadImage(index))
-                
-            case .ShowDateDialog(let index):
-                viewEffectRelay.accept(.ShowDateDialog(date: date))
-                return Observable.just(.Display(asset: photos?[index], image: image, date: date, photoDate: photoDate, type: type, index: index, count: photos?.count ?? 1))
                 
             case .ChangeDate(let index, let newDate):
                 date = newDate

@@ -2,7 +2,7 @@ import UIKit
 
 class ItemWithImage: UICollectionViewCell {
     
-    static let identifier = String(describing: CurrencyTableViewCell.self)
+    static let identifier = String(describing: ItemWithImage.self)
     
     lazy var imageView: UIImageView = {
         $0.backgroundColor = .clear
