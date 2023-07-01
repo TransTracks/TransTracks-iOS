@@ -21,6 +21,14 @@ jobs:
       - name: 🚚 Checkout
         uses: actions/checkout@v3
 
+      - name: 🗃️ Get cache
+        uses: actions/cache@v3
+        with:
+          path: .build
+          key: ${{ runner.os }}-spm-${{ hashFiles('**/Package.resolved') }}
+          restore-keys: |
+            ${{ runner.os }}-spm-
+
       - name: 📑 Create Google Services file
         env:
           GOOGLE_SERVICE_64: ${{ secrets.GOOGLE_SERVICE_64 }}
