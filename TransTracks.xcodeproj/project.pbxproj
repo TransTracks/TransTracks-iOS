@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		75250CD039C8C0A34FAC03D2 /* Archive+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7525064EB02B5AF830F52B4E /* Archive+Extensions.swift */; };
-		75250F90816E6A57551C6562 /* InfoConfig.plist in Resources */ = {isa = PBXBuildFile; fileRef = 75250BC5F7C75E458AD00F28 /* InfoConfig.plist */; };
 		F900233E227D71D3003F3304 /* EditPhotoContoller.swift in Sources */ = {isa = PBXBuildFile; fileRef = F900233D227D71D3003F3304 /* EditPhotoContoller.swift */; };
 		F9002340227D7BE5003F3304 /* EditPhotoDomain.swift in Sources */ = {isa = PBXBuildFile; fileRef = F900233F227D7BE5003F3304 /* EditPhotoDomain.swift */; };
 		F900234322814DE3003F3304 /* GalleryController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F900234222814DE3003F3304 /* GalleryController.swift */; };
@@ -77,7 +76,6 @@
 		F95C51DB22546EC6002499F4 /* SelectPhotoController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F95C51DA22546EC6002499F4 /* SelectPhotoController.swift */; };
 		F95C51DD22546F54002499F4 /* BackgroundGradientCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F95C51DC22546F54002499F4 /* BackgroundGradientCollectionViewController.swift */; };
 		F96C0D5E22B648C20083C8AA /* AccountCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F96C0D5D22B648C20083C8AA /* AccountCell.swift */; };
-		F97AA2F325E900E90015C3CC /* config.plist in Resources */ = {isa = PBXBuildFile; fileRef = F97AA2F225E900E90015C3CC /* config.plist */; };
 		F97CAA8E223A20CB00D6A549 /* DataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F97CAA8D223A20CB00D6A549 /* DataController.swift */; };
 		F97CAA90223A262300D6A549 /* Rx.swift in Sources */ = {isa = PBXBuildFile; fileRef = F97CAA8F223A262300D6A549 /* Rx.swift */; };
 		F97CAA92223A31AC00D6A549 /* Photo.swift in Sources */ = {isa = PBXBuildFile; fileRef = F97CAA91223A31AC00D6A549 /* Photo.swift */; };
@@ -855,11 +853,9 @@
 				F9868C862207B94B00237C14 /* Assets.xcassets in Resources */,
 				F9BF2436228D3ACC002A38BA /* AltAppIcon@1x.png in Resources */,
 				F919D782219186DD0069F42B /* Main.storyboard in Resources */,
-				F97AA2F325E900E90015C3CC /* config.plist in Resources */,
 				F9BF2428228D3ACC002A38BA /* AltAppIcon@3x.png in Resources */,
 				F97CAA96223A421700D6A549 /* Localizable.stringsdict in Resources */,
 				F9BF2434228D3ACC002A38BA /* AltAppIcon@2x.png in Resources */,
-				75250F90816E6A57551C6562 /* InfoConfig.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -889,6 +885,8 @@
 			inputFileListPaths = (
 			);
 			inputPaths = (
+				"$(SRCROOT)/TransTracks/Info.plist",
+				"$(SRCROOT)/TransTracks/InfoConfig.plist",
 			);
 			outputFileListPaths = (
 			);
@@ -907,6 +905,7 @@
 			inputFileListPaths = (
 			);
 			inputPaths = (
+				"$(SRCROOT)/TransTracks/Info.plist",
 			);
 			outputFileListPaths = (
 			);
@@ -918,6 +917,7 @@
 		};
 		F9BC695B25594DF4008D5794 /* Crashlytics */ = {
 			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
 			buildActionMask = 2147483647;
 			files = (
 			);
