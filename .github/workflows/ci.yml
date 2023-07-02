@@ -14,8 +14,30 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+  resolve-spm:
+    runs-on: macos-latest
+
+    steps:
+      - name: 🚚 Checkout
+        uses: actions/checkout@v3
+
+      - name: 🗃️ Get cache
+        id: cache
+        uses: actions/cache@v3
+        with:
+          path: /Users/runner/Library/Developer/Xcode/DerivedData/**/SourcePackages/checkouts 
+          key: ${{ runner.os }}-spm-${{ hashFiles('**/Package.resolved') }}
+          restore-keys: |
+            ${{ runner.os }}-spm-
+
+      - name: 🤓 Resolve SPM
+        if: ${{ !steps.cache.outputs.cache-hit }} # No direct cache hit
+        run: xcodebuild -resolvePackageDependencies
+
+
   build:
     runs-on: macos-latest
+    needs: resolve-spm
 
     steps:
       - name: 🚚 Checkout
