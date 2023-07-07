@@ -714,11 +714,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = F919D7A1219186DF0069F42B /* Build configuration list for PBXNativeTarget "TransTracks" */;
 			buildPhases = (
-				F97AA39025E9CF3E0015C3CC /* ShellScript */,
+				F97AA39025E9CF3E0015C3CC /* Configure Info.plist */,
 				F919D775219186DD0069F42B /* Sources */,
 				F919D776219186DD0069F42B /* Frameworks */,
 				F919D777219186DD0069F42B /* Resources */,
-				F97AA39D25E9D3070015C3CC /* ShellScript */,
+				F97AA39D25E9D3070015C3CC /* Restore Info.plist */,
 				F9BC695B25594DF4008D5794 /* Crashlytics */,
 			);
 			buildRules = (
@@ -876,7 +876,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		F97AA39025E9CF3E0015C3CC /* ShellScript */ = {
+		F97AA39025E9CF3E0015C3CC /* Configure Info.plist */ = {
 			isa = PBXShellScriptBuildPhase;
 			alwaysOutOfDate = 1;
 			buildActionMask = 2147483647;
@@ -888,15 +888,16 @@
 				"$(SRCROOT)/TransTracks/Info.plist",
 				"$(SRCROOT)/TransTracks/InfoConfig.plist",
 			);
+			name = "Configure Info.plist";
 			outputFileListPaths = (
 			);
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "INFO_PLIST=\"${SRCROOT}/TransTracks/Info.plist\"\nBASE_PLIST=\"${SRCROOT}/TransTracks/InfoConfig.plist\"\n\n/usr/libexec/PlistBuddy -c \"Merge $BASE_PLIST\" \"$INFO_PLIST\"\n";
+			shellScript = "# Merge with config\nINFO_PLIST=\"${SRCROOT}/TransTracks/Info.plist\"\nBASE_PLIST=\"${SRCROOT}/TransTracks/InfoConfig.plist\"\n\n/usr/libexec/PlistBuddy -c \"Merge $BASE_PLIST\" \"$INFO_PLIST\"\n\n# Set version\n/usr/libexec/PlistBuddy -c \"Set :CFBundleShortVersionString ${MARKETING_VERSION:-1.4.1}\" \"$INFO_PLIST\"\n/usr/libexec/PlistBuddy -c \"Set :CFBundleVersion ${VERSION_NUMBER:-18}\" \"$INFO_PLIST\"\n";
 		};
-		F97AA39D25E9D3070015C3CC /* ShellScript */ = {
+		F97AA39D25E9D3070015C3CC /* Restore Info.plist */ = {
 			isa = PBXShellScriptBuildPhase;
 			alwaysOutOfDate = 1;
 			buildActionMask = 2147483647;
@@ -907,13 +908,14 @@
 			inputPaths = (
 				"$(SRCROOT)/TransTracks/Info.plist",
 			);
+			name = "Restore Info.plist";
 			outputFileListPaths = (
 			);
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "INFO_PLIST=\"${SRCROOT}/TransTracks/Info.plist\"\n\n/usr/libexec/PlistBuddy -c \"Delete :CFBundleURLTypes\" \"$INFO_PLIST\"\n/usr/libexec/PlistBuddy -c \"Delete :GADApplicationIdentifier\" \"$INFO_PLIST\"\n";
+			shellScript = "INFO_PLIST=\"${SRCROOT}/TransTracks/Info.plist\"\n\n/usr/libexec/PlistBuddy -c \"Delete :CFBundleURLTypes\" \"$INFO_PLIST\"\n/usr/libexec/PlistBuddy -c \"Delete :GADApplicationIdentifier\" \"$INFO_PLIST\"\n\n/usr/libexec/PlistBuddy -c \"Set :CFBundleShortVersionString \\$(MARKETING_VERSION)\" \"$INFO_PLIST\"\n/usr/libexec/PlistBuddy -c \"Set :CFBundleVersion \\$(CURRENT_PROJECT_VERSION)\" \"$INFO_PLIST\"\n";
 		};
 		F9BC695B25594DF4008D5794 /* Crashlytics */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1104,7 +1106,6 @@
 		F919D79F219186DF0069F42B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -1166,7 +1167,6 @@
 		F919D7A0219186DF0069F42B /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -1225,7 +1225,6 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = TransTracks/TransTracks.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 18;
 				DEVELOPMENT_TEAM = SLWWTU9N3Q;
 				INFOPLIST_FILE = TransTracks/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
@@ -1233,7 +1232,6 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.4.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.drspaceboo.TransTracks;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -1247,7 +1245,6 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = TransTracks/TransTracks.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 18;
 				DEVELOPMENT_TEAM = SLWWTU9N3Q;
 				INFOPLIST_FILE = TransTracks/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
@@ -1255,7 +1252,6 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.4.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.drspaceboo.TransTracks;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
