@@ -2,6 +2,9 @@ name: Continuous Integration
 
 env:
   BUILD_NUMBER: ${{ github.run_number }}
+  SPM_CACHE_PATH: /Users/runner/Library/Developer/Xcode/DerivedData/**/SourcePackages/checkouts"
+  XCODE_VERSION: 14.2.0
+  SCHEME: TransTracks
 
 on:
   push:
@@ -14,30 +17,70 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  build:
+  resolve-spm:
     runs-on: macos-latest
 
     steps:
       - name: 🚚 Checkout
         uses: actions/checkout@v3
 
+      - name: 🍔 Get SPM cache
+        id: cache
+        uses: actions/cache@v3
+        with:
+          path: ${{ env.SPM_CACHE_PATH }}
+          key: ${{ runner.os }}-spm-${{ hashFiles('**/Package.resolved') }}
+          restore-keys: |
+            ${{ runner.os }}-spm-
+
+      - name: 📀 Setup Xcode version
+        uses: maxim-lobanov/setup-xcode@v1
+        with:
+          xcode-version: ${{ env.XCODE_VERSION }}
+
+      - name: 🤓 Resolve SPM
+        if: ${{ !steps.cache.outputs.cache-hit }} # No direct cache hit
+        run: xcodebuild -resolvePackageDependencies
+
+
+  build:
+    runs-on: macos-latest
+    needs: [resolve-spm]
+
+    steps:
+      - name: 🚚 Checkout
+        uses: actions/checkout@v3
+
+      - name: ⏰ Restore Modified Timestamps
+        uses: chetan/git-restore-mtime-action@v2
+
+      - name: 🍔 Get SPM cache
+        uses: actions/cache/restore@v3
+        with:
+          path: ${{ env.SPM_CACHE_PATH }}
+          key: ${{ runner.os }}-spm-${{ hashFiles('**/Package.resolved') }}
+          restore-keys: |
+            ${{ runner.os }}-spm-
+
       - name: 📑 Create Google Services file
         env:
           GOOGLE_SERVICE_64: ${{ secrets.GOOGLE_SERVICE_64 }}
-        run: echo $GOOGLE_SERVICE_64 | base64 --decode > ./TransTracks/GoogleService-Info.plist
+        run: echo $GOOGLE_SERVICE_64 | base64 --decode > ${{ env.SCHEME }}/GoogleService-Info.plist
 
       - name: 📑 Create Config plist file
         env:
           CONFIG_64: ${{ secrets.CONFIG_64 }}
-        run: echo $CONFIG_64 | base64 --decode > ./TransTracks/config.plist
+        run: echo $CONFIG_64 | base64 --decode > ${{ env.SCHEME }}/config.plist
 
       - name: 📑 Create Info Config plist file
         env:
           INFO_CONFIG_64: ${{ secrets.INFO_CONFIG_64 }}
-        run: echo $INFO_CONFIG_64 | base64 --decode > ./TransTracks/InfoConfig.plist
+        run: echo $INFO_CONFIG_64 | base64 --decode > ${{ env.SCHEME }}/InfoConfig.plist
 
       - name: 👷‍♀️ Build
         uses: mxcl/xcodebuild@v1
         with:
-          scheme: ${{ vars.SCHEME }}
+          xcode: ${{ env.XCODE_VERSION }}
+          scheme: ${{ env.SCHEME }}
           platform: iOS
+          action: test
