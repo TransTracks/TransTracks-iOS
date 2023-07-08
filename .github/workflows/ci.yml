@@ -5,6 +5,7 @@ env:
   SPM_CACHE_PATH: /Users/runner/Library/Developer/Xcode/DerivedData/**/SourcePackages/checkouts
   XCODE_VERSION: 14.2.0
   SCHEME: TransTracks
+  DESTINATION: platform=iOS Simulator,name=iPhone 14
   VERSION_MAJOR: 1
   VERSION_MINOR: 4
 
@@ -102,5 +103,4 @@ jobs:
           MARKETING_VERSION: ${{ needs.set-version.outputs.marketing-version }}
           VERSION_NUMBER: ${{ needs.set-version.outputs.version-number }}
         run: |
-          device=`xcrun xctrace list devices 2>&1 | grep -oE 'iPhone.*?[^\(]+' | head -1 | awk '{$1=$1;print}' | sed -e "s/ Simulator$//"`
-          xcodebuild -scheme $SCHEME -sdk iphonesimulator -destination 'platform=iOS Simulator,name=$device' test
+          xcodebuild -scheme $SCHEME -sdk iphonesimulator -destination "$DESTINATION" test
