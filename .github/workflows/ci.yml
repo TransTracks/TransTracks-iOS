@@ -2,7 +2,7 @@ name: Continuous Integration
 
 env:
   BUILD_NUMBER: ${{ github.run_number }}
-  SPM_CACHE_PATH: /Users/runner/Library/Developer/Xcode/DerivedData/**/SourcePackages/checkouts"
+  SPM_CACHE_PATH: /Users/runner/Library/Developer/Xcode/DerivedData/**/SourcePackages/checkouts
   XCODE_VERSION: 14.2.0
   SCHEME: TransTracks
 
