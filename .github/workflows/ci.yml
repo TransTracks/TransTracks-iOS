@@ -69,9 +69,6 @@ jobs:
       - name: 🚚 Checkout
         uses: actions/checkout@v3
 
-      - name: ⏰ Restore Modified Timestamps
-        uses: chetan/git-restore-mtime-action@v2
-
       - name: 🍔 Get SPM cache
         uses: actions/cache/restore@v3
         with:
