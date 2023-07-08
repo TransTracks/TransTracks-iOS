@@ -5,6 +5,9 @@ env:
   SPM_CACHE_PATH: /Users/runner/Library/Developer/Xcode/DerivedData/**/SourcePackages/checkouts
   XCODE_VERSION: 14.2.0
   SCHEME: TransTracks
+  DESTINATION: platform=iOS Simulator,name=iPhone 14
+  VERSION_MAJOR: 1
+  VERSION_MINOR: 4
 
 on:
   push:
@@ -17,6 +20,22 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+  set-version:
+    runs-on: ubuntu-latest
+
+    outputs:
+      marketing-version: ${{ steps.version.outputs.marketing-version }}
+      version-number: ${{ steps.version.outputs.version-number }}
+
+    steps:
+      - name: 🕵️‍♀️ Determining version
+        id: version
+        run: |
+          baseBuildNumber=18
+          resolvedBuildNumber=$(expr $baseBuildNumber + $VERSION_MAJOR * 100 + $VERSION_MINOR + $BUILD_NUMBER)
+          echo "marketing-version=$VERSION_MAJOR.$VERSION_MINOR.$resolvedBuildNumber" >> "$GITHUB_OUTPUT"
+          echo "version-number=$resolvedBuildNumber" >> "$GITHUB_OUTPUT"
+
   resolve-spm:
     runs-on: macos-latest
 
@@ -34,6 +53,7 @@ jobs:
             ${{ runner.os }}-spm-
 
       - name: 📀 Setup Xcode version
+        if: ${{ !steps.cache.outputs.cache-hit }} # No direct cache hit
         uses: maxim-lobanov/setup-xcode@v1
         with:
           xcode-version: ${{ env.XCODE_VERSION }}
@@ -45,17 +65,14 @@ jobs:
 
   build:
     runs-on: macos-latest
-    needs: [resolve-spm]
+    needs: [set-version,resolve-spm]
 
     steps:
       - name: 🚚 Checkout
         uses: actions/checkout@v3
 
-      - name: ⏰ Restore Modified Timestamps
-        uses: chetan/git-restore-mtime-action@v2
-
       - name: 🍔 Get SPM cache
-        uses: actions/cache/restore@v3
+        uses: actions/cache@v3
         with:
           path: ${{ env.SPM_CACHE_PATH }}
           key: ${{ runner.os }}-spm-${{ hashFiles('**/Package.resolved') }}
@@ -77,10 +94,14 @@ jobs:
           INFO_CONFIG_64: ${{ secrets.INFO_CONFIG_64 }}
         run: echo $INFO_CONFIG_64 | base64 --decode > ${{ env.SCHEME }}/InfoConfig.plist
 
-      - name: 👷‍♀️ Build
-        uses: mxcl/xcodebuild@v1
+      - name: 📀 Setup Xcode version
+        uses: maxim-lobanov/setup-xcode@v1
         with:
-          xcode: ${{ env.XCODE_VERSION }}
-          scheme: ${{ env.SCHEME }}
-          platform: iOS
-          action: test
+          xcode-version: ${{ env.XCODE_VERSION }}
+
+      - name: 👷‍♀️ Build
+        env:
+          MARKETING_VERSION: ${{ needs.set-version.outputs.marketing-version }}
+          VERSION_NUMBER: ${{ needs.set-version.outputs.version-number }}
+        run: |
+          xcodebuild -scheme $SCHEME -sdk iphonesimulator -destination "$DESTINATION" -quiet test
