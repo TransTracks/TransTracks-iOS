@@ -30,8 +30,8 @@ jobs:
       - name: 🕵️‍♀️ Determining version
         id: version
         run: |
-          baseBuildNumber = 18
-          resolvedBuildNumber = $baseBuildNumber + ($VERSION_MAJOR * 100) + $VERSION_MINOR + $BUILD_NUMBER
+          baseBuildNumber=18
+          resolvedBuildNumber=$baseBuildNumber+($VERSION_MAJOR*100)+$VERSION_MINOR+$BUILD_NUMBER
           echo "marketing-version=$VERSION_MAJOR.$VERSION_MINOR.$resolvedBuildNumber" >> "$GITHUB_OUTPUT"
           echo "version-number=$resolvedBuildNumber" >> "$GITHUB_OUTPUT"
 
