@@ -148,7 +148,7 @@ jobs:
           MARKETING_VERSION: ${{ needs.set-version.outputs.marketing-version }}
           VERSION_NUMBER: ${{ needs.set-version.outputs.version-number }}
         run: |
-          xcodebuild -scheme $SCHEME iphoneos -configuration Release archive -archivePath “../build/$SCHEME_$MARKETING_VERSION.xcarchive”
+          xcodebuild -scheme $SCHEME iphoneos -configuration Release archive -archivePath "../build/$SCHEME_$MARKETING_VERSION.xcarchive"
 
       - name: 🍺 Create IPA
         run: |
