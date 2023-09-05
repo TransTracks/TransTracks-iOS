@@ -155,5 +155,10 @@ jobs:
          echo "TODO create IPA"
 
       - name: 🆙 Upload IPA to TestFlight
-        run: |
-         echo "TODO upload IPA to TestFlight"
+        uses: Apple-Actions/upload-testflight-build@v1
+        with:
+          app-path: ../build/$SCHEME_$MARKETING_VERSION.xcarchive
+          app-type: ios
+          issuer-id: ${{ secrets.ISSUER_ID }}
+          api-key-id: ${{ secrets.API_KEY_ID }}
+          api-private-key: ${{ secrets.API_PRIVATE_KEY }}
