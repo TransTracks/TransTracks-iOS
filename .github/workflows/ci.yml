@@ -84,15 +84,11 @@ jobs:
           GOOGLE_SERVICE_64: ${{ secrets.GOOGLE_SERVICE_64 }}
         run: echo $GOOGLE_SERVICE_64 | base64 --decode > ${{ env.SCHEME }}/GoogleService-Info.plist
 
-      - name: 📑 Create Config plist file
-        env:
-          CONFIG_64: ${{ secrets.CONFIG_64 }}
-        run: echo $CONFIG_64 | base64 --decode > ${{ env.SCHEME }}/config.plist
+      - name: 📑 Copy Config plist file
+        run: cp ${{ env.SCHEME }}/config.plist.example ${{ env.SCHEME }}/config.plist
 
-      - name: 📑 Create Info Config plist file
-        env:
-          INFO_CONFIG_64: ${{ secrets.INFO_CONFIG_64 }}
-        run: echo $INFO_CONFIG_64 | base64 --decode > ${{ env.SCHEME }}/InfoConfig.plist
+      - name: 📑 Copy Info Config plist file
+        run: cp ${{ env.SCHEME }}/InfoConfig.plist.example ${{ env.SCHEME }}/InfoConfig.plist
 
       - name: 📀 Setup Xcode version
         uses: maxim-lobanov/setup-xcode@v1
