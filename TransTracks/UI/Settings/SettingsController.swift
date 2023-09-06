@@ -22,12 +22,11 @@ import Toast
 import UIKit
 import ZIPFoundation
 import FirebaseEmailAuthUI
-import FirebaseGoogleAuthUI
 import FirebaseOAuthUI
 
 class SettingsController: BackgroundGradientViewController {
     
-    //MARK: Properties
+    // MARK: Properties
     private var tempName: String?
     private var tempEmail: String?
     private var tempTheme: Theme?
@@ -46,14 +45,14 @@ class SettingsController: BackgroundGradientViewController {
     
     var showAuthOnAppear: Bool = false
     
-    //MARK: Outlets
+    // MARK: Outlets
     
     @IBOutlet var adViewHolder: AdContainerView!
     @IBOutlet var tableView: UITableView!
     @IBOutlet var copyrightLabel: UILabel!
     @IBOutlet var loadingIndicator: UIActivityIndicatorView!
     
-    //MARK: Lifecycle
+    // MARK: Lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -74,7 +73,7 @@ class SettingsController: BackgroundGradientViewController {
         }
     }
     
-    //MARK: Helper function
+    // MARK: Helper function
     func showAuth() {
         //Sign in
         if let authUI = FUIAuth.defaultAuthUI() {
@@ -97,13 +96,13 @@ class SettingsController: BackgroundGradientViewController {
     private func showRelogInDialog() {
         let alert = UIAlertController(title: NSLocalizedString("sessionExpiredTitle", comment: ""), message: NSLocalizedString("sessionExpiredMessage", comment: ""), preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: NSLocalizedString("later", comment: ""), style: .destructive, handler: nil))
-        alert.addAction(UIAlertAction(title: NSLocalizedString("ok", comment: ""), style: .default, handler: { action in
+        alert.addAction(UIAlertAction(title: NSLocalizedString("ok", comment: ""), style: .default, handler: { _ in
             self.showAuth()
         }))
         alert.show()
     }
     
-    //MARK: Button handling
+    // MARK: Button handling
     
     @objc func accountNameClick(_ sender: Any) {
         guard let currentUser = Auth.auth().currentUser else { return }
@@ -132,7 +131,7 @@ class SettingsController: BackgroundGradientViewController {
         let alert = UIAlertController(title: NSLocalizedString("updateAccountName", comment: ""), message: nil, preferredStyle: .alert)
         alert.addOneTextField(configuration: config)
         alert.addAction(UIAlertAction(title: NSLocalizedString("cancel", comment: ""), style: .cancel, handler: nil))
-        alert.addAction(UIAlertAction(title: NSLocalizedString("update", comment: ""), style: .default, handler: { action in
+        alert.addAction(UIAlertAction(title: NSLocalizedString("update", comment: ""), style: .default, handler: { _ in
             let changeRequest = currentUser.createProfileChangeRequest()
             changeRequest.displayName = self.tempName
             changeRequest.commitChanges { error in
@@ -158,7 +157,7 @@ class SettingsController: BackgroundGradientViewController {
         
         self.tempEmail = currentUser.email
         
-        let updateAction = UIAlertAction(title: NSLocalizedString("update", comment: ""), style: .default, handler: { action in
+        let updateAction = UIAlertAction(title: NSLocalizedString("update", comment: ""), style: .default, handler: { _ in
             guard let email = self.tempEmail, email.simpleIsEmail() else { return }
             
             currentUser.updateEmail(to: email) { error in
@@ -182,7 +181,7 @@ class SettingsController: BackgroundGradientViewController {
                         toastMessage = NSLocalizedString("emailInvalid", comment: "")
                     
                     default:
-                        break;
+                        break
                     }
                     
                     print(error.localizedDescription)
@@ -251,7 +250,7 @@ class SettingsController: BackgroundGradientViewController {
         alert.addAction(UIAlertAction(
                 title: NSLocalizedString("yes", comment: ""),
                 style: .destructive,
-                handler: { action in
+                handler: { _ in
                     currentUser.delete { error in
                         if let error = error {
                             let code = (error as NSError).code
@@ -359,7 +358,7 @@ class SettingsController: BackgroundGradientViewController {
         }
     }
     
-    //MARK: Switch handling
+    // MARK: Switch handling
     
     @objc func analyticsOnChanged(_ sender: Any) {
         SettingsManager.toggleEnableAnalytics()
@@ -378,7 +377,7 @@ class SettingsController: BackgroundGradientViewController {
         }
     }
     
-    //MARK: Helper functions
+    // MARK: Helper functions
     private func stopLoading() {
         DispatchQueue.main.async {
             self.loadingIndicator.stopAnimating()
@@ -755,10 +754,10 @@ extension SettingsController: UITableViewDelegate {
                     self.setBackgroundGradient(tempTheme)
                 }
             })
-            alert.addAction(UIAlertAction(title: NSLocalizedString("cancel", comment: ""), style: .cancel, handler: { action in
+            alert.addAction(UIAlertAction(title: NSLocalizedString("cancel", comment: ""), style: .cancel, handler: { _ in
                 self.setBackgroundGradient()
             }))
-            alert.addAction(UIAlertAction(title: NSLocalizedString("ok", comment: ""), style: .default, handler: { action in
+            alert.addAction(UIAlertAction(title: NSLocalizedString("ok", comment: ""), style: .default, handler: { _ in
                 if let newTheme = self.tempTheme {
                     SettingsManager.setTheme(newTheme)
                     tableView.reloadRows(at: [IndexPath(row: Row.theme.rawValue, section: 0)], with: .fade)
@@ -779,7 +778,7 @@ extension SettingsController: UITableViewDelegate {
                 self.tempLockType = LockType.allCases[index.row]
             })
             alert.addAction(UIAlertAction(title: NSLocalizedString("cancel", comment: ""), style: .cancel, handler: nil))
-            alert.addAction(UIAlertAction(title: NSLocalizedString("ok", comment: ""), style: .default, handler: { action in
+            alert.addAction(UIAlertAction(title: NSLocalizedString("ok", comment: ""), style: .default, handler: { _ in
                 if let newLockType = self.tempLockType {
                     let currentLockType = SettingsManager.getLockType()
                     
@@ -811,7 +810,7 @@ extension SettingsController: UITableViewDelegate {
                 self.tempLockDelay = LockDelay.allCases[index.row]
             })
             alert.addAction(UIAlertAction(title: NSLocalizedString("cancel", comment: ""), style: .cancel, handler: nil))
-            alert.addAction(UIAlertAction(title: NSLocalizedString("ok", comment: ""), style: .default, handler: { action in
+            alert.addAction(UIAlertAction(title: NSLocalizedString("ok", comment: ""), style: .default, handler: { _ in
                 if let tempLockDelay = self.tempLockDelay {
                     SettingsManager.setLockDelay(tempLockDelay)
                     tableView.reloadRows(at: [IndexPath(row: Row.lockDelay.rawValue, section: 0)], with: .fade)
@@ -861,7 +860,7 @@ extension SettingsController: UITableViewDelegate {
         
         let alert = UIAlertController(title: NSLocalizedString("setPassword", comment: ""), message: nil, preferredStyle: .actionSheet)
         
-        let okHandler: (UIAlertAction) -> Void = { action in
+        let okHandler: (UIAlertAction) -> Void = { _ in
             if let lockType = self.tempLockType, let password = self.tempPassword, password.count > 0 && password == self.confirmPassword {
                 SettingsManager.setLockCode(newLockCode: EncryptionUtil.sha512(initialData: password, salt: SettingsManager.CODE_SALT))
                 SettingsManager.setLockType(lockType)
@@ -941,7 +940,7 @@ extension SettingsController: UITableViewDelegate {
         
         let alert = UIAlertController(title: NSLocalizedString("enterPasswordToDisableLock", comment: ""), message: nil, preferredStyle: .actionSheet)
         
-        let okHandler: (UIAlertAction) -> Void = { action in
+        let okHandler: (UIAlertAction) -> Void = { _ in
             if let password = self.tempPassword, password.count > 0 {
                 let encryptedPassword = EncryptionUtil.sha512(initialData: password, salt: SettingsManager.CODE_SALT)
                 
