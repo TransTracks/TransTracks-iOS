@@ -23,7 +23,7 @@ class SettingsManager {
     static let CODE_SALT = "iP5Rp315RpDq7gwpIUOcoeqicsxTtzzm"
     static let lockCodeDefault: String = ""
     
-    //MARK: Current iOS Version
+    // MARK: Current iOS Version
     
     public static func getCurrentiOSVersion() -> Int? {
         return UserDefaultsUtil.getInt(key: .currentiOSVersion)
@@ -34,7 +34,7 @@ class SettingsManager {
         UserDefaultsUtil.setInt(key: .currentiOSVersion, value: buildVersion)
     }
     
-    //MARK: Incorrect Password Count
+    // MARK: Incorrect Password Count
     
     public static func getIncorrectPasswordCount() -> Int {
         return UserDefaultsUtil.getInt(key: .incorrectPasswordCount) ?? 0
@@ -48,7 +48,7 @@ class SettingsManager {
         UserDefaultsUtil.setInt(key: .incorrectPasswordCount, value: 0)
     }
     
-    //MARK: Lock Code
+    // MARK: Lock Code
     
     static func getLockCode() -> String {
         return UserDefaultsUtil.getString(key: .lockCode)
@@ -62,7 +62,7 @@ class SettingsManager {
         }
     }
     
-    //MARK: Lock Delay
+    // MARK: Lock Delay
     
     static func getLockDelay() -> LockDelay {
         return UserDefaultsUtil.getEnum(key: .lockDelay, defaultValue: .defaultValue)
@@ -72,7 +72,7 @@ class SettingsManager {
         setEnum(key: .lockDelay, value: newLockDelay)
     }
     
-    //MARK: Lock Type
+    // MARK: Lock Type
     
     static func getLockType() -> LockType {
         return UserDefaultsUtil.getEnum(key: .lockType, defaultValue: .defaultValue)
@@ -96,7 +96,7 @@ class SettingsManager {
         }
     }
     
-    //MARK: Show Account Warning
+    // MARK: Show Account Warning
     
     static func showAccountWarning() -> Bool {
         return UserDefaultsUtil.getBool(key: .showAccountWarning, defaultValue: false)
@@ -106,7 +106,7 @@ class SettingsManager {
         setBool(key: .showAccountWarning, value: newAccountWarning)
     }
     
-    //MARK: Show Ads
+    // MARK: Show Ads
     
     static func showAds() -> Bool {
         return UserDefaultsUtil.getBool(key: .showAds, defaultValue: true)
@@ -120,7 +120,7 @@ class SettingsManager {
         }
     }
     
-    //MARK: Analytics
+    // MARK: Analytics
     
     static func getEnableAnalytics() -> Bool {
         return UserDefaultsUtil.getBool(key: .enableAnalytics, defaultValue: true)
@@ -137,7 +137,7 @@ class SettingsManager {
         }
     }
     
-    //MARK: Crash Reports
+    // MARK: Crash Reports
     
     static func getEnableCrashReports() -> Bool {
         return UserDefaultsUtil.getBool(key: .enableCrashReports, defaultValue: true)
@@ -154,7 +154,7 @@ class SettingsManager {
         }
     }
     
-    //MARK: Show Welcome
+    // MARK: Show Welcome
     
     static func showWelcome() -> Bool {
         return UserDefaultsUtil.getBool(key: .showWelcome, defaultValue: true)
@@ -164,7 +164,7 @@ class SettingsManager {
         setBool(key: .showWelcome, value: newShowWelcome)
     }
     
-    //MARK: Start Date
+    // MARK: Start Date
     
     static func getStartDate() -> Date {
         let startDate = UserDefaultsUtil.getDate(.startDate)
@@ -187,7 +187,7 @@ class SettingsManager {
         }
     }
     
-    //MARK: Theme
+    // MARK: Theme
     
     static func getTheme() -> Theme {
         return UserDefaultsUtil.getEnum(key: .theme, defaultValue: .pink)
@@ -197,7 +197,7 @@ class SettingsManager {
         setEnum(key: .theme, value: newTheme)
     }
     
-    //MARK: User Last Seen
+    // MARK: User Last Seen
     
     public static func getUserLastSeen() -> Date {
         return UserDefaultsUtil.getDate(.userLastSeen) ?? Date()
@@ -207,7 +207,7 @@ class SettingsManager {
         UserDefaultsUtil.setDate(key: .userLastSeen, value: Date())
     }
     
-    //MARK: JSON Importing/Exporting
+    // MARK: JSON Importing/Exporting
     public static func getSettingsForJson() -> JsonSettings {
         return JsonSettings(
                 currentiOSVersion: getCurrentiOSVersion(),
@@ -224,7 +224,7 @@ class SettingsManager {
         }
     }
     
-    //MARK: Helpers
+    // MARK: Helpers
     
     private static func setBool(key: SettingsManager.Key, value: Bool) {
         UserDefaultsUtil.setBool(key: key, value: value)
@@ -242,7 +242,7 @@ class SettingsManager {
         }
     }
     
-    //MARK: Firebase handling
+    // MARK: Firebase handling
     
     static func enableFirebaseSync() {
         UserDefaultsUtil.setBool(key: .saveToFirebase, value: true)
@@ -270,7 +270,7 @@ class SettingsManager {
         do {
             let docRef = try FirebaseSettingUtil.getSettingsDocRef()
             
-            docRef.getDocument { (document, error) in
+            docRef.getDocument { (document, _) in
                 if let document = document, document.exists, let data = document.data() {
                     var differences = [(Key, Any)]()
                     
