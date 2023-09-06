@@ -26,11 +26,11 @@ import ZIPFoundation
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
     
-    //MARK: Constants
+    // MARK: Constants
     
     private static let TAG_BLOCKING_VIEW = 98734
     
-    //MARK: Properties
+    // MARK: Properties
     
     var window: UIWindow?
     
@@ -39,7 +39,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     lazy var firebaseSettingUtil: FirebaseSettingUtil = FirebaseSettingUtil()
     
-    //MARK: Lifecycle
+    // MARK: Lifecycle
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         FirebaseApp.configure()
@@ -119,7 +119,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         try? self.dataController.viewContext.save()
     }
     
-    //MARK: Handle importing backup
+    // MARK: Handle importing backup
     func handleImportingBackup(_ url: URL) -> Bool {
         if url.lastPathComponent.hasSuffix(".ttbackup") {
             let alert = UIAlertController(
@@ -127,7 +127,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                     message: NSLocalizedString("importWarningMessage", comment: ""),
                     preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: NSLocalizedString("no", comment: ""), style: .cancel, handler: nil))
-            alert.addAction(UIAlertAction(title: NSLocalizedString("yes", comment: ""), style: .default) { [weak self] action in
+            alert.addAction(UIAlertAction(title: NSLocalizedString("yes", comment: ""), style: .default) { [weak self] _ in
                 guard let self = self else { return }
                 self.importBackup(url)
             })
@@ -139,7 +139,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return false
     }
     
-    //MARK: Helpers
+    // MARK: Helpers
     
     private func addBlockingViewIfRequired(_ navigationController: UINavigationController) {
         guard SettingsManager.getLockType() != LockType.off else { return }
