@@ -13,7 +13,6 @@ on:
   push:
     branches: [ "production" ]
   pull_request:
-    branches: [ "production" ]
 
 concurrency:
   group: build-ios-${{ github.ref }}
@@ -101,3 +100,86 @@ jobs:
           VERSION_NUMBER: ${{ needs.set-version.outputs.version-number }}
         run: |
           xcodebuild -scheme $SCHEME -sdk iphonesimulator -destination "$DESTINATION" -quiet test
+          
+  deploy:
+    runs-on: macos-latest
+    environment: Deploy to TestFlight
+    needs: [set-version,resolve-spm,build]
+    if: ${{ github.event_name == 'push' && github.ref_name == 'production' }}
+
+    steps:
+      - name: 🚚 Checkout
+        uses: actions/checkout@v3
+
+      - name: 🍔 Get SPM cache
+        uses: actions/cache@v3
+        with:
+          path: ${{ env.SPM_CACHE_PATH }}
+          key: ${{ runner.os }}-spm-${{ hashFiles('**/Package.resolved') }}
+          restore-keys: |
+            ${{ runner.os }}-spm-
+
+      - name: 📑 Create Google Services file
+        env:
+          GOOGLE_SERVICE_64: ${{ secrets.GOOGLE_SERVICE_64 }}
+        run: echo $GOOGLE_SERVICE_64 | base64 --decode > ${{ env.SCHEME }}/GoogleService-Info.plist
+
+      - name: 📑 Create Config plist file
+        env:
+          CONFIG_64: ${{ secrets.CONFIG_64 }}
+        run: echo $CONFIG_64 | base64 --decode > ${{ env.SCHEME }}/config.plist
+
+      - name: 📑 Create Info Config plist file
+        env:
+          INFO_CONFIG_64: ${{ secrets.INFO_CONFIG_64 }}
+        run: echo $INFO_CONFIG_64 | base64 --decode > ${{ env.SCHEME }}/InfoConfig.plist
+
+      - name: 📑 Create Export Options file
+        env:
+          EXPORT_OPTIONS_64: ${{ secrets.EXPORT_OPTIONS_64 }}
+        run: echo $EXPORT_OPTIONS_64 | base64 --decode > ./exportOptions.plist
+
+      - name: 📀 Setup Xcode version
+        uses: maxim-lobanov/setup-xcode@v1
+        with:
+          xcode-version: ${{ env.XCODE_VERSION }}
+
+      - name: 🧹 Clean
+        run: |
+          xcodebuild -scheme $SCHEME -sdk iphoneos -configuration Release clean
+
+      - name: 🗃️ Archive
+        env:
+          MARKETING_VERSION: ${{ needs.set-version.outputs.marketing-version }}
+          VERSION_NUMBER: ${{ needs.set-version.outputs.version-number }}
+        run: |
+          xcodebuild -scheme $SCHEME iphoneos -configuration Release archive -archivePath "../build/$SCHEME_$MARKETING_VERSION.xcarchive"
+
+      - name: ↓ Download Provisioning Profiles
+        id: provisioning
+        uses: apple-actions/download-provisioning-profiles@v1
+        with: 
+          bundle-id: ${{ secrets.BUNDLE_ID }}
+          profile-type: 'IOS_APP_STORE'
+          issuer-id: ${{ secrets.ISSUER_ID }}
+          api-key-id: ${{ secrets.API_KEY_ID }}
+          api-private-key: ${{ secrets.API_PRIVATE_KEY }}
+
+      - name: 🧾 Import codesigning certificate
+        uses: Apple-Actions/import-codesign-certs@v1
+        with:
+          p12-file-base64: ${{ secrets.CERT_64 }}
+          p12-password: ${{ secrets.CERT_PASSWORD }}
+
+      - name: 🍺 Create IPA
+        run: |
+         xcodebuild -exportArchive -archivePath ../build/$SCHEME_$MARKETING_VERSION.xcarchive -exportOptionsPlist exportOptions.plist -exportPath “../build” -allowProvisioningUpdates
+
+      - name: 🆙 Upload IPA to TestFlight
+        uses: Apple-Actions/upload-testflight-build@v1
+        with:
+          app-path: '../build/$SCHEME_$MARKETING_VERSION.ipa'
+          app-type: ios
+          issuer-id: ${{ secrets.ISSUER_ID }}
+          api-key-id: ${{ secrets.API_KEY_ID }}
+          api-private-key: ${{ secrets.API_PRIVATE_KEY }}
