@@ -21,7 +21,7 @@ import UIKit
 
 class HomeViewController: BackgroundGradientViewController {
 
-    //MARK: Properties
+    // MARK: Properties
     
     var domainManager: DomainManager!
     
@@ -30,10 +30,10 @@ class HomeViewController: BackgroundGradientViewController {
     
     private var eventRelay: PublishRelay<HomePhotoCollectionEvent> = PublishRelay()
     
-    private var facePhotosController: HomePhotoCollectionController? = nil
-    private var bodyPhotosController: HomePhotoCollectionController? = nil
+    private var facePhotosController: HomePhotoCollectionController?
+    private var bodyPhotosController: HomePhotoCollectionController?
     
-    //MARK: Outlets
+    // MARK: Outlets
     
     @IBOutlet weak var day: UILabel!
     
@@ -50,7 +50,7 @@ class HomeViewController: BackgroundGradientViewController {
     
     @IBOutlet weak var adViewHolder: AdContainerView!
     
-    //MARK: Lifecycle
+    // MARK: Lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -243,14 +243,14 @@ class HomeViewController: BackgroundGradientViewController {
         resultsDisposable?.dispose()
     }
     
-    //MARK: UI Helper
+    // MARK: UI Helper
     
     private func bind(collectionView: UICollectionView, controller: HomePhotoCollectionController){
         collectionView.dataSource = controller
         collectionView.delegate = controller
     }
 
-    //MARK: Button handling
+    // MARK: Button handling
     
     @IBAction func addPhoto(_ sender: Any) {
         switch PHPhotoLibrary.authorizationStatus(){
@@ -270,18 +270,18 @@ class HomeViewController: BackgroundGradientViewController {
         case .denied, .restricted:
             /// User has denied the current app to access the photos
             let alert = UIAlertController(style: .alert, title: NSLocalizedString("permissionDenied", comment: ""), message: NSLocalizedString("permissionDeniedPhotosMessage", comment: ""))
-            alert.addAction(title: NSLocalizedString("settings", comment: ""), style: .default) { action in
+            alert.addAction(title: NSLocalizedString("settings", comment: ""), style: .default) { _ in
                 if let settingsURL = URL(string: UIApplication.openSettingsURLString) {
                     UIApplication.shared.open(settingsURL)
                 }
             }
-            alert.addAction(title: NSLocalizedString("cancel", comment: ""), style: .cancel) { [unowned self] action in
+            alert.addAction(title: NSLocalizedString("cancel", comment: ""), style: .cancel) { [unowned self] _ in
                 self.alertController?.dismiss(animated: true)
             }
             alert.show()
-            break;
+            break
         @unknown default:
-            break;
+            break
         }
     }
     
