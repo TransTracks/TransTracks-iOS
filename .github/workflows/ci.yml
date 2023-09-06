@@ -134,6 +134,11 @@ jobs:
           INFO_CONFIG_64: ${{ secrets.INFO_CONFIG_64 }}
         run: echo $INFO_CONFIG_64 | base64 --decode > ${{ env.SCHEME }}/InfoConfig.plist
 
+      - name: 📑 Create Export Options file
+        env:
+          EXPORT_OPTIONS_64: ${{ secrets.EXPORT_OPTIONS_64 }}
+        run: echo $EXPORT_OPTIONS_64 | base64 --decode > ./exportOptions.plist
+
       - name: 📀 Setup Xcode version
         uses: maxim-lobanov/setup-xcode@v1
         with:
@@ -150,14 +155,30 @@ jobs:
         run: |
           xcodebuild -scheme $SCHEME iphoneos -configuration Release archive -archivePath "../build/$SCHEME_$MARKETING_VERSION.xcarchive"
 
+      - name: ↓ Download Provisioning Profiles
+        id: provisioning
+        uses: apple-actions/download-provisioning-profiles@v1
+        with: 
+          bundle-id: ${{ secrets.BUNDLE_ID }}
+          profile-type: 'IOS_APP_STORE'
+          issuer-id: ${{ secrets.ISSUER_ID }}
+          api-key-id: ${{ secrets.API_KEY_ID }}
+          api-private-key: ${{ secrets.API_PRIVATE_KEY }}
+
+      - name: 🧾 Import codesigning certificate
+        uses: Apple-Actions/import-codesign-certs@v1
+        with:
+          p12-file-base64: ${{ secrets.CERT_64 }}
+          p12-password: ${{ secrets.CERT_PASSWORD }}
+
       - name: 🍺 Create IPA
         run: |
-         echo "TODO create IPA"
+         xcodebuild -exportArchive -archivePath ../build/$SCHEME_$MARKETING_VERSION.xcarchive -exportOptionsPlist exportOptions.plist -exportPath “../build” -allowProvisioningUpdates
 
       - name: 🆙 Upload IPA to TestFlight
         uses: Apple-Actions/upload-testflight-build@v1
         with:
-          app-path: ../build/$SCHEME_$MARKETING_VERSION.xcarchive
+          app-path: '../build/$SCHEME_$MARKETING_VERSION.ipa'
           app-type: ios
           issuer-id: ${{ secrets.ISSUER_ID }}
           api-key-id: ${{ secrets.API_KEY_ID }}
