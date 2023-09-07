@@ -148,22 +148,22 @@ jobs:
         run: |
           xcodebuild -scheme $SCHEME -sdk iphoneos -configuration Release clean
 
+      - name: ↓ Download Provisioning Profiles
+        id: provisioning
+        uses: apple-actions/download-provisioning-profiles@v1
+        with:
+          issuer-id: ${{ secrets.ISSUER_ID }}
+          api-key-id: ${{ secrets.API_KEY_ID }}
+          api-private-key: ${{ secrets.API_PRIVATE_KEY }}
+          bundle-id: ${{ secrets.BUNDLE_ID }}
+          profile-type: 'IOS_APP_STORE'
+
       - name: 🗃️ Archive
         env:
           MARKETING_VERSION: ${{ needs.set-version.outputs.marketing-version }}
           VERSION_NUMBER: ${{ needs.set-version.outputs.version-number }}
         run: |
           xcodebuild -scheme $SCHEME -sdk iphoneos -configuration Release archive -archivePath "../build/$SCHEME_$MARKETING_VERSION.xcarchive"
-
-      - name: ↓ Download Provisioning Profiles
-        id: provisioning
-        uses: apple-actions/download-provisioning-profiles@v1
-        with: 
-          bundle-id: ${{ secrets.BUNDLE_ID }}
-          profile-type: 'IOS_APP_STORE'
-          issuer-id: ${{ secrets.ISSUER_ID }}
-          api-key-id: ${{ secrets.API_KEY_ID }}
-          api-private-key: ${{ secrets.API_PRIVATE_KEY }}
 
       - name: 🧾 Import codesigning certificate
         uses: Apple-Actions/import-codesign-certs@v1
