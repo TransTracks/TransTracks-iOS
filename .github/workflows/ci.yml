@@ -147,7 +147,7 @@ jobs:
 
       - name: ↓ Download Provisioning Profiles
         id: provisioning
-        uses: apple-actions/download-provisioning-profiles@v1
+        uses: apple-actions/download-provisioning-profiles@7229378f1dd0033cee9cd12efb30a9fe7e18f7b7
         with:
           issuer-id: ${{ secrets.ISSUER_ID }}
           api-key-id: ${{ secrets.API_KEY_ID }}
