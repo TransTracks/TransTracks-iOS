@@ -178,7 +178,7 @@ jobs:
       - name: 🆙 Upload IPA to TestFlight
         uses: Apple-Actions/upload-testflight-build@v1
         with:
-          app-path: '../build/$SCHEME_$MARKETING_VERSION.ipa'
+          app-path: ../build/${{ env.SCHEME }}_${{ needs.set-version.outputs.marketing-version }}.ipa
           app-type: ios
           issuer-id: ${{ secrets.ISSUER_ID }}
           api-key-id: ${{ secrets.API_KEY_ID }}
