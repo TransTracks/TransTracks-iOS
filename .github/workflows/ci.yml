@@ -159,22 +159,22 @@ jobs:
           bundle-id: ${{ secrets.BUNDLE_ID }}
           profile-type: 'IOS_APP_STORE'
 
-      - name: 🗃️ Archive
-        env:
-          MARKETING_VERSION: ${{ needs.set-version.outputs.marketing-version }}
-          VERSION_NUMBER: ${{ needs.set-version.outputs.version-number }}
-        run: |
-          xcodebuild -scheme $SCHEME -sdk iphoneos -configuration Release archive -archivePath "../build/$SCHEME_$MARKETING_VERSION.xcarchive"
-
       - name: 🧾 Import codesigning certificate
         uses: Apple-Actions/import-codesign-certs@v1
         with:
           p12-file-base64: ${{ secrets.CERT_64 }}
           p12-password: ${{ secrets.CERT_PASSWORD }}
-
+          
+      - name: 🗃️ Archive
+        env:
+          MARKETING_VERSION: ${{ needs.set-version.outputs.marketing-version }}
+          VERSION_NUMBER: ${{ needs.set-version.outputs.version-number }}
+        run: |
+          xcodebuild -scheme $SCHEME -sdk iphoneos -configuration Release archive -archivePath "../build/$SCHEME_$MARKETING_VERSION.xcarchive" -exportOptionsPlist exportOptions.plist
+      
       - name: 🍺 Create IPA
         run: |
-         xcodebuild -exportArchive -archivePath ../build/$SCHEME_$MARKETING_VERSION.xcarchive -exportOptionsPlist exportOptions.plist -exportPath “../build” -allowProvisioningUpdates
+         xcodebuild -exportArchive -archivePath ../build/$SCHEME_$MARKETING_VERSION.xcarchive -exportOptionsPlist exportOptions.plist -exportPath “../build”
 
       - name: 🆙 Upload IPA to TestFlight
         uses: Apple-Actions/upload-testflight-build@v1
