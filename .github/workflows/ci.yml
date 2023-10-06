@@ -105,12 +105,20 @@ jobs:
   deploy:
     runs-on: macos-latest
     environment: Deploy to TestFlight
-    needs: [set-version,build]
+    needs: [set-version,resolve-spm,build]
     if: ${{ github.event_name == 'push' && github.ref_name == 'production' }}
 
     steps:
       - name: 🚚 Checkout
         uses: actions/checkout@v3
+
+      - name: 🍔 Get SPM cache
+        uses: actions/cache@v3
+        with:
+          path: ${{ env.SPM_CACHE_PATH }}
+          key: ${{ runner.os }}-spm-${{ hashFiles('**/Package.resolved') }}
+          restore-keys: |
+            ${{ runner.os }}-spm-
 
       - name: 📑 Create Google Services file
         env:
@@ -136,10 +144,6 @@ jobs:
         uses: maxim-lobanov/setup-xcode@v1
         with:
           xcode-version: ${{ env.XCODE_VERSION }}
-
-      - name: 🧹 Clean
-        run: |
-          xcodebuild -scheme $SCHEME -sdk iphoneos -configuration Release clean
 
       - name: ↓ Download Provisioning Profiles
         id: provisioning
