@@ -22,6 +22,7 @@
 		F919D787219186DF0069F42B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F919D785219186DF0069F42B /* LaunchScreen.storyboard */; };
 		F919D792219186DF0069F42B /* TransTracksTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F919D791219186DF0069F42B /* TransTracksTests.swift */; };
 		F919D79D219186DF0069F42B /* TransTracksUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F919D79C219186DF0069F42B /* TransTracksUITests.swift */; };
+		F928FF4A2ACFD7B900F71BD0 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F928FF492ACFD7B900F71BD0 /* AdSupport.framework */; };
 		F92A2D3A25D8D8500068ADAF /* DoubleButtonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F92A2D3925D8D8500068ADAF /* DoubleButtonCell.swift */; };
 		F93CF0612217F2580008CC44 /* NavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F93CF0602217F2580008CC44 /* NavigationController.swift */; };
 		F93CF0642217FD860008CC44 /* ThemeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F93CF0632217FD860008CC44 /* ThemeManager.swift */; };
@@ -181,6 +182,7 @@
 		F919D798219186DF0069F42B /* TransTracksUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TransTracksUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		F919D79C219186DF0069F42B /* TransTracksUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransTracksUITests.swift; sourceTree = "<group>"; };
 		F919D79E219186DF0069F42B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F928FF492ACFD7B900F71BD0 /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
 		F92A2D3925D8D8500068ADAF /* DoubleButtonCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoubleButtonCell.swift; sourceTree = "<group>"; };
 		F93CF0602217F2580008CC44 /* NavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationController.swift; sourceTree = "<group>"; };
 		F93CF0632217FD860008CC44 /* ThemeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeManager.swift; sourceTree = "<group>"; };
@@ -305,6 +307,7 @@
 				F9F1E8412A3D508F0097AC9C /* FirebaseAuth in Frameworks */,
 				F99B371C2A3D6600005ECB23 /* PasswordTextField in Frameworks */,
 				F9F1E8362A3D4FC50097AC9C /* FirebaseAuthUI in Frameworks */,
+				F928FF4A2ACFD7B900F71BD0 /* AdSupport.framework in Frameworks */,
 				F99B37192A3D61C6005ECB23 /* RxSwiftExt in Frameworks */,
 				F9F1E8452A3D508F0097AC9C /* FirebaseFirestoreSwift in Frameworks */,
 			);
@@ -354,6 +357,7 @@
 				F919D77B219186DD0069F42B /* TransTracks */,
 				F919D790219186DF0069F42B /* TransTracksTests */,
 				F919D79B219186DF0069F42B /* TransTracksUITests */,
+				F928FF482ACFD7B900F71BD0 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -405,6 +409,14 @@
 				F919D79E219186DF0069F42B /* Info.plist */,
 			);
 			path = TransTracksUITests;
+			sourceTree = "<group>";
+		};
+		F928FF482ACFD7B900F71BD0 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				F928FF492ACFD7B900F71BD0 /* AdSupport.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		F938E24322546E58000DC032 /* Select Photo */ = {
@@ -926,8 +938,11 @@
 			inputFileListPaths = (
 			);
 			inputPaths = (
-				"${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}/Contents/Resources/DWARF/${TARGET_NAME}",
-				"$(SRCROOT)/$(BUILT_PRODUCTS_DIR)/$(INFOPLIST_PATH)",
+				"${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}",
+				"${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}/Contents/Resources/DWARF/${PRODUCT_NAME}",
+				"${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}/Contents/Info.plist",
+				"$(BUILT_PRODUCTS_DIR)/$(UNLOCALIZED_RESOURCES_FOLDER_PATH)/GoogleService-Info.plist",
+				"$(BUILT_PRODUCTS_DIR)/$(EXECUTABLE_PATH)",
 			);
 			name = Crashlytics;
 			outputFileListPaths = (
@@ -1158,6 +1173,7 @@
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
+				OTHER_LDFLAGS = "-ObjC";
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -1212,6 +1228,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
+				OTHER_LDFLAGS = "-ObjC";
 				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
