@@ -173,7 +173,7 @@ jobs:
           MARKETING_VERSION: ${{ needs.set-version.outputs.marketing-version }}
           VERSION_NUMBER: ${{ needs.set-version.outputs.version-number }}
         run: |
-         xcodebuild -exportArchive -archivePath ../build/$SCHEME_$MARKETING_VERSION.xcarchive -exportOptionsPlist exportOptions.plist -exportPath “../build”
+         xcodebuild -exportArchive -archivePath "../build/$SCHEME_$MARKETING_VERSION.xcarchive" -exportOptionsPlist exportOptions.plist -exportPath “../build”
 
       - name: 🆙 Upload IPA to TestFlight
         uses: Apple-Actions/upload-testflight-build@v1
