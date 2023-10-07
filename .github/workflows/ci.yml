@@ -102,7 +102,7 @@ jobs:
         
         run: |
           xcodebuild -scheme $SCHEME -sdk iphonesimulator -destination "$DESTINATION" -quiet test
-          
+    
   deploy:
     runs-on: macos-latest
     environment: Deploy to TestFlight
@@ -164,7 +164,7 @@ jobs:
         with:
           p12-file-base64: ${{ secrets.CERT_64 }}
           p12-password: ${{ secrets.CERT_PASSWORD }}
-          
+      
       - name: 🗃️ Archive
         env:
           ARCHIVE_PATH: build/${{ env.SCHEME }}_${{ env.MARKETING_VERSION }}.xcarchive
@@ -185,3 +185,12 @@ jobs:
           issuer-id: ${{ secrets.ISSUER_ID }}
           api-key-id: ${{ secrets.API_KEY_ID }}
           api-private-key: ${{ secrets.API_PRIVATE_KEY }}
+
+      - name: 🔖 Tag release
+        env:
+          TAG_NAME: 'v${{ env.MARKETING_VERSION }}'
+        run: |
+          git config --global user.name "Continuous Integration"
+          git config --global user.email "username@users.noreply.github.com"
+          git tag "$TAG_NAME"
+          git push origin "$TAG_NAME"
