@@ -66,6 +66,9 @@ jobs:
   build:
     runs-on: macos-latest
     needs: [set-version,resolve-spm]
+    env:
+      MARKETING_VERSION: ${{ needs.set-version.outputs.marketing-version }}
+      VERSION_NUMBER: ${{ needs.set-version.outputs.version-number }}
 
     steps:
       - name: 🚚 Checkout
@@ -96,9 +99,7 @@ jobs:
           xcode-version: ${{ env.XCODE_VERSION }}
 
       - name: 👷‍♀️ Build
-        env:
-          MARKETING_VERSION: ${{ needs.set-version.outputs.marketing-version }}
-          VERSION_NUMBER: ${{ needs.set-version.outputs.version-number }}
+        
         run: |
           xcodebuild -scheme $SCHEME -sdk iphonesimulator -destination "$DESTINATION" -quiet test
           
@@ -106,6 +107,9 @@ jobs:
     runs-on: macos-latest
     environment: Deploy to TestFlight
     needs: [set-version,resolve-spm,build]
+    env:
+      MARKETING_VERSION: ${{ needs.set-version.outputs.marketing-version }}
+      VERSION_NUMBER: ${{ needs.set-version.outputs.version-number }}
     if: ${{ github.event_name == 'push' && github.ref_name == 'production' }}
 
     steps:
@@ -163,13 +167,13 @@ jobs:
           
       - name: 🗃️ Archive
         env:
-          ARCHIVE_PATH: build/${{ env.SCHEME }}_${{ needs.set-version.outputs.marketing-version }}.xcarchive
+          ARCHIVE_PATH: build/${{ env.SCHEME }}_${{ env.MARKETING_VERSION }}.xcarchive
         run: |
           xcodebuild -scheme $SCHEME -sdk iphoneos -configuration Release -archivePath "$ARCHIVE_PATH" archive
       
       - name: 🍺 Create IPA
         env:
-          ARCHIVE_PATH: build/${{ env.SCHEME }}_${{ needs.set-version.outputs.marketing-version }}.xcarchive
+          ARCHIVE_PATH: build/${{ env.SCHEME }}_${{ env.MARKETING_VERSION }}.xcarchive
         run: |
          xcodebuild -exportArchive -archivePath "$ARCHIVE_PATH" -exportOptionsPlist exportOptions.plist -exportPath "build"
 
