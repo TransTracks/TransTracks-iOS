@@ -290,7 +290,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     private func lockAppIfRequired(_ navigationController: UINavigationController) {
-        guard !isLockTopView(navigationController) else { return }
+        if isLockTopView(navigationController){
+            if SettingsManager.getLockType() == .off {
+                //App is locked but shouldn't be, so let's unlock
+                navigationController.popViewController(animated: true)
+            }
+            return
+        }
         
         var shouldShow = false
         
