@@ -341,7 +341,6 @@ class SettingsManager {
         case .theme: return getTheme().rawValue
         case .enableAnalytics: return getEnableAnalytics()
         case .enableCrashReports: return getEnableCrashReports()
-        case .showAds: return showAds()
         case .currentiOSVersion, .incorrectPasswordCount, .saveToFirebase, .showAccountWarning, .userLastSeen: return nil
         }
     }

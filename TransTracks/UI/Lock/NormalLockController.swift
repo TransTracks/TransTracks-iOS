@@ -12,6 +12,7 @@
 //  You should have received a copy of the GNU General Public License along with this program. If not, see <https://www.gnu.org/licenses/>.
 //
 
+import FirebaseAuth
 import PasswordTextField
 import Toast
 import UIKit
@@ -32,6 +33,15 @@ class NormalLockController: BackgroundGradientViewController {
         super.viewDidLoad()
         navigationItem.hidesBackButton = true
         setupViewResizerOnKeyboardShown()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        if Auth.auth().currentUser != nil {
+            if SettingsManager.saveToFirebase(){
+                SettingsManager.enableFirebaseSync()
+            }
+        }
     }
     
     //MARK: Button Handling
