@@ -41,11 +41,20 @@ class SettingsManager {
     }
     
     public static func incrementIncorrectPasswordCount() {
-        UserDefaultsUtil.setInt(key: .incorrectPasswordCount, value: getIncorrectPasswordCount() + 1)
+        let newCountValue = getIncorrectPasswordCount() + 1
+        UserDefaultsUtil.setInt(key: .incorrectPasswordCount, value: newCountValue)
+        
+        if saveToFirebase() {
+            FirebaseSettingUtil.setInt(key: .incorrectPasswordCount, value: newCountValue)
+        }
     }
     
     public static func resetIncorrectPasswordCount() {
         UserDefaultsUtil.setInt(key: .incorrectPasswordCount, value: 0)
+        
+        if saveToFirebase() {
+            FirebaseSettingUtil.setInt(key: .incorrectPasswordCount, value: 0)
+        }
     }
     
     // MARK: Lock Code
