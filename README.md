@@ -1,29 +1,32 @@
 # TransTracks-iOS
-TransTracks is a transition tracking application made specifically for Transgender people. Is is based mostly around photo tracking at the moment.
 
-The purpose of this repository is to help the community work together to improve the application.
+> **This project is archived and no longer maintained.** TransTracks has been retired from the App Store, and the source here is no longer being updated. Issues and pull requests are disabled. If you had the app installed and want to recover your data, see [Recovering your data](#recovering-your-data-if-the-app-was-on-your-phone) below.
 
-## Preparing for development
+TransTracks was a transition tracking application made for transgender people, focused on photo-based progress tracking.
 
-1) Set up a Firebase project to use during development
-1) Download the `GoogleService-Info.plist` file from the app settings page in the Firebase console
-1) Place the `GoogleService-Info.plist` file in the TransTracks folder
-1) Make a copy of the `config.plist.example` file called `config.plist`
-1) Make a copy of the `InfoConfig.plist.example` file called `InfoConfig.plist`
+## Project status
 
-### Optional if checking Twitter login or account creation
+No new features, no bug fixes, no pull requests being reviewed, no issues being triaged. The code is preserved here for reference and so former users can recover their data. For data recovery, see the section below.
 
-1) Create a Twitter developer application
-1) Replace the `twitterkit-yourAppKey` in the `InfoConfig.plist` file with
+## Recovering your data if the app was on your phone
 
-### Optional if checking Google login or account creation
+TransTracks has been retired from the App Store. I can't republish the app or hand out installs, so reinstalling isn't an option.
 
-1) Enable Google auth in the Firebase console for your Firebase project
-1) Replace the `com.googleusercontent.apps.yourClientId` in the `InfoConfig.plist` file with the `REVERSED_CLIENT_ID` value from the `GoogleService-Info.plist`
+The good news is that if you still had the app installed when it was removed from the store, your data is almost certainly still on your phone. iOS "offloads" retired apps, which means the binary gets removed but your sandbox stays behind. Getting it out takes a few steps but it's doable on your own.
 
-## Contributing
+Your entries were stored in a local [Realm](https://realm.io/) database. Here's how to recover it:
 
-If you are looking to help contribute but are not sure on what to work on please take a look at the issues for ideas.
+1. Plug your iPhone into a Mac or PC and make a full **encrypted** backup. On a Mac use Finder (right click your device, choose "Back Up Now", and tick "Encrypt local backup"). On Windows use iTunes. The encrypted part matters, unencrypted backups skip app data.
+
+2. Install [iMazing](https://imazing.com/) (the free trial is enough for one extraction) or a similar tool like iExplorer, and point it at the backup you just made.
+
+3. Browse into the TransTracks app container and look inside the `Documents` folder for a file ending in `.realm`. Copy that file to your computer.
+
+4. Download [Realm Studio](https://github.com/realm/realm-studio/releases). It's free and it opens `.realm` files directly. You'll be able to read every entry, date, and photo reference the app ever saved. You can also export the data to CSV or JSON if you want to move it somewhere else.
+
+If you had TransTracks on an Android device, see the [TransTracks-Android repo](https://github.com/TransTracks/TransTracks-Android) for its recovery instructions. The Android app stored its data differently and the steps are not the same.
+
+I'm unfortunately not able to do one-on-one troubleshooting on this, so I really hope the steps above get you there. Good luck!
 
 ## License
 
